@@ -1,26 +1,46 @@
-enum NPC_STATE {
-	IDLE,
-	WALKING,
+// identity and key vars for pathing movement
+routine_type = "adult"; // kid, adult, tourist, etc
+move_speed = 0.25;
+home_id = noone; // store the id of this npc's home
+//target_id = noone; // store the id of this npc's target/destination
+
+// state and pathing vars
+current_state = "";
+my_path = path_add();
+target_x = x;
+target_y = y;
+
+// optimisation
+check_timer = irandom(30); // stagger initial checks so npcs don't all think/execute logic at once
+check_interval = 60; // check routine every 1 sec at 60 fps
+
+/* for using when npc's state changes
+if (mp_grid_path(global.village_grid, my_path, x, y, target_x, target_y, true)) {
+    path_start(my_path, walk_speed, path_action_stop, true);
 }
+*/
 
-npc_state = NPC_STATE.WALKING;
+#region loosely copied from berry cow farm's obj_par_cow create event
+//enum NPC_STATE {
+//	IDLE,
+//	WALKING,
+//}
 
-state_timer = 0;
-delay_idle = 2;
-delay_walking = 3;
+//npc_state = NPC_STATE.WALKING;
 
-walk_speed = 0.25;
+//delay_idle = 2;
+//delay_walking = 3;
 
 // parameters used in movement calculation
-x_end = 0;
-y_end = 0;
-dir = 0;
-dist = 0;
+//x_end = 0;
+//y_end = 0;
+//dir = 0;
+//dist = 0;
 
 // movement ranges determine how far the npc moves when walking
 // initialised here with default values but can be overwritten by each npc object individually
-x_range_min = 20; x_range_max = 50;
-y_range_min = 20; y_range_max = 50;
+//x_range_min = 20; x_range_max = 50;
+//y_range_min = 20; y_range_max = 50;
 
 // set shadow parameters if drawing ellipse shadows in draw event
 //shadow_width = 20;
@@ -31,4 +51,4 @@ y_range_min = 20; y_range_max = 50;
 // most of the animation will be done with simple scale changes and tweens
 //sprite_idle = sprite_index;
 //sprite_walking = sprite_index;
-
+#endregion

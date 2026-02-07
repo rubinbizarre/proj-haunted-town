@@ -1,10 +1,14 @@
-#region STATE MACHINE | handle sprites, movement calculations and delays for state changes
-switch (npc_state) {
-    case NPC_STATE.IDLE: {
-		//
-	} break;
-    case NPC_STATE.WALKING: {
-		//
-	} break;
+// periodic routine check
+if (check_timer-- <= 0) {
+    check_timer = check_interval;
+    event_user(0); // trigger routine logic
 }
-#endregion
+
+// animation & sprite flipping logic
+if (path_index != -1) {
+    // if moving, face the direction of movement
+    image_xscale = (direction > 90 && direction < 270) ? -1 : 1;
+    //sprite_index = spr_npc_walk;
+} else {
+    //sprite_index = spr_npc_idle;
+}

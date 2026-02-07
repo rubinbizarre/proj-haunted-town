@@ -1,3 +1,4 @@
 global.debug = true;
 
-haunt_power = 0;
+global.hud = true;
+global.haunt_power = 0;

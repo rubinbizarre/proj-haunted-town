@@ -18,12 +18,12 @@ for (var i = 0; i < array_length(_schedule); i++) {
 if (_new_state != current_state) {
     current_state = _new_state;
     
-    // Determine Target Coordinates based on State
+    // determine target coordinates based on state
     switch (current_state) {
         case "AT_HOME": {
             target_x = home_id.x;
             target_y = home_id.y;
-            visible = false; // "Enter" the house
+            visible = false; // "enter" the house
 		} break;
         case "PLAY_PARK": {
             visible = true;
@@ -36,6 +36,7 @@ if (_new_state != current_state) {
             var _dest = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
             target_x = _dest.x;
             target_y = _dest.y;
+			//visible = false; // "enter" the house
 		} break;
         case "VISIT_HAUNTED": {
             visible = true;
@@ -46,7 +47,7 @@ if (_new_state != current_state) {
     
     // If we are visible, start moving to the target
     if (visible) {
-        if (mp_grid_path(global.village_grid, my_path, x, y, target_x, target_y, true)) {
+        if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
             path_start(my_path, move_speed, path_action_stop, true);
         }
     } else {

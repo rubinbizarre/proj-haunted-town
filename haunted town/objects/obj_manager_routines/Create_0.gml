@@ -1,3 +1,15 @@
+/*
+	NOTES
+
+	there are 1440 minutes in a day. there are 720 minutes in half a day.
+	if day_counter is an integer representing the day of the week, with Monday being 0:
+
+		day_counter * 1440 = starting point of any given day (in minutes)
+
+	there are 10,080 minutes in a week. this is the cut off point.
+	after this time, current_time_ resets to zero and the routines cycle over again.
+*/
+
 global.routines = {
     kid: [
         { start: 0,    dest: 480,  state: "AT_HOME" },
@@ -6,8 +18,19 @@ global.routines = {
         { start: 840,  dest: 1140, state: "WANDER_VILLAGE" },
         { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
     ],
+	adult: [
+        { start: 0,    dest: 480,  state: "AT_HOME" },
+        { start: 510,  dest: 780,  state: "WANDER_VILLAGE" },
+        { start: 780,  dest: 1140, state: "WANDER_VILLAGE" },
+        { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
+    ],
     tourist: [
         { start: 1200, dest: 360,  state: "VISIT_HAUNTED" },		// night owls
         { start: 360,  dest: 1200, state: "AT_HOTEL" }
-    ]
+    ],
+	elderly: [
+		{ start: 0,    dest: 360,  state: "AT_HOME" },
+		{ start: 360,  dest: 1020, state: "WANDER_VILLAGE" },
+		{ start: 1020, dest: 1320, state: "AT_HOME" },
+	]
 };

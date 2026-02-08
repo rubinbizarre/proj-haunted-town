@@ -1,7 +1,7 @@
 // identity and key vars for pathing movement
 routine_type = "adult"; // kid, adult, tourist, etc
-move_speed = 0.25;
-home_id = noone; // store the id of this npc's home
+move_speed = 3; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
+home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
 //target_id = noone; // store the id of this npc's target/destination
 
 // state and pathing vars

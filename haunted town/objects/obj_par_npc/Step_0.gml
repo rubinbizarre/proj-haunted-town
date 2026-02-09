@@ -12,3 +12,7 @@ if (path_index != -1) {
 } else {
     //sprite_index = spr_npc_idle;
 }
+
+if (instance_exists(obj_manager_time)) {
+	move_speed = move_speed_init * obj_manager_time.time_speed_actual;
+}

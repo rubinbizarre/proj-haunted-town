@@ -30,18 +30,29 @@ if (_new_state != current_state) {
             target_x = obj_park_node.x + irandom_range(-32, 32);
             target_y = obj_park_node.y + irandom_range(-32, 32);
 		} break;
-        case "WANDER_VILLAGE": {
+        case "WANDER_TOWN": {
             visible = true;
             // pick a random building that isn't their home
-            var _dest = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-            target_x = _dest.x;
-            target_y = _dest.y;
-			//visible = false; // "enter" the house
+            //var _dest = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			//while (_dest == home_id) {
+			//	_dest = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			//}
+            //target_x = _dest.x;
+            //target_y = _dest.y;
+			
+			dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			while (dest_id == home_id) {
+				dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			}
+            target_x = dest_id.x;
+            target_y = dest_id.y; //- (dest_id.sprite_height/4);
+			
+			//visible = false; // "enter" the house // this does not work as intended
 		} break;
         case "VISIT_HAUNTED": {
             visible = true;
-            // Logic to find the nearest haunted building
-            // (Assuming you have a way to tag haunted buildings)
+            // logic to find the nearest haunted building
+            // ...
 		} break;
     }
     

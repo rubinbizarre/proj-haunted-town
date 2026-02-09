@@ -13,15 +13,15 @@
 global.routines = {
     kid: [
         { start: 0,    dest: 480,  state: "AT_HOME" },
-        { start: 480,  dest: 720,  state: "WANDER_VILLAGE" },
+        { start: 480,  dest: 720,  state: "WANDER_TOWN" },
         { start: 720,  dest: 840,  state: "PLAY_PARK" },			// midday
-        { start: 840,  dest: 1140, state: "WANDER_VILLAGE" },
+        { start: 840,  dest: 1140, state: "WANDER_TOWN" },
         { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
     ],
 	adult: [
         { start: 0,    dest: 480,  state: "AT_HOME" },
-        { start: 510,  dest: 780,  state: "WANDER_VILLAGE" },
-        { start: 780,  dest: 1140, state: "WANDER_VILLAGE" },
+        { start: 510,  dest: 780,  state: "WANDER_TOWN" },
+        { start: 780,  dest: 1140, state: "WANDER_TOWN" },
         { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
     ],
     tourist: [
@@ -30,7 +30,7 @@ global.routines = {
     ],
 	elderly: [
 		{ start: 0,    dest: 360,  state: "AT_HOME" },
-		{ start: 360,  dest: 1020, state: "WANDER_VILLAGE" },
+		{ start: 360,  dest: 1020, state: "WANDER_TOWN" },
 		{ start: 1020, dest: 1320, state: "AT_HOME" },
 	]
 };

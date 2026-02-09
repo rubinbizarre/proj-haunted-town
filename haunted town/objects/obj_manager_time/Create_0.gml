@@ -25,9 +25,12 @@ global.current_time_ = 450;//0;				// 480 mins / 60 mins = 8 hours = 8:00 AM
 //			 1 min real time = 612 mins in game = 10.2 hours in game
 //			 1 hour real time = 36720 mins in game = 612 hours in game = 25.5 days in game = 3.6 weeks
 
-time_speed = 1;//40;
 #endregion
+
+time_speed_base = 1;
 
 // give us a value to modify during debugging that affects time_speed
 time_speed_multiplier = 1;
 time_speed_multiplier_init = time_speed_multiplier;
+
+time_speed_actual = 0; // see step: time_speed_actual = base * multiplier

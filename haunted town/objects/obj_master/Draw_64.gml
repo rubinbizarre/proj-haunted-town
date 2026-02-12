@@ -27,6 +27,7 @@ if (global.hud) {
 	draw_text_transformed(_x, _y, "HAUNT POWER: "+string(global.haunt_power), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "WEEK "+string(global.week_counter), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, scr_date_and_time(global.current_time_), 2, 2, 0); _y += _ysep; // draw time in format "Monday 20:32" include toggle for 12 hr time in settings "Monday 8:32 PM"
+	draw_text_transformed(_x, _y, "fps:"+string(fps), 2, 2, 0); _y += _ysep;
 	draw_set_halign(fa_left);
 }
 #endregion

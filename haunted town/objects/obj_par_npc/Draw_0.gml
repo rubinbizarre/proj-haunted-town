@@ -15,6 +15,7 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	// draw text var values
 	draw_text_transformed(x, _y, "state:"+string(current_state), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "type:"+string(routine_type), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "home:"+string(home_id), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "dest:"+string(dest_id), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "spd:"+string(move_speed), 0.5, 0.5, 0); _y += _ysep;

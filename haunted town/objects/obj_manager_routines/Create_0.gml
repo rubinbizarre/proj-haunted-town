@@ -24,9 +24,11 @@ global.routines = {
         { start: 780,  dest: 1140, state: "WANDER_TOWN_AGAIN" },
         { start: 1140, dest: 1440, state: "RETURN_HOME" }				// before dark
     ],
-    tourist: [
-        { start: 1200, dest: 360,  state: "VISIT_HAUNTED" },		// night owls
-        { start: 360,  dest: 1200, state: "AT_HOTEL" }
+    tourist: [ // for quick testing rn:
+		{ start: 0,    dest: 480,  state: "INSIDE" },
+		{ start: 480,  dest: 1440, state: "CIRCUIT" }
+        //{ start: 1200, dest: 360,  state: "VISIT_HAUNTED" },		// night owls
+        //{ start: 360,  dest: 1200, state: "AT_HOTEL" }
     ],
 	elderly: [
 		{ start: 0,    dest: 360,  state: "AT_HOME" },

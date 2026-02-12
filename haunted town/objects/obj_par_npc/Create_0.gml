@@ -9,6 +9,7 @@ home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_buildi
 // state and pathing vars
 current_state = "INSIDE";
 my_path = path_add();
+path_set_kind(my_path, 0);
 dest_id = noone;
 target_x = 0;
 target_y = 0;

@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_park_node",
+  "%Name":"obj_node_park",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_park_node",
+  "name":"obj_node_park",
   "overriddenProperties":[],
   "parent":{
-    "name":"Buildings",
-    "path":"folders/Objects/Buildings.yy",
+    "name":"Nodes",
+    "path":"folders/Objects/Nodes.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,4 +1,4 @@
 // Inherit the parent event
 event_inherited();
 
-routine_type = "adult";
+routine_type = "tourist";//"adult";

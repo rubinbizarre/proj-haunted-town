@@ -6,6 +6,9 @@ if (global.debug) {
 	// draw area where mouse click would 'select' the building
 	draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
 	draw_set_color(c_white);
+	draw_set_halign(fa_center);
+	// draw text var values
+	draw_text_transformed(x, y+5, string(id), 0.5, 0.5, 0);
 }
 
 // draw border around selected house

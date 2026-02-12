@@ -1,17 +1,24 @@
 // identity and key vars for pathing movement
 routine_type = "adult"; // kid, adult, tourist, etc
-move_speed = 2; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
+move_speed = 1; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
 move_speed_init = move_speed; // saves us from re-entering value of move_speed in step event
 /* move_speed should be tied to time_speed_actual. */
 home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
 //target_id = noone; // store the id of this npc's target/destination
 
 // state and pathing vars
-current_state = "";
+current_state = "INSIDE";
 my_path = path_add();
-target_x = x;
-target_y = y;
 dest_id = noone;
+target_x = 0;
+target_y = 0;
+
+scale_init = image_xscale;
+
+x = home_id.x;
+y = home_id.y;
+
+//visible = false;
 
 // optimisation
 check_timer = irandom(30); // stagger initial checks so npcs don't all think/execute logic at once

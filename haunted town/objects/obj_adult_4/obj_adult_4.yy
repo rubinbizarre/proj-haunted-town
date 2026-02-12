@@ -1,7 +1,9 @@
 {
   "$GMObject":"",
   "%Name":"obj_adult_4",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"obj_adult_4",
   "overriddenProperties":[],
@@ -9,7 +11,10 @@
     "name":"NPCs",
     "path":"folders/Objects/NPCs.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_npc",
+    "path":"objects/obj_par_npc/obj_par_npc.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

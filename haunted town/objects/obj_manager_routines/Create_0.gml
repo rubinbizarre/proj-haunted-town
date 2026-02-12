@@ -12,17 +12,17 @@
 
 global.routines = {
     kid: [
-        { start: 0,    dest: 480,  state: "AT_HOME" },
+        { start: 0,    dest: 480,  state: "INSIDE" },
         { start: 480,  dest: 720,  state: "WANDER_TOWN" },
         { start: 720,  dest: 840,  state: "PLAY_PARK" },			// midday
         { start: 840,  dest: 1140, state: "WANDER_TOWN" },
-        { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
+        { start: 1140, dest: 1440, state: "RETURN_HOME" }				// before dark
     ],
 	adult: [
-        { start: 0,    dest: 480,  state: "AT_HOME" },
+        { start: 0,    dest: 510,  state: "INSIDE" },
         { start: 510,  dest: 780,  state: "WANDER_TOWN" },
-        { start: 780,  dest: 1140, state: "WANDER_TOWN" },
-        { start: 1140, dest: 1440, state: "AT_HOME" }				// before dark
+        { start: 780,  dest: 1140, state: "WANDER_TOWN_AGAIN" },
+        { start: 1140, dest: 1440, state: "RETURN_HOME" }				// before dark
     ],
     tourist: [
         { start: 1200, dest: 360,  state: "VISIT_HAUNTED" },		// night owls

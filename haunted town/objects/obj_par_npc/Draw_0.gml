@@ -4,7 +4,7 @@ if (global.debug) {
 	var _y = y+10;
 	var _ysep = 10;
 	draw_set_color(c_fuchsia);
-	draw_set_alpha(0.2);
+	draw_set_alpha(0.1);
 	// draw massive purple circle around npc
 	draw_ellipse(x - _xmod, y - _ymod, x + _xmod, y + _ymod, false);
 	if (path_exists(my_path)) {

@@ -2,7 +2,9 @@
 //global.current_time_ += (delta_time / 1000000) * time_speed; // using delta_time means that time appears to jumps forward after dragging the window round. it's the difference in time between the previous frame and the current frame
 // increment current time by time_speed * 0.17
 time_speed_actual = time_speed_base * time_speed_multiplier;
-global.current_time_ += (game_get_speed(gamespeed_microseconds) / 100000) * time_speed_actual; // seems to be more appropriate than using delta_time. game_get_speed(gamespeed_microseconds) = 0.17
+//global.current_time_ += (game_get_speed(gamespeed_microseconds) / 100000) * time_speed_actual; // seems to be more appropriate than using delta_time. game_get_speed(gamespeed_microseconds) = 0.17
+global.current_time_ += (delta_time / 100000) * time_speed_actual;
+
 
 // loop the time back to zero after reaching a full week
 if (global.current_time_ >= global.total_cycle_minutes) {

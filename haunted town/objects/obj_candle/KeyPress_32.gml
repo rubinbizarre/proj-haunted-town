@@ -1,0 +1,1 @@
+flame_inst.sprite_index = choose(spr_exting_A, spr_exting_B, spr_exting_C);

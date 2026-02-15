@@ -33,24 +33,62 @@ global.routines = {
 		// DAY 1: MONDAY @ 1900
         { start: 1140, dest: 1440, state: "RETURN_HOME" }
     ],
-    tourist: [
+	elderly: [
+		// DAY 1: MONDAY @ 0000
+		{ start: 0,    dest: 600,  state: "INSIDE" },
+		// DAY 1: MONDAY @ 1000
+		{ start: 600,  dest: 720,  state: "WANDER_TOWN" },
+		// DAY 1: MONDAY @ 1200
+		{ start: 720 , dest: 900,  state: "RETURN_HOME" },
+		// DAY 1: MONDAY @ 1500
+		{ start: 900,  dest: 1020, state: "WANDER_TOWN" },
+		// DAY 1: MONDAY @ 1700
+		{ start: 1140, dest: 1440, state: "RETURN_HOME" },
+	],
+	tourist: [
 		// DAY 1: MONDAY @ 2000
         { start: 1200, dest: 1260, state: "CIRCUIT" },
 		// DAY 1: MONDAY @ 2100
 		{ start: 1260, dest: 1800, state: "VISIT_HAUNTED" },
 		// DAY 2: TUESDAY @ 0600
         { start: 1800, dest: 2640, state: "RETURN_HOME" },
-		// DAY 2: TUESDAY @ 2000
-        { start: 2640, dest: 2700, state: "CIRCUIT" },
-		// DAY 2: TUESDAY @ 2100
-		{ start: 2700, dest: 3240, state: "VISIT_HAUNTED" },
-		// DAY 3: WEDNESDAY @ 0600
-        { start: 3240, dest: 4080, state: "RETURN_HOME" },
-		// DAY 3: WEDNESDAY @ 2000
+		//// DAY 2: TUESDAY @ 2000
+        //{ start: 2640, dest: 2700, state: "CIRCUIT" },
+		//// DAY 2: TUESDAY @ 2100
+		//{ start: 2700, dest: 3240, state: "VISIT_HAUNTED" },
+		//// DAY 3: WEDNESDAY @ 0600
+        //{ start: 3240, dest: 4080, state: "RETURN_HOME" },
+		//// DAY 3: WEDNESDAY @ 2000
+		//{ start: 4080, dest: 4160, state: "CIRCUIT" },
+		//// DAY 3: WEDNESDAY @ 2100
+		//{ start: 4160, dest: 4700, state: "VISIT_HAUNTED" },
+		//// DAT 4: THURSDAY @ 0600
+		//{ start: 4700, dest: 5540, state: "RETURN_HOME" },
+		//// DAT 4: THURSDAY @ 2000
+		//{ start: 5540, dest: 5540, state: "CIRCUIT" },
+		//// DAT 4: THURSDAY @ 2100
+		//{ start: 4700, dest: 5540, state: "VISIT_HAUNTED" },
     ],
-	elderly: [
-		{ start: 0,    dest: 360,  state: "AT_HOME" },
-		{ start: 360,  dest: 1020, state: "WANDER_TOWN" },
-		{ start: 1020, dest: 1320, state: "AT_HOME" },
-	]
 };
+
+/* NOTE ABOUT TIME
+maybe a solution to these crazy numbers is to limit time values to 1440, the # mins in a day.
+when time reaches 1441, it resets to 0, but also a counter is incremented to recognise that we
+are on a new day. in this way, routines can be the same for each npc for 6 days of the week,
+and then on Sunday the routine can change because it can look to the day_counter to see that the
+routine should be different. for example
+
+	if (day_counter == Sunday) {
+		// sunday routine
+		adult = [
+			{ ... }
+		],
+		etc ...
+	} else {
+		// normal routine
+		adult = [
+			{ ... }
+		],
+		etc ...
+	}
+*/

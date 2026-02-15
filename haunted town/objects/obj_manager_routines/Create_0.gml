@@ -61,3 +61,35 @@ routine should be different. for example
 		etc ...
 	}
 */
+
+global.routines_sunday = {
+	kid: [
+		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+        { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
+        { start: 720,  dest: 900,  state: "PLAY_PARK" }, // @ 1100
+		{ start: 900,  dest: 1020, state: "RETURN_HOME" }, // @ 1500
+		{ start: 1020, dest: 1140, state: "CIRCUIT" }, // @ 1700
+		{ start: 1140, dest: 1440, state: "RETURN_HOME" }, // @ 1900
+	],
+	adult: [
+		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+        { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
+        { start: 720,  dest: 780,  state: "WANDER_TOWN" }, // @ 1100
+		{ start: 780,  dest: 900,  state: "WANDER_TOWN_AGAIN" }, // @ 1300
+		{ start: 900,  dest: 1020, state: "RETURN_HOME" }, // @ 1500
+		{ start: 1020, dest: 1140, state: "CIRCUIT" }, // @ 1700
+		{ start: 1140, dest: 1440, state: "RETURN_HOME" }, // @ 1900
+	],
+	elderly: [
+		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+        { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
+        { start: 720,  dest: 780,  state: "WANDER_TOWN" }, // @ 1100
+		{ start: 780,  dest: 900,  state: "WANDER_TOWN_AGAIN" }, // @ 1300
+		{ start: 900,  dest: 1020, state: "RETURN_HOME" }, // @ 1500
+		{ start: 1020, dest: 1140, state: "CIRCUIT" }, // @ 1700
+		{ start: 1140, dest: 1440, state: "RETURN_HOME" }, // @ 1900
+	],
+}

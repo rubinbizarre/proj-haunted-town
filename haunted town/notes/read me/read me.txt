@@ -2,3 +2,23 @@ starter house instance is set to is_haunted in its instance creation code, tempo
 
 the animcurve anim_building_hover_v2 is set to make the house larger (2x) than the first version
 
+
+currently there are 17 buildings in total
+	- 15 residential buildings
+		- 6 shacks (1 HP)	= 6 HP total
+		- 7 houses (5 HP)	= 35 HP total
+		- 2 manors (10 HP)	= 20 HP total
+							-----------------
+							= 61 HP net total
+	- 2 unique purpose buildings
+		- 1 hotel  (30 HP)	= 30 HP total
+		- 1 church (50 HP)  = 50 HP total
+							-----------------
+							= 80 HP net total
+							-------------------------------------------------------
+							= (80 + 61) = 141 HP total needed to complete the game
+
+141 npcs are not needed since
+	- there are alternative methods to killing that will also grant HP and eventually completion
+	- tourists who come to the town are not part of the initial population
+

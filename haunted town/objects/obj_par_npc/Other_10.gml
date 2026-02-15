@@ -4,6 +4,11 @@
 var _schedule = variable_struct_get(global.routines, routine_type);		// e.g. global.routines.adult
 var _time = global.current_time_;										// e.g. 480
 
+// if we're on Sunday, do sunday routine instead
+if (global.day_counter == 6) {
+	_schedule = variable_struct_get(global.routines_sunday, routine_type);
+}
+
 // find which part of the routine we are currently in
 var _new_state = "";
 for (var i = 0; i < array_length(_schedule); i++) {						// loop through states for this routine type. arr_length of global.routines.adult (3 (0,1,2,3))
@@ -97,6 +102,13 @@ if (_new_state != current_state) {
             visible = true;
             // logic to find the nearest haunted building
             // ...
+		} break;
+		case "CHURCH": {
+			visible = true;
+			if (instance_exists(obj_building_church)) {
+				target_x = obj_building_church.x;
+				target_y = obj_building_church.y;
+			}
 		} break;
     }
     

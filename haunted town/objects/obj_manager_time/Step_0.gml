@@ -26,10 +26,10 @@ if (global.current_time_ >= global.total_cycle_minutes) {
 
 if (global.debug) {
 	if (keyboard_check(vk_right)) {
-		time_speed_multiplier += 0.1;
+		time_speed_multiplier += (0.1 * time_speed_actual);
 	}
 	if (keyboard_check(vk_left)) {
-		time_speed_multiplier -= 0.1;
+		time_speed_multiplier -= (0.1 * time_speed_actual);
 	}
 	if (keyboard_check_pressed(vk_down)) {
 		time_speed_multiplier = time_speed_multiplier_init;

@@ -11,3 +11,5 @@ global.hour_progress_multiplier = 100 / 60; // used in script for finding date a
 //global.town_grid = mp_grid_create(0, 0, 96, 54, 20, 20);
 global.town_grid = mp_grid_create(0, 0, 192, 108, 10, 10);
 mp_grid_add_instances(global.town_grid, obj_collision, true);
+
+font_default = draw_get_font();

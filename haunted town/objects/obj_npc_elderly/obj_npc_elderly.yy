@@ -1,15 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_adult_3",
-  "eventList":[],
+  "%Name":"obj_npc_elderly",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_adult_3",
+  "name":"obj_npc_elderly",
   "overriddenProperties":[],
   "parent":{
     "name":"NPCs",
     "path":"folders/Objects/NPCs.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_npc",
+    "path":"objects/obj_par_npc/obj_par_npc.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_adult_3",
-    "path":"sprites/spr_adult_3/spr_adult_3.yy",
+    "name":"spr_adult_1",
+    "path":"sprites/spr_adult_1/spr_adult_1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

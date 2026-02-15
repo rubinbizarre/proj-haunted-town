@@ -7,8 +7,9 @@ var _time = global.current_time_;										// e.g. 480
 // find which part of the routine we are currently in
 var _new_state = "";
 for (var i = 0; i < array_length(_schedule); i++) {						// loop through states for this routine type. arr_length of global.routines.adult (3 (0,1,2,3))
-    var _entry = _schedule[i];											// _entry = global.routines.adult[0] (AT_HOME)
+    var _entry = _schedule[i];											// _entry = global.routines.adult[0] {start, dest, state}
     if (_time >= _entry.start) and (_time < _entry.dest) {				// compares time to AT_HOME start and dest(end)
+	//if (_time >= _entry.start) and (_time < _schedule[i+1].start) {
         _new_state = _entry.state;										// _new_state = AT_HOME state ("AT_HOME")
         break;
     }
@@ -25,15 +26,6 @@ if (_new_state != current_state) {
 			visible = false;
 		} break;
 		case "CIRCUIT": {
-			//// find nearest obj_node_circuit and go to it.
-			//// loop through each obj_node_circuit instance,
-			//// take its x and compare with player x. want the one whose calc is closest to zero
-			//var _nearest_node = instance_nearest(x, y, obj_node_circuit);
-			//visible = true;
-			//target_x = _nearest_node.x;
-			//target_y = _nearest_node.y;
-			//show_debug_message("obj_par_npc STEP: "+string(id)+" going to nearest circuit node. nearest node id: "+string(_nearest_node.node_id));
-			
 			// store start coords to include in path
 			var _start_x = x;
 			var _start_y = y;
@@ -41,35 +33,6 @@ if (_new_state != current_state) {
 			var _nearest_node = instance_nearest(x, y, obj_node_circuit);
 			target_x = _nearest_node.x;
 			target_y = _nearest_node.y;
-			
-			// loop through all circuit nodes and add all these points to the path
-			//if (_nearest_node.node_id == 41) {
-			//	// loop through node instances, find the node inst with id 0
-			//	// when we do, set the target coords to move to
-			//	for (var i = 0; i < instance_number(obj_node_circuit); i++) {
-			//		var _inst = instance_find(obj_node_circuit, i);
-			//		if (_inst.node_id == 0) {
-			//			//target_x = _inst.x;
-			//			//target_y = _inst.y;
-			//			break;
-			//		}
-			//	}
-			//} else {
-			//	for (var i = 0; i < instance_number(obj_node_circuit); i++) {
-			//		var _inst = instance_find(obj_node_circuit, i);
-			//		if (_inst.node_id == _nearest_node.node_id + 1) {
-			//			//target_x = _inst.x;
-			//			//target_y = _inst.y;
-			//			break;
-			//		}
-			//	}
-			//}
-			
-			//var _id_arr = [];
-			//for (var i = 0; i < instance_number(obj_node_circuit); i++) {
-			//	var _node_inst = instance_find(obj_node_circuit, i);
-			//	array_push(_id_arr, _node_inst.node_id);
-			//}
 			
 			path_add_point(my_path, _start_x, _start_y, 100);
 			path_add_point(my_path, target_x, target_y, 100);
@@ -92,18 +55,10 @@ if (_new_state != current_state) {
 					}
 				}
 			}
-			//for (var j = 0; j < array_length(_id_arr_sort); j++) {
-			//	for (var i = 0; i < instance_number(obj_node_circuit); i++) {
-			//		var _node_inst = instance_find(obj_node_circuit, i);
-			//		if (_node_inst.node_id == _id_arr_sort[j]) {
-			//			path_add_point(my_path, _node_inst.x, _node_inst.y, 100);
-			//			//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" added point to my_path ("+string(j)+") | node_id:"+string(_node_inst.node_id));
-			//		}
-			//	}
-			//}
+			
 			// add the first node again (nearest node at start)
 			// so that when path movement is complete, npc returns to house cleanly
-			// idk why it returns to the house i thought it would stop at the node
+			// (idk why it returns to the house i thought it would stop at the node)
 			path_add_point(my_path, target_x, target_y, 100);
 		} break;
         case "RETURN_HOME": {
@@ -119,10 +74,10 @@ if (_new_state != current_state) {
         case "WANDER_TOWN": {
             visible = true;
             // pick a random building that isn't their home
-            dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			while (dest_id == home_id) {
+			do {
 				dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			}
+			} until (dest_id != home_id);
+			
             target_x = dest_id.x;
             target_y = dest_id.y; //- (dest_id.sprite_height/4);
 			
@@ -162,11 +117,11 @@ if (_new_state != current_state) {
 	
 	if (current_state == "CIRCUIT") {
 		path_start(my_path, move_speed, path_action_stop, true);
-		show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" type:"+string(routine_type)+" | circuit path started.");
+		//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" type:"+string(routine_type)+" | circuit path started.");
 	} else if (current_state != "") {
 		if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 			path_start(my_path, move_speed, path_action_stop, true);
 	    }
-		show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" type:"+string(routine_type)+" | path started.");
+		//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" type:"+string(routine_type)+" | path started.");
 	}
 }

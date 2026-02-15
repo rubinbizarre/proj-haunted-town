@@ -1,4 +1,3 @@
-// Inside obj_building_parent Create Event
 stats = {
     fear: 0,
     infamy: 0,
@@ -9,7 +8,7 @@ stats = {
 
 // define clickable area around house
 // click_radius can be used in point_in_circle() function
-click_radius = sprite_width * 1.25;
+click_radius = sprite_width * 1.2;
 
 // flag to track whether building was clicked on last
 // when true, displays the building's resource levels
@@ -30,3 +29,22 @@ shrink_speed = 0.05;
 // direction to access. essentially in what direction is the building accessed from.
 // could think of it as "what direction does the building face the pavement?"
 dir_to_access = "down"; // up, down, left or right. str because i can't deal with indexed values or 0-360 degrees on this one. i just can't.
+
+// determine haunt difficulty rating based on which sprite
+switch (sprite_index) {
+	case spr_building_0_shack: {
+		stats.haunt_difficulty = 1;
+	} break;
+	case spr_building_1_house: {
+		stats.haunt_difficulty = 5;
+	} break;
+	case spr_building_2_manor: {
+		stats.haunt_difficulty = 10;
+	} break;
+	case spr_building_church: {
+		stats.haunt_difficulty = 50;
+	} break;
+	case spr_building_hotel: {
+		stats.haunt_difficulty = 30;
+	} break;
+}

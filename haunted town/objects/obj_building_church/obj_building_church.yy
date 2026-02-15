@@ -1,19 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_kid",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_building_church",
+  "eventList":[],
   "managed":true,
-  "name":"obj_kid",
+  "name":"obj_building_church",
   "overriddenProperties":[],
   "parent":{
-    "name":"NPCs",
-    "path":"folders/Objects/NPCs.yy",
+    "name":"Buildings",
+    "path":"folders/Objects/Buildings.yy",
   },
   "parentObjectId":{
-    "name":"obj_par_npc",
-    "path":"objects/obj_par_npc/obj_par_npc.yy",
+    "name":"obj_par_building",
+    "path":"objects/obj_par_building/obj_par_building.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_kid",
-    "path":"sprites/spr_kid/spr_kid.yy",
+    "name":"spr_building_church",
+    "path":"sprites/spr_building_church/spr_building_church.yy",
   },
   "spriteMaskId":null,
   "visible":true,

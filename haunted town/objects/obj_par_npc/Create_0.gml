@@ -22,14 +22,13 @@ y = home_id.y;
 //visible = false;
 
 // optimisation
-check_timer = irandom(30); // stagger initial checks so npcs don't all think/execute logic at once
+check_timer = irandom(60);//30); // stagger initial checks so npcs don't all think/execute logic at once
 check_interval = 60; // check routine every 1 sec at 60 fps
 
-/* for using when npc's state changes
-if (mp_grid_path(global.village_grid, my_path, x, y, target_x, target_y, true)) {
-    path_start(my_path, walk_speed, path_action_stop, true);
-}
-*/
+// animcurve for bobbing whilst moving
+ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
+ac_time_bob = 0;
+ac_speed_bob = 0.08;//0.1;
 
 #region loosely copied from berry cow farm's obj_par_cow create event
 //enum NPC_STATE {

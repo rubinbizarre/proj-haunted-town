@@ -1,7 +1,11 @@
 global.week_counter = 1;
 global.minutes_per_day = 1440;				// 1,440 mins = 24 hours = 1 day
-global.total_cycle_minutes = 10080;			// 10,080 mins = 68 hours = 7 days = 1 week
-global.current_time_ = 450;//0;				// 480 mins / 60 mins = 8 hours = 8:00 AM
+//global.total_cycle_minutes = 10080;			// 10,080 mins = 68 hours = 7 days = 1 week
+global.current_time_ = 470;//480;				// 480 mins / 60 mins = 8 hours = 8:00 AM
+
+// for new time system:
+global.total_cycle_minutes = 1440;
+global.day_counter = 0; // ranges from 0 to 6
 
 #region time_speed determines the speed at which time passes
 

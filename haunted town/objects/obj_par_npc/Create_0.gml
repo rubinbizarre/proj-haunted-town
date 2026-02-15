@@ -4,6 +4,8 @@ move_speed = 1; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
 move_speed_init = move_speed; // saves us from re-entering value of move_speed in step event
 /* move_speed should be tied to time_speed_actual. */
 home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
+// home should not be a haunted building
+//...
 //target_id = noone; // store the id of this npc's target/destination
 
 // state and pathing vars

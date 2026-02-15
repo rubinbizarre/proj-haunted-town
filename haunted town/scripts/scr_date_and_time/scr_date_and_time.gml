@@ -23,15 +23,21 @@ function scr_date_and_time(_time) {
 	var _actual_hour, _actual_minutes, _hour_progress, _day_counter = 0;
 	var _str_hour, _str_minutes, _str_output, _day_name = "";
 	
-	// determine actual hour (ranges from 0 to 168)
+	//// determine actual hour (ranges from 0 to 168)
+	// new time system: determine actual hour (ranges from 0 to 24)
 	_actual_hour = floor(_time / 60);	// e.g. 487 / 60 = 8.1166667 = 8
 	
-	// determine what # day we are on (ranges from 0 to 6) (loops back around when it gets to 7)
-	_day_counter = floor(_actual_hour / 24);
+	//// determine what # day we are on (ranges from 0 to 6) (loops back around when it gets to 7)
+	//_day_counter = floor(_actual_hour / 24);
+	
+	// new time system: # day we are on is stored in global var
+	_day_counter = global.day_counter;
 	
 	// calculate what to output as the current _str_hour (ranges from 00-23) if hour is less than 10, add a 0 before it e.g. "05"
 	// here is likely where you would include the logic for converting to 12-hr time but not a priority right now
-	_str_hour = string(_actual_hour - (24 * _day_counter));
+	//_str_hour = string(_actual_hour - (24 * _day_counter));
+	// new time system:
+	_str_hour = string(_actual_hour);
 	if (_str_hour < 10) {
 		_str_hour = "0" + _str_hour;
 	}

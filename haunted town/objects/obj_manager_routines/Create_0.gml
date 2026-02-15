@@ -12,62 +12,31 @@
 
 global.routines = {
     kid: [
-		// DAY 1: MONDAY @ 0000
-        { start: 0,    dest: 480,  state: "INSIDE" },
-		// DAY 1: MONDAY @ 0800
-        { start: 480,  dest: 720,  state: "WANDER_TOWN" },
-		// DAY 1: MONDAY @ 1200
-        { start: 720,  dest: 840,  state: "PLAY_PARK" },
-		// DAY 1: MONDAY @ 1400
-        { start: 840,  dest: 1140, state: "WANDER_TOWN" },
-		// DAY 1: MONDAY @ 1900
-        { start: 1140, dest: 1440, state: "RETURN_HOME" }
+        { start: 0,    dest: 480,  state: "INSIDE" }, // @ 0000
+        { start: 480,  dest: 720,  state: "WANDER_TOWN" }, // @ 0800
+        { start: 720,  dest: 840,  state: "PLAY_PARK" }, // @ 1200
+        { start: 840,  dest: 1140, state: "WANDER_TOWN" }, // @ 1400
+        { start: 1140, dest: 1440, state: "RETURN_HOME" } // @ 1900
     ],
 	adult: [
-		// DAY 1: MONDAY @ 0000
-        { start: 0,    dest: 510,  state: "INSIDE" },
-		// DAY 1: MONDAY @ 0830
-        { start: 510,  dest: 780,  state: "WANDER_TOWN" },
-		// DAY 1: MONDAY @ 1300
-        { start: 780,  dest: 1140, state: "WANDER_TOWN_AGAIN" },
-		// DAY 1: MONDAY @ 1900
-        { start: 1140, dest: 1440, state: "RETURN_HOME" }
+        { start: 0,    dest: 510,  state: "INSIDE" }, // @ 0000
+        { start: 510,  dest: 780,  state: "WANDER_TOWN" }, // @ 0830
+        { start: 780,  dest: 1140, state: "WANDER_TOWN_AGAIN" }, // @ 1300
+        { start: 1140, dest: 1440, state: "RETURN_HOME" } // @ 1900
     ],
 	elderly: [
-		// DAY 1: MONDAY @ 0000
-		{ start: 0,    dest: 600,  state: "INSIDE" },
-		// DAY 1: MONDAY @ 1000
-		{ start: 600,  dest: 720,  state: "WANDER_TOWN" },
-		// DAY 1: MONDAY @ 1200
-		{ start: 720 , dest: 900,  state: "RETURN_HOME" },
-		// DAY 1: MONDAY @ 1500
-		{ start: 900,  dest: 1020, state: "WANDER_TOWN" },
-		// DAY 1: MONDAY @ 1700
-		{ start: 1140, dest: 1440, state: "RETURN_HOME" },
+		{ start: 0,    dest: 600,  state: "INSIDE" }, // @ 0000
+		{ start: 600,  dest: 720,  state: "WANDER_TOWN" }, // @ 1000
+		{ start: 720 , dest: 900,  state: "RETURN_HOME" }, // @ 1200
+		{ start: 900,  dest: 1080, state: "WANDER_TOWN" }, // @ 1500
+		{ start: 1080, dest: 1440, state: "RETURN_HOME" } // @ 1800
 	],
 	tourist: [
-		// DAY 1: MONDAY @ 2000
-        { start: 1200, dest: 1260, state: "CIRCUIT" },
-		// DAY 1: MONDAY @ 2100
-		{ start: 1260, dest: 1800, state: "VISIT_HAUNTED" },
-		// DAY 2: TUESDAY @ 0600
-        { start: 1800, dest: 2640, state: "RETURN_HOME" },
-		//// DAY 2: TUESDAY @ 2000
-        //{ start: 2640, dest: 2700, state: "CIRCUIT" },
-		//// DAY 2: TUESDAY @ 2100
-		//{ start: 2700, dest: 3240, state: "VISIT_HAUNTED" },
-		//// DAY 3: WEDNESDAY @ 0600
-        //{ start: 3240, dest: 4080, state: "RETURN_HOME" },
-		//// DAY 3: WEDNESDAY @ 2000
-		//{ start: 4080, dest: 4160, state: "CIRCUIT" },
-		//// DAY 3: WEDNESDAY @ 2100
-		//{ start: 4160, dest: 4700, state: "VISIT_HAUNTED" },
-		//// DAT 4: THURSDAY @ 0600
-		//{ start: 4700, dest: 5540, state: "RETURN_HOME" },
-		//// DAT 4: THURSDAY @ 2000
-		//{ start: 5540, dest: 5540, state: "CIRCUIT" },
-		//// DAT 4: THURSDAY @ 2100
-		//{ start: 4700, dest: 5540, state: "VISIT_HAUNTED" },
+		{ start: 0,	   dest: 360,  state: "VISIT_HAUNTED" }, // continue visit_haunted
+		{ start: 360,  dest: 480,  state: "RETURN_HOME" }, // @ 0600
+		{ start: 480,  dest: 1200, state: "INSIDE" }, // @ 0800
+        { start: 1200, dest: 1260, state: "CIRCUIT" }, // @ 2000
+		{ start: 1260, dest: 1800, state: "VISIT_HAUNTED" } // @ 2100
     ],
 };
 

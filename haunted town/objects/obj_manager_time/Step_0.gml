@@ -5,10 +5,23 @@ time_speed_actual = time_speed_base * time_speed_multiplier;
 //global.current_time_ += (game_get_speed(gamespeed_microseconds) / 100000) * time_speed_actual; // seems to be more appropriate than using delta_time. game_get_speed(gamespeed_microseconds) = 0.17
 global.current_time_ += (delta_time / 100000) * time_speed_actual;
 
-// loop the time back to zero after reaching a full week
+//// loop the time back to zero after reaching a full week
+//if (global.current_time_ >= global.total_cycle_minutes) {
+//    global.current_time_ = 0;
+//	  global.week_counter++;
+//}
+
+// loop the time back to zero after reaching a full day
 if (global.current_time_ >= global.total_cycle_minutes) {
-    global.current_time_ = 0;
-	global.week_counter++;
+	// reset time to 0, start of new day
+	global.current_time_ = 0;
+	// increment day counter. if starting a new week, increment week counter.
+	if (global.day_counter == 6) {
+		global.day_counter = 0;
+		global.week_counter++;
+	} else {
+		global.day_counter += 1;
+	}
 }
 
 if (global.debug) {

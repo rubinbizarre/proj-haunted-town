@@ -6,23 +6,20 @@ if (check_timer-- <= 0) {
 
 // animation & sprite flipping logic
 if (path_index != -1) {
-    // if moving, face the direction of movement
+    // if moving/on a path, face the direction of movement
     image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
-    //sprite_index = spr_npc_walk;
-	//if (sprite_index == spr_kid) {
-		if (ac_time_bob < 1) {
-			ac_time_bob += ac_speed_bob;
-		} else {
-			ac_time_bob = 0;
-		}
-		image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
-	//}
-} else {
-    //sprite_index = spr_npc_idle;
-	//if (sprite_index == spr_kid) {
-		image_yscale = 1;
+	// progress through animcurve at ac_speed affected by move_speed
+	if (ac_time_bob < 1) {
+		ac_time_bob += (ac_speed_bob * move_speed);
+	} else {
 		ac_time_bob = 0;
-	//}
+	}
+	// apply animcurve value to yscale
+	image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
+} else {
+	// if not moving/not on a path, make yscale constant and reset animcurve to start pos
+	if (image_yscale != 1) image_yscale = 1;
+	if (ac_time_bob != 0) ac_time_bob = 0;
 }
 
 if (instance_exists(obj_manager_time)) {
@@ -44,4 +41,22 @@ switch (current_state) {
 		//	}
 		//}
 	//} break;
+	case "PLAY_PARK": {
+		// do nothing
+	} break;
+	case "INSIDE": {
+		// make invisible if visible
+		if (x == target_x) and (y == target_y) {
+			if (visible) visible = false;
+		}
+		if (x == home_id.x) and (y == home_id.y) {
+			if (visible) visible = false;
+		}
+	} break;
+	default: {
+		// make invisible if visible
+		if (x == target_x) and (y == target_y) {
+			if (visible) visible = false;
+		}
+	} break;
 }

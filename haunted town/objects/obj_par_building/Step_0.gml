@@ -37,8 +37,8 @@ if (mouse_hover) and (stats.is_haunted) {
 	if (mouse_clicked) mouse_clicked = false;
 }
 
-// if building is NOT haunted
-if (mouse_hover) and (!stats.is_haunted) {
+// if building is NOT haunted, slightly zoom
+if ((mouse_hover) and (!stats.is_haunted)) or (global.tracked_building == id) {
 	// make scale slightly larger instantly
 	image_xscale = 1.1;
 	image_yscale = 1.1;
@@ -77,19 +77,26 @@ if (mouse_hover) and (mouse_clicked) and (device_mouse_check_button_released(0, 
 }
 
 if (mouse_confirmed) {
-	switch (sprite_index) {
-		case obj_building_0_shack.sprite_index: {
-			show_message("obj_par_building STEP:\nPlayer confirmed obj_building_0_shack with id: "+string(id));
-		} break;
-		case obj_building_1_house.sprite_index: {
-			show_message("obj_par_building STEP:\nPlayer confirmed obj_building_1_house with id: "+string(id));
-		} break;
-		case obj_building_2_manor.sprite_index: {
-			show_message("obj_par_building STEP:\nPlayer confirmed obj_building_2_manor with id: "+string(id));
-		} break;
-		default: {
-			show_message("obj_par_building STEP:\nDefault");
-		} break;
-	}
+	//switch (sprite_index) {
+	//	case obj_building_0_shack.sprite_index: {
+	//		//show_message("obj_par_building STEP:\nPlayer confirmed obj_building_0_shack with id: "+string(id));
+	//	} break;
+	//	case obj_building_1_house.sprite_index: {
+	//		//show_message("obj_par_building STEP:\nPlayer confirmed obj_building_1_house with id: "+string(id));
+	//	} break;
+	//	case obj_building_2_manor.sprite_index: {
+	//		//show_message("obj_par_building STEP:\nPlayer confirmed obj_building_2_manor with id: "+string(id));
+	//	} break;
+	//	default: {
+	//		show_message("obj_par_building STEP:\nDefault response");
+	//	} break;
+	//}
+	
+	global.menu_haunt_active = true;
+	global.tracked_building = id;
+	global.offered_haunt_points = 0;
+	
+	instance_create_layer(0, 0, "Master", obj_skillcheck);
+	
 	mouse_confirmed = false;
 }

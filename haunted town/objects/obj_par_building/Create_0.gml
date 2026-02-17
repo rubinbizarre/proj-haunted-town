@@ -3,7 +3,7 @@ stats = {
     infamy: 0,
     danger: 0,
     is_haunted: false,
-    haunt_difficulty: 1
+    haunt_requirement: 1
 };
 
 // define clickable area around house
@@ -33,18 +33,18 @@ dir_to_access = "down"; // up, down, left or right. str because i can't deal wit
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
 	case spr_building_0_shack: {
-		stats.haunt_difficulty = 1;
+		stats.haunt_requirement = 1;
 	} break;
 	case spr_building_1_house: {
-		stats.haunt_difficulty = 5;
+		stats.haunt_requirement = 5;
 	} break;
 	case spr_building_2_manor: {
-		stats.haunt_difficulty = 10;
+		stats.haunt_requirement = 10;
 	} break;
 	case spr_building_church: {
-		stats.haunt_difficulty = 50;
+		stats.haunt_requirement = 50;
 	} break;
 	case spr_building_hotel: {
-		stats.haunt_difficulty = 30;
+		stats.haunt_requirement = 30;
 	} break;
 }

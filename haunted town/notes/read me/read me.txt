@@ -2,6 +2,7 @@ starter house instance is set to is_haunted in its instance creation code, tempo
 
 the animcurve anim_building_hover_v2 is set to make the house larger (2x) than the first version
 
+pressing P will toggle pause. this will need to be prevented from executing when certain menus are active
 
 currently there are 17 buildings in total
 	- 15 residential buildings

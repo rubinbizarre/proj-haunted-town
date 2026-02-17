@@ -68,5 +68,5 @@ function scr_adjust_resolution(_w, _h, _mode) {
     display_set_gui_size(_w, _h);
 	
     // center window via alarm
-    alarm[0] = 1;
+    obj_master.alarm[0] = 1;
 }

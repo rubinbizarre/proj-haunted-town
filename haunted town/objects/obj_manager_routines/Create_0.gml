@@ -21,7 +21,7 @@ global.routines = {
 	adult: [
         { start: 0,    dest: 510,  state: "INSIDE" }, // @ 0000
         { start: 510,  dest: 780,  state: "WANDER_TOWN" }, // @ 0830
-        { start: 780,  dest: 1140, state: "WANDER_TOWN_AGAIN" }, // @ 1300
+        { start: 780,  dest: 1140, state: "CIRCUIT" },//"WANDER_TOWN_AGAIN" }, // @ 1300
         { start: 1140, dest: 1440, state: "RETURN_HOME" } // @ 1900
     ],
 	elderly: [

@@ -28,8 +28,8 @@ if (stats.is_haunted) {
 	draw_self();
 	 
 	// draw haunt difficulty value when hovering over
-	if (mouse_hover) {
-		var _haunt_diff_str = string(stats.haunt_difficulty);
+	if (mouse_hover) or (global.tracked_building == id) {
+		var _haunt_diff_str = string(stats.haunt_requirement);
 		
 		// draw rectangle as 'background label' for haunt diff string
 		draw_rectangle_colour(

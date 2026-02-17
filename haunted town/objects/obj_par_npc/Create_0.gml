@@ -2,10 +2,16 @@
 routine_type = "adult"; // kid, adult, tourist, etc
 move_speed = 1; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
 move_speed_init = move_speed; // saves us from re-entering value of move_speed in step event
-/* move_speed should be tied to time_speed_actual. */
-home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
-// home should not be a haunted building
-//...
+/* move_speed is affected tied to time_speed_actual. */
+
+// home should not be a haunted building.
+// technically game starts with zero haunted buildings so this is a non issue
+//do {
+	home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
+//} until (
+//variable_struct_get(home_id.stats, is_haunted) == false);
+//home_id.stats.is_haunted == false);
+
 //target_id = noone; // store the id of this npc's target/destination
 
 // state and pathing vars
@@ -32,7 +38,7 @@ ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
 ac_time_bob = 0;
 ac_speed_bob = 0.08;//0.1;
 
-#region loosely copied from berry cow farm's obj_par_cow create event
+#region loosely copied from berry cow farm's obj_par_cow create event (commented)
 //enum NPC_STATE {
 //	IDLE,
 //	WALKING,

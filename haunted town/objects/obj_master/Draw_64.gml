@@ -3,7 +3,26 @@ var _y = 0;
 var _ysep = 0;
 
 switch (room) {
+	case rm_title: {
+		_x = room_width/2;
+		_y = 32;
+		var _prev_font = draw_get_font();
+		draw_set_font(font_main);
+		draw_set_halign(fa_center);
+		//draw_set_color(c_fuchsia);
+		draw_text_transformed(_x, _y, "work in progress", 1, 1, 0);
+		//draw_set_color(c_white);
+		_y = room_height - 32;
+		draw_set_valign(fa_bottom);
+		draw_text_transformed(_x, _y, "a game by rubinbizarre", 1, 1, 0);
+		draw_set_valign(fa_top);
+		draw_set_halign(fa_left);
+		draw_set_font(font_default);
+	} break;
 	case rm_main: {
+		_x = 0;
+		_y = 0;
+		
 		#region PAUSED
 		if (global.paused) {
 			if (surface_exists(paused_surface)) {

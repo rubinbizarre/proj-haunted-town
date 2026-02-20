@@ -69,12 +69,14 @@ if (global.tracked_building != noone) {
 	}
 	#endregion	
 	
-	#region switch zoom level with mouse wheel
-	if mouse_wheel_up() {
-		if (zoom_level < 3) zoom_level += 1;
-	}
-	if mouse_wheel_down() {
-		if (zoom_level > 0) zoom_level -= 1;
+	#region switch zoom level with mouse wheel when not in rm_inside
+	if (room != rm_inside) {
+		if mouse_wheel_up() {
+			if (zoom_level < 3) zoom_level += 1;
+		}
+		if mouse_wheel_down() {
+			if (zoom_level > 0) zoom_level -= 1;
+		}
 	}
 	#endregion
 	

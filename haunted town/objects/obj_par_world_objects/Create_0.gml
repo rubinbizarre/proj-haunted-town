@@ -11,7 +11,7 @@ locked = false;
 haunted = false;
 
 // assign normal & haunted sprites for this world object
-sprite_normal = sprite_index;
+sprite_normal = spr_trashcan;
 sprite_haunted = spr_trashcan_haunted;
 
 // after untapping the object, how long to wait until player can tap it again
@@ -19,6 +19,7 @@ cooldown_timer = 360;
 cooldown_timer_init = cooldown_timer;
 // price (in HP) to unlock the object after Nev has locked it
 unlock_price = 10;
+
 // radius in which npcs are spooked by the object while haunted
 haunt_radius = 50;
 

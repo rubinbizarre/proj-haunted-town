@@ -11,6 +11,13 @@ switch (room) {
 		//	_y += 20;
 		//	show_debug_message("obj_master ROOM_START: created obj_btn_blank "+string(_btn_id));
 		//}
+		
+		if (instance_exists(obj_camera)) {
+			instance_destroy(obj_camera);
+		}
+		if (instance_exists(obj_manager_time)) {
+			instance_destroy(obj_manager_time);
+		}
 	} break;
 	case rm_main: {
 		// assign node_id var to each obj_node_circuit inst

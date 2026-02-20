@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Objects",
-    "path":"folders/Sprites/Objects.yy",
+    "name":"World Objects",
+    "path":"folders/Sprites/World Objects.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

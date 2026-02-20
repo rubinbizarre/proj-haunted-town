@@ -8,6 +8,8 @@ global.paused = false;
 // settings
 global.mute_music = false;
 global.mute_sfx = false;
+global.res_index = 2;
+global.mode_index = 0;
 
 // in-game
 //global.town_grid = mp_grid_create(0, 0, 32, 18, 60, 60);

@@ -34,11 +34,16 @@ if (btn_confirmed) {
 		} break;
 		case spr_btn_settings: {
 			// open settings menu
-			//...
+			// working, but disabled for now until settings is more refined/better implemented
+			//instance_create_layer(0, 0, "Instances", obj_settings);
 		} break;
 		case spr_btn_quit: {
 			// end or exit the game
 			game_end(); // this function only works on desktop environments, not HTML5 or mobile
+		} break;
+		case spr_btn_back: {
+			// return to rm_main after being inside a haunted building
+			room_goto(rm_main);
 		} break;
 	}
 	btn_confirmed = false;

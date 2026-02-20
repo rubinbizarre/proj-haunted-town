@@ -92,11 +92,18 @@ if (mouse_confirmed) {
 	//	} break;
 	//}
 	
-	global.menu_haunt_active = true;
-	global.tracked_building = id;
-	global.offered_haunt_points = 0;
-	
-	instance_create_layer(0, 0, "Master", obj_skillcheck);
+	//// old haunt skillcheck system:
+	//global.menu_haunt_active = true;
+	//global.tracked_building = id;
+	//global.offered_haunt_points = 0;
+	//instance_create_layer(0, 0, "Master", obj_skillcheck);
 	
 	mouse_confirmed = false;
+	
+	if (stats.is_haunted) {
+		// need to store all npc location and path data and then reload it when coming back
+		//...
+		// go to rm_inside, go inside the house
+		room_goto(rm_inside);
+	}
 }

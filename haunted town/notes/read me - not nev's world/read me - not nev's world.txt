@@ -14,3 +14,21 @@ by loading an object which:
 	- disables (or muffles?) any sound occuring outside the building
 this would enable the world outside to carry on as usual
 
+
+(notes on haunted world object):
+if haunted
+	if npc enters the haunt radius
+		if npc has not entered this haunted objects radius before in a period of time
+			tell npc to store its previous state
+			change npc state to spooked
+
+
+(notes on npc spooked state):
+if state == spooked
+	stop moving
+	jump in place
+	play animcurve spook once, apply to yscale
+	change sprite to show fear
+	after short delay change state back to previous state
+
+

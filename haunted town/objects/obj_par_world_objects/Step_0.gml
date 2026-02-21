@@ -57,12 +57,19 @@ if (cooldown_active) {
 	}
 }
 
+if (haunted) {
+	//if (point_in_circle(obj_par_npc.x, obj_par_npc.y, x, y, haunt_radius)) {
+		//show_message("obj_par_world_objects STEP: npc found in haunt_radius"); // does not work
+	//}
+}
+
 /*
 if haunted
 	if npc enters the haunt radius
 		if npc has not entered this haunted objects radius before
 			tell npc to store its previous state
 			change npc state to spooked
+			increase HP escrow amount in haunted world object
 
 (notes on npc spooked state):
 if state == spooked

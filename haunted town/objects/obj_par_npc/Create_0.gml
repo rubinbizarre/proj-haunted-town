@@ -43,8 +43,15 @@ ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
 ac_time_bob = 0;
 ac_speed_bob = 0.08;//0.1;
 
+// animcurve for being spooked
+ac_channel_spook = animcurve_get_channel(anim_npc_spook, 0);
+ac_time_spook = 0;
+ac_speed_spook = 0.05;
+
 fear = 0.0;
 death = false;
+spooked = false;
+prev_path_speed = 0;
 
 // FUNCTIONS
 

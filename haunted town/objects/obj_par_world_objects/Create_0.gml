@@ -11,8 +11,8 @@ locked = false;
 haunted = false;
 
 // assign normal & haunted sprites for this world object
-sprite_normal = spr_trashcan;
-sprite_haunted = spr_trashcan_haunted;
+sprite_normal = spr_wo_trashcan;
+sprite_haunted = spr_wo_trashcan_haunted;
 
 // after untapping the object, how long to wait until player can tap it again
 cooldown_timer = 360;

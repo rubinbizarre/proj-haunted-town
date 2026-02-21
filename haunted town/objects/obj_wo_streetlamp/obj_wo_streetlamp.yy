@@ -1,19 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"obj_phone",
+  "%Name":"obj_wo_streetlamp",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_phone",
+  "name":"obj_wo_streetlamp",
   "overriddenProperties":[],
   "parent":{
-    "name":"Scary Objects",
-    "path":"folders/Objects/Scary Objects.yy",
+    "name":"World Objects",
+    "path":"folders/Objects/World Objects.yy",
   },
   "parentObjectId":{
-    "name":"obj_par_scary_objects",
-    "path":"objects/obj_par_scary_objects/obj_par_scary_objects.yy",
+    "name":"obj_par_world_objects",
+    "path":"objects/obj_par_world_objects/obj_par_world_objects.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_phone",
-    "path":"sprites/spr_phone/spr_phone.yy",
+    "name":"spr_wo_streetlamp",
+    "path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",
   },
   "spriteMaskId":null,
   "visible":true,

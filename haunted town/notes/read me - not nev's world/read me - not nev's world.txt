@@ -1,0 +1,16 @@
+rm_inside should probably not be implemented
+
+unless each npc's x,y and state can be retrieved when switching rooms as if they were always existing
+so, say we go inside a haunted building at 13:00, and then come out of the haunted building at 23:00,
+you'd expect that each npc would be in their home by now or on their way home.
+
+since npc objects cant continue their paths while the room is different, their x,y, path and state
+would need to be determined at the point of returning to rm_main using only time
+
+when going inside a haunted building, it may instead be better to effectively simulate a room change
+by loading an object which:
+	- has a large background sprite
+	- disables any input on all objects outside the building
+	- disables (or muffles?) any sound occuring outside the building
+this would enable the world outside to carry on as usual
+

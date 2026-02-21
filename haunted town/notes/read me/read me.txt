@@ -22,4 +22,3 @@ currently there are 17 buildings in total
 141 npcs are not needed since
 	- there are alternative methods to killing that will also grant HP and eventually completion
 	- tourists who come to the town are not part of the initial population
-

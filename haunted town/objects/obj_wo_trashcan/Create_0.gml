@@ -2,7 +2,5 @@
 event_inherited();
 
 // assign normal & haunted sprites for this world object
-sprite_normal = spr_phone;
-sprite_haunted = spr_phone_haunted;
-
-scare_radius = 150;
+sprite_normal = spr_wo_trashcan;
+sprite_haunted = spr_wo_trashcan_haunted;

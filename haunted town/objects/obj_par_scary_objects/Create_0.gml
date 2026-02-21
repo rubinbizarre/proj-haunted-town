@@ -13,8 +13,8 @@ locked = false;
 haunted = false;
 
 // assign normal & haunted sprites for this world object
-sprite_normal = spr_phone;
-sprite_haunted = spr_phone_haunted;
+sprite_normal = spr_so_phone;
+sprite_haunted = spr_so_phone_haunted;
 
 // radius in which npcs are scared by the object while haunted
 scare_radius = 50;

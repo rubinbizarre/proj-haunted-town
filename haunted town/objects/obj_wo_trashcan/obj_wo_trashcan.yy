@@ -1,11 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"obj_trashcan",
+  "%Name":"obj_wo_trashcan",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_trashcan",
+  "name":"obj_wo_trashcan",
   "overriddenProperties":[],
   "parent":{
     "name":"World Objects",
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_trashcan",
-    "path":"sprites/spr_trashcan/spr_trashcan.yy",
+    "name":"spr_wo_trashcan",
+    "path":"sprites/spr_wo_trashcan/spr_wo_trashcan.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -1,3 +1,11 @@
+if (haunted) {
+	draw_set_color(c_fuchsia);
+	draw_set_alpha(0.3);
+	draw_circle(x, y, haunt_radius, false);
+	draw_set_alpha(1);
+	draw_set_color(c_white);
+}
+
 if (!cooldown_active) {
 	draw_self();
 } else {
@@ -16,4 +24,8 @@ if (global.debug) {
 	draw_set_color(c_fuchsia);
 	draw_circle(x, y, haunt_radius, true);
 	draw_set_color(c_white);
+}
+
+if (alarm[1] != -1) {
+	draw_text(x, y-sprite_height, string(alarm[1]));
 }

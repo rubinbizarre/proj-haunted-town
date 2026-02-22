@@ -32,3 +32,37 @@ if state == spooked
 	after short delay change state back to previous state
 
 
+notes on Nev:
+- Nev himself is an object
+- Nev's van is an object
+- Nev's equipment is not an object? could be a drawn sprite with effects determined by Nev var upgrade_tier
+	- might need to be an object considering other tiers will have different vfx and sfx ... we'll see
+
+Nev's van
+	- has a schedule??? no... yes...
+	- speed is faster than Nev himself tied to time_speed
+	- does not obey the same collision... collisonless?
+	- SLOWS / STOPS FOR PEDESTRIANS IN THE ROAD AHEAD ... OR DO PEDESTRIANS STOP FOR NEV ???
+		- i think it makes more sense for pedestrians to stop for Nev, since he doesn't seem like the caring type
+		- BEST TEMP SOLUTION: NPCs ARE TEMPORARILY FLATTENED WHEN RAN OVER BY NEV (more reason for player to dislike Nev)
+			- image_angle set to 90, stop bob anim, path_speed zero
+			- after short delay, revert image_angle and start bob anim again, revert path_speed
+Nev himself is deployed by the van when it stops
+	- move_speed = same as adult
+	- drawn on top of npcs
+	- Nev obeys collision
+
+PSEUDO WORKING IT OUT
+	- when it reaches 7 or 8 AM, starts a path from home to somewhere along a path between two obj_node_nev_van nodes
+	- randomly decides a point along that path to stop - can't be anywhere where NPCs cross the roadw
+	- when nev gets out, a flag is set to the van that it is idle - not going anywhere
+	- nev ignores collision whilst he moves to the nearest obj_node_circuit node
+	- upon arriving at the circuit node, he now obeys the same collision as NPCs
+	- nev wanders about for a bit going between various POIs - sets a path from current pos to target x,y repeatedly
+		- nev needs to be switching between various states whilst out of the van and able to record player activity etc
+		- (let's say for now he does a circuit before returning to his van, for example)
+		- he could when leaving the van start a timer (the length of which is determined by his upgrade tier) which upon ending forces him to stop what he's doing and return to his van
+	- when nev returns to the van, he disappears 'into the van' and the van is set to not idle
+	- the van continues its path to the previously established end point
+	- when reaching the end point, a new path is set from current node to another random obj_node_nev_van node
+	- when it reaches 3 or 4 AM, if Nev is not in the van he stops what he's doing and returns to the van, and the van sets a path from its current position to the van home node

@@ -38,11 +38,17 @@ if (btn_confirmed) {
 		sprite_index = sprite_haunted;
 		haunted = true;
 	} else {
-		sprite_index = sprite_normal;
-		haunted = false;
-		// start cooldown period
-		cooldown_active = true;
-		alarm[0] = game_get_speed(gamespeed_fps) * cooldown_timer;
+		// delayed reset to normal
+		alarm[0] = game_get_speed(gamespeed_fps) * 6;
+		//// moved to alarm[1] for delayed reset
+		//// reset to normal
+		//sprite_index = sprite_normal;
+		//haunted = false;
+		//// start cooldown period
+		//cooldown_active = true;
+		//alarm[0] = game_get_speed(gamespeed_fps) * cooldown_timer;
+		
+		show_debug_message("obj_par_world_objects ALARM[1]: "+string(id)+" started delayed reset");
 	}
 	
 	btn_confirmed = false;
@@ -57,11 +63,13 @@ if (cooldown_active) {
 	}
 }
 
+#region handle NPC entering haunt_radius
 if (haunted) {
 	//if (point_in_circle(obj_par_npc.x, obj_par_npc.y, x, y, haunt_radius)) {
 		//show_message("obj_par_world_objects STEP: npc found in haunt_radius"); // does not work
 	//}
 }
+#endregion
 
 /*
 if haunted

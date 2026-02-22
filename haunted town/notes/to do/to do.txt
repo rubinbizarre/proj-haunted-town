@@ -1,8 +1,9 @@
 	- haunted world object -> npc interaction: npc visual changes, HP in escrow
-	- player untapping haunted world object: claim HP in escrow, delayed haunt disable
+	- player untapping haunted world object: claim HP in escrow, delayed haunt disable.
+		add visual timer for delayed haunt disable
 	- showing the npcs inside a haunted building in the 'inside' view
 	- haunted scary object -> npc interaction: npc fear increase
 	- player -> npc interaction: enticing, killing, possessing
 	
 	- Nev untapping haunted world object: wipes HP in escrow, locks object(?)
-	- Nev moving in his van, getting out, moving between POIs
+	- Nev routine: moving in his van, getting out, moving between POIs

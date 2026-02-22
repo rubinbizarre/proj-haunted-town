@@ -1,15 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"obj_adult_4",
+  "%Name":"obj_node_nev_home",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_adult_4",
+  "name":"obj_node_nev_home",
   "overriddenProperties":[],
   "parent":{
-    "name":"NPCs",
-    "path":"folders/Objects/NPCs.yy",
+    "name":"Nodes",
+    "path":"folders/Objects/Nodes.yy",
   },
   "parentObjectId":null,
   "persistent":false,

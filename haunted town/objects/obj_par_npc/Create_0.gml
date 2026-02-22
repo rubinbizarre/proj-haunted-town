@@ -51,7 +51,14 @@ ac_speed_spook = 0.05;
 fear = 0.0;
 death = false;
 spooked = false;
+
 prev_path_speed = 0;
+prev_move_speed = 0;
+hit_by_van = false;
+
+my_path_duplicate = path_add();
+iframes = false;
+
 
 // FUNCTIONS
 

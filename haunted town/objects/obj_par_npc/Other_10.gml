@@ -20,7 +20,7 @@ for (var i = 0; i < array_length(_schedule); i++) {						// loop through states 
     }
 }
 
-// if our state has changed, find a new destination
+// if our state has changed, do x once (e.g. find a new destination, set a path)
 if (_new_state != current_state) {
     current_state = _new_state;
 	circuit_start = false;

@@ -17,35 +17,57 @@ global.town_grid = mp_grid_create(0, 0, 192, 108, 10, 10);
 mp_grid_add_instances(global.town_grid, obj_collision, true);
 
 global.routines = {
+	// kid stays inside until 8AM when they wander the town
+	// at 12PM they will go to the play park
+	// at 2PM they wander the town again
+	// and will return home at 7PM
     kid: [
-        { start: 0,    dest: 480,  state: "INSIDE" }, // @ 0000
-        { start: 480,  dest: 720,  state: "WANDER_TOWN" }, // @ 0800
-        { start: 720,  dest: 840,  state: "PLAY_PARK" }, // @ 1200
-        { start: 840,  dest: 1140, state: "WANDER_TOWN" }, // @ 1400
-        { start: 1140, dest: 1440, state: "RETURN_HOME" } // @ 1900
+        { start: 0,		dest: 480,	state: "INSIDE" }, // @ 0000
+        { start: 480,	dest: 720,	state: "WANDER_TOWN" }, // @ 0800
+        { start: 720,	dest: 840,	state: "PLAY_PARK" }, // @ 1200
+        { start: 840,	dest: 1140,	state: "WANDER_TOWN" }, // @ 1400
+        { start: 1140,	dest: 1440,	state: "RETURN_HOME" } // @ 1900
     ],
+	// adult stays inside until 8:30AM when they wander the town
+	// at 1PM they will start to circuit
+	// and will return home at 7PM
 	adult: [
-        { start: 0,    dest: 510,  state: "INSIDE" }, // @ 0000
-        { start: 510,  dest: 780,  state: "WANDER_TOWN" }, // @ 0830
-        { start: 780,  dest: 1140, state: "CIRCUIT" },//"WANDER_TOWN_AGAIN" }, // @ 1300
-        { start: 1140, dest: 1440, state: "RETURN_HOME" } // @ 1900
+        { start: 0,		dest: 510,	state: "INSIDE" }, // @ 0000
+        { start: 510,	dest: 780,	state: "WANDER_TOWN" }, // @ 0830
+        { start: 780,	dest: 1140,	state: "CIRCUIT" },//"WANDER_TOWN_AGAIN" }, // @ 1300
+        { start: 1140,	dest: 1440,	state: "RETURN_HOME" } // @ 1900
     ],
+	// elderly stays inside until 10AM when they wander the town
+	// they then return home at 12PM before leaving at 3PM to wander town again
+	// they then return home at 6PM
 	elderly: [
-		{ start: 0,    dest: 600,  state: "INSIDE" }, // @ 0000
-		{ start: 600,  dest: 720,  state: "WANDER_TOWN" }, // @ 1000
-		{ start: 720 , dest: 900,  state: "RETURN_HOME" }, // @ 1200
-		{ start: 900,  dest: 1080, state: "WANDER_TOWN" }, // @ 1500
-		{ start: 1080, dest: 1440, state: "RETURN_HOME" } // @ 1800
+		{ start: 0,		dest: 600,	state: "INSIDE" }, // @ 0000
+		{ start: 600,	dest: 720,	state: "WANDER_TOWN" }, // @ 1000
+		{ start: 720,	dest: 900,	state: "RETURN_HOME" }, // @ 1200
+		{ start: 900,	dest: 1080,	state: "WANDER_TOWN" }, // @ 1500
+		{ start: 1080,	dest: 1440,	state: "RETURN_HOME" } // @ 1800
 	],
+	// tourist leaves home at 8PM and circuits for 1 hour
+	// at 9PM they visit a haunted building.
+	// they return home at 6AM.
 	tourist: [
-		{ start: 0,	   dest: 360,  state: "VISIT_HAUNTED" }, // continue visit_haunted
-		{ start: 360,  dest: 480,  state: "RETURN_HOME" }, // @ 0600
-		{ start: 480,  dest: 1200, state: "INSIDE" }, // @ 0800
-        { start: 1200, dest: 1260, state: "CIRCUIT" }, // @ 2000
-		{ start: 1260, dest: 1800, state: "VISIT_HAUNTED" } // @ 2100
+		{ start: 0,		dest: 360,	state: "VISIT_HAUNTED" }, // continue visit_haunted
+		{ start: 360,	dest: 480,	state: "RETURN_HOME" }, // @ 0600
+		{ start: 480,	dest: 1200,	state: "INSIDE" }, // @ 0800
+        { start: 1200,	dest: 1260,	state: "CIRCUIT" }, // @ 2000
+		{ start: 1260,	dest: 1440,	state: "VISIT_HAUNTED" } // @ 2100
     ],
+	// Nev leaves his home at 8AM
+	// and is out all day until 4AM at which time he will return home.
+	// (maybe through playtesting we will determine that he should visit home more often e.g. lunch break or random break, etc)
+	nev: [
+		{ start: 0,		dest: 240,	state: "OUT" },
+		{ start: 240,	dest: 480,	state: "RETURN_HOME" },
+		{ start: 480,	dest: 1440,	state: "OUT" }
+	]
 };
 
+#region old note about implementing sunday-specific routine (commented)
 /* NOTE ABOUT TIME
 maybe a solution to these crazy numbers is to limit time values to 1440, the # mins in a day.
 when time reaches 1441, it resets to 0, but also a counter is incremented to recognise that we
@@ -67,6 +89,7 @@ routine should be different. for example
 		etc ...
 	}
 */
+#endregion
 
 global.routines_sunday = {
 	kid: [

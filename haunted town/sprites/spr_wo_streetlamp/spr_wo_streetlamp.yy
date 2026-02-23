@@ -12,16 +12,15 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"39d7a40c-4262-4dac-9de9-3bc69f399515","name":"39d7a40c-4262-4dac-9de9-3bc69f399515","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"ee3ea191-a2a7-4cd1-a7e8-f05d0e2bdfa9","name":"ee3ea191-a2a7-4cd1-a7e8-f05d0e2bdfa9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"6b36fa34-301a-4ba5-9a73-724aa765d87d","name":"6b36fa34-301a-4ba5-9a73-724aa765d87d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"ab378094-e997-4f53-9d78-092455cc88b3","name":"ab378094-e997-4f53-9d78-092455cc88b3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":71,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"4384a40d-81ab-4645-936b-04c85c647fbc","blendMode":0,"displayName":"default","isLocked":false,"name":"4384a40d-81ab-4645-936b-04c85c647fbc","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"4c9b1b0c-8bef-4cff-8320-f576550d8a9f","blendMode":0,"displayName":"default","isLocked":false,"name":"4c9b1b0c-8bef-4cff-8320-f576550d8a9f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_wo_streetlamp",
   "nineSlice":null,
@@ -51,7 +50,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":3.0,
+    "length":2.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -71,14 +70,11 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"39d7a40c-4262-4dac-9de9-3bc69f399515","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"9e359a1b-8cbd-4294-87a4-b6b76ba88669","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"b25ee83b-4f71-43d9-ab56-ad1885f381e2","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ee3ea191-a2a7-4cd1-a7e8-f05d0e2bdfa9","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"562e4202-ff3f-401e-85b7-ba643ae25617","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6b36fa34-301a-4ba5-9a73-724aa765d87d","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"a7044135-9f3a-4e44-b4c2-24e32b28605b","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ab378094-e997-4f53-9d78-092455cc88b3","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"2eccf950-6e22-4d3e-89e0-443f424a13b2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

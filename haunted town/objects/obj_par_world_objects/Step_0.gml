@@ -1,11 +1,19 @@
 #region mouse hover and click/release functionality
 // if not haunted and mouse hovering/not hovering
 if (mouse_hover) and (!haunted) {
-	// when hovering over
+	// when hovering over, set image index to 1
 	if (image_index != 1) image_index = 1;
+	//// if we are the streetlamp, set flag to draw haunt outline as extra sprite underneath
+	//if (sprite_index == spr_wo_streetlamp) and (!draw_haunt_outline) {
+	//	draw_haunt_outline = true;
+	//}
 } else if (!mouse_hover) and (!haunted) {
 	// when not hovering over
 	if (image_index != 0) image_index = 0;
+	//// if we are the streetlamp, stop drawing haunt outline
+	//if (sprite_index == spr_wo_streetlamp) and (draw_haunt_outline) {
+	//	draw_haunt_outline = false;
+	//}
 	
 	// disable clicked if it was active
 	if (clicked) clicked = false;
@@ -36,6 +44,9 @@ if (mouse_hover) and (clicked) and (device_mouse_check_button_released(0, mb_lef
 if (btn_confirmed) {
 	// if clicked and was not haunted
 	if (!haunted) {
+		//// stop drawing the haunt outline (extra sprite underneath) if it is being drawn
+		//if (draw_haunt_outline) draw_haunt_outline = false;
+		
 		// make the clicked world object haunted
 		sprite_index = sprite_haunted;
 		haunted = true;

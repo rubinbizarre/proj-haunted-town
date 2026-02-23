@@ -1,11 +1,28 @@
 // if haunted, display a half-transparent fuchsia circle
-// this indicates the exact haunt_radius to the player
+// this reveals the exact haunt_radius to the player
 if (haunted) {
 	draw_set_color(c_fuchsia);
 	draw_set_alpha(0.3);
 	draw_circle(x, y, haunt_radius, false);
 	draw_set_alpha(1);
 	draw_set_color(c_white);
+}
+
+//if (draw_haunt_outline) {
+//	draw_sprite(sprite_index, 2, x, y);
+//}
+
+if (escrow > 0) {
+	var _prev_font = draw_get_font();
+	draw_set_colour(#cb73ff);
+	draw_set_font(font_main);
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
+	draw_text_transformed(x, y - (sprite_height * 1.5), string(escrow), 0.5, 0.5, 0);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
+	draw_set_colour(c_white);
+	draw_set_font(_prev_font);
 }
 
 if (cooldown_active) {
@@ -20,6 +37,7 @@ if (cooldown_active) {
 	draw_set_color(c_white);
 	#endregion
 } else if (deactivate_active) {
+	// draw self normally
 	draw_self();
 	
 	#region draw pie wheel representing deactivate timer
@@ -30,6 +48,7 @@ if (cooldown_active) {
 	draw_set_color(c_white);
 	#endregion
 } else {
+	// draw self normally
 	draw_self();
 }
 

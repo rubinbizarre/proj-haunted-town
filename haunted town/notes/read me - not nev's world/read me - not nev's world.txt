@@ -30,9 +30,12 @@ if state == spooked
 	play animcurve spook once, apply to yscale
 	change sprite to show fear
 	after short delay change state back to previous state
+ISSUE (NEEDS FIXING!!): there is an observed issue where an NPC will stop moving for a whole
+routine phase after being spooked. the issue seems to occur when the NPC is spooked, and
+then halfway through the spook their current_state changes due to the routine timer.
 
 
-									notes on Nev:
+							notes on Nev:
 - Nev himself is an object
 - Nev's van is an object
 - Nev's equipment is not an object? could be a drawn sprite with effects determined by Nev var upgrade_tier

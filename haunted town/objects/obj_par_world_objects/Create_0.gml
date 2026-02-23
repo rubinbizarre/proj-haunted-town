@@ -40,6 +40,8 @@ pie_r2 = 6;
 
 escrow = 0;
 
+draw_haunt_outline = false;
+
 function check_for_npcs() {
 	// note:	this was previously working inside the if (haunted) {} block in step event
 	//			moving it here so that the collision checks are staggered and npcs don't

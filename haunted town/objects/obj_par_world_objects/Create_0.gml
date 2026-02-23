@@ -1,4 +1,4 @@
-depth = y;
+depth = -y;
 
 // button vars
 mouse_hover = false;

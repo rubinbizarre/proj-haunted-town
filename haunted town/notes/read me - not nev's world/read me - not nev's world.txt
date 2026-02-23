@@ -32,7 +32,7 @@ if state == spooked
 	after short delay change state back to previous state
 
 
-notes on Nev:
+									notes on Nev:
 - Nev himself is an object
 - Nev's van is an object
 - Nev's equipment is not an object? could be a drawn sprite with effects determined by Nev var upgrade_tier

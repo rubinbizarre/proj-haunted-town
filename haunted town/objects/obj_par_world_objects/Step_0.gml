@@ -34,10 +34,15 @@ if (mouse_hover) and (clicked) and (device_mouse_check_button_released(0, mb_lef
 }
 
 if (btn_confirmed) {
+	// if clicked and was not haunted
 	if (!haunted) {
+		// make the clicked world object haunted
 		sprite_index = sprite_haunted;
 		haunted = true;
 	} else {
+		// if clicked and was haunted
+		// trigger delayed deactivation
+		
 		//// moved to alarm[1] for delayed reset
 		//// reset to normal
 		//sprite_index = sprite_normal;
@@ -51,7 +56,7 @@ if (btn_confirmed) {
 		
 		deactivate_active = true;
 		
-		show_debug_message("obj_par_world_objects ALARM[1]: "+string(id)+" started delayed reset");
+		show_debug_message("obj_par_world_objects STEP: "+string(id)+" started delayed reset / deactivate");
 	}
 	
 	btn_confirmed = false;
@@ -79,6 +84,11 @@ if (deactivate_active) {
 		// avoid memory leaks; forget all ids which entered/left while haunted
 		ds_list_destroy(current_list);
 		ds_list_destroy(last_list);
+		// escrow can now be transferred to player
+		// (should also be shown visually)
+		if (escrow > 0) {
+			global.haunt_points += escrow;
+		}
 		// now start cooldown.
 		cooldown_active = true;
 	}

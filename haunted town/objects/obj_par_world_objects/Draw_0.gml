@@ -1,3 +1,5 @@
+// if haunted, display a half-transparent fuchsia circle
+// this indicates the exact haunt_radius to the player
 if (haunted) {
 	draw_set_color(c_fuchsia);
 	draw_set_alpha(0.3);
@@ -7,6 +9,7 @@ if (haunted) {
 }
 
 if (cooldown_active) {
+	// draw half-transparent normal sprite
 	draw_sprite_ext(sprite_normal, 0, x, y, image_xscale, image_yscale, 0, c_white, 0.5);
 	
 	#region draw pie wheel representing cooldown timer
@@ -36,6 +39,6 @@ if (global.debug) {
 	draw_set_color(c_white);
 }
 
-if (alarm[1] != -1) {
-	draw_text(x, y-sprite_height, string(alarm[1]));
-}
+//if (alarm[1] != -1) {
+//	draw_text(x, y-sprite_height, string(alarm[1]));
+//}

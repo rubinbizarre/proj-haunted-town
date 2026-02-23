@@ -86,7 +86,7 @@ if (spooked) {
 		alarm[0] = game_get_speed(gamespeed_fps) * 2;
 		
 		//// delayed disable iframes_spook
-		//alarm[3] = game_get_speed(gamespee   d_fps) * 6;
+		//alarm[3] = game_get_speed(gamespeed_fps) * 6;
 		
 		show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" was spooked");
 	}
@@ -95,8 +95,13 @@ if (spooked) {
 	if (ac_time_spook < 1) {
 		ac_time_spook += ac_speed_spook;
 	}
+	
+	var _ac_value = animcurve_channel_evaluate(ac_channel_spook, ac_time_spook);
 	// apply animcurve value to yscale
-	image_yscale = animcurve_channel_evaluate(ac_channel_spook, ac_time_spook);
+	image_yscale = _ac_value;
+	//// and affect ypos (wip)
+	//var _prev_y = y;
+	//y = _prev_y - ;
 }
 
 #region handle collision with nev's van: lie on floor for a couple seconds then get back up

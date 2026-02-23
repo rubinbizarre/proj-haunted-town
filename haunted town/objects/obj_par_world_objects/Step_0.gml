@@ -38,8 +38,6 @@ if (btn_confirmed) {
 		sprite_index = sprite_haunted;
 		haunted = true;
 	} else {
-		// delayed reset to normal
-		alarm[0] = game_get_speed(gamespeed_fps) * 6;
 		//// moved to alarm[1] for delayed reset
 		//// reset to normal
 		//sprite_index = sprite_normal;
@@ -48,6 +46,11 @@ if (btn_confirmed) {
 		//cooldown_active = true;
 		//alarm[0] = game_get_speed(gamespeed_fps) * cooldown_timer;
 		
+		//// delayed reset to normal
+		//alarm[0] = game_get_speed(gamespeed_fps) * 3;
+		
+		deactivate_active = true;
+		
 		show_debug_message("obj_par_world_objects ALARM[1]: "+string(id)+" started delayed reset");
 	}
 	
@@ -55,19 +58,79 @@ if (btn_confirmed) {
 }
 #endregion
 
+#region handle decrementing the various timers when active
+// also resetting it when reaching zero
 if (cooldown_active) {
 	cooldown_timer--;
 	if (cooldown_timer <= 0) {
 		cooldown_active = false;
 		cooldown_timer = cooldown_timer_init;
+		// cooldown complete. 
 	}
 }
+if (deactivate_active) {
+	deactivate_timer--;
+	if (deactivate_timer <= 0) {
+		deactivate_active = false;
+		deactivate_timer = deactivate_timer_init;
+		// deactivate complete.
+		sprite_index = sprite_normal;
+		haunted = false;
+		// avoid memory leaks; forget all ids which entered/left while haunted
+		ds_list_destroy(current_list);
+		ds_list_destroy(last_list);
+		// now start cooldown.
+		cooldown_active = true;
+	}
+}
+#endregion
 
 #region handle NPC entering haunt_radius
 if (haunted) {
-	//if (point_in_circle(obj_par_npc.x, obj_par_npc.y, x, y, haunt_radius)) {
-		//show_message("obj_par_world_objects STEP: npc found in haunt_radius"); // does not work
+	#region attempts at checking collision inside haunt_radius (commented)
+	//var npcs_inside = [0];
+	//for (var i = 0; i < instance_number(obj_par_npc); i++) {
+	//	var _inst = instance_find(obj_par_npc, i);
+	//	for (var j = 0; j <= array_length(npcs_inside); j++) {
+	//		// if current inst has not already been spooked inside this radius
+	//		if (_inst.id != npcs_inside[j]) {
+	//		}
+	//	}
+	//	if (point_in_circle(_inst.x, _inst.y, x, y, haunt_radius)) {
+	//		_inst.spooked = true;
+	//		array_push(npcs_inside, _inst.id); // push inst id to array to compare against
+	//		//show_message("obj_par_world_objects STEP: npc found in haunt_radius");
+	//	}
 	//}
+	
+	//// THIS NEEDS FINISHING AND FINESSING
+	//var _radius = haunt_radius; 
+	//var _sx = x;
+	//var _sy = y;
+	//with (obj_par_npc) {
+	//    // check if currently inside the r
+	//    var _is_inside = point_in_circle(x, y, _sx, _sy, _radius);
+	//    if (_is_inside) {
+	//        // only trigger if it WASN'T inside last frame
+	//        if (!was_in_range) {
+	//            spooked = true;
+	//            //show_debug_message("obj_par_world_objects STEP: "+string(id)+" entered the haunt_radius!");
+            
+	//            // set to true so it doesn't trigger again next frame
+	//            was_in_range = true; 
+	//        }
+	//    } else {
+	//        // if outside, reset the flag so it can be triggered again upon re-entry
+	//        was_in_range = false;
+	//    }
+	//}
+	#endregion
+	
+	// periodic check for collisions whilst haunted
+	if (check_timer-- <= 0) {
+	    check_timer = check_interval;
+	    check_for_npcs();
+	}
 }
 #endregion
 

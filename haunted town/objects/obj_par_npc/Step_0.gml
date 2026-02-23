@@ -63,13 +63,30 @@ if (!spooked) or (!hit_by_van) {
 }
 
 if (spooked) {
-	if (path_speed != 0) {
-		// store current path speed
-		prev_path_speed = path_speed;
-		// stop moving
-		path_speed = 0;
+	if (image_index != 1) {
 		// change sprite to spooked
 		image_index = 1;
+		// play sound (spooked npc)
+		//...
+		
+		//// store current path speed
+		//prev_path_speed = path_speed;
+		//// stop moving
+		//path_speed = 0;
+		
+		if (path_exists(my_path)) {
+			my_path_duplicate = path_duplicate(my_path);
+		}
+		
+		path_end();
+		
+		//iframes_spook = true;
+		
+		// delayed recovery to previous behaviour
+		alarm[0] = game_get_speed(gamespeed_fps) * 2;
+		
+		//// delayed disable iframes_spook
+		//alarm[3] = game_get_speed(gamespee   d_fps) * 6;
 		
 		show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" was spooked");
 	}
@@ -91,6 +108,8 @@ if (instance_exists(obj_nev_van)) {
 			image_angle = _angle;
 			image_xscale = scale_init;
 			image_yscale = scale_init;
+			// play sound (hit by van)
+			//...
 		
 			//prev_path_speed = path_speed;
 			//path_speed = 0;

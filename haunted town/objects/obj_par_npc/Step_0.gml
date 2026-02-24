@@ -37,7 +37,7 @@ if (!spooked) or (!hit_by_van) {
 			path_speed = move_speed_init * obj_manager_time.time_speed_actual;
 		} break;
 		case "PLAY_PARK": {
-			// do nothing (this is actually useful)
+			// do nothing (this is actually useful (?))
 			// could change to 'play sprite' or smthn
 		} break;
 		case "INSIDE": {

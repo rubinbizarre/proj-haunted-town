@@ -1,4 +1,4 @@
-//randomise();
+randomise();
 
 // master
 global.debug = true;
@@ -58,9 +58,6 @@ function custom_pause() {
 		global.paused = false;
 		instance_activate_all();
 		destroy_paused_surface();
-		//if (instance_exists(obj_button_blank)) {
-		//	instance_destroy(obj_button_blank);
-		//}
 	}
 }
 function destroy_paused_surface() {

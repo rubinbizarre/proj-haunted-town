@@ -26,8 +26,8 @@ switch (room) {
 			_inst.node_id = i;
 		}
 		// assign node_id var to each obj_node_nev_van inst
-		for (var i = 0; i < instance_number(obj_node_nev_van); i++) {
-			var _inst = instance_find(obj_node_nev_van, i);
+		for (var i = 0; i < instance_number(obj_node_road); i++) {
+			var _inst = instance_find(obj_node_road, i);
 			_inst.node_id = i;
 		}
 	} break;

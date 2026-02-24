@@ -12,7 +12,7 @@ if (haunted) {
 //	draw_sprite(sprite_index, 2, x, y);
 //}
 
-if (escrow > 0) {
+if (escrow > 0) and (haunted) {
 	var _prev_font = draw_get_font();
 	draw_set_colour(#cb73ff);
 	draw_set_font(font_main);

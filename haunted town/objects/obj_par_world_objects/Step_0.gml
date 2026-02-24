@@ -99,6 +99,7 @@ if (deactivate_active) {
 		// (should also be shown visually)
 		if (escrow > 0) {
 			global.haunt_points += escrow;
+			escrow = 0;
 		}
 		// now start cooldown.
 		cooldown_active = true;
@@ -154,20 +155,3 @@ if (haunted) {
 	}
 }
 #endregion
-
-/*
-if haunted
-	if npc enters the haunt radius
-		if npc has not entered this haunted objects radius before
-			tell npc to store its previous state
-			change npc state to spooked
-			increase HP escrow amount in haunted world object
-
-(notes on npc spooked state):
-if state == spooked
-	stop moving
-	jump in place
-	play animcurve spook once, apply to yscale
-	change sprite to show fear
-	after short delay change state back to previous state
-*/

@@ -1,4 +1,4 @@
-randomise();
+//randomise();
 
 // master
 global.debug = true;

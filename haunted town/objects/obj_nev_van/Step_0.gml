@@ -1,6 +1,6 @@
 if (depth != -(y + 25)) depth = -(y + 25); // set correct depth based on ypos and sprite origin offset. i think its closer to 22 but whatever
 
-// periodic routine check | only in certain conditions
+// periodic routine check but only in certain conditions
 if (current_state == "RETURN_HOME") {
 	if (check_timer-- <= 0) {
 		check_timer = check_interval;
@@ -68,7 +68,7 @@ switch (current_state) {
 			target_y = 0;
 			current_state = "IDLE";
 			// deploy Nev after short delay
-			//...
+			alarm[0] = game_get_speed(gamespeed_fps) * 2;
 			show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE.");
 		}
 	} break;

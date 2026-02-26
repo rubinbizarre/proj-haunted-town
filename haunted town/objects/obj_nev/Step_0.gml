@@ -1,0 +1,94 @@
+if (depth != -y) depth = -y;
+
+// animation & sprite flipping logic
+if (path_index != -1) {
+	// if moving/on a path, face the direction of movement
+	image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
+	// sprite flipping and location swapping for Nev's gear
+	if (instance_exists(gear)) {
+		gear.image_xscale = (direction > 90 and direction < 270) ? -1 : 1;
+		gear.x = (direction > 90 and direction < 270) ? x - 8 : x + 8;
+		gear.y = y - 26;
+		gear.depth = depth - 1;
+	}
+	// progress through animcurve at ac_speed affected by move_speed
+	if (ac_time_bob < 1) {
+		ac_time_bob += (ac_speed_bob * move_speed);
+	} else {
+		ac_time_bob = 0;
+	}
+	// apply animcurve value to yscale
+	image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
+} else {
+	// if not moving/not on a path, make yscale constant and reset animcurve to start pos
+	if (image_yscale != 1) image_yscale = 1;
+	if (ac_time_bob != 0) ac_time_bob = 0;
+}
+	
+// make path_speed affected by current time_speed
+if (instance_exists(obj_manager_time)) {
+	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
+}
+
+switch (current_state) {
+	case "LEAVING_VAN": {
+		if (x == target_x) and (y == target_y) {
+			// nev reached the nearest path node.
+			// now he should use the same mp_grid as npcs while moving toward his destination
+			// change state
+			current_state = "APPROACH_POI";
+			// temporary destination assignment obj_wo_trashcan - this could be any object
+			// using a do...until in order to prevent target pos being inside a collision obj,
+			// which results in nev not moving
+			do {
+				target_x = obj_wo_trashcan.x + irandom_range(-obj_wo_trashcan.haunt_radius, obj_wo_trashcan.haunt_radius);
+				target_y = obj_wo_trashcan.y + irandom_range(-obj_wo_trashcan.haunt_radius, obj_wo_trashcan.haunt_radius);
+			} until (!place_meeting(target_x, target_y, obj_collision));
+			// add this point to path
+			path_add_point(my_path, target_x, target_y, 100);
+			// start moving along path obeying the mp_grid
+			if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+				path_start(my_path, move_speed, path_action_stop, true);
+		    }
+			show_debug_message("obj_nev STEP: started path to POI. total points: "+string(path_get_number(my_path)));
+		}
+	} break;
+	case "APPROACH_POI": {
+		if (x == target_x) and (y == target_y) {
+			// nev reached the POI.
+			// change state
+			current_state = "SURVEY_POI";
+			// make sure nev's sprite faces the POI
+			if (x > obj_wo_trashcan.x) {
+				image_xscale = -1;
+				gear.x = x - 8;
+				gear.image_xscale = -1;
+			} else {
+				image_xscale = 1;
+				gear.x = x + 8;
+				gear.image_xscale = 1;
+			}
+			
+			// if discover an active haunt ...
+			// make gear record anim play
+			switch (gear_tier) {
+				case 0: with instance_create_layer(gear.x, gear.y, "Instances", obj_camera_flash) { depth = other.gear.depth - 1; } break;
+			}
+			// indicate that nev will gain subscribers
+			
+			// if discover nothing unusual ...
+			// make gear record anim play still
+			// indicate that nev will lose subscribers
+			
+		}
+	} break;
+}
+
+/*
+if (record_event) {
+	// change sprite (use equipment to record anim)
+	// play sound
+	// remove any existing path, idle for a moment
+	// after say 4 secs, go back to van
+}
+*/

@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_nev_gear",
+    "path":"sprites/spr_nev_gear/spr_nev_gear.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

@@ -27,6 +27,10 @@ check_interval = 60;//360;//60; // check routine every 1 sec at 60 fps
 
 current_node = instance_nearest(x, y, obj_node_road);
 
+//image_alpha = 0.2;
+
+// FUNCTIONS
+// -----------------------
 function goto_new_dest() {
 	// find a destination
 	var _target = noone;
@@ -67,4 +71,64 @@ function goto_new_dest() {
 	
 	show_debug_message("obj_nev_van CREATE: goto_new_dest(): target: "+string(_target.node_id)+" | node route:\n"+_debug_node_list);
 }
+
+function deploy_nev() {
+	// nev's deploy position depends on the van orientation, gets out driver side always
+	//	  - because we british innit the driver side will be the right-hand side of the van when
+	//		looking at the back side of the van. ig this could change later if need be
+
+	var _nev_x = 0;
+	var _nev_y = 0;
+	var _nev_depth = depth;
+	var _offset_x = 56;//32*2;
+	var _offset_y = 24;//16*2;
 	
+	// determine nev deploy pos and depth
+	switch (sprite_index) {
+		case spr_nev_van_side: {
+			if (direction == 0) { // van facing right
+				// nev gets out in front of the van and 'below' it
+				_nev_depth = depth - 1;
+				_nev_x = x + 25;
+				_nev_y = y + 50;
+			} else if (direction == 180) { // van facing left
+				// nev gets out behind the van and 'above' it
+				_nev_depth = depth + 1;
+				_nev_x = x - 28;
+				_nev_y = y - 12;
+			//} else if (direction > 90 and direction < 270) { // van facing left
+			//	// nev gets out behind the van and 'above' it
+			//	_nev_depth = depth + 1;
+			//	_nev_x = x - _offset_x;
+			//	_nev_y = y - _offset_y;
+			//} else if (direction > 180 and direction < 360) { // van facing right
+			//	// nev gets out in front of the van and 'below' it
+			//	_nev_depth = depth - 1;
+			//	_nev_x = x + _offset_x;
+			//	_nev_y = y + _offset_y;
+			} else {
+				show_message("obj_nev_van CREATE: deploy_nev():\nvan is sideways. direction not found.");
+			}
+		} break;
+		case spr_nev_van_down: { // van facing down
+			_nev_depth = depth + 1;
+			_nev_x = bbox_left - sprite_get_width(spr_nev);//x - _offset_x;
+			_nev_y = y + 40;//32;
+		} break;
+		case spr_nev_van_up: { // van facing up
+			_nev_depth = depth - 1;
+			_nev_x = bbox_right + sprite_get_width(spr_nev);//x + _offset_x;
+			_nev_y = y;
+		} break;
+	}
+	
+	_nev_depth = depth - 1;
+	
+	// when nev gets out, he records his x,y pos to use later when pathing back to the van
+	with instance_create_layer(_nev_x, _nev_y, "Instances", obj_nev) {
+		depth = _nev_depth;
+		return_pos_x = _nev_x;
+		return_pos_y = _nev_y;
+	}
+	show_debug_message("obj_nev_van CREATE: deploy_nev(): deployed nev.");
+}

@@ -54,6 +54,24 @@ Nev himself is deployed by the van when it stops
 	- move_speed = same as adult
 	- drawn on top of npcs
 	- Nev obeys collision
+	
+							NEV'S DETECTION
+for the overworld, Nev is more drawn to haunted world objects that have a faster rate of spooks
+per minute
+	- could be spooks per 15 seconds or something like that, rather than spooks per minute
+	- in this example the rate would be redefined by some master object every 15 seconds, could be
+	  obj_par_world_objects
+when on foot and encountering a possessed NPC, nev will stop what he's doing to record that.
+	afterwards, he goes back to what he was doing prior to recording the possessed NPC.
+	this should be assessed during QA or playtesting to ensure that it's fun and makes sense to the player
+	one alternative idea is that Nev should forget what he was doing, get back in his van and choose a new destination
+when it comes to player activity within haunted buildings, they have an infamy level which
+determines how often nev visits that hbuilding
+	- see notes on house infamy generation (in terms of what raises infamy, how its affected etc)
+	- Nev's probability of visiting a hbuilding ranges from 25 to 75%
+		- so 10% infamy means that Nev has roughly 30% chance of visiting that hbuilding any time
+		  he gets in his van and chooses a new destination
+		  
 
 PSEUDO WORKING IT OUT
 	- when it reaches 7 or 8 AM, starts a path from home to somewhere along a path between two obj_node_nev_van nodes
@@ -69,3 +87,22 @@ PSEUDO WORKING IT OUT
 	- the van continues its path to the previously established end point
 	- when reaching the end point, a new path is set from current node to another random obj_node_nev_van node
 	- when it reaches 3 or 4 AM, if Nev is not in the van he stops what he's doing and returns to the van, and the van sets a path from its current position to the van home node
+
+
+			GENERAL NOTES ON GAMEPLAY
+ - hauntable world objects are not immediately accessible. they, like the buildings, are purchaseable
+	for a haunt point price
+ - Nev should always lock the object when shutting down a haunted world object
+ - the player starts with a certain amount of Haunt Points
+ - if the player is not careful, they can lose all of their Haunt Points, resulting in Game Over (can't do anything without them really)
+	- maybe in a future version, the player can 'make a deal with the devil' or something to keep playing
+		- this feels like it would be better served as a general gameplay modifier that players can select
+		  before starting a new game, rather than during one
+ - there could be some kind of more general skill tree locked via haunt points, which would allow for a
+   greater sense of progression?
+	- for example, the player starts out as a low-level or weak spirit that can only haunt one world object at a time
+		- thus one aspect of the skill tree would be related to world objects, allowing the player to haunt
+		  multiple at a time, enabling faster HPaccumulation/faster rate of growth whilst also increasing
+		  game complexity with Nev being on the prowl. feels like player becomes a stronger spirit.
+	- maybe lower zoom levels (seeing more of the world at once) is locked via skill tree also, as this makes Nev,
+	  amongst other things, easier to track and locate

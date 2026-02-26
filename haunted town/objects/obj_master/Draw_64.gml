@@ -32,9 +32,27 @@ switch (room) {
 		
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_middle);
-				draw_set_color(c_fuchsia);
+				draw_set_color(global.c_haunt);
 				draw_set_font(font_main);
-				draw_text_transformed(room_width/2, room_height/2, "[NOT] PAUSED", 2, 2, 0);
+				// draw 'PAUSED' title header
+				_x = room_width/2;
+				draw_text_transformed(_x, room_height/2, "[NOT] PAUSED", 2, 2, 0);
+				// draw pause menu text options: resume, settings, quit
+				_ysep = 100;
+				_y = room_height/2+160;
+				var _c1 = global.c_haunt;
+				var _c2 = global.c_haunt;
+				var _c3 = global.c_haunt;
+				// switch colour if pause_menu_select is matching
+				switch (pause_menu_select) {
+					case 0: _c1 = c_white; break;
+					case 1: _c2 = c_white; break;
+					case 2: _c3 = c_white; break;
+				}
+				draw_text_transformed_colour(_x, _y, "resume", 1, 1, 0, _c1, _c1, _c1, _c1, 1); _y += _ysep;
+				draw_text_transformed_colour(_x, _y, "settings", 1, 1, 0, _c2, _c2, _c2, _c2, 1); _y += _ysep;
+				draw_text_transformed_colour(_x, _y, "quit", 1, 1, 0, _c3, _c3, _c3, _c3, 1); _y += _ysep;
+				
 				draw_set_halign(fa_left);
 				draw_set_valign(fa_top);
 				draw_set_color(c_white);
@@ -63,6 +81,8 @@ switch (room) {
 			draw_set_halign(fa_center); draw_text_transformed(room_width/2, room_height-40, "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);
 			draw_set_halign(fa_right);
 			draw_text_transformed(room_width - _x, 16, "fps:"+string(fps), 2, 2, 0);
+			draw_text_transformed(room_width - _x, 56, "mouse_x:"+string(mouse_x), 2, 2, 0);
+			draw_text_transformed(room_width - _x, 96, "mouse_y:"+string(mouse_y), 2, 2, 0);
 			draw_set_halign(fa_left);
 			draw_set_color(c_white);
 		}

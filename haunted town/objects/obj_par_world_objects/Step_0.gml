@@ -1,30 +1,22 @@
 #region mouse hover and click/release functionality
-// if not haunted and mouse hovering/not hovering
-if (mouse_hover) and (!haunted) {
-	// when hovering over, set image index to 1
-	if (image_index != 1) image_index = 1;
-	//// if we are the streetlamp, set flag to draw haunt outline as extra sprite underneath
-	//if (sprite_index == spr_wo_streetlamp) and (!draw_haunt_outline) {
-	//	draw_haunt_outline = true;
-	//}
-} else if (!mouse_hover) and (!haunted) {
-	// when not hovering over
-	if (image_index != 0) image_index = 0;
-	//// if we are the streetlamp, stop drawing haunt outline
-	//if (sprite_index == spr_wo_streetlamp) and (draw_haunt_outline) {
-	//	draw_haunt_outline = false;
-	//}
-	
-	// disable clicked if it was active
-	if (clicked) clicked = false;
-}
-
-// if haunted and mouse hovering/not hovering
-if (mouse_hover) and (haunted) {
-	//...
-} else if (!mouse_hover) and (haunted) {
-	// disable clicked if it was active
-	if (clicked) clicked = false;
+// while not haunted
+if (!haunted) {
+	if (mouse_hover) {
+		// when hovering over, set image index to 1
+		if (image_index != 1) image_index = 1;
+	} else {
+		// when not hovering over
+		if (image_index != 0) image_index = 0;
+		// disable clicked if it was active
+		if (clicked) clicked = false;
+	}
+} else { // while haunted
+	if (mouse_hover) {
+		//nothing
+	} else {
+		// disable clicked if it was active
+		if (clicked) clicked = false;
+	}
 }
 
 if (mouse_hover) and (device_mouse_check_button_pressed(0, mb_left)) {

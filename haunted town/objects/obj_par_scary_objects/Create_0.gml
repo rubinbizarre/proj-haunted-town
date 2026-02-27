@@ -11,6 +11,8 @@ btn_confirmed = false;
 cooldown_active = false;
 locked = false;
 haunted = false;
+infamy = 0.0;
+infamy_gain = 0.1;
 
 // assign normal & haunted sprites for this world object
 sprite_normal = spr_so_phone;

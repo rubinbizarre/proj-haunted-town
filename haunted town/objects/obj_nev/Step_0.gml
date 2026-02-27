@@ -80,10 +80,16 @@ switch (current_state) {
 			// make gear use/record anim play
 			//// indicate that nev will LOSE subscribers
 			
+			if (obj_wo_trashcan.haunted) {
+				sub_
+			}
+			
 			// log internally whether this was a gain or loss event
 		}
 	} break;
 	case "SURVEY_POI": {
+		// when gear use anim finishes playing (basically)
+		// go back to the closest circuit node to the van, obeying collision
 		if (!instance_exists(obj_camera_flash)) {
 			current_state = "RETURN_TO_VAN";
 			target_x = return_path_x;
@@ -111,7 +117,7 @@ switch (current_state) {
 	case "GET_IN_VAN": {
 		if (x == target_x) and (y == target_y) {
 			// nev reached the van.
-			// signal to van to start moving again
+			// signal to van to start moving again after short delay
 			obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
 			// now 'get in'
 			instance_destroy(gear);

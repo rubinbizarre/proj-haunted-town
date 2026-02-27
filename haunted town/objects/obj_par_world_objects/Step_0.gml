@@ -74,7 +74,7 @@ if (btn_confirmed) {
 }
 #endregion
 
-#region handle decrementing the various timers when active
+#region handle decrementing the cooldown/deactivate timers when active
 // also resetting it when reaching zero
 if (cooldown_active) {
 	cooldown_timer--;

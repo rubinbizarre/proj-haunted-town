@@ -53,9 +53,17 @@ if (cooldown_active) {
 }
 
 if (global.debug) {
+	var _y = y+(haunt_radius/2);
+	var _ysep = 8;
 	draw_set_color(c_fuchsia);
 	draw_circle(x, y, haunt_radius, true);
 	draw_set_color(c_white);
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
+	draw_text_transformed(x, _y, string(id), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "infamy:"+string(infamy), 0.5, 0.5, 0);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
 }
 
 //if (alarm[1] != -1) {

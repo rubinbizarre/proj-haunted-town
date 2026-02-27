@@ -11,6 +11,7 @@ cooldown_active = false;
 locked = false;
 haunted = false;
 infamy = 0.0;
+infamy_gain = 0.1;
 
 // assign normal & haunted sprites for this world object
 sprite_normal = spr_wo_trashcan;
@@ -42,6 +43,12 @@ pie_r2 = 6;
 escrow = 0;
 
 draw_haunt_outline = false;
+
+function gain_infamy() {
+	infamy += infamy_gain;
+	infamy = clamp(infamy, 0, 1);
+	//show_debug_message("infamy: "+string(infamy));
+}
 
 function check_for_npcs() {
 	// note:	this was previously working inside the if (haunted) {} block in step event
@@ -78,10 +85,13 @@ function check_for_npcs() {
 				} else {
 					_inst.image_xscale = 1;
 				}
-		        //show_debug_message("Target " + string(_inst) + " Entered!");
 				
 				// increment our world object's escrow (+1 HP)
 				escrow++;
+				// this world object gains infamy
+				gain_infamy();
+				
+				//show_debug_message("Target " + string(_inst) + " Entered!");
 			}
 	    }
 	}
@@ -102,3 +112,4 @@ function check_for_npcs() {
 	// 4 // update the memory for the next frame
 	ds_list_copy(last_list, current_list);
 }
+	

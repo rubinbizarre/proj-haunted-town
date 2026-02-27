@@ -114,7 +114,9 @@ determines how often nev visits that hbuilding
 	- at the start of the game, Nev visits POIs purely randomly because nothing has actually been haunted yet
 	- once the player begins to haunt and take actions, infamy on hauntable W.O. and buildings is increased
 	- higher infamy results in Nev visiting that POI more often, since Nev's destination determination is all just weighted probability affected by infamy
+	- weighted probability might need tuning after playtesting
 	- if the player haunts/acts while Nev is nearby, he will immediately go from whatever he was doing towards the recent player action
+	- idea: maybe during late game when Nev has poltergust he can lock buildings if he catches them in use?
 
  - podcast & daily breakdown occurs at midnight (00:00) each day
  - it is a forced event which the player cannot miss

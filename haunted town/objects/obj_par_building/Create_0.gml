@@ -1,10 +1,12 @@
 stats = {
     //fear: 0,
-    infamy: 0,
+    infamy: 0.0,
     //danger: 0,
     owned: false,
     cost: 1
 };
+
+infamy_gain = 0.1;
 
 // define clickable area around house
 // click_radius can be used in point_in_circle() function

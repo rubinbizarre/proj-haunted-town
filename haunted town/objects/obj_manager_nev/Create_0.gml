@@ -1,11 +1,15 @@
-sub_count = 0; // nev's actual sub count (realtime)
+global.sub_count = 0; // nev's actual sub count (realtime)
+global.daily_sub_gain_event_counter = 0;
+global.daily_sub_loss_event_counter = 0;
 
 sub_gain_amount = 1000;
 sub_loss_amount = sub_gain_amount/2;
 
 daily_sub_bonus = 100; // subs gained per day regardless of events
-daily_sub_gain = 0; // total subs gained in a day
-daily_sub_loss = 0; // total subs lost in a day
+daily_sub_gain = 0; // total subs gained in the day
+daily_sub_loss = 0; // total subs lost in the day
+
+
 
 /* this would probably belong in a function pertaining to gaining subs
 switch (obj_nev.gear_tier) {

@@ -69,22 +69,17 @@ switch (current_state) {
 				gear.image_xscale = 1;
 			}
 			
-			// if discover an active haunt ...
 			// make gear use/record anim play
-			//// indicate that nev will GAIN subscribers
 			switch (gear_tier) {
 				case 0: with instance_create_layer(gear.x, gear.y, "Instances", obj_camera_flash) { depth = other.gear.depth - 1; } break;
 			}
 			
-			// or if discover nothing unusual ...
-			// make gear use/record anim play
-			//// indicate that nev will LOSE subscribers
-			
-			if (obj_wo_trashcan.haunted) {
-				sub_
-			}
-			
 			// log internally whether this was a gain or loss event
+			if (obj_wo_trashcan.haunted) {
+				global.daily_sub_gain_event_counter++;
+			} else {
+				global.daily_sub_loss_event_counter++;
+			}
 		}
 	} break;
 	case "SURVEY_POI": {

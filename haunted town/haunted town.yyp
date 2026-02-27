@@ -70,6 +70,7 @@
     {"id":{"name":"obj_candle","path":"objects/obj_candle/obj_candle.yy",},},
     {"id":{"name":"obj_collision","path":"objects/obj_collision/obj_collision.yy",},},
     {"id":{"name":"obj_flame","path":"objects/obj_flame/obj_flame.yy",},},
+    {"id":{"name":"obj_manager_nev","path":"objects/obj_manager_nev/obj_manager_nev.yy",},},
     {"id":{"name":"obj_manager_road_network","path":"objects/obj_manager_road_network/obj_manager_road_network.yy",},},
     {"id":{"name":"obj_manager_routines","path":"objects/obj_manager_routines/obj_manager_routines.yy",},},
     {"id":{"name":"obj_manager_time","path":"objects/obj_manager_time/obj_manager_time.yy",},},

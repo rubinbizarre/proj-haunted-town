@@ -10,6 +10,7 @@ deactivate_active = false;
 cooldown_active = false;
 locked = false;
 haunted = false;
+infamy = 0.0;
 
 // assign normal & haunted sprites for this world object
 sprite_normal = spr_wo_trashcan;

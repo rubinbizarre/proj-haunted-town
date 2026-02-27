@@ -55,23 +55,6 @@ Nev himself is deployed by the van when it stops
 	- drawn on top of npcs
 	- Nev obeys collision
 	
-							NEV'S DETECTION
-for the overworld, Nev is more drawn to haunted world objects that have a faster rate of spooks
-per minute
-	- could be spooks per 15 seconds or something like that, rather than spooks per minute
-	- in this example the rate would be redefined by some master object every 15 seconds, could be
-	  obj_par_world_objects
-when on foot and encountering a possessed NPC, nev will stop what he's doing to record that.
-	afterwards, he goes back to what he was doing prior to recording the possessed NPC.
-	this should be assessed during QA or playtesting to ensure that it's fun and makes sense to the player
-	one alternative idea is that Nev should forget what he was doing, get back in his van and choose a new destination
-when it comes to player activity within haunted buildings, they have an infamy level which
-determines how often nev visits that hbuilding
-	- see notes on house infamy generation (in terms of what raises infamy, how its affected etc)
-	- Nev's probability of visiting a hbuilding ranges from 25 to 75%
-		- so 10% infamy means that Nev has roughly 30% chance of visiting that hbuilding any time
-		  he gets in his van and chooses a new destination
-		  
 
 PSEUDO WORKING IT OUT
 	- when it reaches 7 or 8 AM, starts a path from home to somewhere along a path between two obj_node_nev_van nodes
@@ -106,3 +89,29 @@ PSEUDO WORKING IT OUT
 		  game complexity with Nev being on the prowl. feels like player becomes a stronger spirit.
 	- maybe lower zoom levels (seeing more of the world at once) is locked via skill tree also, as this makes Nev,
 	  amongst other things, easier to track and locate
+	  
+
+			NEV'S DETECTION
+for the overworld, Nev is more drawn to haunted world objects that have a faster rate of spooks
+per minute
+	- could be spooks per 15 seconds or something like that, rather than spooks per minute
+	- in this example the rate would be redefined by some master object every 15 seconds, could be
+	  obj_par_world_objects
+	- or this could just be INFAMY like the buildings
+when on foot and encountering a possessed NPC, nev will stop what he's doing to record that.
+	afterwards, he goes back to what he was doing prior to recording the possessed NPC.
+	this should be assessed during QA or playtesting to ensure that it's fun and makes sense to the player
+	one alternative idea is that Nev should forget what he was doing, get back in his van and choose a new destination
+when it comes to player activity within haunted buildings, they have an infamy level which
+determines how often nev visits that hbuilding
+	- see notes on house infamy generation (in terms of what raises infamy, how its affected etc)
+	- Nev's probability of visiting a hbuilding ranges from 25 to 75%
+		- so 10% infamy means that Nev has roughly 30% chance of visiting that hbuilding any time
+		  he gets in his van and chooses a new destination
+		  
+			more notes on Nev:
+ - generally, Nev appears to react to the player's actions, but he sometimes gets it wrong.
+	- at the start of the game, Nev visits POIs purely randomly because nothing has actually been haunted yet
+	- once the player begins to haunt and take actions, infamy on hauntable W.O. and buildings is increased
+	- higher infamy results in Nev visiting that POI more often, since Nev's destination determination is all just weighted probability affected by infamy
+	- if the player haunts/acts while Nev is nearby, he will immediately go from whatever he was doing towards the recent player action

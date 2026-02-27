@@ -1,1 +1,1 @@
-stats.is_haunted = true;
+stats.owned = true;

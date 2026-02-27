@@ -20,7 +20,7 @@ if (building_selected) {
 }
 
 //draw_self();
-if (stats.is_haunted) {
+if (stats.owned) {
 	// if haunted, draw self differently
 	draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);
 } else {
@@ -29,7 +29,7 @@ if (stats.is_haunted) {
 	 
 	// draw haunt difficulty value when hovering over
 	if (mouse_hover) or (global.tracked_building == id) {
-		var _haunt_diff_str = string(stats.haunt_requirement);
+		var _haunt_diff_str = string(stats.cost);
 		
 		// draw rectangle as 'background label' for haunt diff string
 		draw_rectangle_colour(

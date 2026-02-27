@@ -2,7 +2,7 @@ switch (room) {
 	case rm_main: {
 		#region handle input whilst haunting a house (whilst haunt menu is active)
 		if (global.menu_haunt_active) {
-			global.haunt_difficulty = global.offered_haunt_points / (global.offered_haunt_points + global.tracked_building.stats.haunt_requirement);
+			global.haunt_difficulty = global.offered_haunt_points / (global.offered_haunt_points + global.tracked_building.stats.cost);
 	
 			// decrement offered HP. no less than zero
 			if (keyboard_check_pressed(vk_down)) {
@@ -23,13 +23,13 @@ switch (room) {
 			if (keyboard_check_pressed(vk_enter)) {
 				// validate input:
 				// proceed: player entered at least minimum amount HP required
-				if (global.offered_haunt_points >= global.tracked_building.stats.haunt_requirement) {
+				if (global.offered_haunt_points >= global.tracked_building.stats.cost) {
 					// start haunt process
 					if (instance_exists(obj_skillcheck)) {
 						obj_skillcheck.trigger();
 					}
 				} else { // abort: player did not enter the minimum amount of HP required
-					show_message("HAUNT ABORTED\nYou need to spend at least "+string(global.tracked_building.stats.haunt_requirement)+" Haunt Points to Haunt this building.");
+					show_message("HAUNT ABORTED\nYou need to spend at least "+string(global.tracked_building.stats.cost)+" Haunt Points to Haunt this building.");
 					abort_haunt_process();
 				}
 			}

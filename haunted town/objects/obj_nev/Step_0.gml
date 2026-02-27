@@ -70,16 +70,17 @@ switch (current_state) {
 			}
 			
 			// if discover an active haunt ...
-			// make gear record anim play
+			// make gear use/record anim play
+			//// indicate that nev will GAIN subscribers
 			switch (gear_tier) {
 				case 0: with instance_create_layer(gear.x, gear.y, "Instances", obj_camera_flash) { depth = other.gear.depth - 1; } break;
 			}
-			// indicate that nev will gain subscribers
 			
-			// if discover nothing unusual ...
-			// make gear record anim play still
-			// indicate that nev will lose subscribers
+			// or if discover nothing unusual ...
+			// make gear use/record anim play
+			//// indicate that nev will LOSE subscribers
 			
+			// log internally whether this was a gain or loss event
 		}
 	} break;
 }

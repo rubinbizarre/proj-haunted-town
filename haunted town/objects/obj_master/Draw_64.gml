@@ -111,7 +111,7 @@ switch (room) {
 			draw_set_color(c_white);
 			draw_text_transformed(_x, _y, "HAUNT THIS BUILDING?", 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_x, _y, "spend Haunt Points to Attempt Haunting", 2, 2, 0); _y += _ysep;
-			draw_text_transformed(_x, _y, "HP required: "+string(global.tracked_building.stats.haunt_requirement), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_x, _y, "HP required: "+string(global.tracked_building.stats.cost), 2, 2, 0); _y += _ysep;
 			_y += _ysep;
 			draw_text_transformed(_x, _y, "HP offered: "+string(global.offered_haunt_points), 2, 2, 0); _y += _ysep;
 			_y += _ysep;

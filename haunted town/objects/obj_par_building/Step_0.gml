@@ -10,7 +10,7 @@ if (ac_time_hover < 1) {
 
 #region handle mouse hover effect and enabling interaction for A) haunted buildings and B) normal buildings
 // if building is haunted have unique hover effect
-if (mouse_hover) and (stats.is_haunted) {
+if (mouse_hover) and (stats.owned) {
 //if (mouse_hover) {
 	if (ac_time_hover < 1) {
 		ac_time_hover += ac_speed_hover;
@@ -18,7 +18,7 @@ if (mouse_hover) and (stats.is_haunted) {
 	// apply animcurve values to scale
 	image_xscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
 	image_yscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
-} else if (!mouse_hover) and (stats.is_haunted) {
+} else if (!mouse_hover) and (stats.owned) {
 	// when not hovering over,
 	// shrink down to regular size at constant rate
 	if (image_xscale > 1) {
@@ -38,11 +38,11 @@ if (mouse_hover) and (stats.is_haunted) {
 }
 
 // if building is NOT haunted, slightly zoom
-if ((mouse_hover) and (!stats.is_haunted)) or (global.tracked_building == id) {
+if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
 	// make scale slightly larger instantly
 	image_xscale = 1.1;
 	image_yscale = 1.1;
-} else if (!mouse_hover) and (!stats.is_haunted) {
+} else if (!mouse_hover) and (!stats.owned) {
 	// when not hovering over,
 	// shrink down to regular size at constant rate
 	if (image_xscale > 1) {
@@ -100,7 +100,7 @@ if (mouse_confirmed) {
 	
 	mouse_confirmed = false;
 	
-	if (stats.is_haunted) {
+	if (stats.owned) {
 		// need to store all npc location and path data and then reload it when coming back
 		//...
 		// go to rm_inside, go inside the house

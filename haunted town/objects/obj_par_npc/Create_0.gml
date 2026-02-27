@@ -13,8 +13,8 @@ do {
 	(home_id.sprite_index != spr_building_church) or
 	(home_id.sprite_index != spr_building_hotel)
 );
-//variable_struct_get(home_id.stats, is_haunted) == false);
-//home_id.stats.is_haunted == false);
+//variable_struct_get(home_id.stats, owned) == false);
+//home_id.stats.owned == false);
 
 //target_id = noone; // store the id of this npc's target/destination
 

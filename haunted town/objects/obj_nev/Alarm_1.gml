@@ -1,4 +1,4 @@
-current_state = "LEAVING_VAN";
+//current_state = "LEAVING_VAN";
 
 // add our origin point to the path as a starting point
 // paths need at least two points in order for the obj to move along it

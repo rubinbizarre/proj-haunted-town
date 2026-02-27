@@ -9,7 +9,7 @@ return_pos_y = 0;
 target_x = 0;
 target_y = 0;
 
-current_state = "LEAVING_VAN";
+current_state = "LEAVING_VAN"; // also "APPROACH_POI", "SURVEY_POI"
 
 dest_x = 0;
 dest_y = 0;

@@ -51,6 +51,7 @@ ac_speed_spook = 0.05;
 fear = 0.0;
 death = false;
 spooked = false;
+prev_xscale = 1;
 
 prev_path_speed = 0;
 prev_move_speed = 0;

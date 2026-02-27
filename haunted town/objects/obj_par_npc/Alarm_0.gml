@@ -2,6 +2,7 @@
 spooked = false;
 ac_time_spook = 0;
 image_index = 0;
+image_xscale = prev_xscale; // face the same way as before being spooked
 
 my_path = my_path_duplicate;
 

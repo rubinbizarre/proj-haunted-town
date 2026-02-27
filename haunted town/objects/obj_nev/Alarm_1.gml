@@ -1,3 +1,5 @@
+///@desc path to nearest circuit node
+
 //current_state = "LEAVING_VAN";
 
 // add our origin point to the path as a starting point
@@ -12,7 +14,9 @@ target_x = _node.x;
 target_y = _node.y;
 path_add_point(my_path, target_x, target_y, 100);
 
-//path_add_point(my_path, return_pos_x, return_pos_y, 100);
+// store this node's x,y pos for later when pathing back to van
+return_path_x = _node.x;
+return_path_y = _node.y;
 
 // modify path properties
 path_set_closed(my_path, false);

@@ -9,7 +9,7 @@ if (!spooked) or (!hit_by_van) {
 	}
 
 	// animation & sprite flipping logic
-	if (path_index != -1) {
+	if (path_index != -1) and (!spooked) {
 	    // if moving/on a path, face the direction of movement
 	    image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
 		// progress through animcurve at ac_speed affected by move_speed

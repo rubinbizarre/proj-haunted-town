@@ -83,6 +83,42 @@ switch (current_state) {
 			// log internally whether this was a gain or loss event
 		}
 	} break;
+	case "SURVEY_POI": {
+		if (!instance_exists(obj_camera_flash)) {
+			current_state = "RETURN_TO_VAN";
+			target_x = return_path_x;
+			target_y = return_path_y;
+			path_add_point(my_path, target_x, target_y, 100);
+			// start moving along path obeying the mp_grid
+			if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+				path_start(my_path, move_speed, path_action_stop, true);
+			}
+		}
+	} break;
+	case "RETURN_TO_VAN": {
+		if (x == target_x) and (y == target_y) {
+			// nev reached the nearest path node to the van.
+			// now path to the van (return_van_z) ignoring collision
+			current_state = "GET_IN_VAN";
+			target_x = return_van_x;
+			target_y = return_van_y;
+			path_clear_points(my_path);
+			path_add_point(my_path, x, y, 100);
+			path_add_point(my_path, target_x, target_y, 100);
+			path_start(my_path, move_speed, path_action_stop, true);
+		}
+	} break;
+	case "GET_IN_VAN": {
+		if (x == target_x) and (y == target_y) {
+			// nev reached the van.
+			// signal to van to start moving again
+			obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
+			// now 'get in'
+			instance_destroy(gear);
+			instance_destroy();
+			
+		}
+	} break;
 }
 
 /*

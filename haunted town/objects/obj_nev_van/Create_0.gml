@@ -32,6 +32,8 @@ current_node = instance_nearest(x, y, obj_node_road);
 // FUNCTIONS
 // -----------------------
 function goto_new_dest() {
+	current_state = "DRIVE_AND_STOP";
+	
 	// find a destination
 	var _target = noone;
 	do {
@@ -127,8 +129,8 @@ function deploy_nev() {
 	// when nev gets out, he records his x,y pos to use later when pathing back to the van
 	with instance_create_layer(_nev_x, _nev_y, "Instances", obj_nev) {
 		depth = _nev_depth;
-		return_pos_x = _nev_x;
-		return_pos_y = _nev_y;
+		return_van_x = _nev_x;
+		return_van_y = _nev_y;
 	}
 	show_debug_message("obj_nev_van CREATE: deploy_nev(): deployed nev.");
 }

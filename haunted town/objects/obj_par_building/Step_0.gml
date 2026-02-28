@@ -101,9 +101,35 @@ if (mouse_confirmed) {
 	mouse_confirmed = false;
 	
 	if (stats.owned) {
-		// need to store all npc location and path data and then reload it when coming back
+		//// need to store all npc location and path data and then reload it when coming back
+		////...
+		//// go to rm_inside, go inside the house
+		//room_goto(rm_inside);
+		
+		/*
+		display obj_inside which will load/display the necessary elements
+			- interior (background sprite) matches the building
+			- NPCs currently 'inside' displayed
+			- scary object(s) assigned to building displayed in their assigned locations
+				- do scary objects stay activated when player leaves inside view while scary objects are active?
+		and will also manage reducing player awareness
+			- other sounds from overworld are dulled or muted entirely
+			- camera does not pan or zoom out/in
+		*/
+		
+		// play sound (go inside/open door)
 		//...
-		// go to rm_inside, go inside the house
-		room_goto(rm_inside);
+	} else {
+		// if player can afford to purchase this
+		if (global.haunt_points >= stats.cost) {
+			global.haunt_points -= stats.cost;
+			stats.owned = true;
+			// play sound (unlocked/success)
+			//...
+			exit;
+		} else { // if player cannot afford to purchase this
+			// play sound (locked/fail)
+			//...
+		}
 	}
 }

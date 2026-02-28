@@ -88,7 +88,7 @@ if (spooked) {
 		//// delayed disable iframes_spook
 		//alarm[3] = game_get_speed(gamespeed_fps) * 6;
 		
-		show_debug_message("obj_par_npc STEP: "+string(id)+" was spooked");
+		//show_debug_message("obj_par_npc STEP: "+string(id)+" was spooked");
 	}
 	
 	// play through animcurve once
@@ -136,7 +136,7 @@ if (instance_exists(obj_nev_van)) {
 			// delayed disable iframes
 			alarm[2] = game_get_speed(gamespeed_fps) * 6;
 		
-			show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" was hit_by_van");
+			//show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" was hit_by_van");
 		}
 	}
 }

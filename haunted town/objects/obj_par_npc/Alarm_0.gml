@@ -10,4 +10,4 @@ if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 	path_start(my_path, move_speed, path_action_stop, true);
 }
 
-show_debug_message("obj_par_npc ALARM[0]: "+string(id)+" recovered from being spooked");
+//show_debug_message("obj_par_npc ALARM[0]: "+string(id)+" recovered from being spooked");

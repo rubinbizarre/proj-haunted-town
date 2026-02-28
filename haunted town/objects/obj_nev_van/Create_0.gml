@@ -71,7 +71,7 @@ function goto_new_dest() {
 	//}
 	//array_foreach(_node_list, 
 	
-	show_debug_message("obj_nev_van CREATE: goto_new_dest(): target: "+string(_target.node_id)+" | node route:\n"+_debug_node_list);
+	show_debug_message("obj_nev_van CREATE: goto_new_dest(): target: "+string(_target.node_id)+" | node route: "+_debug_node_list);
 }
 
 function deploy_nev() {

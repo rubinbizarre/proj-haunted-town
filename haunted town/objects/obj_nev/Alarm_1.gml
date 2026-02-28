@@ -25,4 +25,4 @@ path_set_kind(my_path, 0);
 // start moving along the path
 path_start(my_path, move_speed, path_action_stop, true);
 
-show_debug_message("obj_nev ALARM[1]: started path to nearest circuit node. total points: "+string(path_get_number(my_path)));
+//show_debug_message("obj_nev ALARM[1]: started path to nearest circuit node. total points: "+string(path_get_number(my_path)));

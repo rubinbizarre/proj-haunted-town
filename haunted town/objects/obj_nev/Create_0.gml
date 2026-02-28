@@ -35,6 +35,11 @@ gear.depth = depth - 1;
 gear.image_index = gear_tier;
 
 detect_radius = 200;
+todo_queue = [];
+current_target = noone;
+// for detecting currently haunted things at any point while nev is outside, within detect_radius
+check_timer = irandom(60);
+check_interval = 60;
 
 /*
 function determine_destination() {
@@ -57,3 +62,51 @@ function determine_destination() {
 	}
 }
 */
+
+function check_for_haunted_things() {
+	#region unfit code taken from obj_par_world_objects check_for_npcs() (commented)
+	/*
+	// note:	this was taken from obj_par_world_objects check_for_npcs()
+	
+	var r = haunt_radius;
+	
+	if (!ds_exists(list_of_places_to_go, ds_type_list)) {
+		list_of_places_to_go = ds_list_create();
+	}
+	if (!ds_exists(last_list, ds_type_list)) {
+		last_list = ds_list_create();
+	}
+	
+	// 1 // clear the current list and find who is inside now
+	ds_list_clear(list_of_places_to_go);
+	var _num = collision_circle_list(x, y, r, obj_par_world_objects, false, true, list_of_places_to_go, false);
+
+	// 2 // find 'new entries' (in list_of_places_to_go ONLY, not in last_list)
+	for (var i = 0; i < ds_list_size(list_of_places_to_go); i++) {
+	    var _inst = list_of_places_to_go[| i];
+    
+	    // if they weren't here last frame, they just ENTERED
+	    if (ds_list_find_index(last_list, _inst) == -1) {
+			show_debug_message("obj_nev CREATE: check_for_haunted_things(): "+string(_inst)+" entered!");
+	    }
+	}
+	
+	//// 3 // find 'exits' (in last_list ONLY, not in current_list)
+	//for (var i = 0; i < ds_list_size(last_list); i++) {
+	//    var _inst = last_list[| i];
+	//    // if they were here last frame but aren't now, they just LEFT
+	//    if (ds_list_find_index(current_list, _inst) == -1) {
+	//        if (instance_exists(_inst)) {
+	//            //_inst.spooked = false; // reset the trigger
+	//            show_debug_message("obj_nev CREATE: check_for_haunted_things(): "+string(_inst)+" left!");
+	//        }
+	//    }
+	//}
+	
+	// 4 // update the memory for the next frame
+	ds_list_copy(last_list, current_list);
+	*/
+	#endregion
+	
+	
+}

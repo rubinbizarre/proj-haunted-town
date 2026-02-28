@@ -1,21 +1,45 @@
 #region mouse hover and click/release functionality
-// while not haunted
-if (!haunted) {
+// while locked
+if (locked) {
 	if (mouse_hover) {
-		// when hovering over, set image index to 1
-		if (image_index != 1) image_index = 1;
+		// make scale slightly larger instantly
+		image_xscale = 1.1;
+		image_yscale = 1.1;
 	} else {
-		// when not hovering over
-		if (image_index != 0) image_index = 0;
+		// when not hovering over,
+		// shrink down to regular size at constant rate
+		if (image_xscale > 1) {
+			image_xscale -= 0.05;
+		} else {
+			if (image_xscale != 1) image_xscale = 1;
+		}
+		if (image_yscale > 1) {
+			image_yscale -= 0.05;
+		} else {
+			if (image_yscale != 1) image_yscale = 1;
+		}
 		// disable clicked if it was active
 		if (clicked) clicked = false;
 	}
-} else { // while haunted
-	if (mouse_hover) {
-		//nothing
-	} else {
-		// disable clicked if it was active
-		if (clicked) clicked = false;
+} else { // while not locked
+	// while not haunted
+	if (!haunted) {
+		if (mouse_hover) {
+			// when hovering over, set image index to 1
+			if (image_index != 1) image_index = 1;
+		} else {
+			// when not hovering over
+			if (image_index != 0) image_index = 0;
+			// disable clicked if it was active
+			if (clicked) clicked = false;
+		}
+	} else { // while haunted
+		if (mouse_hover) {
+			//nothing
+		} else {
+			// disable clicked if it was active
+			if (clicked) clicked = false;
+		}
 	}
 }
 
@@ -33,36 +57,37 @@ if (mouse_hover) and (clicked) and (device_mouse_check_button_released(0, mb_lef
 	btn_confirmed = true;
 }
 
-if (btn_confirmed) {
-	// if clicked and was not haunted
-	if (!haunted) {
-		//// stop drawing the haunt outline (extra sprite underneath) if it is being drawn
-		//if (draw_haunt_outline) draw_haunt_outline = false;
+if (btn_confirmed) { 
+	if (locked) { // if clicked and was locked
+		// 
+		if (global.haunt_points >= cost) { // if player has enough HP to unlock this
+			// make unlocked and subtract cost from hp wallet
+			locked = false;
+			global.haunt_points -= cost;
+			// play sound (unlock/purchase/success)
+			//...
+			// visual feedback
+			//...
+		} else { // if player cant afford to unlock this
+			// play sound (fail/blocked/error)
+			//...
+			// visual feedback
+			//...
+		}
+		btn_confirmed = false;
+	} else { // if clicked and was not locked
+		if (!haunted) { // if clicked and was not haunted
+			// make object become haunted / activated
+			activate();
+		} else { // if clicked and was haunted
+			// trigger delayed deactivation
+			deactivate_active = true;
 		
-		// make the clicked world object haunted
-		sprite_index = sprite_haunted;
-		haunted = true;
-	} else {
-		// if clicked and was haunted
-		// trigger delayed deactivation
-		
-		//// moved to alarm[1] for delayed reset
-		//// reset to normal
-		//sprite_index = sprite_normal;
-		//haunted = false;
-		//// start cooldown period
-		//cooldown_active = true;
-		//alarm[0] = game_get_speed(gamespeed_fps) * cooldown_timer;
-		
-		//// delayed reset to normal
-		//alarm[0] = game_get_speed(gamespeed_fps) * 3;
-		
-		deactivate_active = true;
-		
-		show_debug_message("obj_par_world_objects STEP: "+string(id)+" started delayed reset / deactivate");
+			show_debug_message("obj_par_world_objects STEP: "+string(id)+" started delayed reset / deactivate");
+		}
+		btn_confirmed = false;
 	}
-	
-	btn_confirmed = false;
+	//btn_confirmed = false;
 }
 #endregion
 
@@ -99,7 +124,7 @@ if (deactivate_active) {
 }
 #endregion
 
-#region handle NPC entering haunt_radius
+#region handle regular checking for NPCs entering and leaving haunt_radius
 if (haunted) {
 	#region attempts at checking collision inside haunt_radius (commented)
 	//var npcs_inside = [0];
@@ -144,6 +169,29 @@ if (haunted) {
 	if (check_timer-- <= 0) {
 	    check_timer = check_interval;
 	    check_for_npcs();
+	}
+}
+#endregion
+
+#region handle displaying escrow with tick up ? down ? lerp effect
+// primarily needed for when Nev empties the escrow
+
+//if (escrow_display == obj_wo_trashcan.escrow) return; // no need to update the display val if it's already the same as actual val
+				
+if (escrow_display != escrow) {
+	// depending on how fast you want the display val to catch up
+	var new_escrow_display = round(lerp(escrow_display, escrow, escrow_display_strength));
+
+	// if the increment is large enough to make a difference, use the newly calculated val
+	// otherwise, move the display val 1 unit closer towards the actual val
+	if (new_escrow_display != escrow_display) {
+		escrow_display = new_escrow_display;
+		/*
+		if (escrow_stolen) escrow_stolen = false;
+		*/
+	} else {
+		//escrow_display += sign(escrow - escrow_display);
+		escrow_display += sign(escrow - escrow_display);
 	}
 }
 #endregion

@@ -24,8 +24,8 @@ cooldown_timer = 360;
 cooldown_timer_init = cooldown_timer;
 deactivate_timer = cooldown_timer / 2;
 deactivate_timer_init = deactivate_timer;
-// price (in HP) to unlock the object after Nev has locked it
-unlock_price = 10;
+
+cost = 10; // price (in HP) to unlock the object after Nev has locked it
 
 // radius in which npcs are spooked by the object while haunted
 haunt_radius = 50;
@@ -41,6 +41,9 @@ pie_r1 = 4;
 pie_r2 = 6;
 
 escrow = 0;
+escrow_display = 0;
+escrow_display_strength = 0.01;
+escrow_stolen = false;
 
 draw_haunt_outline = false;
 
@@ -66,6 +69,7 @@ function check_for_npcs() {
 	
 	// 1 // clear the current list and find who is inside now
 	ds_list_clear(current_list);
+	
 	var _num = collision_circle_list(x, y, r, obj_par_npc, false, true, current_list, false);
 
 	// 2 // find 'new entries' (in current_list ONLY, not in last_list)
@@ -112,4 +116,30 @@ function check_for_npcs() {
 	// 4 // update the memory for the next frame
 	ds_list_copy(last_list, current_list);
 }
+
+function activate() {
+	// make the clicked world object haunted
+	sprite_index = sprite_haunted;
+	haunted = true;
+	// play sound (wo turned haunted/activated)
+	//...
+	// visual feedback
+	//...
+}
+
+function deactivate() {
+	// reset to normal, or deactivate
+	sprite_index = sprite_normal;
+	haunted = false;
+
+	// avoid memory leaks; forget all ids which entered/left while haunted
+	ds_list_destroy(current_list);
+	ds_list_destroy(last_list);
 	
+	// play sound (wo deactivated)
+	//...
+	// visual feedback
+	//...
+	
+	show_debug_message("obj_par_world_objects CREATE: deactivate(): "+string(id));
+}

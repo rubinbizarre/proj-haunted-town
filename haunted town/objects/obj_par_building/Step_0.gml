@@ -37,7 +37,7 @@ if (mouse_hover) and (stats.owned) {
 	if (mouse_clicked) mouse_clicked = false;
 }
 
-// if building is NOT haunted, slightly zoom
+// if building is NOT owned, slightly zoom
 if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
 	// make scale slightly larger instantly
 	image_xscale = 1.1;

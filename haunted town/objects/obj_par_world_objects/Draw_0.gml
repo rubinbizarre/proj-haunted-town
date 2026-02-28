@@ -12,13 +12,13 @@ if (haunted) {
 //	draw_sprite(sprite_index, 2, x, y);
 //}
 
-if (escrow > 0) and (haunted) {
+if (escrow_display >= 0) and (haunted) {
 	var _prev_font = draw_get_font();
 	draw_set_colour(#cb73ff);
 	draw_set_font(font_main);
 	draw_set_halign(fa_center);
-	draw_set_valign(fa_middle);
-	draw_text_transformed(x, y - (sprite_height * 1.5), string(escrow), 0.5, 0.5, 0);
+	draw_set_valign(fa_bottom);
+	draw_text_transformed(x, y - haunt_radius, string(escrow_display), 0.5, 0.5, 0);
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
 	draw_set_colour(c_white);
@@ -52,6 +52,28 @@ if (cooldown_active) {
 	draw_self();
 }
 
+if (locked) and (mouse_hover) {
+	// draw rectangle as 'background label'
+	var _cost_str = string(cost);
+	var _y = y-(sprite_height/2);
+	draw_rectangle_colour(
+		x-string_width(_cost_str),
+		_y - 10,
+		x+string_width(_cost_str),
+		_y + 10,
+		c_white, c_white, c_white, c_white, false
+	);
+		
+	// draw actual string
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
+	draw_set_color(c_black);
+	draw_text_transformed(x, _y, _cost_str, 1, 1, 0);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
+	draw_set_color(c_white);
+}
+
 if (global.debug) {
 	var _y = y+(haunt_radius/2);
 	var _ysep = 8;
@@ -61,7 +83,9 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_middle);
 	draw_text_transformed(x, _y, string(id), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "infamy:"+string(infamy), 0.5, 0.5, 0);
+	draw_text_transformed(x, _y, "infamy:"+string(infamy), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "escrow:"+string(escrow), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "escrow_display:"+string(escrow_display), 0.5, 0.5, 0); _y += _ysep;
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
 }

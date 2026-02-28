@@ -1,6 +1,59 @@
 if (depth != -y) depth = -y;
 
-// animation & sprite flipping logic
+//#region in regular intervals check for detections of haunted world objects nearby within detect_radius
+//if (check_timer-- <= 0) {
+//	check_timer = check_interval;
+	
+//	var _temp_list = ds_list_create();
+//    var _num = collision_circle_list(x, y, detect_radius, obj_par_world_objects, false, true, _temp_list, false);
+    
+//    for (var i = 0; i < _num; i++) {
+//        var _inst = _temp_list[| i];
+        
+//        // CRITERIA:
+//		//		is it haunted? 
+//        // AND: is it NOT already in our queue? 
+//        // AND: is it NOT our current active target?
+//        if (_inst.haunted == true) and (!array_contains(todo_queue, _inst)) and (_inst != current_target) {
+//            array_push(todo_queue, _inst);
+//			show_debug_message("obj_nev STEP: pushed inst to todo_queue ("+string(array_length(todo_queue))+" total): "+string(_inst.id));
+//        }
+//    }
+//    ds_list_destroy(_temp_list);
+//}
+//#endregion
+
+//#region task management: if nev is idle and has more targets to visit, grab the next task
+//if (current_target == noone) and (array_length(todo_queue) > 0) {
+//    // pop the first item from the start of the array (queue behaviour)
+//    current_target = todo_queue[0];
+//	var _inst = array_get(todo_queue, 0);
+//    show_debug_message("obj_nev STEP: removed inst from todo_queue: "+string(_inst.id));
+//	array_delete(todo_queue, 0, 1);
+//	var _arr_length = array_length(todo_queue);
+//	if (_arr_length > 0) {
+//		show_debug_message("obj_nev STEP: todo_queue now contains "+string(_arr_length)+" total");
+//	} else {
+//		show_debug_message("obj_nev STEP: todo_queue is empty");
+//	}
+//    // start movement logic (using your van's pathfinding or a simple move_to)
+//    // For example: path_to_instance(current_target); 
+//}
+//#endregion
+
+//#region visit logic: is nev done visiting somewhere? check if we arrived at the target
+//if (current_target != noone) {
+//    if (point_distance(x, y, current_target.x, current_target.y) <= 1) {
+//        // PERFORM THE ACTION
+//        //current_target.haunted = false; // "Cleanse" the object
+        
+//        // RESET: set target to noone so the task management logic above picks a new task next frame
+//        current_target = noone;
+//    }
+//}
+//#endregion
+
+#region animation & sprite flipping logic
 if (path_index != -1) {
 	// if moving/on a path, face the direction of movement
 	image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
@@ -24,6 +77,7 @@ if (path_index != -1) {
 	if (image_yscale != 1) image_yscale = 1;
 	if (ac_time_bob != 0) ac_time_bob = 0;
 }
+#endregion
 	
 // make path_speed affected by current time_speed
 if (instance_exists(obj_manager_time)) {
@@ -76,14 +130,39 @@ switch (current_state) {
 			
 			// log internally whether this was a gain or loss event
 			if (obj_wo_trashcan.haunted) {
+				// gain - caught while haunted
 				global.daily_sub_gain_event_counter++;
+				
+				// remove all the HP in escrow
+				obj_wo_trashcan.escrow = 0;
+				// WIP: ideally this removal should be visible, like seeing all the points being taken away from you
+				// make the escrow decrement noticeable
+				// make the object call this itself
+				//... .remove_escrow();
+				//... obj_wo_trashcan.escrow_stolen = true; ?
+				
+				// play sound (nev caught obj while haunted)
+				//...
+				// visual feedback
+				//...
+				
+				// once escrow_display has reached zero - wip
+				// deactivate and lock the POI/object in question
+				obj_wo_trashcan.deactivate();
+				obj_wo_trashcan.locked = true;
 			} else {
+				// loss
 				global.daily_sub_loss_event_counter++;
+				
+				// play sound (nev made a mistake ? or does he think he's winning in the moment?)
+				//...
+				// visual feedback
+				//...
 			}
 		}
 	} break;
 	case "SURVEY_POI": {
-		// when gear use anim finishes playing (basically)
+		// when gear-use-anim finishes playing (basically)
 		// go back to the closest circuit node to the van, obeying collision
 		if (!instance_exists(obj_camera_flash)) {
 			current_state = "RETURN_TO_VAN";

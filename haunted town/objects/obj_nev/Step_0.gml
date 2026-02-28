@@ -1,60 +1,7 @@
 if (depth != -y) depth = -y;
 
-//#region in regular intervals check for detections of haunted world objects nearby within detect_radius
-//if (check_timer-- <= 0) {
-//	check_timer = check_interval;
-	
-//	var _temp_list = ds_list_create();
-//    var _num = collision_circle_list(x, y, detect_radius, obj_par_world_objects, false, true, _temp_list, false);
-    
-//    for (var i = 0; i < _num; i++) {
-//        var _inst = _temp_list[| i];
-        
-//        // CRITERIA:
-//		//		is it haunted? 
-//        // AND: is it NOT already in our queue? 
-//        // AND: is it NOT our current active target?
-//        if (_inst.haunted == true) and (!array_contains(todo_queue, _inst)) and (_inst != current_target) {
-//            array_push(todo_queue, _inst);
-//			show_debug_message("obj_nev STEP: pushed inst to todo_queue ("+string(array_length(todo_queue))+" total): "+string(_inst.id));
-//        }
-//    }
-//    ds_list_destroy(_temp_list);
-//}
-//#endregion
-
-//#region task management: if nev is idle and has more targets to visit, grab the next task
-//if (current_target == noone) and (array_length(todo_queue) > 0) {
-//    // pop the first item from the start of the array (queue behaviour)
-//    current_target = todo_queue[0];
-//	var _inst = array_get(todo_queue, 0);
-//    show_debug_message("obj_nev STEP: removed inst from todo_queue: "+string(_inst.id));
-//	array_delete(todo_queue, 0, 1);
-//	var _arr_length = array_length(todo_queue);
-//	if (_arr_length > 0) {
-//		show_debug_message("obj_nev STEP: todo_queue now contains "+string(_arr_length)+" total");
-//	} else {
-//		show_debug_message("obj_nev STEP: todo_queue is empty");
-//	}
-//    // start movement logic (using your van's pathfinding or a simple move_to)
-//    // For example: path_to_instance(current_target); 
-//}
-//#endregion
-
-//#region visit logic: is nev done visiting somewhere? check if we arrived at the target
-//if (current_target != noone) {
-//    if (point_distance(x, y, current_target.x, current_target.y) <= 1) {
-//        // PERFORM THE ACTION
-//        //current_target.haunted = false; // "Cleanse" the object
-        
-//        // RESET: set target to noone so the task management logic above picks a new task next frame
-//        current_target = noone;
-//    }
-//}
-//#endregion
-
 #region animation & sprite flipping logic
-if (path_index != -1) {
+if (path_index != -1) and (current_state != "SURVEY_POI") {
 	// if moving/on a path, face the direction of movement
 	image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
 	// sprite flipping and location swapping for Nev's gear
@@ -260,15 +207,27 @@ switch (current_state) {
 			show_debug_message("obj_nev STEP: "+current_state+": now switching to surveying the POI.");
             current_state = "SURVEY_POI";
             
-            // face the current generic target
-            image_xscale = (x > current_target.x) ? -1 : 1;
-            gear.x = x + (8 * image_xscale);
-            gear.image_xscale = image_xscale;
+            //// face the current generic target
+            //image_xscale = (x > current_target.x) ? -1 : 1;
+			
+			// make sure nev's sprite faces the POI
+			if (x > current_target.x) {
+				image_xscale = -1;
+				gear.x = x - 8;
+				gear.image_xscale = -1;
+			} else {
+				image_xscale = 1;
+				gear.x = x + 8;
+				gear.image_xscale = 1;
+			}
+			
+            //gear.x = x + (8 * image_xscale);
+            //gear.image_xscale = image_xscale;
             
             // gear logic
             if (gear_tier == 0) {
                 with instance_create_layer(gear.x, gear.y, "Instances", obj_camera_flash) { 
-                    depth = other.depth - 1; 
+                    depth = other.gear.depth - 1; 
                 }
 				// play sound (camera in use)
 				//...

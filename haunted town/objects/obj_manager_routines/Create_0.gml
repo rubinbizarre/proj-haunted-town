@@ -60,7 +60,7 @@ global.routines = {
 	// Nev leaves his home at 8AM
 	// and is out all day until 4AM at which time he will return home.
 	// (maybe through playtesting we will determine that he should visit home more often e.g. lunch break or random break, etc)
-	nev: [
+	van: [
 		//{ start: 0,		dest: 240,	state: "OUT" },
 		//{ start: 240,	dest: 480,	state: "RETURN_HOME" },
 		//{ start: 480,	dest: 1440,	state: "OUT" }

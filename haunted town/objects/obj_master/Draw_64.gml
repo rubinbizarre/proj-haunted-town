@@ -80,14 +80,18 @@ switch (room) {
 			// display controls for time speed manipulation
 			draw_set_halign(fa_center); draw_text_transformed(room_width/2, room_height-40, "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);
 			draw_set_halign(fa_right);
-			draw_text_transformed(room_width - _x, 16, "fps:"+string(fps), 2, 2, 0);
-			draw_text_transformed(room_width - _x, 56, "mouse_x:"+string(mouse_x), 2, 2, 0);
-			draw_text_transformed(room_width - _x, 96, "mouse_y:"+string(mouse_y), 2, 2, 0);
+			_y = 16;
+			draw_text_transformed(room_width - _x, _y, "fps:"+string(fps), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(room_width - _x, _y, "mouse_x:"+string(mouse_x), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(room_width - _x, _y, "mouse_y:"+string(mouse_y), 2, 2, 0); _y += _ysep;
+			_y += _ysep;
+			draw_text_transformed(room_width - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(room_width - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			draw_set_halign(fa_left);
 			draw_set_color(c_white);
 		}
 		#endregion
-
+		
 		#region HUD
 		if (global.hud) {
 			draw_set_halign(fa_center);
@@ -100,33 +104,35 @@ switch (room) {
 			draw_text_transformed(_x, _y, scr_date_and_time(global.current_time_), 2, 2, 0); _y += _ysep; // draw time in format "Monday 20:32" include toggle for 12 hr time in settings "Monday 8:32 PM"
 			draw_set_halign(fa_left);
 		}
-
-		if (global.menu_haunt_active) {
-			draw_set_halign(fa_center);
-			_x = room_width/4;
-			_y = room_height/4;
-			_ysep = 40;
-			draw_set_color(c_dkgray);
-			draw_rectangle(_x - 400, _y - 50, _x + 400, _y + 400, false);
-			draw_set_color(c_white);
-			draw_text_transformed(_x, _y, "HAUNT THIS BUILDING?", 2, 2, 0); _y += _ysep;
-			draw_text_transformed(_x, _y, "spend Haunt Points to Attempt Haunting", 2, 2, 0); _y += _ysep;
-			draw_text_transformed(_x, _y, "HP required: "+string(global.tracked_building.stats.cost), 2, 2, 0); _y += _ysep;
-			_y += _ysep;
-			draw_text_transformed(_x, _y, "HP offered: "+string(global.offered_haunt_points), 2, 2, 0); _y += _ysep;
-			_y += _ysep;
-			if (global.haunt_difficulty > 0) {
-				// convert haunt_difficulty into meaningful percentage for player
-				//var _result = round((1 - global.haunt_difficulty) * 100); // rounded
-				var _result = (1 - global.haunt_difficulty) * 100;
-				var _diff_display = string(_result) + "%";
-				draw_text_transformed(_x, _y, "difficulty: "+_diff_display, 2, 2, 0);
-			}
-			_y += _ysep;
-			_y += _ysep;
-			draw_text_transformed(_x, _y, "press ENTER to Haunt", 2, 2, 0); _y += _ysep;
-			draw_set_halign(fa_left);
-		}
+		
+		#region deprecated menu_haunt_active display for haunting buildings (commented)
+		//if (global.menu_haunt_active) {
+		//	draw_set_halign(fa_center);
+		//	_x = room_width/4;
+		//	_y = room_height/4;
+		//	_ysep = 40;
+		//	draw_set_color(c_dkgray);
+		//	draw_rectangle(_x - 400, _y - 50, _x + 400, _y + 400, false);
+		//	draw_set_color(c_white);
+		//	draw_text_transformed(_x, _y, "HAUNT THIS BUILDING?", 2, 2, 0); _y += _ysep;
+		//	draw_text_transformed(_x, _y, "spend Haunt Points to Attempt Haunting", 2, 2, 0); _y += _ysep;
+		//	draw_text_transformed(_x, _y, "HP required: "+string(global.tracked_building.stats.cost), 2, 2, 0); _y += _ysep;
+		//	_y += _ysep;
+		//	draw_text_transformed(_x, _y, "HP offered: "+string(global.offered_haunt_points), 2, 2, 0); _y += _ysep;
+		//	_y += _ysep;
+		//	if (global.haunt_difficulty > 0) {
+		//		// convert haunt_difficulty into meaningful percentage for player
+		//		//var _result = round((1 - global.haunt_difficulty) * 100); // rounded
+		//		var _result = (1 - global.haunt_difficulty) * 100;
+		//		var _diff_display = string(_result) + "%";
+		//		draw_text_transformed(_x, _y, "difficulty: "+_diff_display, 2, 2, 0);
+		//	}
+		//	_y += _ysep;
+		//	_y += _ysep;
+		//	draw_text_transformed(_x, _y, "press ENTER to Haunt", 2, 2, 0); _y += _ysep;
+		//	draw_set_halign(fa_left);
+		//}
+		#endregion
 
 		#endregion
 	} break;

@@ -151,8 +151,8 @@ if (instance_exists(obj_manager_time)) {
 #endregion
 
 // --- SCANNING LOGIC ---
-// only scan if we are out of the van (existing) and don't have too many tasks already
-if (instance_exists(self)) and (array_length(todo_queue) < 5) {
+//// only scan if we are out of the van (existing) and don't have too many tasks already
+//if (instance_exists(self)) and (array_length(todo_queue) < 5) {
 	if (check_timer-- <= 0) { // periodic
 		check_timer = check_interval;
 	    var _temp_list = ds_list_create();
@@ -168,15 +168,17 @@ if (instance_exists(self)) and (array_length(todo_queue) < 5) {
 	    }
 	    ds_list_destroy(_temp_list);
 	}
-}
+//}
 
 // --- STATE MACHINE ---
 switch (current_state) {
     case "LEAVING_VAN": {
 		// if nev has reached the nearest path circuit node
-        if (x == target_x) and (y == target_y) {
+        //if (x == target_x) and (y == target_y) {
+		if (point_distance(x, y, target_x, target_y) < 2) {
             if (array_length(todo_queue) > 0) {
 				// pick the first target from our queue
+				// might make more sense to pick the closest queue item to nev instead
                 current_target = todo_queue[0];
 				show_debug_message("obj_nev STEP: "+current_state+": selected target "+string(current_target)+" from todo_queue to approach.");
 				

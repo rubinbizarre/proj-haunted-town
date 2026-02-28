@@ -111,6 +111,7 @@
     {"id":{"name":"spr_btn_quit","path":"sprites/spr_btn_quit/spr_btn_quit.yy",},},
     {"id":{"name":"spr_btn_resume","path":"sprites/spr_btn_resume/spr_btn_resume.yy",},},
     {"id":{"name":"spr_btn_settings","path":"sprites/spr_btn_settings/spr_btn_settings.yy",},},
+    {"id":{"name":"spr_building_0_shack_alt","path":"sprites/spr_building_0_shack_alt/spr_building_0_shack_alt.yy",},},
     {"id":{"name":"spr_building_0_shack","path":"sprites/spr_building_0_shack/spr_building_0_shack.yy",},},
     {"id":{"name":"spr_building_1_house","path":"sprites/spr_building_1_house/spr_building_1_house.yy",},},
     {"id":{"name":"spr_building_2_manor","path":"sprites/spr_building_2_manor/spr_building_2_manor.yy",},},

@@ -2,7 +2,7 @@
 // loosely copied from obj_par_npc user_event[0] event
 
 // get the current schedule for nev
-var _schedule = variable_struct_get(global.routines, "nev");
+var _schedule = variable_struct_get(global.routines, "van");
 var _time = global.current_time_;
 
 // find which part of the routine we are currently in

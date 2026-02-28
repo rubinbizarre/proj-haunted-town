@@ -35,6 +35,7 @@ function goto_new_dest() {
 	current_state = "DRIVE_AND_STOP";
 	
 	// find a destination
+	// select a random obj_node_road inst that is not the nearest-node/current_node
 	var _target = noone;
 	do {
 		_target = instance_find(obj_node_road, irandom(instance_number(obj_node_road) - 1));

@@ -119,6 +119,16 @@ determines how often nev visits that hbuilding
 		- similarly, or in place of this, Nev will move towards nearby activated objects (in his detect radius) when he is done with the current POI
 	- idea: maybe during late game when Nev has poltergust he can lock buildings if he catches them in use?
  - nev does not go to locked objects ?
+			corrections
+ - at the start of the game/when nothing has infamy, Nev drives to random road_nodes throughout the day.
+	- i.e. he drives to a node, stops for a moment, possibly gets out briefly, then drives to another node
+ - as soon as something has infamy, it becomes the only thing nev will visit
+	- i.e. he selects the nearest road node to the object and drives to it, gets out and approaches it
+ - when multiple things have infamy, the target is decided randomly
+	- the things which have the most infamy are more likely to be chosen as target (weighted probability)
+ - or is it more just that he drives around in his van randomly until he detects something haunted, drives close to it, parks, walks to it
+ - can he only add to his todo_queue haunted objects which he passes nearby while driving?
+	- and then when walking he merely completes the queue before returning to his van?
 
 			daily breakdown notes:
  - podcast & daily breakdown occurs at midnight (00:00) each day

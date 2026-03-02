@@ -22,7 +22,7 @@ ac_time_bob = 0;
 ac_speed_bob = 0.08;//0.1;
 
 glance_counter = 0;
-glance_delay = 0.8;
+glance_delay = 0.3;//0.4;//0.8;
 
 my_path = path_add();
 

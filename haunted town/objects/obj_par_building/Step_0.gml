@@ -133,3 +133,58 @@ if (mouse_confirmed) {
 		}
 	}
 }
+
+#region handle enticing NPCs
+if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
+	(point_in_circle(mouse_x, mouse_y, x, y, entice_radius))
+{
+	//show_debug_message("obj_par_building STEP: "+string(id)+": click detected");
+	
+	var _temp_list = ds_list_create();
+	var _num = collision_circle_list(x, y, entice_radius, obj_par_npc, false, true, _temp_list, false);
+    
+	for (var i = 0; i < _num; i++) {
+	    var _inst = _temp_list[| i];
+		// if mouse is clicking on this npc inst whilst inside entice_radius
+	    if (point_in_rectangle(mouse_x, mouse_y,
+			_inst.x - abs(_inst.sprite_width/2) - 4,
+			_inst.y - _inst.sprite_height - 4,
+			_inst.x + abs(_inst.sprite_width/2) + 4,
+			_inst.y + 4
+		)) {
+			//show_debug_message("obj_par_building STEP: "+string(id)+": clicked on npc "+string(_inst.id));
+			with (_inst) {
+				// store npc path
+				if (path_exists(my_path)) {
+					my_path_duplicate = path_duplicate(my_path);
+				}
+				// make npc stop
+				path_end();
+				
+				// change npc state - block routine checks while in this state
+				current_state = "ENTICED";
+				
+				// make this building inst the npc's new target
+				target_x = other.x;
+				target_y = other.y;
+				//show_debug_message("obj_par_building STEP: "+string(id)+": assigned npc target as tx:"+string(other.x)+", ty:"+string(other.y));
+				
+				// if npc is within multiple haunted obj_par_buildings' entice_radii, target the closest inst to npc
+				//	- here is where you would push this buildings id to a list within npc,
+				//	- then npc must determine which inst is closest itself
+				//  - do this instead of assigning targetx,y prematurely ^^^
+				
+				// make npc sprite shocked/spooked
+				image_index = 1;
+				// make npc 'shiver'
+				//...
+				// play sound
+				//...
+				
+				// delayed trigger to actually move to the target
+				alarm[0] = game_get_speed(gamespeed_fps) * 1.75;
+			}
+	    }
+	}
+	ds_list_destroy(_temp_list);
+}

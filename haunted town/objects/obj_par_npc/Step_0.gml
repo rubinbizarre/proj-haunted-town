@@ -2,12 +2,15 @@ if (depth != -y) depth = -y;
 
 // while not spooked or not hit by van
 if (!spooked) or (!hit_by_van) {
-	// periodic routine check
-	if (check_timer-- <= 0) {
-	    check_timer = check_interval;
-	    event_user(0); // trigger routine logic
+	// if not enticed, do periodic routine check
+	if (current_state != "ENTICED") {
+		// periodic routine check
+		if (check_timer-- <= 0) {
+		    check_timer = check_interval;
+		    event_user(0); // trigger routine logic
+		}
 	}
-
+	
 	// animation & sprite flipping logic
 	if (path_index != -1) and (!spooked) {
 	    // if moving/on a path, face the direction of movement
@@ -140,4 +143,34 @@ if (instance_exists(obj_nev_van)) {
 		}
 	}
 }
+#endregion
+
+#region handle enticing via clicking (commented) (now in obj_par_building step)
+//if (mouse_check_button_pressed(mb_left)) and
+//	(point_in_rectangle(mouse_x, mouse_y,
+//		x - (sprite_width/2) - 4,
+//		y - sprite_height - 4,
+//		x + (sprite_width/2) + 4,
+//		y + 4
+//	)) {
+//	// if npc is within a haunted obj_par_building's entice_radius, target that inst
+//	// if npc is within multiple haunted obj_par_buildings' entice_radii, target the closest inst to npc
+	
+//	// store npc path
+//	if (path_exists(my_path)) {
+//		my_path_duplicate = path_duplicate(my_path);
+//	}
+//	// make npc stop
+//	path_end();
+//	// make npc 'shiver'
+//	//...
+//	// make npc sprite shocked
+//	image_index = 1;
+
+//	// change npc state - block routine checks while in this state
+//	current_state = "ENTICED";
+
+//	// delayed trigger to actually move into the nearest hbuilding
+//	alarm[0] = game_get_speed(gamespeed_fps) * 2;
+//}
 #endregion

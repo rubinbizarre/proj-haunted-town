@@ -9,8 +9,8 @@ stats = {
 infamy_gain = 0.1;
 
 // define clickable area around house
-// click_radius can be used in point_in_circle() function
-click_radius = sprite_width * 1.2;
+// entice_radius can be used in point_in_circle() function
+entice_radius = sprite_width * 0.75;
 
 // flag to track whether building was clicked on last
 // when true, displays the building's resource levels

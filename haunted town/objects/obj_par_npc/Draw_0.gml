@@ -11,6 +11,13 @@ if (global.debug) {
 		draw_path(my_path, x, y, true);
 	}
 	draw_set_color(c_white);
+	draw_rectangle(
+		x - abs(sprite_width/2) - 4,
+		y - sprite_height - 4,
+		x + abs(sprite_width/2) + 4,
+		y + 4,
+		false
+	);
 	draw_set_alpha(1);
 	draw_set_halign(fa_center);
 	// draw text var values

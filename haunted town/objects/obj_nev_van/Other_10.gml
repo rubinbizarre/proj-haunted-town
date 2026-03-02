@@ -86,13 +86,13 @@ if (_new_state != current_state) {
 			//	}
 			// lets say node 3 is selected as the destination from 0.
 			// the program would do the route in reverse?
-			//	dest_id = 3
-			//	loop through node_to_node.dest_id[] array in descending order (so 2, 1, etc) finding the route which leads to 0
+			//	target_id = 3
+			//	loop through node_to_node.target_id[] array in descending order (so 2, 1, etc) finding the route which leads to 0
 			//		2 does not contain 0 as a possible route, move down to 1
 			//		1 has 0 as a possible route
 			//	next_point = node_to_node.1[i]
 			//	path_add_point(my_path, next_point.x, next_point.y)
-			//	path_add_point(my_path, dest_id.x, dest_id.y)
+			//	path_add_point(my_path, target_id.x, target_id.y)
 			#endregion
 			
 			// store start coords to include in path

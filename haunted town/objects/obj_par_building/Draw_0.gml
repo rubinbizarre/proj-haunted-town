@@ -23,6 +23,14 @@ if (building_selected) {
 if (stats.owned) {
 	// if haunted, draw self differently
 	draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);
+	
+	if (mouse_hover) {
+		draw_set_halign(fa_center);
+		var _scale_mod = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
+		draw_text_transformed(x, y - sprite_height/3, "ENTER", 1*_scale_mod, 1*_scale_mod, 0);
+		draw_set_halign(fa_left);
+	}
+	
 } else {
 	// otherwise, draw self normally
 	draw_self();

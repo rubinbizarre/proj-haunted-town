@@ -80,23 +80,23 @@ if (_new_state != current_state) {
             visible = true;
             // pick a random building that isn't their home
 			do {
-				dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			} until (dest_id != home_id);
+				target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			} until (target_id != home_id);
 			
-            target_x = dest_id.x;
-            target_y = dest_id.y; //- (dest_id.sprite_height/4);
+            target_x = target_id.x;
+            target_y = target_id.y; //- (target_id.sprite_height/4);
 			
 			//visible = false; // "enter" the house // this does not work as intended
 		} break;
 		case "WANDER_TOWN_AGAIN": {
             visible = true;
             // pick a random building that isn't their home
-            dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			while (dest_id == home_id) {
-				dest_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+            target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			while (target_id == home_id) {
+				target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
 			}
-            target_x = dest_id.x;
-            target_y = dest_id.y;
+            target_x = target_id.x;
+            target_y = target_id.y;
 		} break;
         case "VISIT_HAUNTED": {
             visible = true;

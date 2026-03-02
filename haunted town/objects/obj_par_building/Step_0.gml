@@ -119,6 +119,10 @@ if (mouse_confirmed) {
 		
 		// play sound (go inside/open door)
 		//...
+		
+		with instance_create_layer(960, 237, "Master", obj_inside_bg) {
+			depth = obj_master.depth;
+		}
 	} else {
 		// if player can afford to purchase this
 		if (global.haunt_points >= stats.cost) {
@@ -188,3 +192,4 @@ if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
 	}
 	ds_list_destroy(_temp_list);
 }
+#endregion

@@ -3,8 +3,13 @@ stats = {
     infamy: 0.0,
     //danger: 0,
     owned: false,
-    cost: 1
+    cost: 1,
 };
+
+inside = {
+	so: [obj_so_phone],		// scary object
+	occupants: []			// npcs currently inside
+}
 
 infamy_gain = 0.1;
 

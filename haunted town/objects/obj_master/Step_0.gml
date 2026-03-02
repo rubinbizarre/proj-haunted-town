@@ -66,7 +66,7 @@ switch (room) {
 						custom_pause();
 					} break;
 					case 1: { // settings
-						instance_create_layer(0, 0, "Instances", obj_settings);
+						instance_create_layer(0, 0, "Master", obj_settings);
 					} break;
 					case 2: { // quit (return to title)
 						room_goto(rm_title);
@@ -99,7 +99,7 @@ switch (room) {
 				if (pause_menu_select != 1) pause_menu_select = 1;
 				// confirm
 				if (mouse_check_button_released(mb_left)) {
-					instance_create_layer(0, 0, "Instances", obj_settings);
+					instance_create_layer(0, 0, "Master", obj_settings);
 				}
 			}
 			_y1 += _btn_ysep;

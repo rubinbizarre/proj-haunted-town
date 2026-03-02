@@ -189,7 +189,7 @@ switch (current_state) {
                 // calculate random approach point around the GENERIC current_target
                 do {
                     target_x = current_target.x + irandom_range(-current_target.haunt_radius, current_target.haunt_radius);
-                    target_y = current_target.y + irandom_range(-current_target.haunt_radius, current_target.haunt_radius);
+                    target_y = current_target.y + irandom_range(-(current_target.haunt_radius/2.5), (current_target.haunt_radius/2.5));
                 } until (!place_meeting(target_x, target_y, obj_collision));
 
                 path_clear_points(my_path);
@@ -228,7 +228,7 @@ switch (current_state) {
             
             // gear logic
             if (gear_tier == 0) {
-                with instance_create_layer(gear.x, gear.y, "Instances", obj_camera_flash) { 
+                with instance_create_layer(gear.x, gear.y, "Master", obj_camera_flash) { 
                     depth = other.gear.depth - 1; 
                 }
 				// play sound (camera in use)
@@ -245,14 +245,14 @@ switch (current_state) {
 				//...
 				// visual feedback
 				//...
-				show_debug_message("obj_nev STEP: "+current_state+": sub gain event.");
+				show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
             } else {
                 global.daily_sub_loss_event_counter++;
 				// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 				//...
 				// visual feedback
 				//...
-				show_debug_message("obj_nev STEP: "+current_state+": sub loss event.");
+				show_debug_message("obj_nev STEP: "+current_state+": sub loss event. total sub losses today: "+string(global.daily_sub_loss_event_counter));
             }
         }
     } break;

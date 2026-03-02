@@ -30,7 +30,7 @@ my_path = path_add();
 alarm[0] = game_get_speed(gamespeed_fps) * glance_delay;
 
 gear_tier = 0;
-gear = instance_create_layer(x + 8, y - 26, "Instances", obj_nev_gear);
+gear = instance_create_layer(x + 8, y - 26, "Master", obj_nev_gear);
 gear.depth = depth - 1;
 gear.image_index = gear_tier;
 

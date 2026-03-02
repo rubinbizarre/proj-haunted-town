@@ -128,7 +128,7 @@ function deploy_nev() {
 	_nev_depth = depth - 1;
 	
 	// when nev gets out, he records his x,y pos to use later when pathing back to the van
-	with instance_create_layer(_nev_x, _nev_y, "Instances", obj_nev) {
+	with instance_create_layer(_nev_x, _nev_y, "Master", obj_nev) {
 		depth = _nev_depth;
 		return_van_x = _nev_x;
 		return_van_y = _nev_y;

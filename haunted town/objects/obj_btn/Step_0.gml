@@ -35,7 +35,7 @@ if (btn_confirmed) {
 		case spr_btn_settings: {
 			// open settings menu
 			// working, but disabled for now until settings is more refined/better implemented
-			instance_create_layer(0, 0, "Instances", obj_settings);
+			instance_create_layer(0, 0, "Master", obj_settings);
 		} break;
 		case spr_btn_quit: {
 			// end or exit the game

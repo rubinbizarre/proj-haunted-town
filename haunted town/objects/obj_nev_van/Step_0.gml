@@ -6,6 +6,22 @@ if (current_state == "RETURN_HOME") {
 		check_timer = check_interval;
 		event_user(0); // trigger routine logic
 	}
+} else {
+	// periodic check for haunted POIs whilst nev is 'inside' the van
+	if (!instance_exists(obj_nev)) and (check_timer-- <= 0) {
+		check_timer = check_interval;
+		var _temp_list = ds_list_create();
+		var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_world_objects, false, true, _temp_list, false);
+		for (var i = 0; i < _num; i++) {
+		    var _inst = _temp_list[| i];
+		    // if it's haunted, not already queued, and not our current focus, and not locked: push it
+		    if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+		        array_push(global.nev_todo_queue, _inst);
+				show_debug_message("obj_nev_van STEP: "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+		    }
+		}
+		ds_list_destroy(_temp_list);
+	}
 }
 
 #region animation / sprite flipping logic
@@ -53,23 +69,34 @@ if (instance_exists(obj_manager_time)) {
 
 switch (current_state) {
 	case "LEAVE_HOME": {
-		if (x == target_x) and (y == target_y) {
+		if (point_distance(x, y, target_x, target_y) < 2) {
 			target_x = 0;
 			target_y = 0;
-			current_node = instance_nearest(x, y, obj_node_road);
 			current_state = "DRIVE_AND_STOP";
+			
 			show_debug_message("obj_nev_van STEP: changed state from LEAVE_HOME to DRIVE_AND_STOP. going to new dest.");
+			
 			goto_new_dest();
 		}
 	} break;
 	case "DRIVE_AND_STOP": {
 		if (path_index == -1) and (current_state != "IDLE") {
-			target_x = 0;
-			target_y = 0;
-			current_state = "IDLE";
-			// deploy Nev after short delay
-			alarm[0] = game_get_speed(gamespeed_fps) * 2;
-			show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE.");
+			if (array_length(global.nev_todo_queue) > 0) {
+				// nev has at least one POI to visit. stop and deploy him
+				target_x = 0;
+				target_y = 0;
+				current_state = "IDLE";
+			
+				// deploy Nev after short delay
+				alarm[0] = game_get_speed(gamespeed_fps) * 1.25;
+			
+				show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE. at least one POI inside nev_todo_queue. deploying Nev shortly!");
+			} else {
+				// nev has no POIs to visit. keep driving around
+				goto_new_dest();
+				
+				show_debug_message("obj_nev_van STEP: no POIs inside nev_todo_queue. driving elsewhere!");
+			}
 		}
 	} break;
 }

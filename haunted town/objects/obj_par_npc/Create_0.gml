@@ -8,29 +8,29 @@ move_speed_init = move_speed; // saves us from re-entering value of move_speed i
 // technically game starts with zero haunted buildings so this is a non issue
 // maybe the church and hotel should be excluded though
 do {
-	home_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
+	home_obj = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
 } until (
-	(home_id.sprite_index != spr_building_church) or
-	(home_id.sprite_index != spr_building_hotel)
+	(home_obj.sprite_index != spr_building_church) or
+	(home_obj.sprite_index != spr_building_hotel)
 );
-//variable_struct_get(home_id.stats, owned) == false);
-//home_id.stats.owned == false);
+//variable_struct_get(home_obj.stats, owned) == false);
+//home_obj.stats.owned == false);
 
-//target_id = noone; // store the id of this npc's target/destination
+//target_obj = noone; // store the id of this npc's target/destination
 
 // state and pathing vars
 current_state = "INSIDE";
 my_path = path_add();
 path_set_kind(my_path, 0);
-target_id = noone;
+target_obj = noone;
 target_x = 0;
 target_y = 0;
 
 scale_init = image_xscale;
 
-// when created, set x,y to home_id x,y
-x = home_id.x;
-y = home_id.y;
+// when created, set x,y to home_obj x,y
+x = home_obj.x;
+y = home_obj.y;
 
 //visible = false;
 

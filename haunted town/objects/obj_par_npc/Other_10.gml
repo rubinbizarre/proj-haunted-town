@@ -38,6 +38,7 @@ if (_new_state != current_state) {
 			var _nearest_node = instance_nearest(x, y, obj_node_circuit);
 			target_x = _nearest_node.x;
 			target_y = _nearest_node.y;
+			target_obj = _nearest_node;
 			
 			path_add_point(my_path, _start_x, _start_y, 100);
 			path_add_point(my_path, target_x, target_y, 100);
@@ -68,8 +69,8 @@ if (_new_state != current_state) {
 		} break;
         case "RETURN_HOME": {
 			visible = true;
-            target_x = home_id.x;
-            target_y = home_id.y;
+            target_x = home_obj.x;
+            target_y = home_obj.y;
 		} break;
         case "PLAY_PARK": {
             visible = true;
@@ -80,23 +81,23 @@ if (_new_state != current_state) {
             visible = true;
             // pick a random building that isn't their home
 			do {
-				target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			} until (target_id != home_id);
+				target_obj = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			} until (target_obj != home_obj);
 			
-            target_x = target_id.x;
-            target_y = target_id.y; //- (target_id.sprite_height/4);
+            target_x = target_obj.x;
+            target_y = target_obj.y; //- (target_obj.sprite_height/4);
 			
 			//visible = false; // "enter" the house // this does not work as intended
 		} break;
 		case "WANDER_TOWN_AGAIN": {
             visible = true;
             // pick a random building that isn't their home
-            target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
-			while (target_id == home_id) {
-				target_id = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+            target_obj = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
+			while (target_obj == home_obj) {
+				target_obj = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1));
 			}
-            target_x = target_id.x;
-            target_y = target_id.y;
+            target_x = target_obj.x;
+            target_y = target_obj.y;
 		} break;
         case "VISIT_HAUNTED": {
             visible = true;

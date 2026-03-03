@@ -23,12 +23,12 @@ if (_new_state != current_state) {
     switch (current_state) {
 		case "RETURN_HOME": {
 			// if we're already home, do nothing
-			if (x == home_id.x) or (y == home_id.y) {
+			if (x == home_obj.x) or (y == home_obj.y) {
 				// nothing
 			} else {
 				// if not home, set home xy as target xy
-				target_x = home_id.x;
-				target_y = home_id.y;
+				target_x = home_obj.x;
+				target_y = home_obj.y;
 			}
 		} break;
 		case "OUT": {
@@ -86,13 +86,13 @@ if (_new_state != current_state) {
 			//	}
 			// lets say node 3 is selected as the destination from 0.
 			// the program would do the route in reverse?
-			//	target_id = 3
-			//	loop through node_to_node.target_id[] array in descending order (so 2, 1, etc) finding the route which leads to 0
+			//	target_obj = 3
+			//	loop through node_to_node.target_obj[] array in descending order (so 2, 1, etc) finding the route which leads to 0
 			//		2 does not contain 0 as a possible route, move down to 1
 			//		1 has 0 as a possible route
 			//	next_point = node_to_node.1[i]
 			//	path_add_point(my_path, next_point.x, next_point.y)
-			//	path_add_point(my_path, target_id.x, target_id.y)
+			//	path_add_point(my_path, target_obj.x, target_obj.y)
 			#endregion
 			
 			// store start coords to include in path

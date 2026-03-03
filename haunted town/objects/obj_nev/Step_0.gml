@@ -34,7 +34,7 @@ if (instance_exists(obj_manager_time)) {
 #region old switch (current_state) block (may contain useful comments) (commented)
 //switch (current_state) {
 //	case "LEAVING_VAN": {
-//		if (x == target_x) and (y == target_y) {
+//		if (point_distance(x, y, target_x, target_y) < 2) {
 //			// nev reached the nearest path node.
 //			// now he should use the same mp_grid as npcs while moving toward his destination
 //			// change state
@@ -56,7 +56,7 @@ if (instance_exists(obj_manager_time)) {
 //		}
 //	} break;
 //	case "APPROACH_POI": {
-//		if (x == target_x) and (y == target_y) {
+//		if (point_distance(x, y, target_x, target_y) < 2) {
 //			// nev reached the POI.
 //			// change state
 //			current_state = "SURVEY_POI";
@@ -124,7 +124,7 @@ if (instance_exists(obj_manager_time)) {
 //		}
 //	} break;
 //	case "RETURN_TO_VAN": {
-//		if (x == target_x) and (y == target_y) {
+//		if (point_distance(x, y, target_x, target_y) < 2) {
 //			// nev reached the nearest path node to the van.
 //			// now path to the van (return_van_z) ignoring collision
 //			current_state = "GET_IN_VAN";
@@ -137,7 +137,7 @@ if (instance_exists(obj_manager_time)) {
 //		}
 //	} break;
 //	case "GET_IN_VAN": {
-//		if (x == target_x) and (y == target_y) {
+//		if (point_distance(x, y, target_x, target_y) < 2) {
 //			// nev reached the van.
 //			// signal to van to start moving again after short delay
 //			obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
@@ -156,14 +156,14 @@ if (instance_exists(obj_manager_time)) {
 	if (check_timer-- <= 0) { // periodic
 		check_timer = check_interval;
 	    var _temp_list = ds_list_create();
-	    var _num = collision_circle_list(x, y, detect_radius, obj_par_world_objects, false, true, _temp_list, false);
+	    var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_world_objects, false, true, _temp_list, false);
     
 	    for (var i = 0; i < _num; i++) {
 	        var _inst = _temp_list[| i];
 	        // if it's haunted, not already queued, and not our current focus, and not locked
-	        if (_inst.haunted) and (!array_contains(todo_queue, _inst)) and (_inst != current_target) and (!_inst.locked) {
-	            array_push(todo_queue, _inst);
-				show_debug_message("obj_nev STEP: "+current_state+": pushed inst to todo_queue ("+string(array_length(todo_queue))+" total): "+string(_inst.id));
+	        if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+	            array_push(global.nev_todo_queue, _inst);
+				show_debug_message("obj_nev STEP: "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
 	        }
 	    }
 	    ds_list_destroy(_temp_list);
@@ -174,22 +174,22 @@ if (instance_exists(obj_manager_time)) {
 switch (current_state) {
     case "LEAVING_VAN": {
 		// if nev has reached the nearest path circuit node
-        //if (x == target_x) and (y == target_y) {
+        //if (point_distance(x, y, target_x, target_y) < 2) {
 		if (point_distance(x, y, target_x, target_y) < 2) {
-            if (array_length(todo_queue) > 0) {
+            if (array_length(global.nev_todo_queue) > 0) {
 				// pick the first target from our queue
 				// might make more sense to pick the closest queue item to nev instead
-                current_target = todo_queue[0];
-				show_debug_message("obj_nev STEP: "+current_state+": selected target "+string(current_target)+" from todo_queue to approach.");
+                global.nev_current_target = global.nev_todo_queue[0];
+				show_debug_message("obj_nev STEP: "+current_state+": selected target "+string(global.nev_current_target)+" from todo_queue to approach.");
 				
 				// remove this target from the todo_queue
-                array_delete(todo_queue, 0, 1);
+                array_delete(global.nev_todo_queue, 0, 1);
                 current_state = "APPROACH_POI";
                 
                 // calculate random approach point around the GENERIC current_target
                 do {
-                    target_x = current_target.x + irandom_range(-current_target.haunt_radius, current_target.haunt_radius);
-                    target_y = current_target.y + irandom_range(-(current_target.haunt_radius/2.5), (current_target.haunt_radius/2.5));
+                    target_x = global.nev_current_target.x + irandom_range(-global.nev_current_target.haunt_radius, global.nev_current_target.haunt_radius);
+                    target_y = global.nev_current_target.y + irandom_range(-(global.nev_current_target.haunt_radius/2.5), (global.nev_current_target.haunt_radius/2.5));
                 } until (!place_meeting(target_x, target_y, obj_collision));
 
                 path_clear_points(my_path);
@@ -213,7 +213,7 @@ switch (current_state) {
             //image_xscale = (x > current_target.x) ? -1 : 1;
 			
 			// make sure nev's sprite faces the POI
-			if (x > current_target.x) {
+			if (x > global.nev_current_target.x) {
 				image_xscale = -1;
 				gear.x = x - 8;
 				gear.image_xscale = -1;
@@ -236,11 +236,11 @@ switch (current_state) {
             }
             
             // interaction logic
-            if (current_target.haunted) {
+            if (global.nev_current_target.haunted) {
                 global.daily_sub_gain_event_counter++;
-                current_target.escrow = 0;
-                current_target.deactivate();
-                current_target.locked = true;
+                global.nev_current_target.escrow = 0;
+                global.nev_current_target.deactivate();
+                global.nev_current_target.locked = true;
                 // play sound (nev caught obj while haunted)
 				//...
 				// visual feedback
@@ -259,16 +259,16 @@ switch (current_state) {
     case "SURVEY_POI": {
         if (!instance_exists(obj_camera_flash)) {
             // DECISION GATE: check if there's more to do before going back to the van
-            if (array_length(todo_queue) > 0) {
+            if (array_length(global.nev_todo_queue) > 0) {
 				show_debug_message("obj_nev STEP: "+current_state+": there's more to do before returning to the van.");
                 // go to the next POI in the list
-                current_target = todo_queue[0];
-				show_debug_message("obj_nev STEP: "+current_state+": new current_target: "+string(current_target.id));
+                global.nev_current_target = global.nev_todo_queue[0];
+				show_debug_message("obj_nev STEP: "+current_state+": new current_target: "+string(global.nev_current_target.id));
 				
-				show_debug_message("obj_nev STEP: "+current_state+": removed inst from todo_queue: "+string(current_target.id));
-                array_delete(todo_queue, 0, 1);
+				show_debug_message("obj_nev STEP: "+current_state+": removed inst from todo_queue: "+string(global.nev_current_target.id));
+                array_delete(global.nev_todo_queue, 0, 1);
 				
-				var _arr_length = array_length(todo_queue);
+				var _arr_length = array_length(global.nev_todo_queue);
 				if (_arr_length > 0) {
 					show_debug_message("obj_nev STEP: "+current_state+": todo_queue now contains "+string(_arr_length)+" total");
 				} else {
@@ -278,8 +278,8 @@ switch (current_state) {
                 current_state = "APPROACH_POI";
                 
                 do {
-                    target_x = current_target.x + irandom_range(-current_target.haunt_radius, current_target.haunt_radius);
-                    target_y = current_target.y + irandom_range(-current_target.haunt_radius, current_target.haunt_radius);
+                    target_x = global.nev_current_target.x + irandom_range(-global.nev_current_target.haunt_radius, global.nev_current_target.haunt_radius);
+                    target_y = global.nev_current_target.y + irandom_range(-(global.nev_current_target.haunt_radius/2.5), (global.nev_current_target.haunt_radius/2.5));
                 } until (!place_meeting(target_x, target_y, obj_collision));
 				
                 path_clear_points(my_path);

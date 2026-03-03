@@ -46,19 +46,19 @@ if (!spooked) or (!hit_by_van) {
 		case "INSIDE": {
 			// when arrived at destination,
 			// make invisible if visible
-			if (x == target_x) and (y == target_y) {
+			if (point_distance(x, y, target_x, target_y) < 2) {
 				if (visible) visible = false;
 			}
 			// when arrived at home,
 			// make invisible if visible
-			if (x == home_id.x) and (y == home_id.y) {
+			if (x == home_obj.x) and (y == home_obj.y) {
 				if (visible) visible = false;
 			}
 		} break;
 		default: {
 			// when arrived at destination,
 			// make invisible if visible
-			if (x == target_x) and (y == target_y) {
+			if (point_distance(x, y, target_x, target_y) < 2) {
 				if (visible) visible = false;
 			}
 		} break;

@@ -4,8 +4,8 @@ if (global.debug) {
 	var _ysep = 10;
 	draw_set_color(c_yellow);
 	draw_set_alpha(1);
-	// draw massive purple circle around npc
-	draw_circle(x, y, detect_radius, true);
+	// draw detect_radius ring
+	draw_circle(x, y, global.nev_detect_radius, true);
 	if (path_exists(my_path)) {
 		draw_path(my_path, x, y, true);
 	}

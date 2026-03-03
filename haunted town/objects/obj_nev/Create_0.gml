@@ -34,9 +34,10 @@ gear = instance_create_layer(x + 8, y - 26, "Master", obj_nev_gear);
 gear.depth = depth - 1;
 gear.image_index = gear_tier;
 
-detect_radius = 200;
-todo_queue = [];
-current_target = noone;
+//detect_radius = 200;
+//todo_queue = [];
+//current_target = noone;
+
 // for detecting currently haunted things at any point while nev is outside, within detect_radius
 check_timer = irandom(60);
 check_interval = 60;

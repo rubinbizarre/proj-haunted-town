@@ -1,16 +1,16 @@
 move_speed = 2;
 move_speed_init = move_speed;
 
-// set home_id to home node id
+// set home_obj to home node id
 if (instance_exists(obj_node_nev_home)) {
-	home_id = obj_node_nev_home;
+	home_obj = obj_node_nev_home;
 } else {
 	show_message("obj_nev_van CREATE:\nhome node not found");
 }
 
-// when created, set x,ypos to home_id x,y
-x = home_id.x;
-y = home_id.y;
+// when created, set x,ypos to home_obj x,y
+x = home_obj.x;
+y = home_obj.y;
 
 my_path = path_add();
 path_set_kind(my_path, 0);
@@ -33,6 +33,8 @@ current_node = instance_nearest(x, y, obj_node_road);
 // -----------------------
 function goto_new_dest() {
 	current_state = "DRIVE_AND_STOP";
+	
+	current_node = instance_nearest(x, y, obj_node_road);
 	
 	// find a destination
 	// select a random obj_node_road inst that is not the nearest-node/current_node

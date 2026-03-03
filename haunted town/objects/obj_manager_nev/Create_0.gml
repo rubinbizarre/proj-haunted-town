@@ -2,6 +2,10 @@ global.sub_count = 0; // nev's actual sub count (realtime)
 global.daily_sub_gain_event_counter = 0;
 global.daily_sub_loss_event_counter = 0;
 
+global.nev_detect_radius = 200;
+global.nev_todo_queue = [];
+global.nev_current_target = noone;
+
 sub_gain_amount = 1000;
 sub_loss_amount = sub_gain_amount/2;
 

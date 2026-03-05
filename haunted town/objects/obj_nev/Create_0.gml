@@ -1,5 +1,7 @@
-move_speed = 0.85;
+move_speed = 1.6;//0.85;
 move_speed_init = move_speed;
+
+//move_speed_rush = 1.6;
 
 scale_init = image_xscale;
 
@@ -110,4 +112,26 @@ function check_for_haunted_things() {
 	#endregion
 	
 	
+}
+	
+function sort_todo_queue_by_distance() {
+    //// 1. capture Nev's current position in local variables
+    //var _nx = x;
+    //var _ny = y;
+
+    // 2. sort the global array
+    array_sort(global.nev_todo_queue, function(_element_a, _element_b) {
+        // safety check: ensure both instances still exist
+        if (!instance_exists(_element_a)) return 1;
+        if (!instance_exists(_element_b)) return -1;
+
+        // calculate distances
+        var _dist_a = point_distance(x, y, _element_a.x, _element_a.y);
+        var _dist_b = point_distance(x, y, _element_b.x, _element_b.y);
+
+        // return: 
+        // negative if A is closer (moves A toward the start)
+        // positive if B is closer (moves B toward the start)
+        return _dist_a - _dist_b;
+    });
 }

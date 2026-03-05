@@ -1,3 +1,5 @@
+global.intersections = [];
+
 function map_road_network() {
     with (obj_node_road) {
         connections = []; // Reset connections
@@ -38,5 +40,33 @@ function map_road_network() {
                 }
             }
         }
+		
+		//if (is_intersection) {
+		//	array_push(global.intersections, id);
+		//	show_debug_message("pushed "+string(id)+"to global.intersections[]");
+		//}
+		//global.intersections = [];
+		
     }
+	
+	//var _total_nodes = instance_number(obj_node_road);
+	//show_debug_message("--- NODE DIAGNOSTIC START ---");
+	//show_debug_message("Total obj_node_road found in room: " + string(_total_nodes));
+
+	//with (obj_node_road) {
+	//	// Check if the variable even exists on this specific instance
+	//	if (variable_instance_exists(id, "is_intersection")) {
+	//	    var _val = is_intersection;
+	//	    show_debug_message("Node " + string(id) + " at (" + string(x) + "," + string(y) + ") has is_intersection = " + string(_val));
+        
+	//	    if (_val == true) {
+	//	        array_push(global.intersections, id);
+	//	    }
+	//	} else {
+	//	    show_debug_message("Node " + string(id) + " DOES NOT HAVE the variable is_intersection at all!");
+	//	}
+	//}
+
+	//show_debug_message("Total intersections pushed to array: " + string(array_length(global.intersections)));
+	//show_debug_message("--- NODE DIAGNOSTIC END ---");
 }

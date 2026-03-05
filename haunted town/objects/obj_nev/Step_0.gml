@@ -28,6 +28,11 @@ if (path_index != -1) and (current_state != "SURVEY_POI") {
 	
 // make path_speed affected by current time_speed
 if (instance_exists(obj_manager_time)) {
+	//if (path_speed != move_speed_rush) {
+	//	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
+	//} else {
+	//	path_speed = move_speed_rush * obj_manager_time.time_speed_actual;
+	//}
 	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
 }
 
@@ -174,11 +179,13 @@ if (instance_exists(obj_manager_time)) {
 switch (current_state) {
     case "LEAVING_VAN": {
 		// if nev has reached the nearest path circuit node
-        //if (point_distance(x, y, target_x, target_y) < 2) {
 		if (point_distance(x, y, target_x, target_y) < 2) {
             if (array_length(global.nev_todo_queue) > 0) {
 				// pick the first target from our queue
-				// might make more sense to pick the closest queue item to nev instead
+				//		might make more sense to pick the closest queue item to nev instead
+				sort_todo_queue_by_distance();
+				show_debug_message("obj_nev STEP: "+current_state+": sorted todo_queue by distance.");
+				
                 global.nev_current_target = global.nev_todo_queue[0];
 				show_debug_message("obj_nev STEP: "+current_state+": selected target "+string(global.nev_current_target)+" from todo_queue to approach.");
 				
@@ -261,7 +268,11 @@ switch (current_state) {
             // DECISION GATE: check if there's more to do before going back to the van
             if (array_length(global.nev_todo_queue) > 0) {
 				show_debug_message("obj_nev STEP: "+current_state+": there's more to do before returning to the van.");
-                // go to the next POI in the list
+                // go to the next POI in the list 
+				//		 might be good to order the list by distance here also !!!
+				sort_todo_queue_by_distance();
+				show_debug_message("obj_nev STEP: "+current_state+": sorted todo_queue by distance.");
+				
                 global.nev_current_target = global.nev_todo_queue[0];
 				show_debug_message("obj_nev STEP: "+current_state+": new current_target: "+string(global.nev_current_target.id));
 				
@@ -269,10 +280,8 @@ switch (current_state) {
                 array_delete(global.nev_todo_queue, 0, 1);
 				
 				var _arr_length = array_length(global.nev_todo_queue);
-				if (_arr_length > 0) {
-					show_debug_message("obj_nev STEP: "+current_state+": todo_queue now contains "+string(_arr_length)+" total");
-				} else {
-					show_debug_message("obj_nev STEP: "+current_state+": todo_queue is empty");
+				if (_arr_length > -1) {
+					show_debug_message("obj_nev STEP: "+current_state+": todo_queue now contains "+string(_arr_length + 1)+" POIs total");
 				}
 
                 current_state = "APPROACH_POI";
@@ -289,10 +298,16 @@ switch (current_state) {
             } else {
                 // no more tasks? finally return to the van
 				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to van!");
-                current_state = "RETURN_TO_VAN";
+                
+				current_state = "RETURN_TO_VAN";
                 target_x = return_path_x;
                 target_y = return_path_y;
-                path_clear_points(my_path);
+                
+				path_clear_points(my_path);
+				
+				// reset global.nev_current_target
+				global.nev_current_target = noone;
+				
                 if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
                     path_start(my_path, move_speed, path_action_stop, true);
                 }

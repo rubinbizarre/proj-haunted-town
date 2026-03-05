@@ -5,3 +5,5 @@ if (global.debug) visible = true;
 c = c_yellow;
 
 connections = [];
+
+//is_intersection = false;

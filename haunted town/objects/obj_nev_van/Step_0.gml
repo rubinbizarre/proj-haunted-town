@@ -16,36 +16,62 @@ if (current_state == "RETURN_HOME") {
 		    var _inst = _temp_list[| i];
 		    // if it's haunted, not already queued, not our current focus, and not locked: push it
 		    if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+				
 		        array_push(global.nev_todo_queue, _inst);
-				//// edit the existing path to end at the nearest road_node to the discovered POI
-				var _nearest_road_node = instance_nearest(_inst.x, _inst.y, obj_node_road);
 				
-				path_clear_points(my_path);
-				path_add_point(my_path, x, y, 100);
-				path_add_point(my_path, _nearest_road_node.x, _nearest_road_node.y, 100);
-				path_start(my_path, move_speed, path_action_stop, true);
+				//var _nearest_road_node = instance_nearest(_inst.x, _inst.y, obj_node_road);
 				
-				//// remove all points ahead of the next 'stop' so that the van stops asap
-				//while (path_get_number(path_index) > 2) {
-				//    path_delete_point(path_index, 2); 
-				//}
+				//path_clear_points(my_path);
+				//path_add_point(my_path, x, y, 100);
+				//path_add_point(my_path, _nearest_road_node.x, _nearest_road_node.y, 100);
+				//path_start(my_path, move_speed, path_action_stop, true); // causes van to drive off-road at strange angles, predictably
 				
 				//// redirect to stop
 				//current_state = "REDIRECT_AND_STOP";
 				//target_stop_node = _nearest_road_node;
 				
-				show_debug_message("obj_nev_van STEP: "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
-				//show_debug_message("now stopping at nearest road node: "+string(_nearest_road_node.node_id));
-				//show_debug_message("path is now: "+string(_total_points)+" points total.");
+				#region start a new path which goes from (current pos) -> (pivot node) -> (stop node)
+				var _stop_node = instance_nearest(_inst.x, _inst.y, obj_node_road);
+    
+				// 1. find the (pivot node): which node was the van heading towards?
+				// find this by looking at the road node nearest node in front of van (direction)
+				var _pivot_node = instance_nearest(x + lengthdir_x(32, direction), y + lengthdir_y(32, direction), obj_node_road);
+
+				// 2. build the new route from pivot to stop node
+				var _nodes_to_stop = scr_find_path_nodes(_pivot_node, _stop_node);
 				
-				show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(_nearest_road_node.node_id));
+				var _debug_node_list = "";
 				
-				//// output every path point's coords
-				//for (var j = 0; j < _total_points; j++) {
-				//	path_get_point_x(my_path, j);
-				//	path_get_point_y(my_path, j);
-				//	//...
-				//}
+				if (array_length(_nodes_to_stop) > 0) {
+				    path_clear_points(my_path);
+        
+				    // POINT 0: the anchor - current exact position prevents the JUMP
+				    path_add_point(my_path, x, y, 100);
+        
+				    // POINT 1: the pivot - the node we were already heading toward
+				    path_add_point(my_path, _pivot_node.x, _pivot_node.y, 100);
+        
+				    // POINTS 2+: the rest of the road nodes to the stop node
+				    for (var j = 1; j < array_length(_nodes_to_stop); j++) {
+				        path_add_point(my_path, _nodes_to_stop[j].x, _nodes_to_stop[j].y, 100);
+						// provide debug output list of nodes/route in string format
+						_debug_node_list += string(_nodes_to_stop[j].node_id) + ", ";
+				    }
+        
+				    path_set_closed(my_path, false);
+				    path_set_kind(my_path, 0);
+        
+				    // restart the path - because point 0 is current xypos, there is NO JUMP
+				    path_start(my_path, move_speed, path_action_stop, true);
+        
+				    current_state = "DRIVE_AND_STOP";
+				    target_stop_node = _stop_node;
+				}
+				#endregion
+				
+				show_debug_message("obj_nev_van STEP: "+current_state+": van detected POI. pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+				//show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(_nearest_road_node.node_id));
+				show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(target_stop_node.node_id)+" | node route: "+_debug_node_list);
 		    }
 		}
 		ds_list_destroy(_temp_list);

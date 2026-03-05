@@ -132,7 +132,8 @@ function goto_new_dest() {
 	if (array_length(_node_list) > 0) {
 	    path_clear_points(my_path);
 		
-		// debug output list of nodes in string format
+		// add each node in route to the target sequentially to the path
+		// and provide debug output list of nodes in string format
 	    for (var i = 0; i < array_length(_node_list); i++) {
 	        var _node = _node_list[i];
 	        path_add_point(my_path, _node.x, _node.y, 100);

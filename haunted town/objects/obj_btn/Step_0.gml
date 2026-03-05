@@ -53,7 +53,7 @@ if (btn_confirmed) {
 			//room_goto(rm_main);
 		} break;
 		case spr_btn_resume: {
-			obj_master.custom_pause();
+			obj_master.toggle_pause();
 		} break;
 	}
 	btn_confirmed = false;

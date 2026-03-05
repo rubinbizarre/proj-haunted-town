@@ -22,6 +22,10 @@ global.menu_npc_active = false;
 global.haunt_difficulty = 0;
 global.offered_haunt_points = 0;
 
+global.display_end_of_day = false;
+global.display_podcast = false;
+global.display_breakdown = false;
+
 font_default = draw_get_font();
 paused_surface = -1;
 pause_menu_select = 0;
@@ -35,17 +39,13 @@ function abort_haunt_process() {
 	}
 }
 
-function custom_pause() {
+function toggle_pause() {
 	if (!global.paused) {
 		global.paused = true;
 		
 		pause_menu_select = 0;
 		
-		// capture surface before deactivating all instances
-		if (!surface_exists(paused_surface)) {
-			paused_surface = surface_create(room_width, room_height);
-			surface_copy(paused_surface, 0, 0, application_surface);
-		}
+		create_paused_surface();
 		
 		// modify certain values of objects to prevent any pause cheesing
 		// e.g. reset charge value to zero when paused
@@ -65,7 +65,7 @@ function custom_pause() {
 		//	//depth = obj_master.depth - 1000;
 		//	sprite_index = spr_btn_resume;
 		//}
-		//show_debug_message("obj_master CREATE: custom_pause(): created obj_btn instance at x:"+string(_x)+" y:"+string(_y));
+		//show_debug_message("obj_master CREATE: toggle_pause(): created obj_btn instance at x:"+string(_x)+" y:"+string(_y));
 		
 		// deactivate all instances except this one
 		instance_deactivate_all(true);
@@ -88,5 +88,25 @@ function destroy_paused_surface() {
 	if (surface_exists(paused_surface)) {
 		surface_free(paused_surface);
 		paused_surface = -1;
+	}
+}
+function create_paused_surface() {
+	// capture surface before deactivating all instances
+	if (!surface_exists(paused_surface)) {
+		paused_surface = surface_create(room_width, room_height);
+		surface_copy(paused_surface, 0, 0, application_surface);
+	}
+}
+
+function toggle_display_end_of_day() {
+	if (!global.display_end_of_day) {
+		global.display_end_of_day = true;
+		global.display_podcast = true;
+		create_paused_surface();
+		instance_deactivate_all(true);
+	} else {
+		global.display_end_of_day = false;
+		instance_activate_all();
+		destroy_paused_surface();
 	}
 }

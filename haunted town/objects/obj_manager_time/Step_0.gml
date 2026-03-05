@@ -15,13 +15,11 @@ global.current_time_ += (delta_time / 100000) * time_speed_actual;
 if (global.current_time_ >= global.total_cycle_minutes) {
 	// reset time to 0, start of new day
 	global.current_time_ = 0;
-	// increment day counter. if starting a new week, increment week counter.
-	if (global.day_counter == 6) {
-		global.day_counter = 0;
-		global.week_counter++;
-	} else {
-		global.day_counter += 1;
-	}
+	
+	//increment_day_counter(); // moved to trigger remotely via obj_master
+	
+	// now trigger displaying podcast & daily events breakdown
+	obj_master.toggle_display_end_of_day();
 }
 
 if (global.debug) {

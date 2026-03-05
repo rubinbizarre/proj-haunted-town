@@ -23,6 +23,77 @@ switch (room) {
 		_x = 0;
 		_y = 0;
 		
+		#region END OF DAY DISPLAY: PODCAST & BREAKDOWN
+		if (global.display_end_of_day) {
+			if (surface_exists(paused_surface)) {
+				draw_clear_alpha(c_black, 0);
+				surface_set_target(paused_surface);
+				
+				// draw rectangle background or label
+				draw_set_color(#333333);
+				var _label_w = 400;
+				draw_rectangle(960 - _label_w, 60, 960 + _label_w, 960, false);
+				
+				draw_set_halign(fa_center);
+				draw_set_valign(fa_middle);
+				draw_set_color(global.c_haunt);
+				draw_set_font(font_main);
+				
+				// draw 'end of [...]day, week [x]' title header
+				// determine what _day_name to output based on _day_counter
+				var _day_name = "XXXday";
+				switch (global.day_counter) {
+					case 0: _day_name = "Monday"; break;
+					case 1: _day_name = "Tuesday"; break;
+					case 2: _day_name = "Wednesday"; break;
+					case 3: _day_name = "Thursday"; break;
+					case 4: _day_name = "Friday"; break;
+					case 5: _day_name = "Saturday"; break;
+					case 6: _day_name = "Sunday"; break;
+					default: _day_name = "ZZZday"; break;
+				}
+				_day_name = string_upper(_day_name);
+				var _week_number = string(global.week_counter);
+				_x = room_width/2;
+				
+				draw_text_transformed(_x, 150, "END OF "+_day_name, 2, 2, 0);
+				draw_text_transformed(_x, 220, "-- WEEK "+_week_number+" --", 1, 1, 0);
+				
+				if (global.display_podcast) {
+					draw_set_color(c_white);
+					draw_text_transformed(_x, 310, "receiving transmission...", 1, 1, 0);
+					draw_set_color(global.c_haunt);
+					draw_text_transformed(_x, 400, "Nev's World Podcast\nEpisode #"+string(global.podcast_episode_counter), 1, 1, 0);
+				
+					var _podcast_body = "Nerr-herr! Greetings truth-seekers\nand my fellow Nev-Heads!";// Do you smell that? No, it isn’t the stench of a rotting poltergeist, though there’s plenty of that in this dump of a town. It is the sweet, digital aroma of SUCCESS! We just hit 10,000 SUBSCRIBERS! My mom said I was just 'loitering in a minivan' but she’s clearly a sleeper agent for the PARANORMAL ENTITIES! Nerr. Today was a gold mine. I caught some highly suspicious activity near that old oak tree—totally a GHOST, DEMON or NEFARIOUS PRESENCE! I see believers in chat, the subscribers are pouring in, which means... I’M UPGRADING! Goodbye, crappy thrift-store camera! Tomorrow, I’m rolling out with a VCR VIDEOCAM! Now I can capture all the ectoplasmic nonsense in glorious, grainy 240p! You can run, you translucent freaks, but you can't hide from my new autofocus! Nerr-herr-herr! Stay vigilant, Nev-Heads. The truth is out there, and it’s probably haunting your bins!";
+					draw_text_transformed(_x, 500, _podcast_body, 1, 1, 0);
+				
+					draw_set_color(c_white);
+					draw_text_transformed(_x, 620, "end of transmission.", 1, 1, 0);
+					draw_text_transformed(_x, 850, "press ENTER to continue", 1, 1, 0);
+				}
+				
+				if (global.display_breakdown) {
+					draw_set_color(c_white);
+					draw_text_transformed(_x, 310, "DAILY EVENTS BREAKDOWN", 1, 1, 0);
+					draw_text_transformed(_x, 850, "press ENTER to start next day", 1, 1, 0);
+				}
+				
+				draw_set_halign(fa_left);
+				draw_set_valign(fa_top);
+				draw_set_color(c_white);
+				draw_set_font(font_default);
+				
+				surface_reset_target();
+				draw_surface(paused_surface, 0, 0);
+			} else {
+				show_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
+				paused_surface = surface_create(room_width, room_height);
+				surface_copy(paused_surface, 0, 0, application_surface);
+			}
+		}
+		#endregion
+		
 		#region PAUSED
 		if (global.paused) {
 			if (surface_exists(paused_surface)) {
@@ -93,7 +164,7 @@ switch (room) {
 		#endregion
 		
 		#region HUD
-		if (global.hud) {
+		if (global.hud) and (!global.display_end_of_day) {
 			draw_set_halign(fa_center);
 			_x = room_width/2;
 			_y = 16;

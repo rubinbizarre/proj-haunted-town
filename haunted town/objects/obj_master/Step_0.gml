@@ -38,7 +38,7 @@ switch (room) {
 	
 		#region handle pause activation/deactivation
 		if (keyboard_check_pressed(ord("P"))) {
-			custom_pause();
+			toggle_pause();
 		}
 		#endregion
 		
@@ -63,7 +63,7 @@ switch (room) {
 			if (keyboard_check_pressed(vk_space) or keyboard_check_pressed(vk_enter)) {
 				switch (pause_menu_select) {
 					case 0: { // resume
-						custom_pause();
+						toggle_pause();
 					} break;
 					case 1: { // settings
 						instance_create_layer(0, 0, "Master", obj_settings);
@@ -89,7 +89,7 @@ switch (room) {
 				if (pause_menu_select != 0) pause_menu_select = 0;
 				// confirm
 				if (mouse_check_button_released(mb_left)) {
-					custom_pause();
+					toggle_pause();
 				}
 			}
 			_y1 += _btn_ysep;
@@ -110,6 +110,21 @@ switch (room) {
 				// confirm
 				if (mouse_check_button_released(mb_left)) {
 					room_goto(rm_title);
+				}
+			}
+		}
+		#endregion
+		
+		#region handle input while podcast is displayed
+		if (global.display_end_of_day) {
+			if (keyboard_check_pressed(vk_enter)) {
+				if (global.display_podcast) {
+					global.display_podcast = false;
+					global.display_breakdown = true;
+				} else if (global.display_breakdown) {
+					global.display_breakdown = false;
+					toggle_display_end_of_day();
+					obj_manager_time.increment_day_counter();
 				}
 			}
 		}

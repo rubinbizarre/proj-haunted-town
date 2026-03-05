@@ -6,8 +6,9 @@ global.current_time_ = 470;//480;				// 480 mins / 60 mins = 8 hours = 8:00 AM
 // for new time system:
 global.total_cycle_minutes = 1440;
 global.day_counter = 0; // ranges from 0 to 6
+global.podcast_episode_counter = 1;
 
-#region time_speed determines the speed at which time passes
+#region time_speed determines the speed at which time passes (commented)
 
 // assuming that it is being multiplied by delta_time:
 // --------------------------------------------------------------------------
@@ -38,3 +39,14 @@ time_speed_multiplier = 1;
 time_speed_multiplier_init = time_speed_multiplier;
 
 time_speed_actual = 0; // see step: time_speed_actual = base * multiplier
+
+function increment_day_counter() {
+	// increment day counter. if starting a new week, increment week counter.
+	if (global.day_counter == 6) {
+		global.day_counter = 0;
+		global.week_counter++;
+	} else {
+		global.day_counter += 1;
+	}
+	global.podcast_episode_counter++;
+}

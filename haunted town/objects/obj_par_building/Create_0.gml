@@ -7,7 +7,7 @@ stats = {
 };
 
 inside = {
-	so: [obj_so_phone],		// scary object
+	so: [obj_so_phone],		// scary object(s)
 	occupants: []			// npcs currently inside
 }
 
@@ -37,21 +37,28 @@ shrink_speed = 0.05;
 // could think of it as "what direction does the building face the pavement?"
 dir_to_access = "down"; // up, down, left or right. str because i can't deal with indexed values or 0-360 degrees on this one. i just can't.
 
+sprite_interior = spr_inside_0_shack;
+
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
 	case spr_building_0_shack: {
 		stats.cost = 1;
+		sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_1_house: {
 		stats.cost = 5;
+		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_2_manor: {
 		stats.cost = 10;
+		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_church: {
 		stats.cost = 50;
+		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_hotel: {
 		stats.cost = 30;
+		//sprite_interior = spr_inside_0_shack;
 	} break;
 }

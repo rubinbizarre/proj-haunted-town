@@ -120,7 +120,7 @@ if (mouse_confirmed) {
 		// play sound (go inside/open door)
 		//...
 		
-		with instance_create_layer(960, 237, "Master", obj_inside_bg) {
+		with instance_create_layer(960, 237, "Master", obj_inside_view) {
 			depth = obj_master.depth;
 		}
 	} else {

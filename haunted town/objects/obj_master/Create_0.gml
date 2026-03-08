@@ -28,6 +28,10 @@ global.display_breakdown = false;
 
 global.building_view_inside = false;
 
+// initialise cursor
+window_set_cursor(cr_none);
+cursor_sprite = spr_cursor_default;
+
 font_default = draw_get_font();
 paused_surface = -1;
 pause_menu_select = 0;

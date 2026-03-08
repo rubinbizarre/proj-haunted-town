@@ -25,14 +25,14 @@ if (global.tracked_building != noone) {
 			camera_panning = true;
 			mouse_prev_x = device_mouse_x_to_gui(0);
 			mouse_prev_y = device_mouse_y_to_gui(0);
-			//cursor_sprite = spr_cursor_pan;
+			cursor_sprite = spr_cursor_pan;
 		}
 	
 		// if middle mouse is released and panning is true
 		// make panning false to stop panning
 		if (mouse_check_button_released(mb_middle)) and (camera_panning) {
 			camera_panning = false;
-			//cursor_sprite = spr_cursor_default;
+			cursor_sprite = spr_cursor_default;
 		}
 
 		// while panning is true, update camera pos every frame

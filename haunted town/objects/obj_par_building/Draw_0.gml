@@ -58,3 +58,9 @@ if (stats.owned) {
 		draw_set_color(c_white);
 	}
 }
+
+//if (sprite_interior != noone) {
+//	draw_set_alpha(0.5);
+//    draw_sprite(sprite_interior, 0, interior_x, interior_y);
+//	draw_set_alpha(1);
+//}

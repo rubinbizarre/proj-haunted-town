@@ -11,10 +11,23 @@ global.current_time_ += (delta_time / 100000) * time_speed_actual;
 //	  global.week_counter++;
 //}
 
+current_hour_ = floor(global.current_time_ / 60);
+if (current_hour_ > prev_hour_) {
+	// new hour just happened - broadcast to npcs to check their schedule
+	with (obj_par_npc) {
+		if (current_state != "ENTICED") {
+			event_user(0);
+		}
+	}
+	prev_hour_ = current_hour_;
+}
+
+
 // loop the time back to zero after reaching a full day
 if (global.current_time_ >= global.total_cycle_minutes) {
 	// reset time to 0, start of new day
 	global.current_time_ = 0;
+	prev_hour_ = 0;
 	
 	//increment_day_counter(); // moved to trigger remotely via obj_master
 	

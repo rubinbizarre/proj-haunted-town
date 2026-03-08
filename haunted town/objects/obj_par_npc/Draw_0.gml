@@ -22,10 +22,14 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	// draw text var values
 	draw_text_transformed(x, _y, "state:"+string(current_state), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "type:"+string(routine_type), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "home:"+string(home_obj), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "dest:"+string(target_obj), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "spd:"+string(move_speed), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "move_inside:"+string(move_inside), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "move_timer:"+string(move_timer), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "type:"+string(routine_type), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "home:"+string(home_obj), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "t_x:"+string(target_x), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "t_y:"+string(target_y), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "t_obj:"+string(target_obj), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "path_index:"+string(path_index), 0.5, 0.5, 0); _y += _ysep;
 	draw_set_halign(fa_left);
 }
 

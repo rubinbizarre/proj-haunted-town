@@ -4,9 +4,9 @@ mouse_hover = point_in_rectangle(
     bbox_left, bbox_top, bbox_right, bbox_bottom
 );
 
-if (ac_time_hover < 1) {
-	ac_time_hover += ac_speed_hover;
-}
+//if (ac_time_hover < 1) {
+//	ac_time_hover += ac_speed_hover;
+//}
 
 #region handle mouse hover effect and enabling interaction for A) haunted buildings and B) normal buildings
 // if building is haunted have unique hover effect
@@ -64,7 +64,7 @@ if (mouse_hover) and (device_mouse_check_button_pressed(0, mb_left)) {
 	// play sound (building pressed/clicked)
 	//...
 	mouse_clicked = true;
-	show_debug_message("obj_par_building STEP: "+string(id)+" mouse_clicked whilst hovering");
+	//show_debug_message("obj_par_building STEP: "+string(id)+" mouse_clicked whilst hovering");
 }
 
 if (mouse_hover) and (mouse_clicked) and (device_mouse_check_button_released(0, mb_left)) {
@@ -73,7 +73,7 @@ if (mouse_hover) and (mouse_clicked) and (device_mouse_check_button_released(0, 
 	// play sound (building released/confirmed)
 	//...
 	mouse_confirmed = true;
-	show_debug_message("obj_par_building STEP: "+string(id)+" mouse_confirmed upon releasing");
+	//show_debug_message("obj_par_building STEP: "+string(id)+" mouse_confirmed upon releasing");
 }
 
 if (mouse_confirmed) {
@@ -120,9 +120,11 @@ if (mouse_confirmed) {
 		// play sound (go inside/open door)
 		//...
 		
-		with instance_create_layer(960, 237, "Master", obj_inside_view) {
-			depth = obj_master.depth;
-		}
+		//with instance_create_layer(960, 237, "Master", obj_inside_view) {
+		//	depth = obj_master.depth;
+		//}
+		
+		obj_master.toggle_view_inside(id);
 	} else {
 		// if player can afford to purchase this
 		if (global.haunt_points >= stats.cost) {
@@ -169,6 +171,7 @@ if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
 				current_state = "ENTICED";
 				
 				// make this building inst the npc's new target
+				target_obj = other;
 				target_x = other.x;
 				target_y = other.y;
 				//show_debug_message("obj_par_building STEP: "+string(id)+": assigned npc target as tx:"+string(other.x)+", ty:"+string(other.y));

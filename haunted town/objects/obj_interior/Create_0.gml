@@ -1,0 +1,1 @@
+depth = obj_collision.depth;

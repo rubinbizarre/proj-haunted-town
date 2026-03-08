@@ -16,7 +16,8 @@ if (global.tracked_building != noone) {
 } else if (global.tracked_npc != noone) {
 	//...
 } else {
-	if (room != rm_inside) {
+	//if (room != rm_inside) {
+	if (!global.building_view_inside) { // temporarily disabled for debugging (works)
 		#region manual camera panning with mouse
 		// if middle mouse is pressed while panning is false
 		// make panning true and store mouse gui pos to start panning
@@ -70,15 +71,15 @@ if (global.tracked_building != noone) {
 		}
 		#endregion	
 	
-		#region switch zoom level with mouse wheel when not in rm_inside
-		if (room != rm_inside) {
+		#region switch zoom level with mouse wheel
+		//if (room != rm_inside) {
 			if mouse_wheel_up() {
 				if (zoom_level < 3) zoom_level += 1;
 			}
 			if mouse_wheel_down() {
-				if (zoom_level > 0) zoom_level -= 1;
+				if (zoom_level > 1) zoom_level -= 1;
 			}
-		}
+		//}
 		#endregion
 	
 		#region watch to update camera zoom with current zoom level while tracked_inst is unassigned
@@ -117,3 +118,4 @@ switch (zoom_level) {
 	} break;
 }
 #endregion
+

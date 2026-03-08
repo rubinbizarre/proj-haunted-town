@@ -8,6 +8,9 @@ global.total_cycle_minutes = 1440;
 global.day_counter = 0; // ranges from 0 to 6
 global.podcast_episode_counter = 1;
 
+current_hour_ = 0;
+prev_hour_ = 0;
+
 #region time_speed determines the speed at which time passes (commented)
 
 // assuming that it is being multiplied by delta_time:

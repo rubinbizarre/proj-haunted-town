@@ -1,17 +1,19 @@
 if (depth != -y) depth = -y;
 
-// while not spooked or not hit by van
+// while not spooked or not hit by van, manage animation, path speed
 if (!spooked) or (!hit_by_van) {
-	// if not enticed, do periodic routine check
-	if (current_state != "ENTICED") {
-		// periodic routine check
-		if (check_timer-- <= 0) {
-		    check_timer = check_interval;
-		    event_user(0); // trigger routine logic
-		}
-	}
+	#region routine check (old) (commented)
+	//// if not enticed, do periodic routine check
+	//if (current_state != "ENTICED") {//and (current_state != "INSIDE") {
+	//	// periodic routine check
+	//	if (check_timer-- <= 0) {
+	//	    check_timer = check_interval;
+	//	    event_user(0); // trigger routine logic
+	//	}
+	//}
+	#endregion
 	
-	// animation & sprite flipping logic
+	#region animation & sprite flipping logic
 	if (path_index != -1) and (!spooked) {
 	    // if moving/on a path, face the direction of movement
 	    image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
@@ -28,43 +30,78 @@ if (!spooked) or (!hit_by_van) {
 		if (image_yscale != 1) image_yscale = 1;
 		if (ac_time_bob != 0) ac_time_bob = 0;
 	}
+	#endregion
 	
 	// make path_speed affected by current time_speed
 	if (instance_exists(obj_manager_time)) {
 		path_speed = move_speed_init * obj_manager_time.time_speed_actual;
 	}
 	
-	switch (current_state) {
-		case "CIRCUIT": {
-			// tie path speed to time speed like everyone else
-			path_speed = move_speed_init * obj_manager_time.time_speed_actual;
-		} break;
-		case "PLAY_PARK": {
-			// do nothing (this is actually useful (?))
-			// could change to 'play sprite' or smthn
-		} break;
-		case "INSIDE": {
-			// when arrived at destination,
-			// make invisible if visible
-			if (point_distance(x, y, target_x, target_y) < 2) {
-				if (visible) visible = false;
-			}
-			// when arrived at home,
-			// make invisible if visible
-			if (x == home_obj.x) and (y == home_obj.y) {
-				if (visible) visible = false;
-			}
-		} break;
-		default: {
-			// when arrived at destination,
-			// make invisible if visible
-			if (point_distance(x, y, target_x, target_y) < 2) {
-				if (visible) visible = false;
-			}
-		} break;
-	}
+	#region extra behaviours per state (commented)
+	//switch (current_state) {
+	//	case "CIRCUIT": {
+	//		// tie path speed to time speed like everyone else
+	//		// (actually needed for some reason to make walk anim work)
+	//		path_speed = move_speed_init * obj_manager_time.time_speed_actual;
+	//	} break;
+	//	case "PLAY_PARK": { // nothing
+	//	} break;
+	//	case "INSIDE": { // commented
+	//		//// when arrived at destination,
+	//		//// make invisible if visible
+	//		//if (point_distance(x, y, target_x, target_y) < 2) {
+	//		//	if (visible) visible = false;
+	//		//}
+	//		//// when arrived at home,
+	//		//// make invisible if visible
+	//		//if (x == home_obj.x) and (y == home_obj.y) {
+	//		//	if (visible) visible = false;
+	//		//}
+	//	} break;
+	//	default: {
+	//		//if (point_distance(x, y, target_x, target_y) < 2) {
+	//		//	target_x = 0;
+	//		//	target_y = 0;
+	//		//	target_obj = noone;
+	//		//	enter_building();	
+	//		//	show_debug_message("obj_par_npc STEP: "+string(id)+": "+string(current_state)+": now entering building");
+	//		//}
+	//	} break;
+	//}
+	#endregion
 }
 
+// routine timer set in user event 0 when hour changes and assigned state differs from current state 
+if (routine_timer > 0) {
+    routine_timer--;    
+    // once the timer hits zero, finally execute the routine change
+    if (routine_timer == 0) {
+        event_user(1);
+    }
+}
+
+#region handle outcome of reaching target for various states
+//switch (current_state) {
+//	case "WANDER_TOWN" or "WANDER_TOWN_AGAIN": {
+//		if (point_distance(x, y, target_x, target_y) < 2) {
+//			enter_building();
+//			//show_debug_message("obj_par_npc STEP: "+string(id)+": "+routine_type+": "+current_state+": now entering building");
+//		}
+//	} break;
+//}
+if (current_state == "WANDER_TOWN") or
+	(current_state == "WANDER_TOWN_AGAIN") or 
+	(current_state == "RETURN_HOME") or 
+	(current_state == "ENTICED")
+{
+	if (point_distance(x, y, target_x, target_y) < 2) {
+		enter_building();
+		//show_debug_message("obj_par_npc STEP: "+string(id)+": "+routine_type+": "+current_state+": now entering building");
+	}
+}
+#endregion
+
+#region handle being spooked and recovering
 if (spooked) {
 	if (image_index != 1) {
 		// change sprite to spooked
@@ -106,6 +143,7 @@ if (spooked) {
 	//var _prev_y = y;
 	//y = _prev_y - ;
 }
+#endregion
 
 #region handle collision with nev's van: lie on floor for a couple seconds then get back up
 if (instance_exists(obj_nev_van)) {
@@ -172,5 +210,38 @@ if (instance_exists(obj_nev_van)) {
 
 //	// delayed trigger to actually move into the nearest hbuilding
 //	alarm[0] = game_get_speed(gamespeed_fps) * 2;
+//}
+#endregion
+
+#region handle behaviour while inside wip
+//if (is_inside) and (can_move_inside) and (x > 20000) {
+//	if (move_timer-- <= 0) or (!move_inside) {
+//		move_timer = choose(60, 120, 180, 240);
+        
+//		var _tx = x + irandom_range(-inside_range_min, inside_range_max);
+//        var _ty = y + irandom_range(-inside_range_min, inside_range_max);
+		
+//		var _interior = current_building.interior_obj;
+		
+//		_tx = clamp(_tx, _interior.bbox_left, _interior.bbox_right);
+//		_ty = clamp(_ty, _interior.bbox_top, _interior.bbox_bottom);
+		
+//		inside_x = _tx;
+//		inside_y = _ty;
+		
+//		move_inside = true;
+//	}
+//	// move toward target if in moving state
+//	if (move_inside) {
+//		move_towards_point(inside_x, inside_y, move_speed);
+//		if (point_distance(x, y, inside_x, inside_y) < 2) {
+//			x = inside_x;
+//			y = inside_y;
+//			move_inside = false;
+//			if (wait_timer-- <= 0) {
+//				wait_timer = choose(180, 240);
+//			}
+//		}
+//	}
 //}
 #endregion

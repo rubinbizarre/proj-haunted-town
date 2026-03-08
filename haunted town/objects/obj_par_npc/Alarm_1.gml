@@ -10,7 +10,6 @@ image_angle = 0;
 //prev_move_speed = 0;
 
 my_path = my_path_duplicate;
-
 if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 	path_start(my_path, move_speed, path_action_stop, true);
 }

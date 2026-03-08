@@ -23,14 +23,14 @@ room	w 1920  h 1080
 
 */
 
-zoom_level = 2;
+zoom_level = 2; // 1-3 currently
 
 cam_w_1 = 1920;
 cam_h_1 = 1080;
 cam_w_2 = 640;
 cam_h_2 = 360;
-cam_w_3 = 240;//320;
-cam_h_3 = 135;//180;
+cam_w_3 = 320;//240;//
+cam_h_3 = 180;//135;//
 
 zoom_current_w = cam_w_2;
 zoom_current_h = cam_h_2;

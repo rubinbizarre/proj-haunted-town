@@ -17,7 +17,6 @@ for (var i = 0; i < array_length(_schedule); i++) {
 
 if (_new_state != current_state) {
     current_state = _new_state;
-	circuit_start = false;
     
     // determine target coordinates based on state
     switch (current_state) {
@@ -122,7 +121,7 @@ if (_new_state != current_state) {
 			//// add position to my_path
 			//path_add_point(my_path, target_x, target_y, 100);
 			
-			show_debug_message("obj_nev_van USER_EVENT[0]: "+string(current_state)+" total path points: "+string(path_get_number(my_path)));
+			//show_debug_message("obj_nev_van USER_EVENT[0]: "+string(current_state)+" total path points: "+string(path_get_number(my_path)));
 		} break;
 		case "DRIVE_AND_STOP": {
 			// pick a dest node that is not the nearest node to current pos

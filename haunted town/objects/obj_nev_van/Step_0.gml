@@ -69,9 +69,8 @@ if (current_state == "RETURN_HOME") {
 				}
 				#endregion
 				
-				show_debug_message("obj_nev_van STEP: "+current_state+": van detected POI. pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
-				//show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(_nearest_road_node.node_id));
-				show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(target_stop_node.node_id)+" | node route: "+_debug_node_list);
+				//show_debug_message("obj_nev_van STEP: "+current_state+": van detected POI. pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+				//show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(target_stop_node.node_id)+" | node route: "+_debug_node_list);
 		    }
 		}
 		ds_list_destroy(_temp_list);
@@ -142,7 +141,7 @@ switch (current_state) {
 				
 					current_state = "DRIVE_AND_STOP";
 			
-					show_debug_message("obj_nev_van STEP: changed state from LEAVE_HOME to DRIVE_AND_STOP - no POIs inside nev_todo_queue. going to new dest.");
+					//show_debug_message("obj_nev_van STEP: changed state from LEAVE_HOME to DRIVE_AND_STOP - no POIs inside nev_todo_queue. going to new dest.");
 			
 					//goto_new_dest();
 				//}
@@ -160,12 +159,12 @@ switch (current_state) {
 				// deploy Nev after short delay
 				alarm[0] = game_get_speed(gamespeed_fps) * 1.25;
 			
-				show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE. at least one POI inside nev_todo_queue. deploying Nev shortly!");
+				//show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE. at least one POI inside nev_todo_queue. deploying Nev shortly!");
 			} else {
 				// nev has no POIs to visit. keep driving around
 				goto_new_dest();
 				
-				show_debug_message("obj_nev_van STEP: state unchanged from DRIVE_AND_STOP. no POIs inside nev_todo_queue. driving elsewhere!");
+				//show_debug_message("obj_nev_van STEP: state unchanged from DRIVE_AND_STOP. no POIs inside nev_todo_queue. driving elsewhere!");
 			}
 		}
 	} break;

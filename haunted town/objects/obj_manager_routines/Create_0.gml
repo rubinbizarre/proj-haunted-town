@@ -22,7 +22,7 @@ global.routines = {
 	// at 2PM they wander the town again
 	// and will return home at 7PM
     kid: [
-        { start: 0,		dest: 480,	state: "INSIDE" }, // @ 0000
+        { start: 0,		dest: 480,	state: "RETURN_HOME" }, // @ 0000
         { start: 480,	dest: 720,	state: "WANDER_TOWN" }, // @ 0800
         { start: 720,	dest: 840,	state: "PLAY_PARK" }, // @ 1200
         { start: 840,	dest: 1140,	state: "WANDER_TOWN" }, // @ 1400
@@ -32,8 +32,8 @@ global.routines = {
 	// at 1PM they will start to circuit
 	// and will return home at 7PM
 	adult: [
-        { start: 0,		dest: 510,	state: "INSIDE" }, // @ 0000
-        { start: 510,	dest: 780,	state: "WANDER_TOWN" }, // @ 0830
+        { start: 0,		dest: 480,	state: "RETURN_HOME" }, // @ 0000
+        { start: 480,	dest: 780,	state: "WANDER_TOWN" }, // @ 0830
         { start: 780,	dest: 1140,	state: "CIRCUIT" },//"WANDER_TOWN_AGAIN" }, // @ 1300
         { start: 1140,	dest: 1440,	state: "RETURN_HOME" } // @ 1900
     ],
@@ -41,7 +41,7 @@ global.routines = {
 	// they then return home at 12PM before leaving at 3PM to wander town again
 	// they then return home at 6PM
 	elderly: [
-		{ start: 0,		dest: 600,	state: "INSIDE" }, // @ 0000
+		{ start: 0,		dest: 600,	state: "RETURN_HOME" }, // @ 0000
 		{ start: 600,	dest: 720,	state: "WANDER_TOWN" }, // @ 1000
 		{ start: 720,	dest: 900,	state: "RETURN_HOME" }, // @ 1200
 		{ start: 900,	dest: 1080,	state: "WANDER_TOWN" }, // @ 1500
@@ -96,8 +96,8 @@ routine should be different. for example
 
 global.routines_sunday = {
 	kid: [
-		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
-        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+		{ start: 0,    dest: 360,  state: "RETURN_HOME" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0600
         { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
         { start: 720,  dest: 900,  state: "PLAY_PARK" }, // @ 1100
 		{ start: 900,  dest: 1020, state: "RETURN_HOME" }, // @ 1500
@@ -105,8 +105,8 @@ global.routines_sunday = {
 		{ start: 1140, dest: 1440, state: "RETURN_HOME" }, // @ 1900
 	],
 	adult: [
-		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
-        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+		{ start: 0,    dest: 360,  state: "RETURN_HOME" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0600
         { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
         { start: 720,  dest: 780,  state: "WANDER_TOWN" }, // @ 1100
 		{ start: 780,  dest: 900,  state: "WANDER_TOWN_AGAIN" }, // @ 1300
@@ -115,8 +115,8 @@ global.routines_sunday = {
 		{ start: 1140, dest: 1440, state: "RETURN_HOME" }, // @ 1900
 	],
 	elderly: [
-		{ start: 0,    dest: 360,  state: "INSIDE" }, // @ 0000
-        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0800
+		{ start: 0,    dest: 360,  state: "RETURN_HOME" }, // @ 0000
+        { start: 360,  dest: 660,  state: "CHURCH" }, // @ 0600
         { start: 660,  dest: 720,  state: "RETURN_HOME" }, // @ 0900
         { start: 720,  dest: 780,  state: "WANDER_TOWN" }, // @ 1100
 		{ start: 780,  dest: 900,  state: "WANDER_TOWN_AGAIN" }, // @ 1300

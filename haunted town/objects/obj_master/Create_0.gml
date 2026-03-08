@@ -14,7 +14,7 @@ global.mode_index = 0;
 
 // in-game
 global.hour_progress_multiplier = 100 / 60; // used in script for finding date and time to convert hour_progression to actual_minutes
-global.haunt_points = 50;
+global.haunt_points = 30;
 global.tracked_building = noone;
 global.menu_haunt_active = false;
 global.tracked_npc = noone;
@@ -26,9 +26,17 @@ global.display_end_of_day = false;
 global.display_podcast = false;
 global.display_breakdown = false;
 
+global.building_view_inside = false;
+
 font_default = draw_get_font();
 paused_surface = -1;
 pause_menu_select = 0;
+
+prev_cam_x = 0;
+prev_cam_y = 0;
+prev_cam_w = 0;
+prev_cam_h = 0;
+prev_cam_zoom = 0;
 
 function abort_haunt_process() {
 	if (global.menu_haunt_active) {
@@ -108,5 +116,56 @@ function toggle_display_end_of_day() {
 		global.display_end_of_day = false;
 		instance_activate_all();
 		destroy_paused_surface();
+	}
+}
+
+function enter_building_view(building) {
+	// disable outside camera movement & world input
+	//global.camera_locked = true;
+	global.building_view_inside = true;
+	
+	// save the cam pos to move it back later
+	prev_cam_x = camera_get_view_x(view_camera[0]);
+	prev_cam_y = camera_get_view_y(view_camera[0]);
+	
+	// snap the camera to the building's interior coordinates in the void
+	var _b = building_to_view;
+	camera_set_view_pos(view_camera[0], _b.interior_x, _b.interior_y);
+}
+
+function toggle_view_inside(building = noone) {
+	if (!global.building_view_inside) {
+		// disable outside camera movement & world input
+		//global.camera_locked = true;
+		global.building_view_inside = true;
+	
+		// save the cam pos to move it back later
+		prev_cam_x = camera_get_view_x(view_camera[0]);
+		prev_cam_y = camera_get_view_y(view_camera[0]);
+		//// save current zoom setting
+		//prev_cam_zoom = obj_camera.zoom_level;
+		prev_cam_w = camera_get_view_width(view_camera[0]);
+		prev_cam_h = camera_get_view_height(view_camera[0]);
+	
+		// snap the camera to the building's interior coordinates in the void
+		var _b = building;
+		camera_set_view_pos(view_camera[0], _b.interior_x, _b.interior_y);
+		//// set high zoom level
+		//obj_camera.zoom_level = 3;
+		camera_set_view_size(view_camera[0], 320, 180);
+		
+		show_debug_message("obj_master CREATE: toggle_view_inside(): moved cam to x:"+string(_b.interior_x)+", y: "+string(_b.interior_y));
+	} else {
+		global.building_view_inside = false;
+
+		// snap camera back to the previous cam pos & zoom setting
+		camera_set_view_size(view_camera[0], prev_cam_w, prev_cam_h);
+		camera_set_view_pos(view_camera[0], prev_cam_x, prev_cam_y);
+		//obj_camera.zoom_level = prev_cam_zoom;
+		
+		// reset prev_cam vars
+		prev_cam_x = 0;
+		prev_cam_y = 0;
+		prev_cam_zoom = 0;
 	}
 }

@@ -19,10 +19,12 @@ sprite_normal = spr_so_phone;
 sprite_haunted = spr_so_phone_haunted;
 
 // radius in which npcs are scared by the object while haunted
-scare_radius = 50;
+scare_radius = 150;
 
 // amount of fear to apply to scared npc
 scare_amount = 1;
+
+current_building = noone;
 
 //// after untapping the object, how long to wait until player can tap it again
 //cooldown_timer = 360;

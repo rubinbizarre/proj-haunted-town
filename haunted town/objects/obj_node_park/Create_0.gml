@@ -1,1 +1,1 @@
-park_spawn_area = 64;//32;
+area = 64;//32;

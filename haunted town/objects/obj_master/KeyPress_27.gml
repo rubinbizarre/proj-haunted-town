@@ -1,3 +1,5 @@
-///@desc temp disable menu/tracking
+///@desc
 
-abort_haunt_process();
+//abort_haunt_process();
+
+if (global.building_view_inside) toggle_view_inside();

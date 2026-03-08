@@ -213,7 +213,7 @@ if (instance_exists(obj_nev_van)) {
 //}
 #endregion
 
-#region handle behaviour while inside wip
+#region handle movement while inside wip
 //if (is_inside) and (can_move_inside) and (x > 20000) {
 //	if (move_timer-- <= 0) or (!move_inside) {
 //		move_timer = choose(60, 120, 180, 240);
@@ -244,4 +244,25 @@ if (instance_exists(obj_nev_van)) {
 //		}
 //	}
 //}
+#endregion
+
+#region handle shake while fear > 0 and not scared_stiff
+if (fear > 0) and (current_state != "SCARED_STIFF") {
+	// store the npc's initial position before shaking
+	if (!shake_init_pos_stored) {
+		shake_init_x = x;
+	    shake_init_y = y;
+	    shake_init_pos_stored = true;
+	}
+	// constant shake logic
+	var _shake_x = random_range(-shake_intensity, shake_intensity);
+	var _shake_y = random_range(-shake_intensity, shake_intensity);
+
+	x = shake_init_x + _shake_x;
+	y = shake_init_y + _shake_y;
+} else {
+//	if (x != shake_init_x) x = shake_init_x;
+//	if (y != shake_init_y) y = shake_init_y;
+	if (shake_init_pos_stored) shake_init_pos_stored = false;
+}
 #endregion

@@ -15,7 +15,7 @@ current_hour_ = floor(global.current_time_ / 60);
 if (current_hour_ > prev_hour_) {
 	// new hour just happened - broadcast to npcs to check their schedule
 	with (obj_par_npc) {
-		if (current_state != "ENTICED") {
+		if (current_state != "ENTICED") and (current_state != "SCARED_STIFF") {
 			event_user(0);
 		}
 	}

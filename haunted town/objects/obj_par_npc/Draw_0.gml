@@ -22,7 +22,7 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	// draw text var values
 	draw_text_transformed(x, _y, "state:"+string(current_state), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "move_inside:"+string(move_inside), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "fear:"+string(fear), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "move_timer:"+string(move_timer), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "type:"+string(routine_type), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "home:"+string(home_obj), 0.5, 0.5, 0); _y += _ysep;
@@ -34,3 +34,19 @@ if (global.debug) {
 }
 
 draw_self();
+
+// draw progress bar above NPC indicating current fear level
+if (fear > 0) {
+	var _x1 = x - sprite_get_width(spr_npc_elderly)/2;
+	var _x2 = x + sprite_get_width(spr_npc_elderly)/2;
+	var _y1 = y - sprite_get_height(sprite_index) - 10;
+	var _y2 = y - sprite_get_height(sprite_index) - 8;
+	
+	var _total_width = _x2 - _x1;
+	
+	draw_set_color(c_dkgray);
+	draw_rectangle(_x1, _y1, _x2, _y2, false);
+	draw_set_color(c_ltgray);
+	draw_rectangle(_x1, _y1, _x1 + (_total_width * fear), _y2, false);
+	draw_set_color(c_white);
+}

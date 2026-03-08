@@ -49,7 +49,8 @@ ac_channel_spook = animcurve_get_channel(anim_npc_spook, 0);
 ac_time_spook = 0;
 ac_speed_spook = 0.05;
 
-fear = 0.0;
+fear = 0.0; // ranges from 0-1
+fear_gain = 0.1;
 death = false;
 spooked = false;
 prev_xscale = 1;
@@ -77,10 +78,24 @@ inside_range_max = 15;
 inside_dir = 0;
 inside_dist = 0;
 
+shake_init_pos_stored = false;
+shake_init_x = 0;
+shake_init_y = 0;
+shake_intensity = 0.5;
+
 // FUNCTIONS
 
 function increase_fear() {
-	//...
+	fear += fear_gain;
+	fear = clamp(fear, 0, 1);
+	if (image_index != 2) image_index = 2;
+	if (alarm[3] != -1) alarm[3] = -1;
+	if (fear >= 0.8) and (current_state != "SCARED_STIFF") {
+		current_state = "SCARED_STIFF";
+		// start alarm timer which when triggered begins to drain fear
+		// when fear reaches zero, change state to "inside" then check routine
+		alarm[3] = game_get_speed(gamespeed_fps) * 5;
+	}
 }
 
 function kill() {
@@ -142,10 +157,14 @@ function leave_building() {
         }
     }
 
-    // teleport back to the town entrance
+    // teleport back to the town from whence npc came
     x = prev_town_x;
     y = prev_town_y;
     
+	// make npc not scared anymore; reset to normal
+	image_index = 0;
+	fear = 0;
+	
     // cleanup variables
     is_inside = false;
     current_building = noone;
@@ -154,5 +173,6 @@ function leave_building() {
 	target_y = 0;
 	target_obj = noone;
 	
+	// check routine and do it
 	event_user(1);
 }

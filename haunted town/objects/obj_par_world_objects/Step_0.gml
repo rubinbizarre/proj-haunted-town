@@ -59,7 +59,6 @@ if (mouse_hover) and (clicked) and (device_mouse_check_button_released(0, mb_lef
 
 if (btn_confirmed) { 
 	if (locked) { // if clicked and was locked
-		// 
 		if (global.haunt_points >= cost) { // if player has enough HP to unlock this
 			// make unlocked and subtract cost from hp wallet
 			locked = false;

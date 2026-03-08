@@ -17,7 +17,7 @@ if (global.tracked_building != noone) {
 	//...
 } else {
 	//if (room != rm_inside) {
-	if (!global.building_view_inside) { // temporarily disabled for debugging (works)
+	if (!global.building_view_inside) { // can be temporarily disabled for debugging (works)
 		#region manual camera panning with mouse
 		// if middle mouse is pressed while panning is false
 		// make panning true and store mouse gui pos to start panning
@@ -119,3 +119,32 @@ switch (zoom_level) {
 }
 #endregion
 
+#region handle camera shake (commented - needs reworking)
+//// initialize original camera position 
+//if (!position_initialized) {
+//    original_x = camera_get_view_x(view_camera[0]);
+//    original_y = camera_get_view_y(view_camera[0]);
+//    position_initialized = true;
+//}
+
+//// camera shake logic
+//if (shake_duration > 0) {
+//    shake_duration--;
+
+//    var _shake_x = random_range(-shake_intensity, shake_intensity);
+//    var _shake_y = random_range(-shake_intensity, shake_intensity);
+
+//    camera_set_view_pos(view_camera[0], original_x + _shake_x, original_y + _shake_y);
+//} else if (shake_duration == 0) {
+//    if (global.debug) {
+//		show_debug_message("obj_camera finished shake");
+//	}
+//	camera_set_view_pos(view_camera[0], original_x, original_y);
+//    shake_duration = -1;
+//}
+
+//// reset position_initialized flag when finished
+//if (shake_duration == -1 and position_initialized) {
+//    position_initialized = false;
+//}
+#endregion

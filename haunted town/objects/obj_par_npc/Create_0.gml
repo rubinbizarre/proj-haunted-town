@@ -83,6 +83,10 @@ shake_init_x = 0;
 shake_init_y = 0;
 shake_intensity = 0.5;
 
+fear_drain = false;
+fear_drain_interval = 60;
+fear_drain_timer = fear_drain_interval;
+
 // FUNCTIONS
 
 function increase_fear() {
@@ -90,11 +94,33 @@ function increase_fear() {
 	fear = clamp(fear, 0, 1);
 	if (image_index != 2) image_index = 2;
 	if (alarm[3] != -1) alarm[3] = -1;
+	if (fear_drain) fear_drain = false;
+	
 	if (fear >= 0.8) and (current_state != "SCARED_STIFF") {
 		current_state = "SCARED_STIFF";
+	}
+	if (fear >= 1) {
 		// start alarm timer which when triggered begins to drain fear
 		// when fear reaches zero, change state to "inside" then check routine
-		alarm[3] = game_get_speed(gamespeed_fps) * 5;
+		alarm[3] = game_get_speed(gamespeed_fps) * 7;
+		
+		show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
+	}
+}
+
+function decrease_fear() {
+	fear -= fear_gain;
+	fear = clamp(fear, 0, 1);
+	if (fear <= 0) {
+		image_index = 1;
+		current_state = "INSIDE";
+		
+		fear = 0;
+		fear_drain = false;
+		fear_drain_timer = fear_drain_interval;
+		
+		// check routine and do it
+		event_user(1);
 	}
 }
 

@@ -141,3 +141,6 @@ determines how often nev visits that hbuilding
  - shortly before midnight, say at 23:00, nev should get into his van and remain idle
  - at midnight, a sound plays, time is stopped, and the player is prompted to view the podcast
  
+			other gameplay notes:
+ -	would be cool to add 'cheat codes' somehow, including: start with 1000 hp, start with all world objects unlocked, start with all houses unlocked, etc
+ 

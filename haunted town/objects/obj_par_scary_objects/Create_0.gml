@@ -29,9 +29,9 @@ scare_amount = 1;
 current_building = noone;
 
 current_list = ds_list_create();
-// stagger checks for collisions whilst haunted
-check_timer = irandom(60);
-check_interval = 60;//120;
+// for periodic check for collisions whilst haunted
+check_interval = 60;
+check_timer = check_interval;
 
 cooldown_timer = 360;
 cooldown_timer_init = cooldown_timer;
@@ -81,10 +81,14 @@ function check_for_npcs() {
 			// this scary object gains infamy
 			gain_infamy();
 			
-			// increase npc's fear
-			_inst.increase_fear();
+			if (_inst.fear < 1) {
+				// increase npc's fear
+				_inst.increase_fear();
 				
-			show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside scare_radius and got scared!");
+				show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside scare_radius and got scared!");
+			}
+				
+			
 		}
 	}
 }

@@ -1,6 +1,6 @@
 if (depth != -y) depth = -y;
 
-// while not spooked or not hit by van, manage animation, path speed
+#region while not spooked or not hit by van, manage animation, path speed
 if (!spooked) or (!hit_by_van) {
 	#region routine check (old) (commented)
 	//// if not enticed, do periodic routine check
@@ -70,6 +70,7 @@ if (!spooked) or (!hit_by_van) {
 	//}
 	#endregion
 }
+#endregion
 
 // routine timer set in user event 0 when hour changes and assigned state differs from current state 
 if (routine_timer > 0) {
@@ -264,5 +265,14 @@ if (fear > 0) and (current_state != "SCARED_STIFF") {
 //	if (x != shake_init_x) x = shake_init_x;
 //	if (y != shake_init_y) y = shake_init_y;
 	if (shake_init_pos_stored) shake_init_pos_stored = false;
+}
+#endregion
+
+#region handle decreasing fear with repeat timer whilst fear_drain is active
+if (fear_drain) {
+	if (fear_drain_timer-- <= 0) {
+		fear_drain_timer = fear_drain_interval;
+		decrease_fear();
+	}
 }
 #endregion

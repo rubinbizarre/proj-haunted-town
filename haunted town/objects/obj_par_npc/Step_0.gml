@@ -262,8 +262,8 @@ if (fear > 0) and (current_state != "SCARED_STIFF") {
 	x = shake_init_x + _shake_x;
 	y = shake_init_y + _shake_y;
 } else {
-//	if (x != shake_init_x) x = shake_init_x;
-//	if (y != shake_init_y) y = shake_init_y;
+	//if (x != shake_init_x) x = shake_init_x;
+	//if (y != shake_init_y) y = shake_init_y;
 	if (shake_init_pos_stored) shake_init_pos_stored = false;
 }
 #endregion

@@ -99,13 +99,13 @@ function increase_fear() {
 	if (fear >= 0.8) and (current_state != "SCARED_STIFF") {
 		current_state = "SCARED_STIFF";
 	}
-	if (fear >= 1) {
+	//if (fear >= 1) {
 		// start alarm timer which when triggered begins to drain fear
 		// when fear reaches zero, change state to "inside" then check routine
 		alarm[3] = game_get_speed(gamespeed_fps) * 7;
 		
-		show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
-	}
+		//show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
+	//}
 }
 
 function decrease_fear() {
@@ -141,6 +141,15 @@ function enter_building() {
 	current_building = _b;
 	is_inside = true;
 	can_move_inside = true;
+	
+	if (current_state = "ENTICED") {
+		// same alarm used when npc is 'scared' inside, with slightly longer delay
+		// the purpose here is so that enticed npcs will eventually leave the house if left un-interacted-with
+		
+		// start alarm timer which when triggered begins to drain fear
+		// when fear reaches zero, change state to "inside" then check routine
+		alarm[3] = game_get_speed(gamespeed_fps) * 8.5;
+	}
 	
 	path_end();
 	

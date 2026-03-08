@@ -1,3 +1,4 @@
+// currently global.tracked_building and global.tracked_npc are not implemented/needed
 if (global.tracked_building != noone) {
 	//var _tx = global.camera_tracking_inst.x;
 	//var _ty = global.camera_tracking_inst.y;
@@ -16,7 +17,6 @@ if (global.tracked_building != noone) {
 } else if (global.tracked_npc != noone) {
 	//...
 } else {
-	//if (room != rm_inside) {
 	if (!global.building_view_inside) { // can be temporarily disabled for debugging (works)
 		#region manual camera panning with mouse
 		// if middle mouse is pressed while panning is false
@@ -45,12 +45,21 @@ if (global.tracked_building != noone) {
 			var dx = mx - mouse_prev_x;
 			var dy = my - mouse_prev_y;
 		
-			// determine current camera width
-			var vw = camera_get_view_width(cam);
-	
+			//// determine current camera width
+			//var vw = camera_get_view_width(cam);
+			//// scale factor based on base zoom (level 0)
+			////var speed_factor = zoom_0_w / vw; // useful when different camera sizes are used
+			//var speed_factor = 1; // we only have one camera size currently
+			
+			// figure out viewport size for current zoom
+			var vw;
+			switch (zoom_level) {
+				case 1: vw = cam_w_3; break;
+				case 2: vw = cam_w_2; break;
+				case 3: vw = cam_w_1; break;
+			}
 			// scale factor based on base zoom (level 0)
-			//var speed_factor = zoom_0_w / vw; // useful when different camera sizes are used
-			var speed_factor = 1; // we only have one camera size currently
+			var speed_factor = cam_w_1 / vw;
 		
 			dx *= speed_factor;
 			dy *= speed_factor;
@@ -58,14 +67,14 @@ if (global.tracked_building != noone) {
 			dx *= pan_scale_factor;
 			dy *= pan_scale_factor;
 
-			// Get current camera position
+			// get current camera position
 			var cam_x = camera_get_view_x(cam);
 			var cam_y = camera_get_view_y(cam);
 
-			// Apply scaled camera movement in the opposite direction of drag
+			// apply scaled camera movement in the opposite direction of drag
 			camera_set_view_pos(cam, cam_x - dx, cam_y - dy);
 
-			// Update previous mouse pos
+			// update previous mouse pos
 			mouse_prev_x = mx;
 			mouse_prev_y = my;
 		}

@@ -32,6 +32,8 @@ global.building_view_inside = false;
 window_set_cursor(cr_none);
 cursor_sprite = spr_cursor_default;
 
+depth = -10000;
+
 font_default = draw_get_font();
 paused_surface = -1;
 pause_menu_select = 0;

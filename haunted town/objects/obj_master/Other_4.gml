@@ -49,6 +49,19 @@ switch (room) {
 			//show_debug_message("obj_master ROOM_START: assigned building "+string(_inst.id)+" with building_index "+string(i)+". its interior_x: "+string(_inst.interior_x));
 		}
 		
+		#region create possess/kill npc buttons (commented - moved to obj_par_npc step)
+		////var _x = ...
+		////var _y = ...
+		//var _btn_possess = instance_create_layer(903, 312, "Master", obj_btn_npc_options);
+		//var _btn_kill = instance_create_layer(929, 312, "Master", obj_btn_npc_options);
+		//_btn_possess.btn_kill = _btn_kill;
+		////_btn_possess.npc = ...
+		//_btn_possess.sprite_index = spr_btn_npc_possess;
+		//_btn_kill.btn_possess = _btn_possess;
+		////_btn_kill.npc = ...
+		//_btn_kill.sprite_index = spr_btn_npc_kill;
+		#endregion
+		
 		//show_message(string(depth));
 	} break;
 }

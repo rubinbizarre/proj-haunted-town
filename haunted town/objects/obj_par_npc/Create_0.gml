@@ -87,6 +87,12 @@ fear_drain = false;
 fear_drain_interval = 60;
 fear_drain_timer = fear_drain_interval;
 
+soul_flame = noone;
+btn_possess = noone;
+btn_kill = noone;
+
+possessed = false;
+
 // FUNCTIONS
 
 function increase_fear() {
@@ -96,25 +102,42 @@ function increase_fear() {
 	if (alarm[3] != -1) alarm[3] = -1;
 	if (fear_drain) fear_drain = false;
 	
+	// when fear is 0.8 or higher
 	if (fear >= 0.8) and (current_state != "SCARED_STIFF") {
+		// change state to scared_stiff
 		current_state = "SCARED_STIFF";
-	}
-	//if (fear >= 1) {
-		// start alarm timer which when triggered begins to drain fear
-		// when fear reaches zero, change state to "inside" then check routine
-		alarm[3] = game_get_speed(gamespeed_fps) * 7;
 		
-		//show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
-	//}
+		// create 'soul flame' instance
+		var _ymod = sprite_get_height(sprite_index)/2;
+		if (sprite_index == spr_npc_kid) _ymod = round(_ymod / 1.8);
+		soul_flame = instance_create_depth(x, y - _ymod, depth-1, obj_flame_soul);
+	}
+	
+	// start alarm timer which when triggered begins to drain fear
+	// when fear reaches zero, change state to "inside" then check routine
+	alarm[3] = game_get_speed(gamespeed_fps) * 7;
+		
+	//show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
 }
 
 function decrease_fear() {
 	fear -= fear_gain;
 	fear = clamp(fear, 0, 1);
+	
+	// when fear is 0.7 or less, and destroy soul flame if exists
+	if (fear <= 0.7) {
+		if (soul_flame != noone) instance_destroy(soul_flame);
+		if (instance_exists(btn_possess)) instance_destroy(btn_possess);
+		if (instance_exists(btn_kill)) instance_destroy(btn_kill);
+	}
+	
+	// when fear returns to 0
 	if (fear <= 0) {
-		image_index = 1;
+		// change state to inside, appear normal
+		image_index = 0;
 		current_state = "INSIDE";
 		
+		// cleanup
 		fear = 0;
 		fear_drain = false;
 		fear_drain_timer = fear_drain_interval;
@@ -125,11 +148,25 @@ function decrease_fear() {
 }
 
 function kill() {
-	//...
+	// remove self from the building's occupants array
+    for (var i = 0; i < array_length(current_building.occupants); i++) {
+        if (current_building.occupants[i] == id) {
+            array_delete(current_building.occupants, i, 1);
+            break;
+        }
+    }
+	
 }
 
 function possess() {
-	//...
+	// remove self from the building's occupants array
+    for (var i = 0; i < array_length(current_building.occupants); i++) {
+        if (current_building.occupants[i] == id) {
+            array_delete(current_building.occupants, i, 1);
+            break;
+        }
+    }
+	possessed = true;
 }
 
 function enter_building() {

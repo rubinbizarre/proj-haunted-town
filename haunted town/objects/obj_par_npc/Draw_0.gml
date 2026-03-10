@@ -22,6 +22,7 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	// draw text var values
 	draw_text_transformed(x, _y, "state:"+string(current_state), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "fear_drain:"+string(fear_drain), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "fear:"+string(fear), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "move_timer:"+string(move_timer), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "type:"+string(routine_type), 0.5, 0.5, 0); _y += _ysep;
@@ -49,4 +50,14 @@ if (fear > 0) {
 	draw_set_color(c_ltgray);
 	draw_rectangle(_x1, _y1, _x1 + (_total_width * fear), _y2, false);
 	draw_set_color(c_white);
+}
+
+if (current_state = "SCARED_STIFF") {
+	var _subimg;
+	switch (sprite_index) {
+		case spr_npc_adult: _subimg = 0; break;
+		case spr_npc_elderly: _subimg = 1; break;
+		case spr_npc_kid: _subimg = 2; break;
+	}
+	draw_sprite_ext(spr_npc_outlines, _subimg, x, y, image_xscale, image_yscale, 0, c_white, 1);
 }

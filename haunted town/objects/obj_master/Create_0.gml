@@ -28,6 +28,10 @@ global.display_breakdown = false;
 
 global.building_view_inside = false;
 
+global.total_paranormal_events = 0;
+global.total_possessions = 0;
+global.total_kills = 0;
+
 // initialise cursor
 window_set_cursor(cr_none);
 cursor_sprite = spr_cursor_default;

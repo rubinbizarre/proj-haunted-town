@@ -247,20 +247,52 @@ if (instance_exists(obj_nev_van)) {
 //}
 #endregion
 
-#region handle shake while fear > 0 and not scared_stiff
-if (fear > 0) and (current_state != "SCARED_STIFF") {
+#region handle shake while fear > 0 and not scared_stiff, also create/destroy possess/kill npc buttons
+if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 	// store the npc's initial position before shaking
 	if (!shake_init_pos_stored) {
 		shake_init_x = x;
 	    shake_init_y = y;
 	    shake_init_pos_stored = true;
 	}
-	// constant shake logic
-	var _shake_x = random_range(-shake_intensity, shake_intensity);
-	var _shake_y = random_range(-shake_intensity, shake_intensity);
-
-	x = shake_init_x + _shake_x;
-	y = shake_init_y + _shake_y;
+	
+	// shake in both axes when not scared_stiff
+	// when scared_stiff, shake only in x-axis
+	if (current_state != "SCARED_STIFF") {
+		// constant shake logic
+		var _shake_x = random_range(-shake_intensity, shake_intensity);
+		var _shake_y = random_range(-shake_intensity, shake_intensity);
+		x = shake_init_x + _shake_x;
+		y = shake_init_y + _shake_y;
+		
+		// destroy possess/kill buttons if they exist
+		if (instance_exists(btn_possess)) instance_destroy(btn_possess); btn_possess = noone;
+		if (instance_exists(btn_kill)) instance_destroy(btn_kill); btn_kill = noone;
+		
+	} else { // if current_state == SCARED_STIFF
+		var _intensity = shake_intensity * 0.6;
+		var _shake_x = random_range(-_intensity, _intensity);
+		x = shake_init_x + _shake_x;
+		
+		#region create possess/kill npc buttons
+		if (btn_possess == noone) or (btn_kill == noone) {
+		//if (!instance_exists(btn_possess)) or (!instance_exists(btn_kill)) {
+			var _x1 = x - sprite_get_width(spr_npc_elderly);
+			var _x2 = x + sprite_get_width(spr_npc_elderly);
+			var _y = y - sprite_get_height(sprite_index)/2;
+			btn_possess = instance_create_layer(_x1, _y, "Master", obj_btn_npc_options);
+			btn_kill = instance_create_layer(_x2, _y, "Master", obj_btn_npc_options);
+			btn_possess.btn_kill = btn_kill;
+			btn_possess.npc = id;
+			btn_possess.sprite_index = spr_btn_npc_possess;
+			btn_possess.depth = depth - 1;
+			btn_kill.btn_possess = btn_possess;
+			btn_kill.npc = id;
+			btn_kill.sprite_index = spr_btn_npc_kill;
+			btn_kill.depth = depth - 1;
+		}
+		#endregion
+	}
 } else {
 	//if (x != shake_init_x) x = shake_init_x;
 	//if (y != shake_init_y) y = shake_init_y;

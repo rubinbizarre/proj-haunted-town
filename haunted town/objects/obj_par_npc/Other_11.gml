@@ -137,7 +137,18 @@ current_state = _new_state;
 #endregion
 
 // if was inside, leave
-if (is_inside) leave_building();
+if (is_inside) {
+	// extra conditional to prevent npcs from leaving and entering their home instantaneously
+	if (current_state == "RETURN_HOME") and (current_building == home_obj) {
+		exit;
+	} else if (current_state == "WANDER_TOWN") and (current_building == target_obj) {
+		exit;
+	} else if (current_state == "WANDER_TOWN_AGAIN") and (current_building == target_obj) {
+		exit;
+	} else {
+		leave_building();
+	}
+}
 
 switch (current_state) {
 	case "CIRCUIT": {

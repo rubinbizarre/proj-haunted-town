@@ -143,4 +143,5 @@ determines how often nev visits that hbuilding
  
 			other gameplay notes:
  -	would be cool to add 'cheat codes' somehow, including: start with 1000 hp, start with all world objects unlocked, start with all houses unlocked, etc
- 
+  -	may be useful to add a signpost or two around the town, pointing to where certain places are (this is only useful/needed if the lowest level zoom out feature is taken out)
+  

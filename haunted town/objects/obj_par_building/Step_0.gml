@@ -132,6 +132,12 @@ if (mouse_confirmed) {
 			stats.owned = true;
 			// play sound (unlocked/success)
 			//...
+			// display hp cost notification
+			var _cost = stats.cost;
+			with instance_create_layer(x, y - (sprite_height), "Master", obj_notif) {
+				amount = "-"+string(_cost);
+				//depth = other.depth - 1;
+			}
 			exit;
 		} else { // if player cannot afford to purchase this
 			// play sound (locked/fail)

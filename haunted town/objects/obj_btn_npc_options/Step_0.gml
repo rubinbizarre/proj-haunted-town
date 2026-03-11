@@ -47,10 +47,15 @@ if (btn_confirmed) {
 				// subtract haunt points (hp)
 				global.haunt_points -= _cost;
 				// display cost notification
-				//...
+				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+					amount = "-"+string(_cost);
+				}
 				// trigger implode after delay
-				alarm[0] = game_get_speed(gamespeed_fps) * 2;
-			} else {
+				alarm[0] = game_get_speed(gamespeed_fps) * 1;
+				// stop draining fear and cancel alarm
+				npc.fear_drain = false;
+				npc.alarm[3] = -1;
+			} else { // player doesn't have enough hp to possess
 				// play sound (fail)
 				//...
 				// display notification to player indicating that they 'need more HP' / 'not enough HP'
@@ -65,13 +70,11 @@ if (btn_confirmed) {
 			btn_possess.fading_away = true;
 			// play sound (kill success)
 			//...
-			// award haunt points (hp)
-			var _hp = 10;
-			global.haunt_points += _hp;
-			// display hp awarded notification
-			//...
 			// trigger implode after delay
-			alarm[0] = game_get_speed(gamespeed_fps) * 2;
+			alarm[0] = game_get_speed(gamespeed_fps) * 1;
+			// stop draining fear and cancel alarm
+			npc.fear_drain = false;
+			npc.alarm[3] = -1;
 		} break;
 	}
 	btn_confirmed = false;
@@ -95,12 +98,10 @@ if (implode) {
 		// affect npc; refer to npc with var 'npc'
 		switch (sprite_index) {
 			case spr_btn_npc_possess: {
-				// possess npc
-				//...
+				if (instance_exists(npc)) npc.alarm[4] = game_get_speed(gamespeed_fps) * 1;
 			} break;
 			case spr_btn_npc_kill: {
-				// kill npc
-				//...
+				if (instance_exists(npc)) npc.alarm[5] = game_get_speed(gamespeed_fps) * 1;
 			} break;
 		}
 		// destroy button inst

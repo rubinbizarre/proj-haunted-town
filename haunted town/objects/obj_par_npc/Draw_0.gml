@@ -34,10 +34,18 @@ if (global.debug) {
 	draw_set_halign(fa_left);
 }
 
+#region draw possessed radius if possessed, indicating area in which player can remotely entice other npcs
+if (possessed) {
+	draw_set_color(global.c_haunt);
+	draw_circle(x, y, possessed_radius, true);
+	draw_set_color(c_white);
+}
+#endregion
+
 draw_self();
 
-// draw progress bar above NPC indicating current fear level
-if (fear > 0) {
+#region draw progress bar above NPC indicating current fear level
+if (fear > 0) and (!dying) {
 	var _x1 = x - sprite_get_width(spr_npc_elderly)/2;
 	var _x2 = x + sprite_get_width(spr_npc_elderly)/2;
 	var _y1 = y - sprite_get_height(sprite_index) - 10;
@@ -51,13 +59,24 @@ if (fear > 0) {
 	draw_rectangle(_x1, _y1, _x1 + (_total_width * fear), _y2, false);
 	draw_set_color(c_white);
 }
+#endregion
 
-if (current_state = "SCARED_STIFF") {
+#region draw specific 'haunted outline' around npc under certain conditions
+if (current_state = "SCARED_STIFF") and (!dying) and (!possess_transition) and (!possessed) {
 	var _subimg;
 	switch (sprite_index) {
 		case spr_npc_adult: _subimg = 0; break;
 		case spr_npc_elderly: _subimg = 1; break;
 		case spr_npc_kid: _subimg = 2; break;
 	}
-	draw_sprite_ext(spr_npc_outlines, _subimg, x, y, image_xscale, image_yscale, 0, c_white, 1);
+	draw_sprite_ext(spr_npc_outlines, _subimg, x, y, image_xscale, image_yscale, 0, c_white, image_alpha);
+} else if (dying) or (possess_transition) {
+	var _subimg;
+	switch (sprite_index) {
+		case spr_npc_adult: _subimg = 3; break;
+		case spr_npc_elderly: _subimg = 4; break;
+		case spr_npc_kid: _subimg = 5; break;
+	}
+	draw_sprite_ext(spr_npc_outlines, _subimg, x, y, image_xscale, image_yscale, 0, c_white, image_alpha);
 }
+#endregion

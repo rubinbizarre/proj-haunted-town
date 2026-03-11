@@ -92,6 +92,15 @@ btn_possess = noone;
 btn_kill = noone;
 
 possessed = false;
+possess_transition = false;
+possess_timer = 180;
+possess_timer_init = possess_timer;
+possess_shake_intensity = 1.5;
+possessed_radius = 40;
+
+dying = false;
+dying_ascent_speed = 0.05;
+dying_fade_speed = 0.01;
 
 // FUNCTIONS
 
@@ -110,7 +119,7 @@ function increase_fear() {
 		// create 'soul flame' instance
 		var _ymod = sprite_get_height(sprite_index)/2;
 		if (sprite_index == spr_npc_kid) _ymod = round(_ymod / 1.8);
-		soul_flame = instance_create_depth(x, y - _ymod, depth-1, obj_flame_soul);
+		if (!instance_exists(soul_flame)) soul_flame = instance_create_depth(x, y - _ymod, depth-1, obj_flame_soul);
 	}
 	
 	// start alarm timer which when triggered begins to drain fear
@@ -126,9 +135,9 @@ function decrease_fear() {
 	
 	// when fear is 0.7 or less, and destroy soul flame if exists
 	if (fear <= 0.7) {
-		if (soul_flame != noone) instance_destroy(soul_flame);
-		if (instance_exists(btn_possess)) instance_destroy(btn_possess);
-		if (instance_exists(btn_kill)) instance_destroy(btn_kill);
+		if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
+		if (instance_exists(btn_possess)) instance_destroy(btn_possess); btn_possess = noone;
+		if (instance_exists(btn_kill)) instance_destroy(btn_kill); btn_kill = noone;
 	}
 	
 	// when fear returns to 0
@@ -148,25 +157,39 @@ function decrease_fear() {
 }
 
 function kill() {
-	// remove self from the building's occupants array
-    for (var i = 0; i < array_length(current_building.occupants); i++) {
-        if (current_building.occupants[i] == id) {
-            array_delete(current_building.occupants, i, 1);
-            break;
-        }
-    }
+	if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
+	image_index = 4; // set to death frame
+	alarm[3] = -1; // cancel fear_drain alarm
+	fear = 0; // set fear to zero so that bar is not visible
+	dying = true; // start floating up and fading away
 	
+	// award haunt points (hp)
+	var _hp = 10;
+	global.haunt_points += _hp;
+	// display hp awarded notification
+	with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+		amount = "+"+string(_hp);
+	}
+	
+	//show_message(string(id)+"\nhas called kill()");
 }
 
 function possess() {
-	// remove self from the building's occupants array
-    for (var i = 0; i < array_length(current_building.occupants); i++) {
-        if (current_building.occupants[i] == id) {
-            array_delete(current_building.occupants, i, 1);
-            break;
-        }
-    }
-	possessed = true;
+	// possession transition should take place, so only after a short delay
+	// should the npc finally check their routine and (then likely) leave the building
+	
+	if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
+	alarm[3] = -1;
+	fear = 0;
+	possess_transition = true;
+	
+	shake_init_pos_stored = false;
+	// store the npc's initial position before shaking
+	if (!shake_init_pos_stored) {
+		shake_init_x = x;
+	    shake_init_y = y;
+	    shake_init_pos_stored = true;
+	}
 }
 
 function enter_building() {
@@ -228,14 +251,21 @@ function leave_building() {
             break;
         }
     }
-
+	
     // teleport back to the town from whence npc came
     x = prev_town_x;
     y = prev_town_y;
     
-	// make npc not scared anymore; reset to normal
-	image_index = 0;
-	fear = 0;
+	// if not possessed, make npc not scared anymore; reset to normal sprite
+	if (!possessed) {
+		image_index = 0;
+		fear = 0;
+	}
+	
+	// destroy possess/kill buttons if they exist
+	if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
+	if (instance_exists(btn_possess)) instance_destroy(btn_possess); btn_possess = noone;
+	if (instance_exists(btn_kill)) instance_destroy(btn_kill); btn_kill = noone;
 	
     // cleanup variables
     is_inside = false;

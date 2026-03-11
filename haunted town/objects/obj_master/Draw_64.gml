@@ -63,13 +63,14 @@ switch (room) {
 					draw_set_color(c_white);
 					draw_text_transformed(_x, 310, "receiving transmission...", 1, 1, 0);
 					draw_set_color(global.c_haunt);
-					draw_text_transformed(_x, 400, "Nev's World Podcast\nEpisode #"+string(global.podcast_episode_counter), 1, 1, 0);
+					draw_text_transformed(_x, 400, "Nev's World Podcast", 1, 1, 0);
+					draw_text_transformed(_x, 440, "Episode #"+string(global.podcast_episode_counter), 1, 1, 0);
 				
-					var _podcast_body = "Nerr-herr! Greetings truth-seekers\nand my fellow Nev-Heads!";// Do you smell that? No, it isn’t the stench of a rotting poltergeist, though there’s plenty of that in this dump of a town. It is the sweet, digital aroma of SUCCESS! We just hit 10,000 SUBSCRIBERS! My mom said I was just 'loitering in a minivan' but she’s clearly a sleeper agent for the PARANORMAL ENTITIES! Nerr. Today was a gold mine. I caught some highly suspicious activity near that old oak tree—totally a GHOST, DEMON or NEFARIOUS PRESENCE! I see believers in chat, the subscribers are pouring in, which means... I’M UPGRADING! Goodbye, crappy thrift-store camera! Tomorrow, I’m rolling out with a VCR VIDEOCAM! Now I can capture all the ectoplasmic nonsense in glorious, grainy 240p! You can run, you translucent freaks, but you can't hide from my new autofocus! Nerr-herr-herr! Stay vigilant, Nev-Heads. The truth is out there, and it’s probably haunting your bins!";
-					draw_text_transformed(_x, 500, _podcast_body, 1, 1, 0);
+					var _podcast_body = "Nerr-herr! Greetings, my fellow\nNev-Heads! Do you smell that? No, it\nisnt the stench of a rotting poltergeist";//, though there’s plenty of that in this dump of a town. It is the sweet, digital aroma of SUCCESS! We just hit 10,000 SUBSCRIBERS! My mom said I was just 'loitering in a minivan' but she’s clearly a sleeper agent for the PARANORMAL ENTITIES! Nerr. Today was a gold mine. I caught some highly suspicious activity near that old oak tree—totally a GHOST, DEMON or NEFARIOUS PRESENCE! I see believers in chat, the subscribers are pouring in, which means... I’M UPGRADING! Goodbye, crappy thrift-store camera! Tomorrow, I’m rolling out with a VCR VIDEOCAM! Now I can capture all the ectoplasmic nonsense in glorious, grainy 240p! You can run, you translucent freaks, but you can't hide from my new autofocus! Nerr-herr-herr! Stay vigilant, Nev-Heads. The truth is out there, and it’s probably haunting your bins!";
+					draw_text_transformed(_x, (440+720)/2, _podcast_body, 1, 1, 0);
 				
 					draw_set_color(c_white);
-					draw_text_transformed(_x, 620, "end of transmission.", 1, 1, 0);
+					draw_text_transformed(_x, 750, "end of transmission.", 1, 1, 0);
 					draw_text_transformed(_x, 850, "press ENTER to continue", 1, 1, 0);
 				}
 				

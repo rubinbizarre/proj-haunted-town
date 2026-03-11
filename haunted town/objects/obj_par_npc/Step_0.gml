@@ -214,7 +214,7 @@ if (instance_exists(obj_nev_van)) {
 //}
 #endregion
 
-#region handle movement while inside wip
+#region handle movement while inside WIP (commented)
 //if (is_inside) and (can_move_inside) and (x > 20000) {
 //	if (move_timer-- <= 0) or (!move_inside) {
 //		move_timer = choose(60, 120, 180, 240);
@@ -247,7 +247,7 @@ if (instance_exists(obj_nev_van)) {
 //}
 #endregion
 
-#region handle shake while fear > 0 and not scared_stiff, also create/destroy possess/kill npc buttons
+#region handle SHAKING while fear > 0 and not scared_stiff, also create/destroy possess/kill npc buttons
 if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 	// store the npc's initial position before shaking
 	if (!shake_init_pos_stored) {
@@ -258,7 +258,7 @@ if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 	
 	// shake in both axes when not scared_stiff
 	// when scared_stiff, shake only in x-axis
-	if (current_state != "SCARED_STIFF") {
+	if (current_state != "SCARED_STIFF") and (!dying) {
 		// constant shake logic
 		var _shake_x = random_range(-shake_intensity, shake_intensity);
 		var _shake_y = random_range(-shake_intensity, shake_intensity);
@@ -266,6 +266,7 @@ if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 		y = shake_init_y + _shake_y;
 		
 		// destroy possess/kill buttons if they exist
+		if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
 		if (instance_exists(btn_possess)) instance_destroy(btn_possess); btn_possess = noone;
 		if (instance_exists(btn_kill)) instance_destroy(btn_kill); btn_kill = noone;
 		
@@ -273,25 +274,6 @@ if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 		var _intensity = shake_intensity * 0.6;
 		var _shake_x = random_range(-_intensity, _intensity);
 		x = shake_init_x + _shake_x;
-		
-		#region create possess/kill npc buttons
-		if (btn_possess == noone) or (btn_kill == noone) {
-		//if (!instance_exists(btn_possess)) or (!instance_exists(btn_kill)) {
-			var _x1 = x - sprite_get_width(spr_npc_elderly);
-			var _x2 = x + sprite_get_width(spr_npc_elderly);
-			var _y = y - sprite_get_height(sprite_index)/2;
-			btn_possess = instance_create_layer(_x1, _y, "Master", obj_btn_npc_options);
-			btn_kill = instance_create_layer(_x2, _y, "Master", obj_btn_npc_options);
-			btn_possess.btn_kill = btn_kill;
-			btn_possess.npc = id;
-			btn_possess.sprite_index = spr_btn_npc_possess;
-			btn_possess.depth = depth - 1;
-			btn_kill.btn_possess = btn_possess;
-			btn_kill.npc = id;
-			btn_kill.sprite_index = spr_btn_npc_kill;
-			btn_kill.depth = depth - 1;
-		}
-		#endregion
 	}
 } else {
 	//if (x != shake_init_x) x = shake_init_x;
@@ -300,11 +282,94 @@ if (fear > 0) {//and (current_state != "SCARED_STIFF") {
 }
 #endregion
 
+#region create possess/kill npc buttons if conditions met
+if (current_state == "SCARED_STIFF") and (fear >= 0.8) {
+	if (btn_possess == noone) or (btn_kill == noone) {
+	//if (!instance_exists(btn_possess)) or (!instance_exists(btn_kill)) {
+		var _x1 = x - sprite_get_width(spr_npc_elderly);
+		var _x2 = x + sprite_get_width(spr_npc_elderly);
+		var _y = y - sprite_get_height(sprite_index)/2;
+		btn_possess = instance_create_layer(_x1, _y, "Master", obj_btn_npc_options);
+		btn_kill = instance_create_layer(_x2, _y, "Master", obj_btn_npc_options);
+		btn_possess.btn_kill = btn_kill;
+		btn_possess.npc = id;
+		btn_possess.sprite_index = spr_btn_npc_possess;
+		btn_possess.depth = depth - 1;
+		btn_kill.btn_possess = btn_possess;
+		btn_kill.npc = id;
+		btn_kill.sprite_index = spr_btn_npc_kill;
+		btn_kill.depth = depth - 1;
+	}
+}
+#endregion
+
 #region handle decreasing fear with repeat timer whilst fear_drain is active
-if (fear_drain) {
+if (fear_drain) and (!dying) {
 	if (fear_drain_timer-- <= 0) {
 		fear_drain_timer = fear_drain_interval;
 		decrease_fear();
+	}
+}
+#endregion
+
+#region handle dying process
+if (dying) {
+	y -= dying_ascent_speed;
+	image_alpha -= dying_fade_speed;
+	if (image_alpha <= 0) {
+		// remove self from the building's occupants array
+	    for (var i = 0; i < array_length(current_building.occupants); i++) {
+	        if (current_building.occupants[i] == id) {
+	            array_delete(current_building.occupants, i, 1);
+	            break;
+	        }
+	    }
+		// increase total kills
+		global.total_kills++;
+		// destroy this npc inst
+		instance_destroy();
+	}
+}
+#endregion
+
+#region handle possession transition
+if (possess_transition) {
+		
+	possess_timer--;
+	
+	var _possess_progression = (possess_timer_init - possess_timer) / possess_timer_init;
+	
+	// shake starts at 0 and becomes more violent towards end of 'transition'
+	var _shake_intensity = possess_shake_intensity * _possess_progression;
+	
+	// constant shake logic
+	var _shake_x = random_range(-_shake_intensity, _shake_intensity);
+	var _shake_y = random_range(-_shake_intensity, _shake_intensity);
+	x = shake_init_x + _shake_x;
+	y = shake_init_y + _shake_y;
+	
+	// end of possess transition
+	if (possess_timer <= 0) {
+		// place inst back in correct spot
+		x = shake_init_x;
+		y = shake_init_y;
+		// set to possessed frame
+		image_index = 3;
+		
+		current_state = "INSIDE";
+		
+		// clean up
+		fear_drain = false;
+		fear_drain_timer = fear_drain_interval;
+		possess_timer = possess_timer_init;
+		shake_init_pos_stored = false;
+		possess_transition = false;
+		
+		// mark as possessed (enables remote-enticing and drawing the possessed_radius)
+		possessed = true;
+		
+		// trigger do normal routine after short delay
+		alarm[6] = game_get_speed(gamespeed_fps) * 1.5;
 	}
 }
 #endregion

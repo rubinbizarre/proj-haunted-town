@@ -81,12 +81,13 @@ function check_for_npcs() {
 			// this scary object gains infamy
 			gain_infamy();
 			
-			//if (_inst.fear < 1) {
+			// if the npc is not currently dying
+			if (!_inst.dying) and (!_inst.possess_transition) and (!_inst.possessed) {
 				// increase npc's fear
 				_inst.increase_fear();
 				
-				show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside scare_radius and got scared!");
-			//}
+				//show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside scare_radius and got scared!");
+			}
 				
 			
 		}

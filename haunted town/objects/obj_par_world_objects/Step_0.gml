@@ -67,6 +67,11 @@ if (btn_confirmed) {
 			//...
 			// visual feedback
 			//...
+			// display hp cost notification
+			with instance_create_layer(x, bbox_top - 10, "Master", obj_notif) {
+				amount = "-"+string(other.cost);
+				//depth = other.depth - 1;
+			}
 		} else { // if player cant afford to unlock this
 			// play sound (fail/blocked/error)
 			//...

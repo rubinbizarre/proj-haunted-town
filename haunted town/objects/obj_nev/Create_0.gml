@@ -44,6 +44,11 @@ gear.image_index = gear_tier;
 check_timer = irandom(60);
 check_interval = 60;
 
+following = false;
+
+current_building = noone;
+is_inside = false;
+
 /*
 function determine_destination() {
 	var _target_inst = noone;
@@ -65,54 +70,6 @@ function determine_destination() {
 	}
 }
 */
-
-function check_for_haunted_things() {
-	#region unfit code taken from obj_par_world_objects check_for_npcs() (commented)
-	/*
-	// note:	this was taken from obj_par_world_objects check_for_npcs()
-	
-	var r = haunt_radius;
-	
-	if (!ds_exists(list_of_places_to_go, ds_type_list)) {
-		list_of_places_to_go = ds_list_create();
-	}
-	if (!ds_exists(last_list, ds_type_list)) {
-		last_list = ds_list_create();
-	}
-	
-	// 1 // clear the current list and find who is inside now
-	ds_list_clear(list_of_places_to_go);
-	var _num = collision_circle_list(x, y, r, obj_par_world_objects, false, true, list_of_places_to_go, false);
-
-	// 2 // find 'new entries' (in list_of_places_to_go ONLY, not in last_list)
-	for (var i = 0; i < ds_list_size(list_of_places_to_go); i++) {
-	    var _inst = list_of_places_to_go[| i];
-    
-	    // if they weren't here last frame, they just ENTERED
-	    if (ds_list_find_index(last_list, _inst) == -1) {
-			show_debug_message("obj_nev CREATE: check_for_haunted_things(): "+string(_inst)+" entered!");
-	    }
-	}
-	
-	//// 3 // find 'exits' (in last_list ONLY, not in current_list)
-	//for (var i = 0; i < ds_list_size(last_list); i++) {
-	//    var _inst = last_list[| i];
-	//    // if they were here last frame but aren't now, they just LEFT
-	//    if (ds_list_find_index(current_list, _inst) == -1) {
-	//        if (instance_exists(_inst)) {
-	//            //_inst.spooked = false; // reset the trigger
-	//            show_debug_message("obj_nev CREATE: check_for_haunted_things(): "+string(_inst)+" left!");
-	//        }
-	//    }
-	//}
-	
-	// 4 // update the memory for the next frame
-	ds_list_copy(last_list, current_list);
-	*/
-	#endregion
-	
-	
-}
 	
 function sort_todo_queue_by_distance() {
     //// 1. capture Nev's current position in local variables
@@ -134,4 +91,204 @@ function sort_todo_queue_by_distance() {
         // positive if B is closer (moves B toward the start)
         return _dist_a - _dist_b;
     });
+}
+
+function check_for_paranormal() {
+	#region check for all detectable objects
+	var _list = ds_list_create();
+	var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_detectable, false, true, _list, false);
+		
+	for (var i = 0; i < _num; i++) {
+		var _inst = _list[| i];
+		var _should_add = false;
+			
+		// now determine if the detected object should be added to the todo_queue
+			
+		// check for haunted world-objects
+		if (object_is_ancestor(_inst.object_index, obj_par_world_objects)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+					_should_add = true;
+					show_debug_message("obj_nev CREATE: check_for_paranormal(): "+current_state+": adding haunted world-object: "+string(_inst.id));
+				}
+			}
+		}
+		// check for haunted buildings
+		if (object_is_ancestor(_inst.object_index, obj_par_building)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (_inst.stats.owned) {
+					_should_add = true;
+					show_debug_message("obj_nev CREATE: check_for_paranormal(): "+current_state+": adding haunted building: "+string(_inst.id));
+				}
+			}
+		}
+		// check for haunted scary-objects
+		if (object_is_ancestor(_inst.object_index, obj_par_scary_objects)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+					_should_add = true;
+					
+					alarm[2] = -1; // found POI so cancel auto-leave: for when nothing is actively haunted inside
+					
+					current_state = "APPROACH_POI";
+					var _xoffset = 30;
+					var _yoffset = 30/2.5;
+					target_x = _inst.x + irandom_range(-_xoffset, _xoffset);
+					target_y = _inst.y + irandom_range(_inst.y, _yoffset);
+					path_clear_points(my_path);
+		            path_add_point(my_path, x, y, 100);
+		            path_add_point(my_path, target_x, target_y, 100);
+		            path_start(my_path, move_speed, path_action_stop, true);
+					
+					show_debug_message("obj_nev CREATE: check_for_paranormal(): "+current_state+": adding haunted scary-object: "+string(_inst.id));
+				}
+			}
+		}
+		// check for possessed npcs
+		if (object_is_ancestor(_inst.object_index, obj_par_npc)) {
+			if (variable_instance_exists(_inst, "possessed")) {
+				if (_inst.possessed) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) {
+					_should_add = true;
+					show_debug_message("obj_nev CREATE: check_for_paranormal(): "+current_state+": adding possessed npc: "+string(_inst.id));
+				}
+			}
+		}
+			
+		/// if should add this object inst to the todo_queue, add it
+		if (_should_add) {
+			array_push(global.nev_todo_queue, _inst);
+			show_debug_message("obj_nev CREATE: check_for_paranormal(): "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+		}
+	}
+	ds_list_destroy(_list);
+	#endregion
+}
+
+function move_from_path_to_target(_xoffset, _yoffset) {
+	#region move nev from path node to target pos
+	
+	var _target = global.nev_current_target;
+	
+	// if the target is an npc, don't bother with the do...until
+	if (object_is_ancestor(_target.object_index, obj_par_npc)) {
+		target_x = _target.x;
+		target_y = _target.y;
+	} else {
+		do {
+		    target_x = global.nev_current_target.x + irandom_range(-_xoffset, _xoffset);
+		    target_y = global.nev_current_target.y + irandom_range(-_yoffset, _yoffset);
+		} until (!place_meeting(target_x, target_y, obj_collision));
+	}
+	
+	path_clear_points(my_path);
+	if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+	    path_start(my_path, move_speed, path_action_stop, true);
+	}
+	
+	// make nev reset his behaviour if target npc goes into a building
+	// note: alternatively, he could follow them inside ???
+	if (object_is_ancestor(_target.object_index, obj_par_npc)) {
+		if (_target.is_inside) current_state = "SURVEY_POI";
+	}
+	#endregion
+}
+
+function enter_building() {
+	var _b = instance_nearest(x, y, obj_par_building);
+	
+	// register with the building
+	array_push(_b.occupants, id);
+	
+	current_building = _b;
+	is_inside = true;
+	//can_move_inside = true;
+	
+	path_end();
+	
+	prev_town_x = x;
+	prev_town_y = y;
+	
+	// teleport to the void interior entrance for this building specifically: works
+	x = _b.interior_x + (_b.interior_width / 2);
+	y = _b.interior_y + 85 + (sprite_get_height(spr_interior_0_shack)/2);
+	
+	//// temporarily place NPCs in random places inside obj_interior collision mask
+	//var _margin = sprite_get_width(spr_npc_elderly)/2;
+	//var _isprite_w = sprite_get_width(_b.interior_obj.sprite_index)/2;
+	//var _isprite_h = sprite_get_height(_b.interior_obj.sprite_index)/2;
+	//var _x = irandom_range(
+	//	_b.interior_obj.x - (_isprite_w - _margin),
+	//	_b.interior_obj.x + (_isprite_w - _margin)
+	//);
+	//var _y = irandom_range(
+	//	_b.interior_obj.y,
+	//	_b.interior_obj.y + (_isprite_h - 5)
+	//);
+	//x = _x;
+	//y = _y;
+	/*
+		also valid option: (which replaces the above block with vars entirely)
+		var _i = _b.interior_obj;
+		var _x = irandom_range(_i.bbox_left, _i.bbox_right);
+		var _y = irandom_range(_i.bbox_top, _i.bbox_bottom);
+	*/
+	
+	alarm[2] = game_get_speed(gamespeed_fps) * 2; // leave after 2 secs if nothing is haunted
+}
+
+function leave_building() {
+	// remove self from the building's occupants array
+    for (var i = 0; i < array_length(current_building.occupants); i++) {
+        if (current_building.occupants[i] == id) {
+            array_delete(current_building.occupants, i, 1);
+            break;
+        }
+    }
+	
+    // teleport back to the town from whence npc came
+    x = prev_town_x;
+    y = prev_town_y;
+	
+    // cleanup variables
+    is_inside = false;
+    current_building = noone;
+	//can_move_inside = false;
+	//target_x = 0;
+	//target_y = 0;
+	//target_obj = noone;
+	
+	//// check routine and do it
+	//event_user(1);
+}
+
+function survey_action() {
+	#region nev's survey action / animation
+	//show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now switching to surveying the POI.");
+    current_state = "SURVEY_POI";
+            
+	if (following) following = false;
+			
+    // make sure nev's sprite and gear faces the POI
+	if (x > global.nev_current_target.x) {
+		image_xscale = -1;
+		gear.x = x - 8;
+		gear.image_xscale = -1;
+	} else {
+		image_xscale = 1;
+		gear.x = x + 8;
+		gear.image_xscale = 1;
+	}
+			
+    // gear use logic
+	switch (gear_tier) {
+		case 0: {
+	        with instance_create_layer(gear.x, gear.y, "Master", obj_camera_flash) { 
+	            depth = other.gear.depth - 1; 
+	        }
+			// play sound (camera in use)
+			//...
+		} break;
+    }
+	show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now surveying the POI.");
+	#endregion
 }

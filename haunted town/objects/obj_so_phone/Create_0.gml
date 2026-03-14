@@ -5,4 +5,4 @@ event_inherited();
 sprite_normal = spr_so_phone;
 sprite_haunted = spr_so_phone_haunted;
 
-//scare_radius = 150;
+//haunt_radius = 150;

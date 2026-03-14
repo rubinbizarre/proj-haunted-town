@@ -35,7 +35,7 @@ prev_hour_ = 0;
 
 #endregion
 
-time_speed_base = 1;
+time_speed_base = 0.8;//1;
 
 // give us a value to modify during debugging that affects time_speed
 time_speed_multiplier = 1;

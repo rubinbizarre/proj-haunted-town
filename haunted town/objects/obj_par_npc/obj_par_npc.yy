@@ -24,7 +24,10 @@
     "name":"Parents",
     "path":"folders/Objects/Parents.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_detectable",
+    "path":"objects/obj_par_detectable/obj_par_detectable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

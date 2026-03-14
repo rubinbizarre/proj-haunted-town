@@ -97,6 +97,7 @@ if (current_state == "WANDER_TOWN") or
 {
 	if (point_distance(x, y, target_x, target_y) < 2) {
 		enter_building();
+		target_obj = noone;
 		//show_debug_message("obj_par_npc STEP: "+string(id)+": "+routine_type+": "+current_state+": now entering building");
 	}
 }
@@ -127,7 +128,7 @@ if (spooked) {
 		//iframes_spook = true;
 		
 		// delayed recovery to previous behaviour
-		alarm[0] = game_get_speed(gamespeed_fps) * 2;
+		alarm[0] = game_get_speed(gamespeed_fps) * 1.8;
 		
 		//// delayed disable iframes_spook
 		//alarm[3] = game_get_speed(gamespeed_fps) * 6;

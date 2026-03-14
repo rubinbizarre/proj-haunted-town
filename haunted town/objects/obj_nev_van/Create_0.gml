@@ -80,7 +80,13 @@ function goto_new_dest() {
 	var _total_infamy = 0;
 	var _infamous_objects = [];
 
-	with (obj_par_world_objects) {
+	with (obj_par_world_objects) { // works for world objects
+	    if (infamy > 0) {
+	        _total_infamy += infamy;
+	        array_push(_infamous_objects, id);
+	    }
+	}
+	with (obj_par_building) {
 	    if (infamy > 0) {
 	        _total_infamy += infamy;
 	        array_push(_infamous_objects, id);
@@ -219,4 +225,104 @@ function deploy_nev() {
 		return_van_y = _nev_y;
 	}
 	show_debug_message("obj_nev_van CREATE: deploy_nev(): deployed nev.");
+}
+
+function redirect(_inst) {
+	#region start a new path which goes from (current pos) -> (pivot node) -> (stop node)
+	var _stop_node = instance_nearest(_inst.x, _inst.y, obj_node_road);
+    
+	// 1. find the (pivot node): which node was the van heading towards?
+	// find this by looking at the road node nearest node in front of van (direction)
+	var _pivot_node = instance_nearest(x + lengthdir_x(32, direction), y + lengthdir_y(32, direction), obj_node_road);
+
+	// 2. build the new route from pivot to stop node
+	var _nodes_to_stop = scr_find_path_nodes(_pivot_node, _stop_node);
+				
+	var _debug_node_list = "";
+				
+	if (array_length(_nodes_to_stop) > 0) {
+		path_clear_points(my_path);
+        
+		// POINT 0: the anchor - current exact position prevents the JUMP
+		path_add_point(my_path, x, y, 100);
+        
+		// POINT 1: the pivot - the node we were already heading toward
+		path_add_point(my_path, _pivot_node.x, _pivot_node.y, 100);
+        
+		// POINTS 2+: the rest of the road nodes to the stop node
+		for (var j = 1; j < array_length(_nodes_to_stop); j++) {
+			path_add_point(my_path, _nodes_to_stop[j].x, _nodes_to_stop[j].y, 100);
+			// provide debug output list of nodes/route in string format
+			_debug_node_list += string(_nodes_to_stop[j].node_id) + ", ";
+		}
+        
+		path_set_closed(my_path, false);
+		path_set_kind(my_path, 0);
+        
+		// restart the path - because point 0 is current xypos, there is NO JUMP
+		path_start(my_path, move_speed, path_action_stop, true);
+        
+		current_state = "DRIVE_AND_STOP";
+		target_stop_node = _stop_node;
+	}
+	#endregion
+}
+
+function check_for_paranormal() {
+	#region check for all detectable objects
+	var _list = ds_list_create();
+	var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_detectable, false, true, _list, false);
+		
+	for (var i = 0; i < _num; i++) {
+		var _inst = _list[| i];
+		var _should_add = false;
+			
+		// now determine if the detected object should be added to the todo_queue
+			
+		// check for haunted world-objects
+		if (object_is_ancestor(_inst.object_index, obj_par_world_objects)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+					_should_add = true;
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted world-object: "+string(_inst.id));
+				}
+			}
+		}
+		// check for haunted buildings
+		if (object_is_ancestor(_inst.object_index, obj_par_building)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (_inst.stats.owned) {
+					_should_add = true;
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted building: "+string(_inst.id));
+				}
+			}
+		}
+		// check for haunted scary-objects
+		if (object_is_ancestor(_inst.object_index, obj_par_scary_objects)) {
+			if (variable_instance_exists(_inst, "haunted")) {
+				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
+					_should_add = true;
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted scary-object: "+string(_inst.id));
+				}
+			}
+		}
+		// check for possessed npcs
+		if (object_is_ancestor(_inst.object_index, obj_par_npc)) {
+			if (variable_instance_exists(_inst, "possessed")) {
+				if (_inst.possessed) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) {
+					_should_add = true;
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding possessed-npc: "+string(_inst.id));
+				}
+			}
+		}
+			
+		/// if should add this object inst to the todo_queue, add it
+		if (_should_add) {
+			array_push(global.nev_todo_queue, _inst);
+			redirect(_inst);
+			show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+		}
+	}
+	ds_list_destroy(_list);
+	#endregion
 }

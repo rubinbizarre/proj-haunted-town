@@ -21,7 +21,7 @@ sprite_normal = spr_so_phone;
 sprite_haunted = spr_so_phone_haunted;
 
 // radius in which npcs are scared by the object while haunted
-scare_radius = 150;
+haunt_radius = 150;
 
 // amount of fear to apply to scared npc
 scare_amount = 1;
@@ -45,15 +45,25 @@ pie_r2 = 6;
 function gain_infamy() {
 	infamy += infamy_gain;
 	infamy = clamp(infamy, 0, 1);
-	//show_debug_message("infamy: "+string(infamy));
+	
+	//current_building.infamy += infamy_gain;
+	//current_building.infamy = clamp(current_building.infamy, 0, 1);
+	
+	with (current_building) {
+		infamy += infamy_gain;
+		infamy = clamp(infamy, 0, 1);
+	}
+	
+	//show_message(current_building);
+	
+	//show_debug_message("obj_par_scary_objects CREATE: gain_infamy(): so infamy: "+string(infamy)+" | building infamy: "+string(current_building.infamy));
 }
 
 function check_for_npcs() {
-	// note:	this was previously working inside the if (haunted) {} block in step event
-	//			moving it here so that the collision checks are staggered and npcs don't
-	//			always get spooked at the edge of the haunt_radius. seems to work for now
 	
-	var r = scare_radius;
+	if (!current_building.haunted) current_building.haunted = true;
+	
+	var r = haunt_radius;
 	
 	if (!ds_exists(current_list, ds_type_list)) {
 		current_list = ds_list_create();
@@ -64,7 +74,7 @@ function check_for_npcs() {
 	
 	var _num = collision_circle_list(x, y, r, obj_par_npc, false, true, current_list, false);
 
-	// loop through npcs inside scare_radius
+	// loop through npcs inside haunt_radius
 	for (var i = 0; i < ds_list_size(current_list); i++) {
 	    var _inst = current_list[| i];
 		
@@ -86,7 +96,7 @@ function check_for_npcs() {
 				// increase npc's fear
 				_inst.increase_fear();
 				
-				//show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside scare_radius and got scared!");
+				//show_debug_message("obj_par_scary_object: "+string(_inst)+" is inside haunt_radius and got scared!");
 			}
 				
 			
@@ -98,11 +108,15 @@ function activate() {
 	// make the clicked world object haunted
 	sprite_index = sprite_haunted;
 	haunted = true;
+	with (current_building) haunted = true;
+	//show_debug_message("obj_par_scary_objects CREATE: activate(): so haunted: "+string(haunted)+" | building haunted: "+string(current_building.haunted));
+	
 	// play sound (so turned haunted/activated)
 	//...
 	// visual feedback
 	//...
-	// immediate check for npcs inside scare_radius
+	
+	// immediate check for npcs inside haunt_radius
 	check_for_npcs();
 }
 
@@ -110,7 +124,9 @@ function deactivate() {
 	// reset to normal, or deactivate
 	sprite_index = sprite_normal;
 	haunted = false;
-
+	with (current_building) haunted = false;
+	//show_debug_message("obj_par_scary_objects CREATE: activate(): so haunted: "+string(haunted)+" | building haunted: "+string(current_building.haunted));
+	
 	// avoid memory leaks; forget all ids which entered/left while haunted
 	ds_list_destroy(current_list);
 	

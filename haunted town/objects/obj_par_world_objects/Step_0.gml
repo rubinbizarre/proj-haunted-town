@@ -126,6 +126,8 @@ if (deactivate_active) {
 			}
 			escrow = 0;
 		}
+		// reset infamy upon deactivation
+		infamy = 0;
 		// now start cooldown.
 		cooldown_active = true;
 	}

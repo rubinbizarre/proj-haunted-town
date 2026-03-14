@@ -9,17 +9,20 @@ if (global.debug) {
 	draw_set_halign(fa_center);
 	// draw text var values
 	draw_text_transformed(x, y+5, string(id), 0.5, 0.5, 0);
+	draw_text_transformed(x, y+15, "infamy:"+string(infamy), 0.5, 0.5, 0);
+	draw_text_transformed(x, y+25, "haunted:"+string(haunted), 0.5, 0.5, 0);
 	draw_set_halign(fa_left);
 }
 
-// draw border around selected house
-if (building_selected) {
-	draw_set_color(c_yellow);
-	draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-	draw_set_color(c_white);
-}
+//// draw border around selected house
+//if (building_selected) {
+//	draw_set_color(c_yellow);
+//	draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+//	draw_set_color(c_white);
+//}
 
 //draw_self();
+
 if (stats.owned) {
 	// if haunted, draw self differently
 	draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);

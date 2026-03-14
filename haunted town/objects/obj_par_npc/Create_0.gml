@@ -351,3 +351,20 @@ function check_for_npcs() {
 	// 4 // update the memory for the next frame
 	ds_list_copy(last_list, current_list);
 }
+
+function remove_possession() {
+	// reset to normal, or deactivate
+	image_index = 0;
+	possessed = false;
+
+	// avoid memory leaks; forget all ids which entered/left while possessed
+	ds_list_destroy(current_list);
+	ds_list_destroy(last_list);
+	
+	// play sound (npc deactivated / possession removed)
+	//...
+	// visual feedback
+	spooked = true; // will play sound, change to spooked face for short time
+	
+	show_debug_message("obj_par_npc CREATE: remove_possession(): "+string(id));
+}

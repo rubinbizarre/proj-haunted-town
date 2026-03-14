@@ -36,8 +36,10 @@ if (global.debug) {
 
 #region draw possessed radius if possessed, indicating area in which player can remotely entice other npcs
 if (possessed) {
-	draw_set_color(global.c_haunt);
-	draw_circle(x, y, possessed_radius, true);
+	draw_set_color(c_fuchsia);
+	draw_set_alpha(0.3);
+	draw_circle(x, y, possessed_radius, false);
+	draw_set_alpha(1);
 	draw_set_color(c_white);
 }
 #endregion

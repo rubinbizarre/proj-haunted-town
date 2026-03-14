@@ -120,6 +120,10 @@ if (deactivate_active) {
 		// (should also be shown visually)
 		if (escrow > 0) {
 			global.haunt_points += escrow;
+			// display HP notification
+			with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+				amount = "+"+string(other.escrow);
+			}
 			escrow = 0;
 		}
 		// now start cooldown.

@@ -105,8 +105,11 @@ if (current_state == "WANDER_TOWN") or
 #region handle being spooked and recovering
 if (spooked) {
 	if (image_index != 1) {
+		// if npc is not "scared_stiff",
 		// change sprite to spooked
-		image_index = 1;
+		if (current_state != "SCARED_STIFF") {
+			image_index = 1;
+		}
 		// play sound (spooked npc)
 		//...
 		
@@ -303,7 +306,7 @@ if (current_state == "SCARED_STIFF") and (fear >= 0.8) {
 }
 #endregion
 
-#region handle decreasing fear with repeat timer whilst fear_drain is active
+#region handle decreasing fear with repeating timer whilst fear_drain is active
 if (fear_drain) and (!dying) {
 	if (fear_drain_timer-- <= 0) {
 		fear_drain_timer = fear_drain_interval;
@@ -370,6 +373,16 @@ if (possess_transition) {
 		
 		// trigger do normal routine after short delay
 		alarm[6] = game_get_speed(gamespeed_fps) * 1.5;
+	}
+}
+#endregion
+
+#region handle while possessed check for other npcs 
+// periodic check for collisions whilst haunted
+if (possessed) {
+	if (check_timer-- <= 0) {
+	    check_timer = check_interval;
+	    check_for_npcs();
 	}
 }
 #endregion

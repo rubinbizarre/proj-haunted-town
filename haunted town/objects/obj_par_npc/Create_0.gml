@@ -97,10 +97,15 @@ possess_timer = 180;
 possess_timer_init = possess_timer;
 possess_shake_intensity = 1.5;
 possessed_radius = 40;
+//possessed_building = noone; // store building id where npc was possessed so that 'remote-enticing' takes npcs to the same building
+// ds lists for checking for npc collisions while possessed
+current_list = ds_list_create();
+last_list = ds_list_create();
 
 dying = false;
 dying_ascent_speed = 0.05;
 dying_fade_speed = 0.01;
+
 
 // FUNCTIONS
 
@@ -183,8 +188,8 @@ function possess() {
 	fear = 0;
 	possess_transition = true;
 	
+	// store the npc's initial pos before shaking so we can snap to it when finished shaking
 	shake_init_pos_stored = false;
-	// store the npc's initial position before shaking
 	if (!shake_init_pos_stored) {
 		shake_init_x = x;
 	    shake_init_y = y;
@@ -277,4 +282,72 @@ function leave_building() {
 	
 	// check routine and do it
 	event_user(1);
+}
+
+function check_for_npcs() {
+	
+	var r = possessed_radius;
+	
+	if (!ds_exists(current_list, ds_type_list)) {
+		current_list = ds_list_create();
+	}
+	if (!ds_exists(last_list, ds_type_list)) {
+		last_list = ds_list_create();
+	}
+	
+	// 1 // clear the current list and find who is inside now
+	ds_list_clear(current_list);
+	
+	var _num = collision_circle_list(x, y, r, obj_par_npc, false, true, current_list, false);
+
+	// 2 // find 'new entries' (in current_list ONLY, not in last_list)
+	for (var i = 0; i < ds_list_size(current_list); i++) {
+	    var _inst = current_list[| i];
+    
+	    // if they weren't here last frame, they just ENTERED
+	    if (ds_list_find_index(last_list, _inst) == -1) {
+			// spook the npc if they are visible, i.e. not inside a building
+			if (_inst.visible) and (!_inst.possessed) {
+		        _inst.spooked = true;
+				// store npc current xscale
+				_inst.prev_xscale = image_xscale;
+				// make npc face the object
+				if (_inst.x > x) {
+					_inst.image_xscale = -1;
+				} else {
+					_inst.image_xscale = 1;
+				}
+				
+				//// increment our world object's escrow (+1 HP)
+				//escrow++;
+				//// this world object gains infamy
+				//gain_infamy();
+				
+				global.haunt_points++;
+				
+				// display HP notification
+				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+					amount = "+1";
+				}
+				
+				//show_debug_message("Target " + string(_inst) + " Entered!");
+			}
+	    }
+	}
+	
+	// 3 // find 'exits' (in last_list ONLY, not in current_list)
+	for (var i = 0; i < ds_list_size(last_list); i++) {
+	    var _inst = last_list[| i];
+		
+	    // if they were here last frame but aren't now, they just LEFT
+	    if (ds_list_find_index(current_list, _inst) == -1) {
+	        if (instance_exists(_inst)) {
+	            //_inst.spooked = false; // reset the trigger
+	            //show_debug_message("Target " + string(_inst) + " Left!");
+	        }
+	    }
+	}
+	
+	// 4 // update the memory for the next frame
+	ds_list_copy(last_list, current_list);
 }

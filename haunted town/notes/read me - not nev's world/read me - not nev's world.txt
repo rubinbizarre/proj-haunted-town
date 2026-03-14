@@ -143,5 +143,17 @@ determines how often nev visits that hbuilding
  
 			other gameplay notes:
  -	would be cool to add 'cheat codes' somehow, including: start with 1000 hp, start with all world objects unlocked, start with all houses unlocked, etc
-  -	may be useful to add a signpost or two around the town, pointing to where certain places are (this is only useful/needed if the lowest level zoom out feature is taken out)
-  
+ -	may be useful to add a signpost or two around the town, pointing to where certain places are (this is only useful/needed if the lowest level zoom out feature is taken out)
+ -	'possessed' npcs could, instead of remote-enticing nearby npcs to the same building where it was possessed, gather
+	up npcs around or behind them, so that a 'crowd' forms around the possessed individual. clicking on the possessed
+	npc makes them return to the building where it was possessed, and the crowd follows in tow, despite their assigned
+	schedule.
+ -	npc death should be a lot more bloody and violent; gibs, blood pool on floor. think death-by-vecna levelled up maybe
+ - 'possessed' npcs act as moving 'haunted-world-objects'. they do their normal routine and have a smaller haunt radius
+	than the world objects. npcs who move into this radius get spooked as they would with a haunted-world-object. the HP
+	accrued from spooking goes straight into the player's haunt points wallet, as opposed to being in escrow. this makes
+	possessed npcs powerful assets. nev will be able to detect and record possessed npcs as he would with a haunted-
+	world-object. nev catching them will 'snap them back into reality' and remove the possession. further note: should a
+	possessed npc enter a building (as part of their routine) they will 'scare' non-possessed npcs who are inside the
+	same building at the time, as well as earn HP for each npc scared.
+ -	should the player be able to deactivate possessed-npcs, similarly to haunted-world-objects?

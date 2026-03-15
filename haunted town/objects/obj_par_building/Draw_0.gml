@@ -34,6 +34,10 @@ if (stats.owned) {
 		draw_set_halign(fa_left);
 	}
 	
+	if (haunted) {
+		scr_draw_infamy(infamy, sprite_height/1.8);
+	}
+	
 } else {
 	// otherwise, draw self normally
 	draw_self();

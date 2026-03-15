@@ -17,6 +17,8 @@ if (haunted) {
 	draw_rectangle(_i.x - _sprite_w, _i.y - (_sprite_h-0.5), _i.x + (_sprite_w-1), _i.y + (_sprite_h-0.5), false);
 	draw_set_alpha(1);
 	draw_set_color(c_white);
+	
+	scr_draw_infamy(infamy, 0);
 }
 
 if (cooldown_active) {

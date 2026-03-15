@@ -112,6 +112,7 @@
     {"id":{"name":"rm_title","path":"rooms/rm_title/rm_title.yy",},},
     {"id":{"name":"scr_adjust_resolution","path":"scripts/scr_adjust_resolution/scr_adjust_resolution.yy",},},
     {"id":{"name":"scr_date_and_time","path":"scripts/scr_date_and_time/scr_date_and_time.yy",},},
+    {"id":{"name":"scr_draw_infamy","path":"scripts/scr_draw_infamy/scr_draw_infamy.yy",},},
     {"id":{"name":"scr_draw_pie_slice","path":"scripts/scr_draw_pie_slice/scr_draw_pie_slice.yy",},},
     {"id":{"name":"scr_find_path_nodes","path":"scripts/scr_find_path_nodes/scr_find_path_nodes.yy",},},
     {"id":{"name":"spr_bg_new","path":"sprites/spr_bg_new/spr_bg_new.yy",},},

@@ -157,3 +157,7 @@ determines how often nev visits that hbuilding
 	possessed npc enter a building (as part of their routine) they will 'scare' non-possessed npcs who are inside the
 	same building at the time, as well as earn HP for each npc scared.
  -	should the player be able to deactivate possessed-npcs, similarly to haunted-world-objects?
+ 
+			known issues:
+ -	there's something wrong about npc CIRCUIT state, npcs get stuck on a path node with no assigned path - might be 
+	related to spooking via world objects

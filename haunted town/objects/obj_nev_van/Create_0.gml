@@ -114,6 +114,10 @@ function goto_new_dest() {
 	    // find the road node closest to our selected high-infamy object
 	    if (_chosen_world_obj != noone) {
 	        _target = instance_nearest(_chosen_world_obj.x, _chosen_world_obj.y, obj_node_road);
+			// play sound (nev detected some infamy)
+			//...
+			// visual feedback
+			//...
 			show_debug_message("obj_nev_van CREATE: goto_new_dest(): infamy found. targeting node closest to high-infamy object, node_id: "+string(_target.node_id));
 	    }
 	}

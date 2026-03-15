@@ -266,6 +266,11 @@ switch (current_state) {
 				
 				if (global.nev_current_target.haunted) {
 	                global.daily_sub_gain_event_counter++;
+					// if caught mid-cooldown, disable cooldown
+					if (_target.deactivate_active) {
+						_target.deactivate_active = false;
+						_target.deactivate_timer = _target.deactivate_timer_init;
+					}
 					global.nev_current_target.deactivate();
 	                global.nev_current_target.locked = true;
 					_target = global.nev_current_target;
@@ -292,6 +297,11 @@ switch (current_state) {
 				
 	            if (global.nev_current_target.haunted) {
 	                global.daily_sub_gain_event_counter++;
+					// if caught mid-cooldown, disable cooldown
+					if (_target.deactivate_active) {
+						_target.deactivate_active = false;
+						_target.deactivate_timer = _target.deactivate_timer_init;
+					}
 	                global.nev_current_target.deactivate();
 	                global.nev_current_target.locked = true;
 					global.nev_current_target.escrow = 0;
@@ -383,7 +393,7 @@ switch (current_state) {
 				// no more tasks? finally return to the van
 				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to van!");
                 
-				leave_building();
+				if (is_inside) leave_building();
 				
 				current_state = "RETURN_TO_VAN";
                 target_x = return_path_x;

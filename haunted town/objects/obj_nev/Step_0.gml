@@ -373,9 +373,9 @@ switch (current_state) {
 		            path_add_point(my_path, x, y, 100);
 		            path_add_point(my_path, target_x, target_y, 100);
 		            path_start(my_path, move_speed, path_action_stop, true);
-				} else {
+				} else { // no more targets in the building
 					
-					leave_building();
+					if (is_inside) leave_building();
 
 	                current_state = "APPROACH_POI";
                 
@@ -385,6 +385,9 @@ switch (current_state) {
 	                } until (!place_meeting(target_x, target_y, obj_collision));
 				
 	                path_clear_points(my_path);
+					path_add_point(my_path, x, y, 100);
+					path_add_point(my_path, target_x, target_y, 100);
+					
 	                if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 	                    path_start(my_path, move_speed, path_action_stop, true);
 	                }

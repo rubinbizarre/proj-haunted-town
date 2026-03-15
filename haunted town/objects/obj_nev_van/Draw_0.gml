@@ -3,8 +3,10 @@ if (global.debug) {
 	var _y = y + 50;
 	var _ysep = 10;
 	// draw detect_radius ring
-	draw_set_color(c_yellow);
-	draw_circle(x, y, global.nev_detect_radius, true);
+	if (!instance_exists(obj_nev)) {
+		draw_set_color(c_yellow);
+		draw_circle(x, y, global.nev_detect_radius, true);
+	}
 	// draw path of van
 	draw_set_color(c_teal);
 	if (path_exists(my_path)) {

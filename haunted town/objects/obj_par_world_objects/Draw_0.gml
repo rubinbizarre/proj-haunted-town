@@ -7,7 +7,7 @@ if (haunted) {
 	draw_set_alpha(1);
 	draw_set_color(c_white);
 	
-	scr_draw_infamy(infamy, haunt_radius);
+	//scr_draw_infamy(infamy, haunt_radius);
 	
 }
 

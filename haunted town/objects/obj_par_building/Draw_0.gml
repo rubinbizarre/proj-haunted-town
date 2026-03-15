@@ -24,7 +24,7 @@ if (global.debug) {
 //draw_self();
 
 if (stats.owned) {
-	// if haunted, draw self differently
+	// if owned, draw self differently
 	draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);
 	
 	if (mouse_hover) {

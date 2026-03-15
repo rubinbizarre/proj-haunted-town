@@ -268,7 +268,7 @@ switch (current_state) {
 	                global.daily_sub_gain_event_counter++;
 					global.nev_current_target.deactivate();
 	                global.nev_current_target.locked = true;
-					var _target = global.nev_current_target;
+					_target = global.nev_current_target;
 					var _b = _target.current_building;
 					_b.haunted = false;
 					_b.infamy = 0;
@@ -314,9 +314,15 @@ switch (current_state) {
 					target_x = 0;
 					target_y = 0;
 					enter_building();
-					check_for_paranormal();
-					current_state = "SURVEY_POI";
 					show_debug_message("obj_nev STEP: "+current_state+": entering building");
+					check_for_paranormal();
+					if (array_length(global.nev_todo_queue) > 0) {
+						current_state = "SURVEY_POI";
+						show_debug_message("obj_nev STEP: "+current_state+": POI detected upon entering. switched to survey_poi...");
+					} else {
+						show_debug_message("obj_nev STEP: "+current_state+": nothing detected initially when entering...");
+					}
+					
 				//}
 			}
 			#endregion

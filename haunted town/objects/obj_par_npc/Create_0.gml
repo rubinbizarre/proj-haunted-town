@@ -174,6 +174,7 @@ function kill() {
 	// display hp awarded notification
 	with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
 		amount = "+"+string(_hp);
+		//depth = other.depth;
 	}
 	
 	//show_message(string(id)+"\nhas called kill()");
@@ -307,7 +308,7 @@ function check_for_npcs() {
 	    // if they weren't here last frame, they just ENTERED
 	    if (ds_list_find_index(last_list, _inst) == -1) {
 			// spook the npc if they are visible, i.e. not inside a building
-			if (_inst.visible) and (!_inst.possessed) {
+			if (_inst.visible) and (!_inst.possessed) and (!_inst.possess_transition) {
 		        _inst.spooked = true;
 				// store npc current xscale
 				_inst.prev_xscale = image_xscale;

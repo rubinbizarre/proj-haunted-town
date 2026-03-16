@@ -382,7 +382,7 @@ switch (current_state) {
 					
 					// before moving to target along path obeying collision,
 					// if off_path, move back on to the path first
-					if (off_path) {
+					if (current_state != "RETURN_TO_PATH") {
 						var _path_node = instance_nearest(x, y, obj_node_circuit);
 						target_x = _path_node.x;
 						target_y = _path_node.y;
@@ -400,7 +400,7 @@ switch (current_state) {
                 
 				if (is_inside) leave_building();
 				
-				if (off_path) {
+				if (current_state != "RETURN_TO_PATH") {
 					var _path_node = instance_nearest(x, y, obj_node_circuit);
 					target_x = _path_node.x;
 					target_y = _path_node.y;
@@ -408,7 +408,7 @@ switch (current_state) {
 					path_add_point(my_path, x, y, 100);
 					path_add_point(my_path, target_x, target_y, 100);
 					path_start(my_path, move_speed, path_action_stop, true);
-					off_path = false;
+					//off_path = false;
 					show_debug_message("obj_nev STEP: "+current_state+": no more tasks! returning to path");
 					current_state = "RETURN_TO_PATH";
 				}

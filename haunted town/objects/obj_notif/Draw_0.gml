@@ -12,8 +12,8 @@ draw_set_alpha(alpha);
 //} else {
 //	_sign = "-";
 //}
-var _scale = 1;
-draw_text_transformed(x, y, amount, _scale, _scale, 0);
+
+draw_text_transformed(x, y, amount, scale, scale, 0);
 
 draw_set_alpha(1);
 draw_set_color(c_white);

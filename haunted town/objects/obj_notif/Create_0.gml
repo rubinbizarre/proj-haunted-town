@@ -1,6 +1,7 @@
 amount = ""; // e.g. -20, +100, etc.
 fading = false;
 alpha = 1;
+scale = 1;
 ascent_speed = 0.25;
 if (global.building_view_inside) ascent_speed /= 2;
 fade_speed = 0.025;

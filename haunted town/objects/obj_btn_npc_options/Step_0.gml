@@ -49,6 +49,7 @@ if (btn_confirmed) {
 				// display cost notification
 				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
 					amount = "-"+string(_cost);
+					depth = other.depth;
 				}
 				// trigger implode after delay
 				alarm[0] = game_get_speed(gamespeed_fps) * 1;
@@ -59,7 +60,10 @@ if (btn_confirmed) {
 				// play sound (fail)
 				//...
 				// display notification to player indicating that they 'need more HP' / 'not enough HP'
-				//...
+				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+					amount = "X";
+					depth = other.depth;
+				}
 			}
 		} break;
 		case spr_btn_npc_kill: {

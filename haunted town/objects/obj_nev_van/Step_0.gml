@@ -110,7 +110,10 @@ switch (current_state) {
 				target_x = 0;
 				target_y = 0;
 				current_state = "IDLE";
-			
+				
+				// cancel go_to_new_dest alarm
+				alarm[1] = -1;
+				
 				// deploy Nev after short delay
 				alarm[0] = game_get_speed(gamespeed_fps) * 1.25;
 			

@@ -1,4 +1,4 @@
-///@desc path to nearest circuit node
+///@desc path to nearest circuit node from van
 
 //current_state = "LEAVING_VAN";
 

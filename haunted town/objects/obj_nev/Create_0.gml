@@ -49,6 +49,8 @@ following = false;
 current_building = noone;
 is_inside = false;
 
+off_path = false;
+
 /*
 function determine_destination() {
 	var _target_inst = noone;
@@ -164,32 +166,50 @@ function check_for_paranormal() {
 	#endregion
 }
 
-function move_from_path_to_target(_xoffset, _yoffset) {
-	#region move nev from path node to target pos
-	
-	var _target = global.nev_current_target;
-	
-	// if the target is an npc, don't bother with the do...until
+function move_along_path_to_target(_target) {
+	#region move nev to target while obeying collision
+	// first determine what xoffset and yoffset should be
+	var _xoffset = 0;
+	var _yoffset = 0;
 	if (object_is_ancestor(_target.object_index, obj_par_npc)) {
+		// if the target is an npc, don't bother with the do...until
+		following = true;
 		target_x = _target.x;
 		target_y = _target.y;
+	} else if (object_is_ancestor(_target.object_index, obj_par_building)) {
+		target_x = _target.x;
+		target_y = _target.y;
+	} else if (object_is_ancestor(_target.object_index, obj_par_scary_objects)) {
+		_xoffset = 30/1.5;
+		_yoffset = 30/3;
+		target_x = _target.x + irandom_range(-_xoffset, _xoffset);
+		target_y = _target.y + irandom_range(-_yoffset, _yoffset);
+	} else if (object_is_ancestor(_target.object_index, obj_par_world_objects)) {
+		//_xoffset = _target.haunt_radius/1.5;
+		//_yoffset = _target.haunt_radius/3;
+		
+		var _path_node = instance_nearest(_target.x, _target.y, obj_node_circuit);
+		target_x = _path_node.x;
+		target_y = _path_node.y;
 	} else {
-		do {
-		    target_x = global.nev_current_target.x + irandom_range(-_xoffset, _xoffset);
-		    target_y = global.nev_current_target.y + irandom_range(-_yoffset, _yoffset);
-		} until (!place_meeting(target_x, target_y, obj_collision));
+		//_xoffset = 0;
+		//_yoffset = 0;
+		////do {
+		//    target_x = _target.x + irandom_range(-_xoffset, _xoffset);
+		//    target_y = _target.y + irandom_range(-_yoffset, _yoffset);
+		////} until (!place_meeting(target_x, target_y, obj_collision));
+		
+		show_debug_message("obj_nev CREATE: move_along_path_to_target(): weird target...");
 	}
 	
 	path_clear_points(my_path);
+	//path_add_point(my_path, x, y, 100);
+	//path_add_point(my_path, target_x, target_y, 100);
+	
 	if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 	    path_start(my_path, move_speed, path_action_stop, true);
 	}
-	
-	// make nev reset his behaviour if target npc goes into a building
-	// note: alternatively, he could follow them inside ???
-	if (object_is_ancestor(_target.object_index, obj_par_npc)) {
-		if (_target.is_inside) current_state = "SURVEY_POI";
-	}
+	show_debug_message("obj_nev CREATE: move_along_path_to_target(): "+current_state+": finished executing move_along_path_to_target()");
 	#endregion
 }
 
@@ -202,6 +222,7 @@ function enter_building() {
 	current_building = _b;
 	is_inside = true;
 	//can_move_inside = true;
+	off_path = true;
 	
 	path_end();
 	

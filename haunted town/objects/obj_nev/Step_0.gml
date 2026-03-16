@@ -178,7 +178,8 @@ if (instance_exists(obj_manager_time)) {
 		check_for_paranormal();
 		
 		if (following) {
-			move_from_path_to_target(0, 0);
+			show_debug_message("obj_nev STEP: executing move_along_path_to_target() (nev is following) ...");
+			move_along_path_to_target(global.nev_current_target);
 		}
 	}
 //}
@@ -201,31 +202,9 @@ switch (current_state) {
                 array_delete(global.nev_todo_queue, 0, 1);
                 current_state = "APPROACH_POI";
                 
-                // calculate random approach point around the GENERIC current_target
-				// first determine what type of object in order to have an appropriate x,y offset
-				var _xoffset = 0;
-				var _yoffset = 0;
-				var _target = global.nev_current_target;
-				if (object_is_ancestor(_target.object_index, obj_par_npc)) {
-					//var _sprite = object_get_sprite(_target.object_index);
-					//_xoffset = sprite_get_width(_sprite);
-					//_yoffset = _xoffset/2.5;
-					_xoffset = 0;
-					_yoffset = 0;
-					following = true;
-				} else if (object_is_ancestor(_target.object_index, obj_par_building)) {
-					_xoffset = 0;
-					_yoffset = 0;
-				} else if (object_is_ancestor(_target.object_index, obj_par_scary_objects)) {
-					_xoffset = 30;
-					_yoffset = 30/2.5;
-				} else if (object_is_ancestor(_target.object_index, obj_par_world_objects)) {
-					_xoffset = _target.haunt_radius;
-					_yoffset = _target.haunt_radius/2.5;
-				}
+				show_debug_message("obj_nev STEP: executing move_along_path_to_target() ...");
+				move_along_path_to_target(global.nev_current_target);
 				
-				show_debug_message("obj_nev STEP: executing move_from_path_to_target() ...");
-				move_from_path_to_target(_xoffset, _yoffset);
             } else {
 				show_debug_message("obj_nev STEP: "+current_state+": todo_queue is empty, returning to van.");
                 // if the van dropped us off but the queue is empty, just go back
@@ -292,32 +271,52 @@ switch (current_state) {
 			// interact with world-object
 			} else if (object_is_ancestor(_target.object_index, obj_par_world_objects)) {
 				
-				show_debug_message("obj_nev STEP: "+current_state+": interacting with world-object");
-				survey_action();
+				// if we have only just reached the nearest path node,
+				// now directly path to a spot beside the world-object
+				if (instance_nearest(x, y, obj_node_circuit)) and (!off_path) {
+					var _xoffset = _target.haunt_radius/1.5;
+					var _yoffset = _target.haunt_radius/3;
+					
+					target_x = _target.x + irandom_range(-_xoffset, _xoffset);
+					target_y = _target.y + irandom_range(-_yoffset, _yoffset);
+					
+					path_clear_points(my_path);
+					path_add_point(my_path, x, y, 100);
+					path_add_point(my_path, target_x, target_y, 100);
+					path_start(my_path, move_speed, path_action_stop, true);
+					
+					off_path = true;
+					
+					show_debug_message("obj_nev STEP: "+current_state+": now pathing directly to spot beside world-object");
+				} else {
 				
-	            if (global.nev_current_target.haunted) {
-	                global.daily_sub_gain_event_counter++;
-					// if caught mid-cooldown, disable cooldown
-					if (_target.deactivate_active) {
-						_target.deactivate_active = false;
-						_target.deactivate_timer = _target.deactivate_timer_init;
-					}
-	                global.nev_current_target.deactivate();
-	                global.nev_current_target.locked = true;
-					global.nev_current_target.escrow = 0;
-	                // play sound (nev caught obj while haunted)
-					//...
-					// visual feedback (some sort of bounce anim)
-					//...
-					show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
-	            } else {
-	                global.daily_sub_loss_event_counter++;
-					// play sound (nev made a mistake ? or does he think he's winning in the moment?)
-					//...
-					// visual feedback
-					//...
-					show_debug_message("obj_nev STEP: "+current_state+": sub loss event. total sub losses today: "+string(global.daily_sub_loss_event_counter));
-	            }
+					show_debug_message("obj_nev STEP: "+current_state+": now interacting with world-object");
+					survey_action();
+				
+		            if (global.nev_current_target.haunted) {
+		                global.daily_sub_gain_event_counter++;
+						// if caught mid-cooldown, disable cooldown
+						if (_target.deactivate_active) {
+							_target.deactivate_active = false;
+							_target.deactivate_timer = _target.deactivate_timer_init;
+						}
+		                global.nev_current_target.deactivate();
+		                global.nev_current_target.locked = true;
+						global.nev_current_target.escrow = 0;
+		                // play sound (nev caught obj while haunted)
+						//...
+						// visual feedback (some sort of bounce anim)
+						//...
+						show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
+		            } else {
+		                global.daily_sub_loss_event_counter++;
+						// play sound (nev made a mistake ? or does he think he's winning in the moment?)
+						//...
+						// visual feedback
+						//...
+						show_debug_message("obj_nev STEP: "+current_state+": sub loss event. total sub losses today: "+string(global.daily_sub_loss_event_counter));
+		            }
+				}
 			// interact with building
 			} else if (object_is_ancestor(_target.object_index, obj_par_building)) {
 				//if (global.nev_current_target.haunted) {
@@ -332,7 +331,6 @@ switch (current_state) {
 					} else {
 						show_debug_message("obj_nev STEP: "+current_state+": nothing detected initially when entering...");
 					}
-					
 				//}
 			}
 			#endregion
@@ -355,75 +353,108 @@ switch (current_state) {
 				show_debug_message("obj_nev STEP: "+current_state+": new current_target: "+string(global.nev_current_target.id)+" | removed inst from todo_queue.");
 				
 				//show_debug_message("obj_nev STEP: "+current_state+": removed inst from todo_queue: "+string(global.nev_current_target.id));
-                array_delete(global.nev_todo_queue, 0, 1);
+                //array_delete(global.nev_todo_queue, 0, 1);
 				
 				var _arr_length = array_length(global.nev_todo_queue);
 				if (_arr_length > -1) {
-					show_debug_message("obj_nev STEP: "+current_state+": todo_queue now contains "+string(_arr_length + 1)+" POIs total");
+					show_debug_message("obj_nev STEP: "+current_state+": todo_queue now contains "+string(_arr_length)+" POIs total");
 				}
 				
 				var _target = global.nev_current_target;
+				
 				if (_target.x > 20000) { // nev has another target in this building
 					current_state = "APPROACH_POI";
-					var _xoffset = 30;
-					var _yoffset = 30/2.5;
+					// move nev to target directly without collision
+					var _xoffset = 30/1.5;
+					var _yoffset = 30/3;
 					target_x = _target.x + irandom_range(-_xoffset, _xoffset);
 					target_y = _target.y + irandom_range(_target.y, _yoffset);
 					path_clear_points(my_path);
 		            path_add_point(my_path, x, y, 100);
 		            path_add_point(my_path, target_x, target_y, 100);
 		            path_start(my_path, move_speed, path_action_stop, true);
-				} else { // no more targets in the building
+					
+					array_delete(global.nev_todo_queue, 0, 1);
+					
+				} else { // nev has another target that is outside
 					
 					if (is_inside) leave_building();
-
-	                current_state = "APPROACH_POI";
-                
-	                do {
-	                    target_x = global.nev_current_target.x + irandom_range(-global.nev_current_target.haunt_radius, global.nev_current_target.haunt_radius);
-	                    target_y = global.nev_current_target.y + irandom_range(-(global.nev_current_target.haunt_radius/2.5), (global.nev_current_target.haunt_radius/2.5));
-	                } until (!place_meeting(target_x, target_y, obj_collision));
-				
-	                path_clear_points(my_path);
-					path_add_point(my_path, x, y, 100);
-					path_add_point(my_path, target_x, target_y, 100);
 					
-	                if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
-	                    path_start(my_path, move_speed, path_action_stop, true);
-	                }
+					// before moving to target along path obeying collision,
+					// if off_path, move back on to the path first
+					if (off_path) {
+						var _path_node = instance_nearest(x, y, obj_node_circuit);
+						target_x = _path_node.x;
+						target_y = _path_node.y;
+						path_clear_points(my_path);
+						path_add_point(my_path, x, y, 100);
+						path_add_point(my_path, target_x, target_y, 100);
+						path_start(my_path, move_speed, path_action_stop, true);
+						off_path = false;
+						show_debug_message("obj_nev STEP: "+current_state+": more tasks to do - returning to path");
+						current_state = "RETURN_TO_PATH";
+					}
 				}
             } else {
 				// no more tasks? finally return to the van
-				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to van!");
                 
 				if (is_inside) leave_building();
 				
+				if (off_path) {
+					var _path_node = instance_nearest(x, y, obj_node_circuit);
+					target_x = _path_node.x;
+					target_y = _path_node.y;
+					path_clear_points(my_path);
+					path_add_point(my_path, x, y, 100);
+					path_add_point(my_path, target_x, target_y, 100);
+					path_start(my_path, move_speed, path_action_stop, true);
+					off_path = false;
+					show_debug_message("obj_nev STEP: "+current_state+": no more tasks! returning to path");
+					current_state = "RETURN_TO_PATH";
+				}
+            }
+        }
+    } break;
+	case "RETURN_TO_PATH": {
+		if (array_length(global.nev_todo_queue) > 0) {
+			// more tasks to do - approach next POI
+			if (point_distance(x, y, target_x, target_y) < 2) and (current_state != "APPROACH_POI") {
+				current_state = "APPROACH_POI";
+				show_debug_message("obj_nev STEP: "+current_state+": more tasks to do - now approaching next POI");
+				var _target = global.nev_current_target;
+				move_along_path_to_target(_target);
+				array_delete(global.nev_todo_queue, 0, 1);
+			}
+		} else {
+			// no more tasks - return to van
+			if (point_distance(x, y, target_x, target_y) < 2) and (current_state != "RETURN_TO_VAN") {
 				current_state = "RETURN_TO_VAN";
-                target_x = return_path_x;
-                target_y = return_path_y;
+			    target_x = return_path_x;
+			    target_y = return_path_y;
                 
 				path_clear_points(my_path);
 				
 				// reset global.nev_current_target
 				global.nev_current_target = noone;
 				
-                if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
-                    path_start(my_path, move_speed, path_action_stop, true);
-                }
-            }
-        }
-    } break;
+			    if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+			        path_start(my_path, move_speed, path_action_stop, true);
+			    }
+				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to van!");
+			}
+		}
+	} break;
     case "RETURN_TO_VAN": {
-        if (point_distance(x, y, target_x, target_y) < 2) {
+	    if (point_distance(x, y, target_x, target_y) < 2) {
 			show_debug_message("obj_nev STEP: "+current_state+": getting into the van.");
-            current_state = "GET_IN_VAN";
-            target_x = return_van_x;
-            target_y = return_van_y;
-            path_clear_points(my_path);
-            path_add_point(my_path, x, y, 100);
-            path_add_point(my_path, target_x, target_y, 100);
-            path_start(my_path, move_speed, path_action_stop, true);
-        }
+	        current_state = "GET_IN_VAN";
+	        target_x = return_van_x;
+	        target_y = return_van_y;
+	        path_clear_points(my_path);
+	        path_add_point(my_path, x, y, 100);
+	        path_add_point(my_path, target_x, target_y, 100);
+	        path_start(my_path, move_speed, path_action_stop, true);
+	    }
     } break;
     case "GET_IN_VAN": {
         if (point_distance(x, y, target_x, target_y) < 2) {
@@ -444,3 +475,14 @@ if (record_event) {
 	// after say 4 secs, go back to van
 }
 */
+
+// make nev reset his behaviour if target npc goes into a building
+// note: alternatively, he could follow them inside ???
+var _target = global.nev_current_target;
+if (_target != noone) {
+	if (object_is_ancestor(_target.object_index, obj_par_npc)) {
+		if (_target.is_inside) and (current_state != "SURVEY_POI") {
+			current_state = "SURVEY_POI";
+		}
+	}
+}

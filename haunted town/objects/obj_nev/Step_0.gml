@@ -300,9 +300,10 @@ switch (current_state) {
 							_target.deactivate_active = false;
 							_target.deactivate_timer = _target.deactivate_timer_init;
 						}
-		                global.nev_current_target.deactivate();
-		                global.nev_current_target.locked = true;
-						global.nev_current_target.escrow = 0;
+		                _target.deactivate();
+		                _target.locked = true;
+						_target.nev_taking_escrow = true;
+						_target.escrow = 0;
 		                // play sound (nev caught obj while haunted)
 						//...
 						// visual feedback (some sort of bounce anim)
@@ -324,8 +325,10 @@ switch (current_state) {
 					target_y = 0;
 					enter_building();
 					show_debug_message("obj_nev STEP: "+current_state+": entering building");
+					var _prev_todo_length = array_length(global.nev_todo_queue);
 					check_for_paranormal();
-					if (array_length(global.nev_todo_queue) > 0) {
+					var _new_todo_length = array_length(global.nev_todo_queue);
+					if (_new_todo_length > _prev_todo_length) {
 						current_state = "SURVEY_POI";
 						show_debug_message("obj_nev STEP: "+current_state+": POI detected upon entering. switched to survey_poi...");
 					} else {
@@ -337,9 +340,15 @@ switch (current_state) {
         }
     } break;
     case "SURVEY_POI": {
-        if (!instance_exists(obj_camera_flash)) {
-			//// if inside, leave
-			//if (is_inside) leave_building();
+        if (finished_surveying) {
+			
+			// if target is world-object, stop displaying the world-object's escrow amount
+			if (global.nev_current_target != noone) {
+				var _target = global.nev_current_target;	
+				if (object_is_ancestor(_target.object_index, obj_par_world_objects)) {
+					if (_target.nev_taking_escrow) _target.nev_taking_escrow = false;
+				}
+			}
 			
             // DECISION GATE: check if there's more to do before going back to the van
             if (array_length(global.nev_todo_queue) > 0) {

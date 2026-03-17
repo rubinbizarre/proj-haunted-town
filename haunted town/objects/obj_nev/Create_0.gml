@@ -51,6 +51,9 @@ is_inside = false;
 
 off_path = false;
 
+survey_timer = 2; // seconds
+finished_surveying = false;
+
 /*
 function determine_destination() {
 	var _target_inst = noone;
@@ -286,7 +289,9 @@ function survey_action() {
 	#region nev's survey action / animation
 	//show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now switching to surveying the POI.");
     current_state = "SURVEY_POI";
-            
+	
+	finished_surveying = false;
+	
 	if (following) following = false;
 			
     // make sure nev's sprite and gear faces the POI
@@ -310,6 +315,9 @@ function survey_action() {
 			//...
 		} break;
     }
+	
+	alarm[3] = game_get_speed(gamespeed_fps) * survey_timer;
+	
 	show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now surveying the POI.");
 	#endregion
 }

@@ -11,11 +11,7 @@ if (haunted) {
 	
 }
 
-//if (draw_haunt_outline) {
-//	draw_sprite(sprite_index, 2, x, y);
-//}
-
-if (escrow_display >= 0) and (haunted) {
+if ((escrow_display >= 0) and (haunted)) or (nev_taking_escrow) {
 	var _prev_font = draw_get_font();
 	draw_set_colour(#cb73ff);
 	draw_set_font(font_main);

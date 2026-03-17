@@ -44,7 +44,7 @@ shrink_speed = 0.05;
 //// could think of it as "what direction does the building face the pavement?"
 //dir_to_access = "down"; // up, down, left or right. str because i can't deal with indexed values or 0-360 degrees on this one. i just can't.
 
-sprite_interior = spr_inside_0_shack;
+//sprite_interior = spr_inside_0_shack;
 // for npc movement calcs while inside
 interior_width = 320;
 interior_height = 180;
@@ -59,11 +59,11 @@ building_index = 0; // assigned in obj_master ROOM_START event
 switch (sprite_index) {
 	case spr_building_0_shack: {
 		stats.cost = 1;
-		sprite_interior = spr_inside_0_shack;
+		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_1_house: {
 		stats.cost = 5;
-		//sprite_interior = spr_inside_0_shack;
+		//sprite_interior = spr_inside_1_house;
 	} break;
 	case spr_building_2_manor: {
 		stats.cost = 10;

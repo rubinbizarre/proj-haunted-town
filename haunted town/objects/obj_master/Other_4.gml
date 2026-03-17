@@ -40,11 +40,20 @@ switch (room) {
 			_inst.interior_obj = instance_create_layer(
 				_inst.interior_x + (_inst.interior_width/2),
 				_inst.interior_y + 90,
-				"Collision",
+				"Interiors",
 				obj_interior
 			) {
 				depth = _inst.depth - 1;
 			}
+			
+			// choose interior sprite depending on building sprite
+			var _interior_obj = _inst.interior_obj;
+			switch (_inst.sprite_index) {
+				case spr_building_0_shack: _interior_obj.sprite_index = spr_interior_0_shack; break;
+				case spr_building_1_house: _interior_obj.sprite_index = spr_interior_1_house; break;
+				default: _interior_obj.sprite_index = spr_interior_0_shack; break;
+			}
+			
 			_inst.spawn_scary_objects();
 			//show_debug_message("obj_master ROOM_START: assigned building "+string(_inst.id)+" with building_index "+string(i)+". its interior_x: "+string(_inst.interior_x));
 		}

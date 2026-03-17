@@ -1,19 +1,19 @@
 {
   "$GMObject":"",
-  "%Name":"obj_building_0_shack",
+  "%Name":"obj_so_tv",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_building_0_shack",
+  "name":"obj_so_tv",
   "overriddenProperties":[],
   "parent":{
-    "name":"Buildings",
-    "path":"folders/Objects/Buildings.yy",
+    "name":"Scary Objects",
+    "path":"folders/Objects/Scary Objects.yy",
   },
   "parentObjectId":{
-    "name":"obj_par_building",
-    "path":"objects/obj_par_building/obj_par_building.yy",
+    "name":"obj_par_scary_objects",
+    "path":"objects/obj_par_scary_objects/obj_par_scary_objects.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -33,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_building_0_shack",
-    "path":"sprites/spr_building_0_shack/spr_building_0_shack.yy",
+    "name":"spr_so_tv",
+    "path":"sprites/spr_so_tv/spr_so_tv.yy",
   },
   "spriteMaskId":null,
   "visible":true,

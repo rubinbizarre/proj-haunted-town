@@ -47,6 +47,10 @@ escrow_stolen = false;
 
 draw_haunt_outline = false;
 
+nev_taking_escrow = false; // flag to use so that escrow is still drawn whilst nev is 'surveying'
+
+disabled = false; // activated when nev has poltergust and interacts
+
 function gain_infamy() {
 	infamy += infamy_gain;
 	infamy = clamp(infamy, 0, 1);

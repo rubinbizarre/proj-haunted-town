@@ -42,6 +42,8 @@ deactivate_timer_init = deactivate_timer;
 pie_r1 = 4;
 pie_r2 = 6;
 
+disabled = false; // activated when nev has poltergust and interacts
+
 function gain_infamy() {
 	infamy += infamy_gain;
 	infamy = clamp(infamy, 0, 1);

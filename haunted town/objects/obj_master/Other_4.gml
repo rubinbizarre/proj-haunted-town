@@ -51,6 +51,7 @@ switch (room) {
 			switch (_inst.sprite_index) {
 				case spr_building_0_shack: _interior_obj.sprite_index = spr_interior_0_shack; break;
 				case spr_building_1_house: _interior_obj.sprite_index = spr_interior_1_house; break;
+				case spr_building_2_manor: _interior_obj.sprite_index = spr_interior_2_manor; break;
 				default: _interior_obj.sprite_index = spr_interior_0_shack; break;
 			}
 			

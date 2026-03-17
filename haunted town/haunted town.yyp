@@ -148,6 +148,8 @@
     {"id":{"name":"spr_interior_0_shack","path":"sprites/spr_interior_0_shack/spr_interior_0_shack.yy",},},
     {"id":{"name":"spr_interior_1_house","path":"sprites/spr_interior_1_house/spr_interior_1_house.yy",},},
     {"id":{"name":"spr_interior_2_manor","path":"sprites/spr_interior_2_manor/spr_interior_2_manor.yy",},},
+    {"id":{"name":"spr_interior_church","path":"sprites/spr_interior_church/spr_interior_church.yy",},},
+    {"id":{"name":"spr_interior_hotel","path":"sprites/spr_interior_hotel/spr_interior_hotel.yy",},},
     {"id":{"name":"spr_nev_gear","path":"sprites/spr_nev_gear/spr_nev_gear.yy",},},
     {"id":{"name":"spr_nev_van_down","path":"sprites/spr_nev_van_down/spr_nev_van_down.yy",},},
     {"id":{"name":"spr_nev_van_side","path":"sprites/spr_nev_van_side/spr_nev_van_side.yy",},},

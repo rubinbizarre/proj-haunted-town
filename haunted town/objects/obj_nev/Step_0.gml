@@ -226,7 +226,7 @@ switch (current_state) {
 				survey_action();
 				
 				if (global.nev_current_target.possessed) {
-					global.daily_sub_gain_event_counter++;
+					obj_manager_nev.gain_subs();
 					_target.remove_possession();
 					// play sound (nev caught obj while haunted)
 					//...

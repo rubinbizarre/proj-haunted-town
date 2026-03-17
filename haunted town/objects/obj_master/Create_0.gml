@@ -109,6 +109,9 @@ function destroy_paused_surface() {
 	}
 }
 function create_paused_surface() {
+	// stop panning
+	obj_camera.camera_panning = false;
+	cursor_sprite = spr_cursor_default;
 	// capture surface before deactivating all instances
 	if (!surface_exists(paused_surface)) {
 		paused_surface = surface_create(room_width, room_height);

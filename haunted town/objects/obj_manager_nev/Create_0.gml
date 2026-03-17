@@ -34,8 +34,26 @@ function gain_subs() {
 		case 3: _gain_amount = 100000; break; // emf monitor
 		case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
 		default: {
-			show_debug_message("obj_manager_nev CREATE: gear_tier value not recognised: "+string(obj_nev.gear_tier));
+			show_debug_message("obj_manager_nev CREATE: gain_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
 		} break;
 	}
 	global.subs += _gain_amount;
+	global.daily_sub_gain_event_counter++;
+}
+
+function lose_subs() {
+	var _loss_amount = 0;
+	switch (obj_nev.gear_tier) {
+		case 0: _loss_amount = 500; break; // camera
+		case 1: _loss_amount = 5000; break; // vcr videocam
+		case 2: _loss_amount = 25000; break; // pro tv cam
+		case 3: _loss_amount = 50000; break; // emf monitor
+		case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
+		default: {
+			show_debug_message("obj_manager_nev CREATE: lose_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
+		} break;
+	}
+	global.subs -= _loss_amount;
+	if (global.subs < 0) global.subs = 0;
+	global.daily_sub_loss_event_counter++;
 }

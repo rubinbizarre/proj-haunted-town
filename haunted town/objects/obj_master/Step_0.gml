@@ -124,6 +124,10 @@ switch (room) {
 				} else if (global.display_breakdown) {
 					global.display_breakdown = false;
 					toggle_display_end_of_day();
+					// reset daily sub gain/loss counters
+					global.daily_sub_gain_event_counter = 0;
+					global.daily_sub_loss_event_counter = 0;
+					// increment day
 					obj_manager_time.increment_day_counter();
 				}
 			}

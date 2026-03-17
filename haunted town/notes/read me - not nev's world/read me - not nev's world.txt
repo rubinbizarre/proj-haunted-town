@@ -156,7 +156,14 @@ determines how often nev visits that hbuilding
 	world-object. nev catching them will 'snap them back into reality' and remove the possession. further note: should a
 	possessed npc enter a building (as part of their routine) they will 'scare' non-possessed npcs who are inside the
 	same building at the time, as well as earn HP for each npc scared.
- -	should the player be able to deactivate possessed-npcs, similarly to haunted-world-objects?
+ -	should the player be able to deactivate possessed-npcs, similarly to haunted-world-objects? for now, no?
+ 
+			endgame notes - increasing Nev's fear
+ -	maybe during Sundays only you can increase Nev's fear with scary objects ... ?
+ -	Nat mentioned how his fear could increase if you are able to 'overwhelm' him with multiple haunted things at once
+	i.e. nev enters a building full of possessed NPCs -> spook effect, fear increased, but he still deactivates them
+ -	maybe it could be once he has detected more than 5 hauntings in a day, each haunting after that slightly increases his fear
+ 
  
 			known issues:
  -	there's something wrong about npc CIRCUIT state, npcs get stuck on a path node with no assigned path - might be 

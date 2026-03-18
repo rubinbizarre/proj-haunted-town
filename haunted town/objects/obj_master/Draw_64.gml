@@ -17,7 +17,7 @@ switch (room) {
 		draw_text_transformed(_x, _y, "a game by rubinbizarre", 1, 1, 0);
 		draw_set_valign(fa_top);
 		draw_set_halign(fa_left);
-		draw_set_font(font_default);
+		draw_set_font(global.font_default);
 	} break;
 	case rm_main: {
 		_x = 0;
@@ -83,12 +83,12 @@ switch (room) {
 				draw_set_halign(fa_left);
 				draw_set_valign(fa_top);
 				draw_set_color(c_white);
-				draw_set_font(font_default);
+				draw_set_font(global.font_default);
 				
 				surface_reset_target();
 				draw_surface(paused_surface, 0, 0);
 			} else {
-				show_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
+				if (global.debug) show_debug_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
 				paused_surface = surface_create(room_width, room_height);
 				surface_copy(paused_surface, 0, 0, application_surface);
 			}
@@ -128,7 +128,7 @@ switch (room) {
 				draw_set_halign(fa_left);
 				draw_set_valign(fa_top);
 				draw_set_color(c_white);
-				draw_set_font(font_default);
+				draw_set_font(global.font_default);
 		
 				surface_reset_target();
 				draw_surface(paused_surface, 0, 0);
@@ -166,6 +166,7 @@ switch (room) {
 		
 		#region HUD
 		if (global.hud) and (!global.display_end_of_day) {
+			//draw_set_font(font_main_header);
 			draw_set_halign(fa_center);
 			_x = room_width/2;
 			_y = 16;
@@ -173,8 +174,10 @@ switch (room) {
 
 			draw_text_transformed(_x, _y, "HAUNT POINTS: "+string(global.haunt_points), 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_x, _y, "WEEK "+string(global.week_counter), 2, 2, 0); _y += _ysep;
+			draw_set_font(font_main_body);
 			draw_text_transformed(_x, _y, scr_date_and_time(global.current_time_), 2, 2, 0); _y += _ysep; // draw time in format "Monday 20:32" include toggle for 12 hr time in settings "Monday 8:32 PM"
 			draw_set_halign(fa_left);
+			//draw_set_font(global.font_default);
 		}
 		
 		#region deprecated menu_haunt_active display for haunting buildings (commented)

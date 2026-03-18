@@ -31,6 +31,8 @@ if (global.current_time_ >= global.total_cycle_minutes) {
 	
 	//increment_day_counter(); // moved to trigger remotely via obj_master
 	
+	global.subs += global.daily_passive_growth;
+	
 	// now trigger displaying podcast & daily events breakdown
 	obj_master.toggle_display_end_of_day();
 }

@@ -61,6 +61,8 @@ switch (room) {
 			//show_debug_message("obj_master ROOM_START: assigned building "+string(_inst.id)+" with building_index "+string(i)+". its interior_x: "+string(_inst.interior_x));
 		}
 		
+		global.summary_box = instance_create_layer(0, 0, "Master", obj_summary_box);
+		
 		#region create possess/kill npc buttons (commented - moved to obj_par_npc step)
 		////var _x = ...
 		////var _y = ...

@@ -226,13 +226,13 @@ switch (current_state) {
 				survey_action();
 				
 				if (global.nev_current_target.possessed) {
-					obj_manager_nev.gain_subs();
+					obj_manager_nev.gain_subs(_target.name_str, _target.note_str_credit);
 					_target.remove_possession();
 					// play sound (nev caught obj while haunted)
 					//...
 					show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
 				} else {
-					global.daily_sub_loss_event_counter++;
+					obj_manager_nev.gain_subs(_target.name_str, _target.note_str_discredit);
 					// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 					//...
 					show_debug_message("obj_nev STEP: "+current_state+": sub loss event. total sub losses today: "+string(global.daily_sub_loss_event_counter));
@@ -244,7 +244,7 @@ switch (current_state) {
 				survey_action();
 				
 				if (global.nev_current_target.haunted) {
-	                global.daily_sub_gain_event_counter++;
+	                obj_manager_nev.gain_subs(_target.name_str, _target.note_str_credit);
 					// if caught mid-cooldown, disable cooldown
 					if (_target.deactivate_active) {
 						_target.deactivate_active = false;
@@ -261,7 +261,7 @@ switch (current_state) {
 					// visual feedback (some sort of bounce anim)
 					//...
 				} else {
-					global.daily_sub_loss_event_counter++;
+					obj_manager_nev.gain_subs(_target.name_str, _target.note_str_discredit);
 					// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 					//...
 					// visual feedback
@@ -293,8 +293,8 @@ switch (current_state) {
 					show_debug_message("obj_nev STEP: "+current_state+": now interacting with world-object");
 					survey_action();
 				
-		            if (global.nev_current_target.haunted) {
-		                global.daily_sub_gain_event_counter++;
+		            if (_target.haunted) {
+		                obj_manager_nev.gain_subs(_target.name_str, _target.note_str_credit);
 						// if caught mid-cooldown, disable cooldown
 						if (_target.deactivate_active) {
 							_target.deactivate_active = false;
@@ -310,7 +310,7 @@ switch (current_state) {
 						//...
 						show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
 		            } else {
-		                global.daily_sub_loss_event_counter++;
+		                obj_manager_nev.lose_subs(_target.name_str, _target.note_str_discredit);
 						// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 						//...
 						// visual feedback

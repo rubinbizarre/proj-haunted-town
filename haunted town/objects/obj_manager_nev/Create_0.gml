@@ -1,6 +1,10 @@
 global.subs = 0; // nev's actual sub count (realtime)
 global.daily_sub_gain_event_counter = 0;
 global.daily_sub_loss_event_counter = 0;
+global.daily_passive_growth = 50;
+// initialise daily tracking arrays and counters at the start of each day
+global.daily_events = []; // array of structs, one per event
+global.subs_at_day_start = global.subs;
 
 global.nev_detect_radius = 200;
 global.nev_todo_queue = [];
@@ -25,35 +29,85 @@ switch (obj_nev.gear_tier) {
 }
 */
 
-function gain_subs() {
-	var _gain_amount = 0;
-	switch (obj_nev.gear_tier) {
-		case 0: _gain_amount = 1000; break; // camera
-		case 1: _gain_amount = 10000; break; // vcr videocam
-		case 2: _gain_amount = 50000; break; // pro tv cam
-		case 3: _gain_amount = 100000; break; // emf monitor
-		case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
-		default: {
-			show_debug_message("obj_manager_nev CREATE: gain_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
-		} break;
-	}
-	global.subs += _gain_amount;
-	global.daily_sub_gain_event_counter++;
+//function gain_subs() {
+//	var _gain_amount = 0;
+//	switch (obj_nev.gear_tier) {
+//		case 0: _gain_amount = 1000; break; // camera
+//		case 1: _gain_amount = 10000; break; // vcr videocam
+//		case 2: _gain_amount = 50000; break; // pro tv cam
+//		case 3: _gain_amount = 100000; break; // emf monitor
+//		case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
+//		default: {
+//			show_debug_message("obj_manager_nev CREATE: gain_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
+//		} break;
+//	}
+//	global.subs += _gain_amount;
+//	global.daily_sub_gain_event_counter++;
+//}
+
+//function lose_subs() {
+//	var _loss_amount = 0;
+//	switch (obj_nev.gear_tier) {
+//		case 0: _loss_amount = 500; break; // camera
+//		case 1: _loss_amount = 5000; break; // vcr videocam
+//		case 2: _loss_amount = 25000; break; // pro tv cam
+//		case 3: _loss_amount = 50000; break; // emf monitor
+//		case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
+//		default: {
+//			show_debug_message("obj_manager_nev CREATE: lose_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
+//		} break;
+//	}
+//	global.subs -= _loss_amount;
+//	if (global.subs < 0) global.subs = 0;
+//	global.daily_sub_loss_event_counter++;
+//}
+
+function gain_subs(_object_name, _note) {
+    var _gain_amount = 0;
+    switch (obj_nev.gear_tier) {
+        case 0: _gain_amount = 1000;   break; // camera
+        case 1: _gain_amount = 10000;  break; // vcr videocam
+        case 2: _gain_amount = 50000;  break; // pro tv cam
+        case 3: _gain_amount = 100000; break; // emf monitor
+        case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
+        default: {
+            show_debug_message("gain_subs(): gear_tier not recognised: " + string(obj_nev.gear_tier));
+        } break;
+    }
+    global.subs += _gain_amount;
+    global.daily_sub_gain_event_counter++;
+
+    // log the event for the end-of-day summary
+    array_push(global.daily_events, {
+        //label      : "Recorded Event: " + _object_name,
+		label      : "CREDIT: " + _object_name,
+        sub_change : _gain_amount,
+        note       : _note, //"insert note here",    // optionally pass a note as a second argument
+        //confirmed  : true,
+    });
 }
 
-function lose_subs() {
-	var _loss_amount = 0;
-	switch (obj_nev.gear_tier) {
-		case 0: _loss_amount = 500; break; // camera
-		case 1: _loss_amount = 5000; break; // vcr videocam
-		case 2: _loss_amount = 25000; break; // pro tv cam
-		case 3: _loss_amount = 50000; break; // emf monitor
-		case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
-		default: {
-			show_debug_message("obj_manager_nev CREATE: lose_subs(): gear_tier value not recognised: "+string(obj_nev.gear_tier));
-		} break;
-	}
-	global.subs -= _loss_amount;
-	if (global.subs < 0) global.subs = 0;
-	global.daily_sub_loss_event_counter++;
+function lose_subs(_object_name, _note) {
+    var _loss_amount = 0;
+    switch (obj_nev.gear_tier) {
+        case 0: _loss_amount = 500;   break; // camera
+        case 1: _loss_amount = 5000;  break; // vcr videocam
+        case 2: _loss_amount = 25000; break; // pro tv cam
+        case 3: _loss_amount = 50000; break; // emf monitor
+        case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
+        default: {
+            show_debug_message("lose_subs(): gear_tier not recognised: " + string(obj_nev.gear_tier));
+        } break;
+    }
+    global.subs -= _loss_amount;
+    if (global.subs < 0) global.subs = 0;
+    global.daily_sub_loss_event_counter++;
+
+    // log the event — label mirrors the screenshot's "Discredited:" prefix
+    array_push(global.daily_events, {
+        label      : "DISCREDIT: " + _object_name,
+        sub_change : -_loss_amount,
+        note       : _note, //"insert note here",
+        //confirmed  : false,
+    });
 }

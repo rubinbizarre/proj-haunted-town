@@ -32,13 +32,16 @@ global.total_paranormal_events = 0;
 global.total_possessions = 0;
 global.total_kills = 0;
 
+//global.tb = noone;
+global.summary_box = noone; // see room start
+
 // initialise cursor
 window_set_cursor(cr_none);
 cursor_sprite = spr_cursor_default;
 
 depth = -10000;
 
-font_default = draw_get_font();
+global.font_default = draw_get_font();
 paused_surface = -1;
 pause_menu_select = 0;
 
@@ -123,10 +126,19 @@ function toggle_display_end_of_day() {
 	if (!global.display_end_of_day) {
 		global.display_end_of_day = true;
 		global.display_podcast = true;
+		
 		create_paused_surface();
 		instance_deactivate_all(true);
 	} else {
 		global.display_end_of_day = false;
+		
+		// reset daily events and subs at day start
+		global.daily_events = [];
+		global.subs_at_day_start = global.subs;
+		// reset daily sub gain/loss counters
+		global.daily_sub_gain_event_counter = 0;
+		global.daily_sub_loss_event_counter = 0;
+		
 		instance_activate_all();
 		destroy_paused_surface();
 	}

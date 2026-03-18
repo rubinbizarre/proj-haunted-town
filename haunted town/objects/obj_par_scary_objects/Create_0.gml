@@ -42,7 +42,9 @@ deactivate_timer_init = deactivate_timer;
 pie_r1 = 4;
 pie_r2 = 6;
 
-disabled = false; // activated when nev has poltergust and interacts
+disabled = false; // activated when nev has poltergust and interacts, permanently disabling the object
+
+name_str = "unassigned"; // name of obj that appears in daily breakdown
 
 function gain_infamy() {
 	infamy += infamy_gain;

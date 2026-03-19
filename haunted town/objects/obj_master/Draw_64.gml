@@ -270,6 +270,22 @@ switch (room) {
 			draw_set_colour(c_white);
 			draw_set_font(global.font_default);
 			#endregion
+			
+			#region display current objective (upper middle)
+			var _obj_upper = "- CURRENT OBJECTIVE -";
+			var _obj_lower = objective;
+			_x = room_width/2;
+			_y = 35;
+			draw_set_halign(fa_center);
+			draw_set_font(font_main_sub);
+			draw_text_transformed(_x, _y, _obj_upper, 2, 2, 0);
+			_y += 35;
+			draw_set_font(font_main_body);
+			draw_text(_x, _y, _obj_lower);
+			// cleanup
+			draw_set_halign(fa_left);
+			draw_set_font(global.font_default);
+			#endregion
 		}
 		
 		#region deprecated menu_haunt_active display for haunting buildings (commented)

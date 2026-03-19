@@ -166,18 +166,97 @@ switch (room) {
 		
 		#region HUD
 		if (global.hud) and (!global.display_end_of_day) {
-			//draw_set_font(font_main_header);
-			draw_set_halign(fa_center);
-			_x = room_width/2;
-			_y = 16;
-			_ysep = 40;
+			#region old time/day/week/hauntpoints display (top middle) (commented)
+			////draw_set_font(font_main_header);
+			//draw_set_halign(fa_center);
+			//_x = room_width/2;
+			//_y = 16;
+			//_ysep = 40;
 
-			draw_text_transformed(_x, _y, "HAUNT POINTS: "+string(global.haunt_points), 2, 2, 0); _y += _ysep;
-			draw_text_transformed(_x, _y, "WEEK "+string(global.week_counter), 2, 2, 0); _y += _ysep;
+			//draw_text_transformed(_x, _y, "HAUNT POINTS: "+string(global.haunt_points), 2, 2, 0); _y += _ysep;
+			//draw_text_transformed(_x, _y, "WEEK "+string(global.week_counter), 2, 2, 0); _y += _ysep;
+			//draw_set_font(font_main_body);
+			//draw_text_transformed(_x, _y, scr_date_and_time(global.current_time_), 2, 2, 0); _y += _ysep; // draw time in format "Monday 20:32" include toggle for 12 hr time in settings "Monday 8:32 PM"
+			//draw_set_halign(fa_left);
+			////draw_set_font(global.font_default);
+			#endregion
+			
+			#region new time/day/week display (lower left)
+			draw_set_halign(fa_center);
+			_x = room_width * 0.1;
+			var _y_header = room_height * 0.8;
+			var _y_body = room_height * 0.9;
+			
+			var _time = get_current_time(global.current_time_);
+			var _day_name = get_current_day();
+			//var _day_name_length = string_length(_day_name);
+			var _xoffset = 72;
+			var _week_no = "Week "+string(global.week_counter);
+			//var _week_no_length = string_length(_week_no);
+			//var _overall_length = _day_name_length + _xoffset + _week_no_length;
+			//var _xoffset_time = _overall_length / 2;
+			
+			// draw current time, header
+			draw_set_font(font_main_header);
+			draw_text(_x, _y_header, _time);
+			
+			// draw separator line
+			var _xoffset_multiplier = 1.8;
+			var _line_height = 2;
+			var _x1 = _x - _xoffset * _xoffset_multiplier;
+			var _x2 = _x + _xoffset * _xoffset_multiplier;
+			var _y1 = ((_y_header + _y_body) / 1.93) - _line_height;
+			var _y2 = ((_y_header + _y_body) / 1.93) + _line_height;
+			draw_rectangle(_x1, _y1, _x2, _y2, false);
+			
+			// draw day name, followed by week #, body
 			draw_set_font(font_main_body);
-			draw_text_transformed(_x, _y, scr_date_and_time(global.current_time_), 2, 2, 0); _y += _ysep; // draw time in format "Monday 20:32" include toggle for 12 hr time in settings "Monday 8:32 PM"
+			var _x_day = _x - _xoffset;
+			var _w_day = 50;
+			var _h_day = 40;
+			_x1 = _x_day - (_w_day + 12);
+			_x2 = _x_day + _w_day;
+			_y1 = _y_body - 5;
+			_y2 = _y_body + 50;
+			var _r = 12;
+			draw_set_colour(global.c_haunt);
+			draw_roundrect_ext(_x1, _y1, _x2, _y2, _r, _r, false);
+			draw_set_colour(#333333);
+			draw_text(_x_day, _y_body, _day_name);
+			draw_set_colour(c_white);
+			draw_text(_x + _xoffset, _y_body, _week_no);
+			
+			// cleanup
 			draw_set_halign(fa_left);
-			//draw_set_font(global.font_default);
+			draw_set_font(global.font_default);
+			#endregion
+			
+			#region new HAUNT POINTS display (upper left)
+			draw_set_font(font_main_body);
+			_x = 60;
+			_y = 60;
+			
+			var _hp_text = "HAUNT POINTS: ";
+			var _hp_text_len = string_width(_hp_text);
+			var _hp_amount = string(global.haunt_points);
+			
+			//// draw rounded rectangle label behind text
+			//_x1 = _x_day - (_w_day + 12);
+			//_x2 = _x_day + _w_day;
+			//_y1 = _y_body - 5;
+			//_y2 = _y_body + 50;
+			//_r = 12;
+			//draw_set_colour(global.c_haunt);
+			//draw_roundrect_ext(_x1, _y1, _x2, _y2, _r, _r, false);
+			//draw_set_colour(#333333);
+			
+			draw_text(_x, _y, _hp_text);
+			
+			draw_set_font(font_main_header);
+			draw_text(_x + _hp_text_len, _y - 10, _hp_amount);
+			
+			draw_set_font(global.font_default);
+			#endregion
 		}
 		
 		#region deprecated menu_haunt_active display for haunting buildings (commented)

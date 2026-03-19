@@ -31,10 +31,9 @@ my_path = path_add();
 // after short delay make him glance the other way before looking back
 alarm[0] = game_get_speed(gamespeed_fps) * glance_delay;
 
-gear_tier = 0;
 gear = instance_create_layer(x + 8, y - 26, "Master", obj_nev_gear);
 gear.depth = depth - 1;
-gear.image_index = gear_tier;
+gear.image_index = global.nev_gear_tier;
 
 //detect_radius = 200;
 //todo_queue = [];
@@ -307,14 +306,15 @@ function survey_action() {
 	}
 			
     // gear use logic
-	switch (gear_tier) {
+	switch (global.nev_gear_tier) {
 		case 0: {
-	        with instance_create_layer(gear.x, gear.y, "Master", obj_camera_flash) { 
+	        with instance_create_layer(gear.x, gear.y, "Master", obj_gear_anim) { 
 	            depth = other.gear.depth - 1; 
 	        }
 			// play sound (camera in use)
 			//...
 		} break;
+		//...
     }
 	
 	alarm[3] = game_get_speed(gamespeed_fps) * survey_timer;

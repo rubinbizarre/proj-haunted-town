@@ -60,8 +60,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Nev",
-    "path":"folders/Sprites/Nev.yy",
+    "name":"Gear Anims",
+    "path":"folders/Sprites/Nev/Gear Anims.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

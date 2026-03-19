@@ -20,7 +20,7 @@ config = {
     // text
     font               : font_main_body,
     text_colour        : make_colour_rgb(220, 215, 230),
-    char_width         : 21,      // pixel width of one monospace character
+    char_width         : 24,//21,      // pixel width of one monospace character
     line_height        : 36,      // px between lines
 
     // column widths in characters — adjust to taste
@@ -96,13 +96,44 @@ function number_to_comma_string(_n, _include_sign) {
 
 /// returns a milestone label string, or "" if none reached
 function check_subscriber_milestone(_subs) {
-    // add or remove tiers to match your design
-    if (_subs >= 1000000) return "POLTERGUST UNLOCKED";
-    if (_subs >= 100000)  return "EMF MONITOR UNLOCKED";
-    if (_subs >= 50000)   return "PRO TV CAM UNLOCKED";
-    if (_subs >= 10000)   return "VCR VIDEOCAM UNLOCKED";
-    if (_subs >= 0)       return ""; // no milestone yet
-    return "";
+    //if (_subs >= 1000000) return "POLTERGUST UNLOCKED";
+    //if (_subs >= 100000)  return "EMF MONITOR UNLOCKED";
+    //if (_subs >= 50000)   return "PRO TV CAM UNLOCKED";
+    //if (_subs >= 10000)   return "VCR VIDEOCAM UNLOCKED";
+    //if (_subs >= 0)       return ""; // no milestone yet
+    //return "";
+	
+	var _milestone_str = "";
+	
+	if (_subs >= 1000000) and (global.nev_gear_tier != 4) {
+		if (global.nev_gear_tier < 4) _milestone_str = "POLTERGUST UNLOCKED";
+		global.nev_gear_tier = 4;
+		return _milestone_str;
+	}
+	if (_subs >= 100000) and (global.nev_gear_tier != 3) {
+		if (global.nev_gear_tier < 3) _milestone_str = "EMF MONITOR UNLOCKED";
+		if (global.nev_gear_tier > 3) _milestone_str = "POLTERGUST SOLD. EMF MONITOR EQUIPPED";
+		global.nev_gear_tier = 3;
+		return _milestone_str;
+	}
+	if (_subs >= 50000) and (global.nev_gear_tier != 2) {
+		if (global.nev_gear_tier < 2) _milestone_str = "PRO TV CAM UNLOCKED";
+		if (global.nev_gear_tier > 2) _milestone_str = "EMF MONITOR SOLD. PRO TV CAM EQUIPPED";
+		global.nev_gear_tier = 2;
+		return _milestone_str;
+	}
+	if (_subs >= 10000) and (global.nev_gear_tier != 1) {
+		if (global.nev_gear_tier < 1) _milestone_str = "VCR VIDEOCAM UNLOCKED";
+		if (global.nev_gear_tier > 1) _milestone_str = "PRO TV CAM SOLD. VCR VIDEOCAM EQUIPPED";
+		global.nev_gear_tier = 1;
+		return _milestone_str;
+	}
+	if (_subs >= 0) and (global.nev_gear_tier != 0) {
+		if (global.nev_gear_tier > 0) _milestone_str = "VCR VIDEOCAM SOLD. OLD CAMERA EQUIPPED";
+		global.nev_gear_tier = 0;
+		return _milestone_str;
+	}
+	return "";
 }
 
 /// builds the actual three columns of data
@@ -156,7 +187,7 @@ function build_summary_rows() {
         type : "stat",
         col1 : "TOTAL SUBSCRIBERS",
         col2 : number_to_comma_string(global.subs, false),
-        col3 : _milestone != "" ? "MILESTONE REACHED: " + _milestone : "",
+        col3 : _milestone != "" ? "SUB GOAL REACHED: " + _milestone : "",
     });
 
     return _rows;

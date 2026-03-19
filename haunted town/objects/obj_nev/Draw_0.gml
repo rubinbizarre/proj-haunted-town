@@ -18,7 +18,7 @@ if (global.debug) {
 	//draw_text_transformed(x, _y, "spd:"+string(move_speed), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "path_spd:"+string(path_speed), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "state:"+current_state, 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "gear_tier:"+string(gear_tier), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "gear_tier:"+string(global.nev_gear_tier), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "path_index:"+string(path_index), 0.5, 0.5, 0); _y += _ysep;
 	draw_set_halign(fa_left);
 }

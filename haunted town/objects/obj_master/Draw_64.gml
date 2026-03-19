@@ -166,6 +166,9 @@ switch (room) {
 		
 		#region HUD
 		if (global.hud) and (!global.display_end_of_day) {
+			var _gui_w = display_get_gui_width();
+			var _gui_h = display_get_gui_height();
+			
 			#region old time/day/week/hauntpoints display (top middle) (commented)
 			////draw_set_font(font_main_header);
 			//draw_set_halign(fa_center);
@@ -247,7 +250,7 @@ switch (room) {
 			
 			// draw rounded rectangle label behind amount
 			draw_set_font(font_main_header);
-			var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2);
+			var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2) + 10;
 			var _y_label = (_y - 10) + (string_height(_hp_amount)/2);
 			var _r_label = 12;
 			var _w_label = string_width(_hp_amount)/1.33;
@@ -264,7 +267,8 @@ switch (room) {
 			);
 			
 			draw_set_colour(#333333);
-			draw_text(_x + _hp_text_len, _y - 10, _hp_amount);
+			draw_set_halign(fa_left);
+			draw_text(_x + _hp_text_len + 10, _y - 10, _hp_amount);
 			
 			// cleanup
 			draw_set_colour(c_white);
@@ -274,7 +278,7 @@ switch (room) {
 			#region display current objective (upper middle)
 			var _obj_upper = "- CURRENT OBJECTIVE -";
 			var _obj_lower = objective;
-			_x = room_width/2;
+			_x = _gui_w/2;
 			_y = 35;
 			draw_set_halign(fa_center);
 			draw_set_font(font_main_sub);

@@ -55,6 +55,10 @@ interior_obj = noone;
 // assign each building a unique slot in the 'void'
 building_index = 0; // assigned in obj_master ROOM_START event
 
+name_str = "unnamed-building";
+note_str_credit = "note-credit";
+note_str_discredit = "note-discredit";
+
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
 	case spr_building_0_shack: {

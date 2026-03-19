@@ -57,6 +57,7 @@
     {"id":{"name":"anim_npc_spook","path":"animcurves/anim_npc_spook/anim_npc_spook.yy",},},
     {"id":{"name":"font_main_body","path":"fonts/font_main_body/font_main_body.yy",},},
     {"id":{"name":"font_main_header","path":"fonts/font_main_header/font_main_header.yy",},},
+    {"id":{"name":"font_main_sub","path":"fonts/font_main_sub/font_main_sub.yy",},},
     {"id":{"name":"font_main","path":"fonts/font_main/font_main.yy",},},
     {"id":{"name":"read me - not nev's world","path":"notes/read me - not nev's world/read me - not nev's world.yy",},},
     {"id":{"name":"read me","path":"notes/read me/read me.yy",},},

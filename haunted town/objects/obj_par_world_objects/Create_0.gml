@@ -51,7 +51,7 @@ nev_taking_escrow = false; // flag to use so that escrow is still drawn whilst n
 
 disabled = false; // activated when nev has poltergust and interacts
 
-name_str = "unnamed"; // name of obj that appears in daily breakdown
+name_str = "unnamed-wo"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 

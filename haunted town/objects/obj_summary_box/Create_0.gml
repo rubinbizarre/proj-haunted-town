@@ -18,14 +18,14 @@ config = {
     padding            : 18,
 
     // text
-    font               : font_main,
+    font               : font_main_body,
     text_colour        : make_colour_rgb(220, 215, 230),
     char_width         : 21,      // pixel width of one monospace character
     line_height        : 36,      // px between lines
 
     // column widths in characters — adjust to taste
-    col1_chars         : 22,      // event label column
-    col2_chars         : 14,      // sub change column
+    col1_chars         : 16,      // event label column
+    col2_chars         : 16,      // sub change column
     // col3 fills the remaining space automatically
 
     // scrollbar
@@ -112,8 +112,8 @@ function build_summary_rows() {
     array_push(_rows, {
         type : "header",
         col1 : "Event",
-        col2 : "Sub Change",
-        col3 : "Notes",
+        col2 : "Nev's Subs",
+        col3 : "Nev's Notes",
     });
     array_push(_rows, { type : "separator" });
 
@@ -137,7 +137,7 @@ function build_summary_rows() {
         type : "event",
         col1 : "Daily Passive Growth",
         col2 : "+" + string(_passive),
-        col3 : "General curiosity from the Nev-Heads.",
+        col3 : "General curiosity from across the world!",
     });
 
     array_push(_rows, { type : "spacer" });

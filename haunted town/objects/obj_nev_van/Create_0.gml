@@ -272,7 +272,7 @@ function redirect(_inst) {
 	#endregion
 }
 
-function check_for_paranormal() {
+function check_for_paranormal_van() {
 	#region check for all detectable objects
 	var _list = ds_list_create();
 	var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_detectable, false, true, _list, false);
@@ -288,7 +288,7 @@ function check_for_paranormal() {
 			if (variable_instance_exists(_inst, "haunted")) {
 				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
 					_should_add = true;
-					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted world-object: "+string(_inst.id));
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal_van(): "+current_state+": adding haunted world-object: "+string(_inst.id));
 				}
 			}
 		}
@@ -297,7 +297,7 @@ function check_for_paranormal() {
 			if (variable_instance_exists(_inst, "haunted")) {
 				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (_inst.stats.owned) {
 					_should_add = true;
-					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted building: "+string(_inst.id));
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal_van(): "+current_state+": adding haunted building: "+string(_inst.id));
 				}
 			}
 		}
@@ -306,7 +306,7 @@ function check_for_paranormal() {
 			if (variable_instance_exists(_inst, "haunted")) {
 				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
 					_should_add = true;
-					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding haunted scary-object: "+string(_inst.id));
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal_van(): "+current_state+": adding haunted scary-object: "+string(_inst.id));
 				}
 			}
 		}
@@ -315,7 +315,7 @@ function check_for_paranormal() {
 			if (variable_instance_exists(_inst, "possessed")) {
 				if (_inst.possessed) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) {
 					_should_add = true;
-					show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": adding possessed-npc: "+string(_inst.id));
+					show_debug_message("obj_nev_van CREATE: check_for_paranormal_van(): "+current_state+": adding possessed-npc: "+string(_inst.id));
 				}
 			}
 		}
@@ -324,7 +324,7 @@ function check_for_paranormal() {
 		if (_should_add) {
 			array_push(global.nev_todo_queue, _inst);
 			redirect(_inst);
-			show_debug_message("obj_nev_van CREATE: check_for_paranormal(): "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
+			show_debug_message("obj_nev_van CREATE: check_for_paranormal_van(): "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
 		}
 	}
 	ds_list_destroy(_list);

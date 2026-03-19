@@ -106,6 +106,9 @@ dying = false;
 dying_ascent_speed = 0.05;
 dying_fade_speed = 0.01;
 
+name_str = "unnamed-npc";
+note_str_credit = "note-credit";
+note_str_discredit = "note-discredit";
 
 // FUNCTIONS
 

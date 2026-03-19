@@ -7,7 +7,7 @@ switch (room) {
 		_x = room_width/2;
 		_y = 32;
 		var _prev_font = draw_get_font();
-		draw_set_font(font_main);
+		draw_set_font(font_main_body);
 		draw_set_halign(fa_center);
 		//draw_set_color(c_fuchsia);
 		draw_text_transformed(_x, _y, "work in progress", 1, 1, 0);
@@ -37,7 +37,7 @@ switch (room) {
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_middle);
 				draw_set_color(global.c_haunt);
-				draw_set_font(font_main);
+				draw_set_font(font_main_body);
 				
 				// draw 'end of [...]day, week [x]' title header
 				// determine what _day_name to output based on _day_counter
@@ -105,7 +105,7 @@ switch (room) {
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_middle);
 				draw_set_color(global.c_haunt);
-				draw_set_font(font_main);
+				draw_set_font(font_main_body);
 				// draw 'PAUSED' title header
 				_x = room_width/2;
 				draw_text_transformed(_x, room_height/2, "[NOT] PAUSED", 2, 2, 0);
@@ -219,9 +219,11 @@ switch (room) {
 			_y1 = _y_body - 5;
 			_y2 = _y_body + 50;
 			var _r = 12;
-			draw_set_colour(global.c_haunt);
+			//draw_set_colour(global.c_haunt);
+			draw_set_colour(#5c4769);
 			draw_roundrect_ext(_x1, _y1, _x2, _y2, _r, _r, false);
-			draw_set_colour(#333333);
+			draw_set_colour(global.c_haunt);
+			//draw_set_colour(c_white);
 			draw_text(_x_day, _y_body, _day_name);
 			draw_set_colour(c_white);
 			draw_text(_x + _xoffset, _y_body, _week_no);
@@ -233,28 +235,39 @@ switch (room) {
 			
 			#region new HAUNT POINTS display (upper left)
 			draw_set_font(font_main_body);
-			_x = 60;
-			_y = 60;
+			_x = 40;
+			_y = 35;
 			
 			var _hp_text = "HAUNT POINTS: ";
 			var _hp_text_len = string_width(_hp_text);
-			var _hp_amount = string(global.haunt_points);
+			var _hp_amount = string(hp_display);
 			
-			//// draw rounded rectangle label behind text
-			//_x1 = _x_day - (_w_day + 12);
-			//_x2 = _x_day + _w_day;
-			//_y1 = _y_body - 5;
-			//_y2 = _y_body + 50;
-			//_r = 12;
-			//draw_set_colour(global.c_haunt);
-			//draw_roundrect_ext(_x1, _y1, _x2, _y2, _r, _r, false);
-			//draw_set_colour(#333333);
-			
+			draw_set_colour(c_white);
 			draw_text(_x, _y, _hp_text);
 			
+			// draw rounded rectangle label behind amount
 			draw_set_font(font_main_header);
+			var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2);
+			var _y_label = (_y - 10) + (string_height(_hp_amount)/2);
+			var _r_label = 12;
+			var _w_label = string_width(_hp_amount)/1.33;
+			var _h_label = 28;
+			draw_set_color(global.c_haunt);
+			draw_roundrect_ext(
+				_x_label - _w_label,
+				_y_label - _h_label,
+				_x_label + _w_label,
+				_y_label + _h_label,
+				_r_label,
+				_r_label,
+				false
+			);
+			
+			draw_set_colour(#333333);
 			draw_text(_x + _hp_text_len, _y - 10, _hp_amount);
 			
+			// cleanup
+			draw_set_colour(c_white);
 			draw_set_font(global.font_default);
 			#endregion
 		}

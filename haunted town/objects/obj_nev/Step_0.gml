@@ -2,6 +2,7 @@ if (depth != -y) depth = -y;
 
 #region animation & sprite flipping logic
 if (path_index != -1) and (current_state != "SURVEY_POI") {
+//if (current_state != "SURVEY_POI") and (current_state != "LEAVING_VAN") {
 	// if moving/on a path, face the direction of movement
 	image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
 	// sprite flipping and location swapping for Nev's gear
@@ -175,7 +176,7 @@ if (instance_exists(obj_manager_time)) {
 	    //ds_list_destroy(_temp_list);
 		#endregion
 		
-		check_for_paranormal();
+		check_for_paranormal_nev();
 		
 		if (following) {
 			show_debug_message("obj_nev STEP: executing move_along_path_to_target() (nev is following) ...");
@@ -323,14 +324,19 @@ switch (current_state) {
 				//if (global.nev_current_target.haunted) {
 					target_x = 0;
 					target_y = 0;
+					
 					enter_building();
 					show_debug_message("obj_nev STEP: "+current_state+": entering building");
+					
 					var _prev_todo_length = array_length(global.nev_todo_queue);
-					check_for_paranormal();
+					
+					check_for_paranormal_nev();
+					
 					var _new_todo_length = array_length(global.nev_todo_queue);
 					if (_new_todo_length > _prev_todo_length) {
 						current_state = "SURVEY_POI";
-						show_debug_message("obj_nev STEP: "+current_state+": POI detected upon entering. switched to survey_poi...");
+						finished_surveying = true;
+						show_debug_message("obj_nev STEP: "+current_state+": POI detected upon entering.");
 					} else {
 						show_debug_message("obj_nev STEP: "+current_state+": nothing detected initially when entering...");
 					}

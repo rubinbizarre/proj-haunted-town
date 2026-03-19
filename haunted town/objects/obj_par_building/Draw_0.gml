@@ -44,25 +44,38 @@ if (stats.owned) {
 	 
 	// draw haunt difficulty value when hovering over
 	if (mouse_hover) or (global.tracked_building == id) {
+		
+		draw_set_font(font_main_sub);
 		var _haunt_diff_str = string(stats.cost);
 		
 		// draw rectangle as 'background label' for haunt diff string
-		draw_rectangle_colour(
-			x-string_width(_haunt_diff_str),
-			(y-(sprite_height/2)) - 10,
-			x+string_width(_haunt_diff_str),
-			(y-(sprite_height/2)) + 10,
-			c_white, c_white, c_white, c_white, false
+		var _y = y-(sprite_height/2);
+		var _r = 6;
+		var _w = string_width(_haunt_diff_str)/1.2;
+		if (_w < 8) _w = string_width(_haunt_diff_str);
+		var _h = 10;
+		draw_set_color(global.c_haunt);
+		draw_roundrect_ext(
+			x - _w,
+			_y - _h,
+			x + (_w - 1),
+			_y + (_h - 1),
+			_r,
+			_r,
+			false
 		);
 		
 		// draw actual haunt diff string
 		draw_set_halign(fa_center);
 		draw_set_valign(fa_middle);
-		draw_set_color(c_black);
-		draw_text_transformed(x, y-(sprite_height/2), _haunt_diff_str, 1, 1, 0);
+		//draw_set_color(c_black);
+		//draw_text_transformed(x, y-(sprite_height/2), _haunt_diff_str, 1, 1, 0);
+		draw_set_color(#333333);
+		draw_text(x, _y, _haunt_diff_str);
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_top);
 		draw_set_color(c_white);
+		draw_set_font(global.font_default);
 	}
 }
 

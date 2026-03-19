@@ -51,6 +51,9 @@ prev_cam_w = 0;
 prev_cam_h = 0;
 prev_cam_zoom = 0;
 
+hp_display = 0;
+hp_display_strength = 0.01;
+
 function abort_haunt_process() {
 	if (global.menu_haunt_active) {
 		global.menu_haunt_active = false;

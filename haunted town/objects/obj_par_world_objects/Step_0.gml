@@ -112,6 +112,7 @@ if (deactivate_active) {
 		deactivate_timer = deactivate_timer_init;
 		// deactivate complete.
 		sprite_index = sprite_normal;
+		image_index = 0;
 		haunted = false;
 		// avoid memory leaks; forget all ids which entered/left while haunted
 		ds_list_destroy(current_list);

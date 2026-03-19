@@ -28,7 +28,7 @@ if (current_state == "RETURN_HOME") {
 		//ds_list_destroy(_temp_list);
 		#endregion
 		
-		check_for_paranormal();
+		check_for_paranormal_van();
 	}
 }
 

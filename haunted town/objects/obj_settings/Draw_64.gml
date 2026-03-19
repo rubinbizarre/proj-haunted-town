@@ -18,7 +18,7 @@ var _c = #cb73ff;
 var _ysep = 40;
 var _prev_font = draw_get_font();
 
-draw_set_font(font_main);
+draw_set_font(font_main_body);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_right);
 

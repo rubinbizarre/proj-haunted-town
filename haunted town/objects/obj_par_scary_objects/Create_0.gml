@@ -44,7 +44,9 @@ pie_r2 = 6;
 
 disabled = false; // activated when nev has poltergust and interacts, permanently disabling the object
 
-name_str = "unassigned"; // name of obj that appears in daily breakdown
+name_str = "unnamed-so"; // name of obj that appears in daily breakdown
+note_str_credit = "note-credit";
+note_str_discredit = "note-discredit";
 
 function gain_infamy() {
 	infamy += infamy_gain;

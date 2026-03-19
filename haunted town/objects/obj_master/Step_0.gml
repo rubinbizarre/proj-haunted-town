@@ -160,6 +160,7 @@ switch (room) {
 		}
 		#endregion
 		
+		// while unpaused and not displaying daily summary
 		if (!global.paused) and (!global.display_end_of_day) {
 			if (mouse_check_button_pressed(mb_left)) {
 				//var _x = device_mouse_x_to_gui(0);
@@ -168,8 +169,27 @@ switch (room) {
 				var _x = mouse_x;
 				var _y = mouse_y;
 				instance_create_layer(_x, _y, "Master", obj_cursor_click);
-				show_debug_message("obj_master STEP: created obj_cursor_click");
+				//show_debug_message("obj_master STEP: created obj_cursor_click");
 			}
+			
+			#region handle displaying HAUNT POINTS w/ lerp effect
+			// primarily needed for when Nev empties the escrow
+
+			//if (escrow_display == obj_wo_trashcan.escrow) return; // no need to update the display val if it's already the same as actual val
+			var _hp = global.haunt_points;
+			if (hp_display != _hp) {
+				// depending on how fast you want the display val to catch up
+				var _new_hp_display = round(lerp(hp_display, _hp, hp_display_strength));
+
+				// if the increment is large enough to make a difference, use the newly calculated val
+				// otherwise, move the display val 1 unit closer towards the actual val
+				if (_new_hp_display != hp_display) {
+					hp_display = _new_hp_display;
+				} else {
+					hp_display += sign(_hp - hp_display);
+				}
+			}
+			#endregion
 		}
 	} break;
 }

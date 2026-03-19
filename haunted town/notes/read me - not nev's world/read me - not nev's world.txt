@@ -163,8 +163,13 @@ determines how often nev visits that hbuilding
  -	Nat mentioned how his fear could increase if you are able to 'overwhelm' him with multiple haunted things at once
 	i.e. nev enters a building full of possessed NPCs -> spook effect, fear increased, but he still deactivates them
  -	maybe it could be once he has detected more than 5 hauntings in a day, each haunting after that slightly increases his fear
- 
- 
+
 			known issues:
  -	there's something wrong about npc CIRCUIT state, npcs get stuck on a path node with no assigned path - might be 
 	related to spooking via world objects
+		-	also related, NPCs in CIRCUIT state seem to exit a building and then appear instantly
+			at the node nearest to the house first, then go back to the house, then go back on to
+			the path and continue the path circuit as normal...
+ -	when Nev goes to enter a house which was haunted and by the time he enters its not haunted,
+	his gear sprite will stay outside the building while he is inside. this is due to his animation logic
+	but i cba to fix this right now

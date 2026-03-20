@@ -1,3 +1,6 @@
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
 // draw whole bar bg
 draw_set_colour(c_black);
 draw_rectangle(x1, y1, x2, y2, false);
@@ -5,10 +8,10 @@ draw_rectangle(x1, y1, x2, y2, false);
 draw_set_colour(c_fuchsia);
 draw_rectangle(
 	//win_zone_x1,
-	(room_width/2) - (win_zone_radius * global.haunt_difficulty),
+	(_gui_w/2) - (win_zone_radius * global.haunt_difficulty),
 	y1 + win_zone_h,
 	//win_zone_x2,
-	(room_width/2) + (win_zone_radius * global.haunt_difficulty),
+	(_gui_w/2) + (win_zone_radius * global.haunt_difficulty),
 	y2 - win_zone_h,
 	false
 );

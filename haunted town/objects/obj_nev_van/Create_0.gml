@@ -1,11 +1,11 @@
-move_speed = 2;
+move_speed = 3;//2*2;
 move_speed_init = move_speed;
 
 // set home_obj to home node id
 if (instance_exists(obj_node_nev_home)) {
 	home_obj = obj_node_nev_home;
 } else {
-	show_message("obj_nev_van CREATE:\nhome node not found");
+	if (global.debug) show_message("obj_nev_van CREATE:\nhome node not found");
 }
 
 // when created, set x,ypos to home_obj x,y

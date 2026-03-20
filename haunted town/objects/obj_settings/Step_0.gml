@@ -68,5 +68,6 @@ if (keyboard_check_pressed(vk_enter)) or (keyboard_check_pressed(vk_space)) {
 		prev_res_index = _current_res_index;
 		prev_mode_index = global.mode_index;
 	}
+	instance_destroy();
 }
 

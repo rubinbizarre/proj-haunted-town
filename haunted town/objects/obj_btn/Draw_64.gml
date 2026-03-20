@@ -1,7 +1,10 @@
 if (room != rm_main) exit;
 
-var _x = room_width/2;
-var _y = room_height/2;
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
+var _x = _gui_w/2;
+var _y = _gui_h/2;
 //var _x = display_get_width()/2;
 //var _y = display_get_height()/2;
 

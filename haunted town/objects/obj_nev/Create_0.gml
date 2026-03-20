@@ -1,4 +1,4 @@
-move_speed = 1.6;//0.85;
+move_speed = 1.6*2;//0.85;
 move_speed_init = move_speed;
 
 //move_speed_rush = 1.6;
@@ -21,7 +21,7 @@ dest_y = 0;
 // animcurve for bobbing whilst moving
 ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
 ac_time_bob = 0;
-ac_speed_bob = 0.08;//0.1;
+ac_speed_bob = 0.08/2;//0.1;
 
 glance_counter = 0;
 glance_delay = 0.3;//0.4;//0.8;

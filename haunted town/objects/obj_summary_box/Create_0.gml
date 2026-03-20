@@ -1,13 +1,16 @@
 // ── config ────────────────────────────────────────────────────────────
 
-var _w = room_width - 80;
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
+var _w = _gui_w - 80;
 var _h = 400;
 
 config = {
     width  : _w,
     height : _h,
-	xpos   : (room_width/2) - (_w/2),
-    ypos   : (room_height/2) - (_h/2),
+	xpos   : (_gui_w/2) - (_w/2),
+    ypos   : (_gui_h/2) - (_h/2),
 
     // appearance
     bg_colour          : make_colour_rgb(18, 16, 24),

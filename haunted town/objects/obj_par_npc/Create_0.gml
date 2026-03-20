@@ -1,6 +1,6 @@
 // identity and key vars for pathing movement
 routine_type = "adult"; // kid, adult, tourist, etc
-move_speed = 1; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
+move_speed = 1*2; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;
 move_speed_init = move_speed; // saves us from re-entering value of move_speed in step event
 /* move_speed is affected tied to time_speed_actual. */
 
@@ -42,7 +42,7 @@ check_interval = 60; // check routine every 1 sec at 60 fps
 // animcurve for bobbing whilst moving
 ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
 ac_time_bob = 0;
-ac_speed_bob = 0.08;//0.1;
+ac_speed_bob = 0.08/2;//0.1;
 
 // animcurve for being spooked
 ac_channel_spook = animcurve_get_channel(anim_npc_spook, 0);

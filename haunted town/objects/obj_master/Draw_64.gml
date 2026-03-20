@@ -2,9 +2,12 @@ var _x = 0;
 var _y = 0;
 var _ysep = 0;
 
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
 switch (room) {
 	case rm_title: {
-		_x = room_width/2;
+		_x = _gui_w/2;
 		_y = 32;
 		var _prev_font = draw_get_font();
 		draw_set_font(font_main_body);
@@ -12,7 +15,9 @@ switch (room) {
 		//draw_set_color(c_fuchsia);
 		draw_text_transformed(_x, _y, "work in progress", 1, 1, 0);
 		//draw_set_color(c_white);
-		_y = room_height - 32;
+		//show_message(string(room_height - 32)+ " " +string(round(room_height * 0.97)));
+		//_y = room_height - 32;
+		_y = _gui_h * 0.97;
 		draw_set_valign(fa_bottom);
 		draw_text_transformed(_x, _y, "a game by rubinbizarre", 1, 1, 0);
 		draw_set_valign(fa_top);
@@ -54,7 +59,7 @@ switch (room) {
 				}
 				_day_name = string_upper(_day_name);
 				var _week_number = string(global.week_counter);
-				_x = room_width/2;
+				_x = _gui_w/2;
 				
 				draw_text_transformed(_x, 150, "END OF "+_day_name, 2, 2, 0);
 				draw_text_transformed(_x, 220, "-- WEEK "+_week_number+" --", 1, 1, 0);
@@ -89,7 +94,7 @@ switch (room) {
 				draw_surface(paused_surface, 0, 0);
 			} else {
 				if (global.debug) show_debug_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
-				paused_surface = surface_create(room_width, room_height);
+				paused_surface = surface_create(_gui_w, _gui_h);
 				surface_copy(paused_surface, 0, 0, application_surface);
 			}
 		}
@@ -101,17 +106,17 @@ switch (room) {
 				draw_clear_alpha(c_black, 0);
 				surface_set_target(paused_surface);
 				//draw_clear_alpha(c_black, 0);
-		
+				
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_middle);
 				draw_set_color(global.c_haunt);
 				draw_set_font(font_main_body);
 				// draw 'PAUSED' title header
-				_x = room_width/2;
-				draw_text_transformed(_x, room_height/2, "[NOT] PAUSED", 2, 2, 0);
+				_x = _gui_w/2;
+				draw_text_transformed(_x, _gui_h/2, "[NOT] PAUSED", 2, 2, 0);
 				// draw pause menu text options: resume, settings, quit
 				_ysep = 100;
-				_y = room_height/2+160;
+				_y = (_gui_h/2)+160;
 				var _c1 = global.c_haunt;
 				var _c2 = global.c_haunt;
 				var _c3 = global.c_haunt;
@@ -124,17 +129,17 @@ switch (room) {
 				draw_text_transformed_colour(_x, _y, "resume", 1, 1, 0, _c1, _c1, _c1, _c1, 1); _y += _ysep;
 				draw_text_transformed_colour(_x, _y, "settings", 1, 1, 0, _c2, _c2, _c2, _c2, 1); _y += _ysep;
 				draw_text_transformed_colour(_x, _y, "quit", 1, 1, 0, _c3, _c3, _c3, _c3, 1); _y += _ysep;
-				
+				// cleanup
 				draw_set_halign(fa_left);
 				draw_set_valign(fa_top);
 				draw_set_color(c_white);
 				draw_set_font(global.font_default);
-		
+				
 				surface_reset_target();
 				draw_surface(paused_surface, 0, 0);
 			} else {
-				show_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
-				paused_surface = surface_create(room_width, room_height);
+				if (global.debug) show_debug_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
+				paused_surface = surface_create(_gui_w, _gui_h);
 				surface_copy(paused_surface, 0, 0, application_surface);
 			}
 		}
@@ -150,15 +155,15 @@ switch (room) {
 			draw_text_transformed(_x, _y, "current_time: "+string(global.current_time_)+"/"+string(global.total_cycle_minutes), 2, 2, 0); _y += _ysep;
 			if (instance_exists(obj_manager_time)) draw_text_transformed(_x, _y, "time_speed: "+string(obj_manager_time.time_speed_actual), 2, 2, 0); _y += _ysep;
 			// display controls for time speed manipulation
-			draw_set_halign(fa_center); draw_text_transformed(room_width/2, room_height-40, "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);
+			draw_set_halign(fa_center); draw_text_transformed(display_get_gui_width()/2, (display_get_gui_height()-40), "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);
 			draw_set_halign(fa_right);
 			_y = 16;
-			draw_text_transformed(room_width - _x, _y, "fps:"+string(fps), 2, 2, 0); _y += _ysep;
-			draw_text_transformed(room_width - _x, _y, "mouse_x:"+string(mouse_x), 2, 2, 0); _y += _ysep;
-			draw_text_transformed(room_width - _x, _y, "mouse_y:"+string(mouse_y), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "fps:"+string(fps), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "mouse_x:"+string(mouse_x), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "mouse_y:"+string(mouse_y), 2, 2, 0); _y += _ysep;
 			_y += _ysep;
-			draw_text_transformed(room_width - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
-			draw_text_transformed(room_width - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			draw_set_halign(fa_left);
 			draw_set_color(c_white);
 		}
@@ -166,9 +171,6 @@ switch (room) {
 		
 		#region HUD
 		if (global.hud) and (!global.display_end_of_day) {
-			var _gui_w = display_get_gui_width();
-			var _gui_h = display_get_gui_height();
-			
 			#region old time/day/week/hauntpoints display (top middle) (commented)
 			////draw_set_font(font_main_header);
 			//draw_set_halign(fa_center);
@@ -186,9 +188,9 @@ switch (room) {
 			
 			#region new time/day/week display (lower left)
 			draw_set_halign(fa_center);
-			_x = room_width * 0.1;
-			var _y_header = room_height * 0.8;
-			var _y_body = room_height * 0.9;
+			_x = _gui_w * 0.1;
+			var _y_header = _gui_h * 0.8;
+			var _y_body = _gui_h * 0.9;
 			
 			var _time = get_current_time(global.current_time_);
 			var _day_name = get_current_day();

@@ -1,12 +1,15 @@
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
 margin = 50;
 x1 = margin;
-x2 = room_width - margin;
-y1 = room_height - (margin*2) - 50;
-y2 = room_height - (margin*2);
+x2 = _gui_w - margin;
+y1 = _gui_h - (margin*2) - 50;
+y2 = _gui_h - (margin*2);
 
 win_zone_radius = 200;
-win_zone_x1 = (room_width/2) - win_zone_radius;
-win_zone_x2 = (room_width/2) + win_zone_radius;
+win_zone_x1 = (_gui_w/2) - win_zone_radius;
+win_zone_x2 = (_gui_w/2) + win_zone_radius;
 win_zone_h = 7;
 
 cursor_x = x1;

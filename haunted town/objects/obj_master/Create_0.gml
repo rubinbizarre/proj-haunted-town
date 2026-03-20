@@ -122,7 +122,7 @@ function create_paused_surface() {
 	cursor_sprite = spr_cursor_default;
 	// capture surface before deactivating all instances
 	if (!surface_exists(paused_surface)) {
-		paused_surface = surface_create(room_width, room_height);
+		paused_surface = surface_create(display_get_gui_width(), display_get_gui_height());
 		surface_copy(paused_surface, 0, 0, application_surface);
 	}
 }

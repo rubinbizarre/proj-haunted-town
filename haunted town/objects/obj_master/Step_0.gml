@@ -45,18 +45,20 @@ switch (room) {
 		#region handle input while paused
 		if (global.paused) {
 			// keyboard: switching pause menu options
-			if (keyboard_check_pressed(vk_down)) {
-				if (pause_menu_select < 2) {
-					pause_menu_select++;
-				} else {
-					pause_menu_select = 0;
+			if (!instance_exists(obj_settings)) {
+				if (keyboard_check_pressed(vk_down)) {
+					if (pause_menu_select < 2) {
+						pause_menu_select++;
+					} else {
+						pause_menu_select = 0;
+					}
 				}
-			}
-			if (keyboard_check_pressed(vk_up)) {
-				if (pause_menu_select > 0) {
-					pause_menu_select--;
-				} else {
-					pause_menu_select = 2;
+				if (keyboard_check_pressed(vk_up)) {
+					if (pause_menu_select > 0) {
+						pause_menu_select--;
+					} else {
+						pause_menu_select = 2;
+					}
 				}
 			}
 			// keyboard: confirming pause menu option
@@ -84,32 +86,34 @@ switch (room) {
 			var _y1 = _yy - _btn_h;
 			var _x2 = _xx + _btn_w;
 			var _y2 = _yy + _btn_h;
-			// resume
-			if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
-				if (pause_menu_select != 0) pause_menu_select = 0;
-				// confirm
-				if (mouse_check_button_released(mb_left)) {
-					toggle_pause();
+			if (!instance_exists(obj_settings)) {
+				// resume
+				if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
+					if (pause_menu_select != 0) pause_menu_select = 0;
+					// confirm
+					if (mouse_check_button_released(mb_left)) {
+						toggle_pause();
+					}
 				}
-			}
-			_y1 += _btn_ysep;
-			_y2 += _btn_ysep;
-			// settings
-			if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
-				if (pause_menu_select != 1) pause_menu_select = 1;
-				// confirm
-				if (mouse_check_button_released(mb_left)) {
-					instance_create_layer(0, 0, "Master", obj_settings);
+				_y1 += _btn_ysep;
+				_y2 += _btn_ysep;
+				// settings
+				if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
+					if (pause_menu_select != 1) pause_menu_select = 1;
+					// confirm
+					if (mouse_check_button_released(mb_left)) {
+						instance_create_layer(0, 0, "Master", obj_settings);
+					}
 				}
-			}
-			_y1 += _btn_ysep;
-			_y2 += _btn_ysep;
-			// quit (return to title)
-			if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
-				if (pause_menu_select != 2) pause_menu_select = 2;
-				// confirm
-				if (mouse_check_button_released(mb_left)) {
-					room_goto(rm_title);
+				_y1 += _btn_ysep;
+				_y2 += _btn_ysep;
+				// quit (return to title)
+				if (point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x1, _y1, _x2, _y2)) {
+					if (pause_menu_select != 2) pause_menu_select = 2;
+					// confirm
+					if (mouse_check_button_released(mb_left)) {
+						room_goto(rm_title);
+					}
 				}
 			}
 		}
@@ -162,6 +166,8 @@ switch (room) {
 		
 		// while unpaused and not displaying daily summary
 		if (!global.paused) and (!global.display_end_of_day) {
+			
+			#region create 'cursor click' inst effect
 			if (mouse_check_button_pressed(mb_left)) {
 				//var _x = device_mouse_x_to_gui(0);
 				//var _y = device_mouse_y_to_gui(0);
@@ -171,6 +177,7 @@ switch (room) {
 				instance_create_layer(_x, _y, "Master", obj_cursor_click);
 				//show_debug_message("obj_master STEP: created obj_cursor_click");
 			}
+			#endregion
 			
 			#region handle displaying HAUNT POINTS w/ lerp effect
 			// primarily needed for when Nev empties the escrow

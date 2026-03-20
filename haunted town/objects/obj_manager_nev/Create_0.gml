@@ -12,6 +12,8 @@ global.nev_current_target = noone;
 
 global.nev_gear_tier = 0;
 
+global.nev_home = noone; // see room_start
+
 sub_gain_amount = 1000;
 sub_loss_amount = sub_gain_amount/2;
 

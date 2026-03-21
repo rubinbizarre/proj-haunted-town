@@ -80,23 +80,6 @@ function wrap_text(_str, _max_chars) {
     return _lines;
 }
 
-/// formats a number with comma separators and a leading + for positives, - for negatives
-function number_to_comma_string(_n, _include_sign) {
-	var _sign = "";
-	if (_include_sign) {
-		_sign = (_n >= 0) ? "+" : "-";
-	}
-    var _abs  = abs(_n);
-    var _s    = string(_abs);
-    var _result = "";
-    var _len  = string_length(_s);
-    for (var i = 1; i <= _len; i++) {
-        _result += string_char_at(_s, i);
-        if ((_len - i) mod 3 == 0 && i < _len) _result += ",";
-    }
-    return _sign + _result;
-}
-
 /// returns a milestone label string, or "" if none reached
 function check_subscriber_milestone(_subs) {
     //if (_subs >= 1000000) return "POLTERGUST UNLOCKED";
@@ -111,29 +94,34 @@ function check_subscriber_milestone(_subs) {
 	if (_subs >= 1000000) and (global.nev_gear_tier != 4) {
 		if (global.nev_gear_tier < 4) _milestone_str = "POLTERGUST UNLOCKED";
 		global.nev_gear_tier = 4;
+		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 4");
 		return _milestone_str;
 	}
 	if (_subs >= 100000) and (global.nev_gear_tier != 3) {
 		if (global.nev_gear_tier < 3) _milestone_str = "EMF MONITOR UNLOCKED";
 		if (global.nev_gear_tier > 3) _milestone_str = "POLTERGUST SOLD. EMF MONITOR EQUIPPED";
 		global.nev_gear_tier = 3;
+		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 3");
 		return _milestone_str;
 	}
 	if (_subs >= 50000) and (global.nev_gear_tier != 2) {
 		if (global.nev_gear_tier < 2) _milestone_str = "PRO TV CAM UNLOCKED";
 		if (global.nev_gear_tier > 2) _milestone_str = "EMF MONITOR SOLD. PRO TV CAM EQUIPPED";
 		global.nev_gear_tier = 2;
+		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 2");
 		return _milestone_str;
 	}
 	if (_subs >= 10000) and (global.nev_gear_tier != 1) {
 		if (global.nev_gear_tier < 1) _milestone_str = "VCR VIDEOCAM UNLOCKED";
 		if (global.nev_gear_tier > 1) _milestone_str = "PRO TV CAM SOLD. VCR VIDEOCAM EQUIPPED";
 		global.nev_gear_tier = 1;
+		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 1");
 		return _milestone_str;
 	}
 	if (_subs >= 0) and (global.nev_gear_tier != 0) {
 		if (global.nev_gear_tier > 0) _milestone_str = "VCR VIDEOCAM SOLD. OLD CAMERA EQUIPPED";
 		global.nev_gear_tier = 0;
+		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 0");
 		return _milestone_str;
 	}
 	return "";
@@ -263,9 +251,13 @@ function rebuild() {
 
 /// call when creating the summary box inst
 function toggle_display() {
-    rows = build_summary_rows();
-    rebuild();
-	visible = !visible;
+	if (!visible) {
+	    rows = build_summary_rows();
+	    rebuild();
+		visible = !visible;
+	} else {
+		visible = !visible;
+	}
 }
 	
 toggle_display();

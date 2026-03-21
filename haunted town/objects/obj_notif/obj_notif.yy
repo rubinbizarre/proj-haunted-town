@@ -11,8 +11,8 @@
   "name":"obj_notif",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Master",
+    "path":"folders/Objects/Master.yy",
   },
   "parentObjectId":null,
   "persistent":false,

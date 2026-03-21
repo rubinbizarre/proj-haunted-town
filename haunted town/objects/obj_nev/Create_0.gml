@@ -33,7 +33,7 @@ alarm[0] = game_get_speed(gamespeed_fps) * glance_delay;
 
 gear = instance_create_layer(x + 8, y - 26, "Master", obj_nev_gear);
 gear.depth = depth - 1;
-gear.image_index = global.nev_gear_tier;
+//gear.image_index = global.nev_gear_tier; // gear sets its own image_index now
 
 //detect_radius = 200;
 //todo_queue = [];
@@ -52,6 +52,8 @@ off_path = false;
 
 survey_timer = 2; // seconds
 finished_surveying = false;
+
+ps_subs = instance_create_layer(x, y - sprite_get_height(sprite_index), layer, obj_ps_sub_feedback);
 
 /*
 function determine_destination() {

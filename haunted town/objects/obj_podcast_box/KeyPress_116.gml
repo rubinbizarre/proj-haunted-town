@@ -1,0 +1,1 @@
+global.nev_gear_tier++;

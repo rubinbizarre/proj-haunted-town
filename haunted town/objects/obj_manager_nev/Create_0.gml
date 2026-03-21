@@ -4,7 +4,8 @@ global.daily_sub_loss_event_counter = 0;
 global.daily_passive_growth = 50;
 // initialise daily tracking arrays and counters at the start of each day
 global.daily_events = []; // array of structs, one per event
-global.subs_at_day_start = global.subs;
+global.subs_at_day_start = global.subs; // this is unused?
+global.nev_gear_at_day_start = 0;
 
 global.nev_detect_radius = 200;
 global.nev_todo_queue = [];
@@ -89,6 +90,10 @@ function gain_subs(_object_name, _note) {
         note       : _note, //"insert note here",    // optionally pass a note as a second argument
         //confirmed  : true,
     });
+	
+	var _ps = obj_nev.ps_subs;
+	if (_ps != noone) _ps.start_gain();
+	obj_podcast_box.activate_rings_notif();
 }
 
 function lose_subs(_object_name, _note) {
@@ -114,4 +119,8 @@ function lose_subs(_object_name, _note) {
         note       : _note, //"insert note here",
         //confirmed  : false,
     });
+	
+	var _ps = obj_nev.ps_subs;
+	if (_ps != noone) _ps.start_loss();
+	obj_podcast_box.activate_rings_notif();
 }

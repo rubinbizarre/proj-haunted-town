@@ -153,6 +153,8 @@ switch (room) {
 			_ysep = 40;
 	
 			draw_text_transformed(_x, _y, "current_time: "+string(global.current_time_)+"/"+string(global.total_cycle_minutes), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_x, _y, "gear_tier: "+string(global.nev_gear_tier), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_x, _y, "gear_at_day_start: "+string(global.nev_gear_at_day_start), 2, 2, 0); _y += _ysep;
 			if (instance_exists(obj_manager_time)) draw_text_transformed(_x, _y, "time_speed: "+string(obj_manager_time.time_speed_actual), 2, 2, 0); _y += _ysep;
 			// display controls for time speed manipulation
 			draw_set_halign(fa_center); draw_text_transformed(display_get_gui_width()/2, (display_get_gui_height()-40), "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);

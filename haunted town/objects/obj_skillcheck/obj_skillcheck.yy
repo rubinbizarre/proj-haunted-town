@@ -12,8 +12,8 @@
   "name":"obj_skillcheck",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"archive",
+    "path":"folders/Objects/archive.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -198,5 +198,12 @@ switch (room) {
 			}
 			#endregion
 		}
+		
+		#region handle toggling HUD visibility
+		if keyboard_check_pressed(ord("H")) {
+			global.hud = !global.hud;
+			//show_message("obj_master toggle hud");
+		}
+		#endregion
 	} break;
 }

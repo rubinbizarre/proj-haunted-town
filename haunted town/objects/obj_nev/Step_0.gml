@@ -233,7 +233,7 @@ switch (current_state) {
 					//...
 					show_debug_message("obj_nev STEP: "+current_state+": sub gain event. total sub gains today: "+string(global.daily_sub_gain_event_counter));
 				} else {
-					obj_manager_nev.gain_subs(_target.name_str, _target.note_str_discredit);
+					obj_manager_nev.lose_subs(_target.name_str, _target.note_str_discredit);
 					// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 					//...
 					show_debug_message("obj_nev STEP: "+current_state+": sub loss event. total sub losses today: "+string(global.daily_sub_loss_event_counter));
@@ -246,14 +246,16 @@ switch (current_state) {
 				
 				if (global.nev_current_target.haunted) {
 	                obj_manager_nev.gain_subs(_target.name_str, _target.note_str_credit);
-					// if caught mid-cooldown, disable cooldown
+					// if caught mid-deactivate, disable deactivate
 					if (_target.deactivate_active) {
 						_target.deactivate_active = false;
 						_target.deactivate_timer = _target.deactivate_timer_init;
 					}
-					global.nev_current_target.deactivate();
-	                global.nev_current_target.locked = true;
-					_target = global.nev_current_target;
+					_target.deactivate();
+	                _target.locked = true;
+					_target.mouse_hover = false;
+					_target.image_index = 0;
+					//_target = global.nev_current_target;
 					var _b = _target.current_building;
 					_b.haunted = false;
 					_b.infamy = 0;
@@ -262,7 +264,7 @@ switch (current_state) {
 					// visual feedback (some sort of bounce anim)
 					//...
 				} else {
-					obj_manager_nev.gain_subs(_target.name_str, _target.note_str_discredit);
+					obj_manager_nev.lose_subs(_target.name_str, _target.note_str_discredit);
 					// play sound (nev made a mistake ? or does he think he's winning in the moment?)
 					//...
 					// visual feedback
@@ -296,15 +298,17 @@ switch (current_state) {
 				
 		            if (_target.haunted) {
 		                obj_manager_nev.gain_subs(_target.name_str, _target.note_str_credit);
-						// if caught mid-cooldown, disable cooldown
+						// if caught mid-deactivate, disable deactivate
 						if (_target.deactivate_active) {
 							_target.deactivate_active = false;
 							_target.deactivate_timer = _target.deactivate_timer_init;
 						}
 		                _target.deactivate();
 		                _target.locked = true;
+						_target.mouse_hover = false;
 						_target.nev_taking_escrow = true;
 						_target.escrow = 0;
+						_target.image_index = 0;
 		                // play sound (nev caught obj while haunted)
 						//...
 						// visual feedback (some sort of bounce anim)
@@ -476,7 +480,7 @@ switch (current_state) {
 			// signal to van to start moving again after short delay
             obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
 			// now 'get in'
-            instance_destroy(gear);
+            //instance_destroy(gear);
             instance_destroy();
         }
     } break;
@@ -499,5 +503,13 @@ if (_target != noone) {
 		if (_target.is_inside) and (current_state != "SURVEY_POI") {
 			current_state = "SURVEY_POI";
 		}
+	}
+}
+
+// make ps inst track with nev's pos
+if (ps_subs != noone) {
+	if (instance_exists(ps_subs)) {
+		ps_subs.x = x;
+		ps_subs.y = y - sprite_get_height(sprite_index);
 	}
 }

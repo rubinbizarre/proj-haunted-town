@@ -173,3 +173,7 @@ determines how often nev visits that hbuilding
  -	when Nev goes to enter a house which was haunted and by the time he enters its not haunted,
 	his gear sprite will stay outside the building while he is inside. this is due to his animation logic
 	but i cba to fix this right now
+ -	clicking on the tab for the podcast-box will also affect whatever is underneath it at that time,
+	which may result in player actions which are not intended - frustrating (e.g. unlocking a building
+	but you didn't mean to). this was addressed and i believe fixed in Berry Cow Farm, but i will need
+	more time to implement this fix i think

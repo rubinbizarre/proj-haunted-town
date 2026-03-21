@@ -131,7 +131,7 @@ function toggle_display_end_of_day() {
 	if (!global.display_end_of_day) {
 		global.display_end_of_day = true;
 		global.display_podcast = true;
-		
+		obj_podcast_box.instant_hide();
 		create_paused_surface();
 		instance_deactivate_all(true);
 	} else {
@@ -139,7 +139,9 @@ function toggle_display_end_of_day() {
 		
 		// reset daily events and subs at day start
 		global.daily_events = [];
-		global.subs_at_day_start = global.subs;
+		global.subs_at_day_start = global.subs; // this is unused?
+		global.nev_gear_at_day_start = global.nev_gear_tier;
+		
 		// reset daily sub gain/loss counters
 		global.daily_sub_gain_event_counter = 0;
 		global.daily_sub_loss_event_counter = 0;

@@ -24,12 +24,22 @@ ac_time_bob = 0;
 ac_speed_bob = 0.08/2;//0.1;
 
 glance_counter = 0;
-glance_delay = 0.3;//0.4;//0.8;
+//glance_delay = 0.3;//0.4;//0.8;
+//survey_timer = 2; // seconds
+timer_glance_max = 0.3; // secs of game-world-time
+timer_glance_cur = -1; // -1 = inactive
+timer_glance_end_max = timer_glance_max * 2;
+timer_glance_end_cur = -1;
+timer_leave_building_max = 2;
+timer_leave_building_cur = -1;
+timer_survey_max = 2;
+timer_survey_cur = -1;
+
+// when Nev exits van, after short delay glance the other way before looking back
+//alarm[0] = game_get_speed(gamespeed_fps) * glance_delay;
+timer_glance_cur = timer_glance_max; // set the glance timer
 
 my_path = path_add();
-
-// after short delay make him glance the other way before looking back
-alarm[0] = game_get_speed(gamespeed_fps) * glance_delay;
 
 gear = instance_create_layer(x + 8, y - 26, "Master", obj_nev_gear);
 gear.depth = depth - 1;
@@ -50,7 +60,6 @@ is_inside = false;
 
 off_path = false;
 
-survey_timer = 2; // seconds
 finished_surveying = false;
 
 ps_subs = instance_create_layer(x, y - sprite_get_height(sprite_index), layer, obj_ps_sub_feedback);
@@ -134,7 +143,8 @@ function check_for_paranormal_nev() {
 				if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
 					_should_add = true;
 					
-					alarm[2] = -1; // found POI so cancel auto-leave: for when nothing is actively haunted inside
+					//alarm[2] = -1; // found POI so cancel auto-leave: for when nothing is actively haunted inside
+					timer_leave_building_cur = -1;
 					
 					current_state = "APPROACH_POI";
 					var _xoffset = 30/1.5;
@@ -259,7 +269,8 @@ function enter_building() {
 		var _y = irandom_range(_i.bbox_top, _i.bbox_bottom);
 	*/
 	
-	alarm[2] = game_get_speed(gamespeed_fps) * 2; // leave after 2 secs if nothing is haunted
+	//alarm[2] = game_get_speed(gamespeed_fps) * 2; // leave after 2 secs if nothing is haunted
+	timer_leave_building_cur = timer_leave_building_max;
 }
 
 function leave_building() {
@@ -324,7 +335,8 @@ function survey_action() {
 	
 	// set finished_surveying to true after a couple seconds
 	// so that step event behaviour can execute
-	alarm[3] = game_get_speed(gamespeed_fps) * survey_timer;
+	//alarm[3] = game_get_speed(gamespeed_fps) * survey_timer;
+	timer_survey_cur = timer_survey_max;
 	
 	show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now surveying the POI.");
 	#endregion

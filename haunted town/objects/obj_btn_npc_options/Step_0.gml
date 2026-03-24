@@ -52,10 +52,12 @@ if (btn_confirmed) {
 					depth = other.depth;
 				}
 				// trigger implode after delay
-				alarm[0] = game_get_speed(gamespeed_fps) * 1;
+				//alarm[0] = game_get_speed(gamespeed_fps) * 1;
+				timer_enable_implode_cur = timer_enable_implode_max;
 				// stop draining fear and cancel alarm
 				npc.fear_drain = false;
-				npc.alarm[3] = -1;
+				//npc.alarm[3] = -1;
+				npc.timer_enable_fear_drain_cur = -1;
 			} else { // player doesn't have enough hp to possess
 				// play sound (fail)
 				//...
@@ -75,10 +77,12 @@ if (btn_confirmed) {
 			// play sound (kill success)
 			//...
 			// trigger implode after delay
-			alarm[0] = game_get_speed(gamespeed_fps) * 1;
+			//alarm[0] = game_get_speed(gamespeed_fps) * 1;
+			timer_enable_implode_cur = timer_enable_implode_max;
 			// stop draining fear and cancel alarm
 			npc.fear_drain = false;
-			npc.alarm[3] = -1;
+			//npc.alarm[3] = -1;
+			npc.timer_enable_fear_drain_cur = -1;
 		} break;
 	}
 	btn_confirmed = false;
@@ -102,13 +106,34 @@ if (implode) {
 		// affect npc; refer to npc with var 'npc'
 		switch (sprite_index) {
 			case spr_btn_npc_possess: {
-				if (instance_exists(npc)) npc.alarm[4] = game_get_speed(gamespeed_fps) * 1;
+				if (instance_exists(npc)) {
+					//npc.alarm[4] = game_get_speed(gamespeed_fps) * 1;
+					npc.timer_trigger_possess_cur = npc.timer_trigger_possess_max;
+				}
 			} break;
 			case spr_btn_npc_kill: {
-				if (instance_exists(npc)) npc.alarm[5] = game_get_speed(gamespeed_fps) * 1;
+				if (instance_exists(npc)) {
+					//npc.alarm[5] = game_get_speed(gamespeed_fps) * 1;
+					npc.timer_trigger_kill_cur = npc.timer_trigger_kill_max;
+				}
 			} break;
 		}
 		// destroy button inst
 		instance_destroy();
 	}
 }
+
+#region handle decrementing timer_enable_implode
+if (timer_enable_implode_cur > 0) {
+	timer_enable_implode_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_enable_implode_cur <= 0) {
+	    timer_enable_implode_cur = -1;
+	    #region --- alarm[0] code ---
+		// enable implode
+		// ------------------------------------------
+		implode = true;
+		#endregion
+	}
+}
+#endregion

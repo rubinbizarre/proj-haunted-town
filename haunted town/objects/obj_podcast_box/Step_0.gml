@@ -92,3 +92,20 @@ if (ring_active_2) {
 	}
 }
 #endregion
+
+#region handle decrementing timer_second_ring
+if (timer_second_ring_cur > 0) {
+	timer_second_ring_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_second_ring_cur <= 0) {
+	    timer_second_ring_cur = -1;
+	    #region --- alarm[0] code ---
+		// activate ring 2
+		// ------------------------------------------
+		// play sound (ding 2nd time)
+		//...
+		ring_active_2 = true;
+		#endregion
+	}
+}
+#endregion

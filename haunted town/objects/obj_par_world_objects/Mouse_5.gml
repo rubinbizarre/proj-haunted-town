@@ -1,2 +1,2 @@
 ///@desc debug test
-escrow += 50;
+if (global.debug) escrow += 50;

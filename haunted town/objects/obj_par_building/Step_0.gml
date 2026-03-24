@@ -195,7 +195,8 @@ if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
 				//...
 				
 				// delayed trigger to actually move to the target
-				alarm[0] = game_get_speed(gamespeed_fps) * 1.5;
+				//alarm[0] = game_get_speed(gamespeed_fps) * 1.5;
+				timer_move_enticed_cur = timer_move_enticed_max;
 			}
 	    }
 	}

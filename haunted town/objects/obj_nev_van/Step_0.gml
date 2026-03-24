@@ -112,10 +112,12 @@ switch (current_state) {
 				current_state = "IDLE";
 				
 				// cancel go_to_new_dest alarm
-				alarm[1] = -1;
+				//alarm[1] = -1;
+				timer_new_dest_cur = -1;
 				
 				// deploy Nev after short delay
-				alarm[0] = game_get_speed(gamespeed_fps) * 1.25;
+				//alarm[0] = game_get_speed(gamespeed_fps) * 1.25;
+				timer_deploy_nev_cur = timer_deploy_nev_max;
 			
 				//show_debug_message("obj_nev_van STEP: changed state from DRIVE_AND_STOP to IDLE. at least one POI inside nev_todo_queue. deploying Nev shortly!");
 			} else {
@@ -158,3 +160,40 @@ switch (current_state) {
 		}
 	} break;
 }
+
+#region TIMERS
+#region handle decrementing timer_deploy_nev
+if (timer_deploy_nev_cur > 0) {
+	timer_deploy_nev_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_deploy_nev_cur <= 0) {
+	    timer_deploy_nev_cur = -1;
+	    #region --- alarm[0] code ---
+		// deploy nev
+		// ------------------------------------------
+		if (!instance_exists(obj_nev)) {
+			deploy_nev();
+		} else {
+			show_debug_message("obj_nev_van STEP: timer_deploy_nev: attempted to deploy nev, but he is already deployed!");
+		}
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_new_dest
+if (timer_new_dest_cur > 0) {
+	timer_new_dest_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_new_dest_cur <= 0) {
+	    timer_new_dest_cur = -1;
+	    #region --- alarm[1] code ---
+		// trigger goto_new_dest()
+		// ------------------------------------------
+		// currently this timer is activated in obj_nev step event
+		goto_new_dest();
+		#endregion
+	}
+}
+#endregion
+#endregion

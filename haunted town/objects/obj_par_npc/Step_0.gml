@@ -1,4 +1,5 @@
-if (depth != -y) depth = -y;
+//if (depth != -y) depth = -y;
+depth = -y;
 
 #region while not spooked or not hit by van, manage animation, path speed
 if (!spooked) or (!hit_by_van) {
@@ -128,7 +129,8 @@ if (spooked) {
 		//iframes_spook = true;
 		
 		// delayed recovery to previous behaviour
-		alarm[0] = game_get_speed(gamespeed_fps) * 1.8;
+		//alarm[0] = game_get_speed(gamespeed_fps) * 1.8;
+		timer_disable_spook_cur = timer_disable_spook_max;
 		
 		//// delayed disable iframes_spook
 		//alarm[3] = game_get_speed(gamespeed_fps) * 6;
@@ -177,10 +179,12 @@ if (instance_exists(obj_nev_van)) {
 			iframes = true;
 		
 			// delayed recovery to previous behaviour
-			alarm[1] = game_get_speed(gamespeed_fps) * 2;
+			//alarm[1] = game_get_speed(gamespeed_fps) * 2;
+			timer_hit_recovery_cur = timer_hit_recovery_max;
 		
 			// delayed disable iframes
-			alarm[2] = game_get_speed(gamespeed_fps) * 6;
+			//alarm[2] = game_get_speed(gamespeed_fps) * 6;
+			timer_disable_iframes_cur = timer_disable_iframes_max;
 		
 			//show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" was hit_by_van");
 		}
@@ -373,7 +377,8 @@ if (possess_transition) {
 		possessed = true;
 		
 		// trigger do normal routine after short delay
-		alarm[6] = game_get_speed(gamespeed_fps) * 1.5;
+		//alarm[6] = game_get_speed(gamespeed_fps) * 1.5;
+		timer_do_routine_cur = timer_do_routine_max;
 	}
 }
 #endregion
@@ -386,4 +391,178 @@ if (possessed) {
 	    check_for_npcs();
 	}
 }
+#endregion
+
+#region TIMERS
+#region TEMPLATE (commented)
+//if (timer_glance_cur > 0) {
+//	timer_glance_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+//	if (timer_glance_cur <= 0) {
+//	    timer_glance_cur = -1;
+//	    #region --- alarm[0] code ---
+//		// desc
+//		// ------------------------------------------
+//		//...
+//		#endregion
+//	}
+//}
+#endregion
+
+#region handle decrementing timer_disable_spook
+if (timer_disable_spook_cur > 0) {
+	timer_disable_spook_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_disable_spook_cur <= 0) {
+	    timer_disable_spook_cur = -1;
+	    #region --- alarm[0] code --- I've split the separate blocks within alarm[0] into two separate timers now
+		// disable spooked status
+		// ------------------------------------------
+		if (spooked) {
+			spooked = false;
+			ac_time_spook = 0;
+			image_index = 0;
+			image_xscale = prev_xscale; // face the same way as before being spooked
+			my_path = my_path_duplicate;
+			if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+				path_start(my_path, move_speed, path_action_stop, true);
+			}
+			//show_debug_message("obj_par_npc ALARM[0]: "+string(id)+" recovered from being spooked");
+		}
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_move_enticed
+if (timer_move_enticed_cur > 0) {
+	timer_move_enticed_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_move_enticed_cur <= 0) {
+	    timer_move_enticed_cur = -1;
+	    #region --- alarm[0] code --- I've split the separate blocks within alarm[0] into two separate timers now
+		// go inside while enticed
+		// ------------------------------------------
+		if (current_state == "ENTICED") {
+			image_index = 0;
+			var _start_x = x;
+			var _start_y = y;
+			if (!path_exists(my_path)) {
+				my_path = path_add();
+				path_set_kind(my_path, 0);
+				path_set_closed(my_path, false);
+			}
+			path_add_point(my_path, _start_x, _start_y, 100);
+			path_add_point(my_path, target_x, target_y, 100);
+			if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+				path_start(my_path, move_speed, path_action_stop, true);
+			}
+		}
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_hit_recovery
+if (timer_hit_recovery_cur > 0) {
+	timer_hit_recovery_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_hit_recovery_cur <= 0) {
+	    timer_hit_recovery_cur = -1;
+	    #region --- alarm[1] code ---
+		// delayed recovery from hit by van
+		// ------------------------------------------
+		hit_by_van = false;
+		image_angle = 0;
+		my_path = my_path_duplicate;
+		if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+			path_start(my_path, move_speed, path_action_stop, true);
+		}
+		//show_debug_message("obj_par_npc ALARM[1]: "+string(id)+" recovered from hit_by_van");
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_disable_iframes
+if (timer_disable_iframes_cur > 0) {
+	timer_disable_iframes_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_disable_iframes_cur <= 0) {
+	    timer_disable_iframes_cur = -1;
+	    #region --- alarm[2] code ---
+		// delayed disable iframes
+		// ------------------------------------------
+		// for the purpose of not getting hit repeatedly by the van
+		iframes = false;
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_enable_fear_drain
+if (timer_enable_fear_drain_cur > 0) {
+	timer_enable_fear_drain_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_enable_fear_drain_cur <= 0) {
+	    timer_enable_fear_drain_cur = -1;
+	    #region --- alarm[3] code ---
+		// enable fear_drain
+		// ------------------------------------------
+		fear_drain = true;
+		// see create event function decrease_fear() for logic
+		// function used in step event line 271
+		//show_message(string(id)+"\nfear_drain set to true right now!");
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_trigger_possess
+if (timer_trigger_possess_cur > 0) {
+	timer_trigger_possess_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_trigger_possess_cur <= 0) {
+	    timer_trigger_possess_cur = -1;
+	    #region --- alarm[4] code ---
+		// trigger possess() function
+		// ------------------------------------------
+		possess();
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_trigger_kill
+if (timer_trigger_kill_cur > 0) {
+	timer_trigger_kill_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_trigger_kill_cur <= 0) {
+	    timer_trigger_kill_cur = -1;
+	    #region --- alarm[5] code ---
+		// trigger kill() function
+		// ------------------------------------------
+		kill();
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_do_routine
+if (timer_do_routine_cur > 0) {
+	timer_do_routine_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_do_routine_cur <= 0) {
+	    timer_do_routine_cur = -1;
+	    #region --- alarm[0] code ---
+		// do routine after possession
+		// ------------------------------------------
+		// currently called from step event
+		// check routine and do it
+		event_user(1);
+		#endregion
+	}
+}
+#endregion
+
 #endregion

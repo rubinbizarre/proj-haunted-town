@@ -43,6 +43,13 @@ time_speed_multiplier_init = time_speed_multiplier;
 
 time_speed_actual = 0; // see step: time_speed_actual = base * multiplier
 
+time_speed_normalised = 0;
+
+// 'x2' button
+x2_hover = false;
+x2_press = false;
+x2_active = false;
+
 function increment_day_counter() {
 	// increment day counter. if starting a new week, increment week counter.
 	if (global.day_counter == 6) {
@@ -52,4 +59,13 @@ function increment_day_counter() {
 		global.day_counter += 1;
 	}
 	global.podcast_episode_counter++;
+}
+
+function toggle_x2() {
+	x2_active = !x2_active;
+	if (x2_active) {
+		time_speed_multiplier = 2;
+	} else {
+		time_speed_multiplier = 1;
+	}
 }

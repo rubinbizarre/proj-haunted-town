@@ -5,6 +5,8 @@ time_speed_actual = time_speed_base * time_speed_multiplier;
 //global.current_time_ += (game_get_speed(gamespeed_microseconds) / 100000) * time_speed_actual; // seems to be more appropriate than using delta_time. game_get_speed(gamespeed_microseconds) = 0.17
 global.current_time_ += (delta_time / 100000) * time_speed_actual;
 
+time_speed_normalised = time_speed_actual / time_speed_base; // used for all decrementing alarms. when time_speed_base = 0.5, time_speed_normalised = 1. when time_speed_base = 1, time_speed_normalised = 2.
+
 //// loop the time back to zero after reaching a full week
 //if (global.current_time_ >= global.total_cycle_minutes) {
 //    global.current_time_ = 0;
@@ -48,3 +50,32 @@ if (global.debug) {
 		time_speed_multiplier = time_speed_multiplier_init;
 	}
 }
+
+#region handle click input on 'x2' button - working sorta
+// known issue: clicking also affects objects underneath the GUI layer in the world, this needs addressing
+if (global.hud) {
+	var _mx = device_mouse_x_to_gui(0);
+	var _my = device_mouse_y_to_gui(0);
+	var _gui_w = display_get_gui_width();
+	var _gui_h = display_get_gui_height();
+	var _w = 64;
+	var _h = 64;
+	var _x1 = _gui_w * 0.16;
+	var _x2 = _x1 + _w;
+	var _y1 = _gui_h * 0.79;
+	var _y2 = _y1 + _h;
+	x2_hover = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
+	if (mouse_check_button_pressed(mb_left) and x2_hover) {
+	    x2_press = true;
+	}
+	if (x2_press and !x2_hover) {
+		x2_press = false;
+	}
+	if (mouse_check_button_released(mb_left) and x2_press and x2_hover) {
+		// confirm input
+		x2_press = false;
+		x2_hover = false;
+		toggle_x2();
+	}
+}
+#endregion

@@ -55,6 +55,11 @@ name_str = "unnamed-wo"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
+timer_deactivate_max = 3;
+timer_deactivate_cur = -1;
+timer_cooldown_max = 6;
+timer_cooldown_cur = -1;
+
 function gain_infamy() {
 	infamy += infamy_gain;
 	infamy = clamp(infamy, 0, 1);

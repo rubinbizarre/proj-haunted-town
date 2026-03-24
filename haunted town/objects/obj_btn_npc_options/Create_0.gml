@@ -10,3 +10,6 @@ npc = noone;
 fading_away = false;
 fade_speed = 0.02;
 implode = false;
+
+timer_enable_implode_max = 1;
+timer_enable_implode_cur = -1;

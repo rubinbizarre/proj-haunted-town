@@ -198,11 +198,9 @@ switch (current_state) {
 		// if nev has reached the nearest path circuit node
 		if (point_distance(x, y, target_x, target_y) < 2) {
             if (array_length(global.nev_todo_queue) > 0) {
-				// pick the first target from our queue
-				//		might make more sense to pick the closest queue item to nev instead
+				// sort queued targets by distance, then select the first target to approach
 				sort_todo_queue_by_distance();
 				show_debug_message("obj_nev STEP: "+current_state+": sorted todo_queue by distance.");
-				
                 global.nev_current_target = global.nev_todo_queue[0];
 				show_debug_message("obj_nev STEP: "+current_state+": selected target "+string(global.nev_current_target)+" from todo_queue to approach.");
 				
@@ -486,7 +484,8 @@ switch (current_state) {
     case "GET_IN_VAN": {
         if (point_distance(x, y, target_x, target_y) < 2) {
 			// signal to van to start moving again after short delay
-            obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
+            //obj_nev_van.alarm[1] = game_get_speed(gamespeed_fps) * 1;
+			obj_nev_van.timer_new_dest_cur = obj_nev_van.timer_new_dest_max;
 			// now 'get in'
             //instance_destroy(gear);
             instance_destroy();
@@ -521,3 +520,104 @@ if (ps_subs != noone) {
 		ps_subs.y = y - sprite_get_height(sprite_index);
 	}
 }
+
+#region TIMERS
+#region TEMPLATE (commented)
+//if (timer_glance_cur > 0) {
+//	timer_glance_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+//	if (timer_glance_cur <= 0) {
+//	    timer_glance_cur = -1;
+//	    #region --- alarm[0] code ---
+//		// desc
+//		// ------------------------------------------
+//		//...
+//		#endregion
+//	}
+//}
+#endregion
+
+#region handle decrementing timer_glance
+if (timer_glance_cur > 0) {
+	timer_glance_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_glance_cur <= 0) {
+	    timer_glance_cur = -1;
+	    #region --- alarm[0] code ---
+		// glance the other way briefly
+		// ---------------------------------
+		image_xscale *= -1;
+		glance_counter++;
+		if (glance_counter >= 2) {
+			timer_glance_end_cur = timer_glance_end_max;
+			exit;
+		}
+		timer_glance_cur = timer_glance_max;
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_glance_end
+if (timer_glance_end_cur > 0) {
+	timer_glance_end_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_glance_end_cur <= 0) {
+	    timer_glance_end_cur = -1;
+	    #region --- alarm[1] code ---
+		// path to nearest circuit node from van
+		// --------------------------------------
+		path_add_point(my_path, x, y, 100);
+		// find nearest path circuit node to nev
+		var _node = instance_nearest(x, y, obj_node_circuit);
+		// add this nearest path circuit node pos to path
+		target_x = _node.x;
+		target_y = _node.y;
+		path_add_point(my_path, target_x, target_y, 100);
+		// store this node's x,y pos for later when pathing back to van
+		return_path_x = _node.x;
+		return_path_y = _node.y;
+		// modify path properties
+		path_set_closed(my_path, false);
+		path_set_kind(my_path, 0);
+		// start moving along the path
+		path_start(my_path, move_speed, path_action_stop, true);
+		//show_debug_message("obj_nev ALARM[1]: started path to nearest circuit node. total points: "+string(path_get_number(my_path)));
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_leave_building
+if (timer_leave_building_cur > 0) {
+	timer_leave_building_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_leave_building_cur <= 0) {
+	    timer_leave_building_cur = -1;
+	    #region --- alarm[2] code ---
+		// leave when nothing inside is haunted
+		// ------------------------------------------
+		//leave_building();
+		current_state = "SURVEY_POI"; // leaves building for us and resumes normal behaviour
+		finished_surveying = true;
+		#endregion
+	}
+}
+#endregion
+
+#region handle decrementing timer_survey
+if (timer_survey_cur > 0) {
+	timer_survey_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+	if (timer_survey_cur <= 0) {
+	    timer_survey_cur = -1;
+	    #region --- alarm[3] code ---
+		// flag finished_surveying
+		// ------------------------------------------
+		finished_surveying = true;
+		ps_subs.stop();
+		#endregion
+	}
+}
+#endregion
+#endregion

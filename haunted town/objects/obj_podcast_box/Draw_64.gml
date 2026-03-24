@@ -191,7 +191,7 @@ if (!global.paused) and (!global.display_end_of_day) {
 		//var _tab_border = 6;
 		draw_set_colour(#b4a4ff);
 		draw_roundrect_ext(_tab_x1, _tab_y1, _tab_x2, _tab_y2, _tab_r, _tab_r, false);
-		draw_set_colour(#333333);
+		if (tab_hover) draw_set_colour(#444444); else draw_set_colour(#333333);
 		draw_roundrect_ext(_tab_x1 + tab_border, _tab_y1 + tab_border, _tab_x2 - tab_border, _tab_y2 - tab_border, _tab_r_inner, _tab_r_inner, false);
 		draw_set_colour(c_white);
 		draw_set_halign(fa_center);

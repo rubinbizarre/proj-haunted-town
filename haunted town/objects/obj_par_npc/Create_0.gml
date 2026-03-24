@@ -110,13 +110,32 @@ name_str = "unnamed-npc";
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
-// FUNCTIONS
+// new decremented timers:
+timer_disable_spook_max = 1.8;
+timer_disable_spook_cur = -1;
+timer_move_enticed_max = 1.5;
+timer_move_enticed_cur = -1;
+timer_hit_recovery_max = 2;
+timer_hit_recovery_cur = -1;
+timer_disable_iframes_max = 6;
+timer_disable_iframes_cur = -1;
+timer_enable_fear_drain_max = 7;
+timer_enable_fear_drain_cur = -1;
+timer_trigger_possess_max = 1;
+timer_trigger_possess_cur = -1;
+timer_trigger_kill_max = 1;
+timer_trigger_kill_cur = -1;
+timer_do_routine_max = 1.5;
+timer_do_routine_cur = -1;
 
+// FUNCTIONS
+// --------------------------------------------
 function increase_fear() {
 	fear += fear_gain;
 	fear = clamp(fear, 0, 1);
 	if (image_index != 2) image_index = 2;
-	if (alarm[3] != -1) alarm[3] = -1;
+	//if (alarm[3] != -1) alarm[3] = -1;
+	timer_enable_fear_drain_cur = -1;
 	if (fear_drain) fear_drain = false;
 	
 	// when fear is 0.8 or higher
@@ -132,7 +151,8 @@ function increase_fear() {
 	
 	// start alarm timer which when triggered begins to drain fear
 	// when fear reaches zero, change state to "inside" then check routine
-	alarm[3] = game_get_speed(gamespeed_fps) * 7;
+	//alarm[3] = game_get_speed(gamespeed_fps) * 7;
+	timer_enable_fear_drain_cur = timer_enable_fear_drain_max;
 		
 	//show_debug_message("obj_par_npc: "+string(id)+" reached max fear - commencing fear_drain in 5 secs!");
 }
@@ -167,7 +187,8 @@ function decrease_fear() {
 function kill() {
 	if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
 	image_index = 4; // set to death frame
-	alarm[3] = -1; // cancel fear_drain alarm
+	//alarm[3] = -1; // cancel fear_drain alarm
+	timer_enable_fear_drain_cur = -1;
 	fear = 0; // set fear to zero so that bar is not visible
 	dying = true; // start floating up and fading away
 	
@@ -188,7 +209,8 @@ function possess() {
 	// should the npc finally check their routine and (then likely) leave the building
 	
 	if (instance_exists(soul_flame)) instance_destroy(soul_flame); soul_flame = noone;
-	alarm[3] = -1;
+	//alarm[3] = -1; // cancel fear_drain alarm
+	timer_enable_fear_drain_cur = -1;
 	fear = 0;
 	possess_transition = true;
 	
@@ -217,7 +239,8 @@ function enter_building() {
 		
 		// start alarm timer which when triggered begins to drain fear
 		// when fear reaches zero, change state to "inside" then check routine
-		alarm[3] = game_get_speed(gamespeed_fps) * 8.5;
+		//alarm[3] = game_get_speed(gamespeed_fps) * 8.5;
+		timer_enable_fear_drain_cur = timer_enable_fear_drain_max + 1.5;
 	}
 	
 	path_end();

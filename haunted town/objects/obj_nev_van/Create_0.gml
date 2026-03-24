@@ -30,6 +30,11 @@ current_node = instance_nearest(x, y, obj_node_road);
 
 target_stop_node = noone;
 
+timer_deploy_nev_max = 1.25;
+timer_deploy_nev_cur = -1;
+timer_new_dest_max = 1;
+timer_new_dest_cur = -1;
+
 //image_alpha = 0.2;
 
 // FUNCTIONS

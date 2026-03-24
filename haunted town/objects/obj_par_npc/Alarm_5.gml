@@ -1,3 +1,3 @@
 ///@desc trigger kill()
 
-kill();
+//kill();

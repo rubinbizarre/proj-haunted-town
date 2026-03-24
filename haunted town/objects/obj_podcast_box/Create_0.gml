@@ -29,6 +29,9 @@ tab_hover = false;
 tab_press = false;
 tab_confirm = false;
 
+timer_second_ring_max = 0.33;
+timer_second_ring_cur = -1;
+
 function toggle_display() {
 	display_active = !display_active;
 	shift_active = true;
@@ -68,7 +71,8 @@ function activate_rings_notif() {
 	//...
 	
 	// trigger draw second circle
-	alarm[0] = game_get_speed(gamespeed_fps) * 0.33;
+	//alarm[0] = game_get_speed(gamespeed_fps) * 0.33;
+	timer_second_ring_cur = timer_second_ring_max;
 	
 	// draw ding circle 1
 	ring_active = true;

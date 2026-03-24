@@ -307,18 +307,23 @@ function survey_action() {
 		gear.image_xscale = 1;
 	}
 			
-    // gear use logic
-	switch (global.nev_gear_tier) {
-		case 0: {
-	        with instance_create_layer(gear.x, gear.y, "Master", obj_gear_anim) { 
-	            depth = other.gear.depth - 1; 
-	        }
-			// play sound (camera in use)
-			//...
-		} break;
-		//...
-    }
+    //// gear use logic
+	//switch (global.nev_gear_at_day_start) {
+	//	case 0: {
+	//        with instance_create_layer(gear.x, gear.y, "Master", obj_gear_anim) { 
+	//            depth = other.gear.depth - 1; 
+	//        }
+	//		// play sound (camera in use)
+	//		//...
+	//	} break;
+	//	//...
+    //}
+	with instance_create_layer(gear.x, gear.y, "Master", obj_gear_anim) { 
+	    depth = other.gear.depth - 1; 
+	}
 	
+	// set finished_surveying to true after a couple seconds
+	// so that step event behaviour can execute
 	alarm[3] = game_get_speed(gamespeed_fps) * survey_timer;
 	
 	show_debug_message("obj_nev CREATE: survey_action(): "+current_state+": now surveying the POI.");

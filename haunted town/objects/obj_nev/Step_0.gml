@@ -179,8 +179,15 @@ if (instance_exists(obj_manager_time)) {
 		check_for_paranormal_nev();
 		
 		if (following) {
-			show_debug_message("obj_nev STEP: executing move_along_path_to_target() (nev is following) ...");
-			move_along_path_to_target(global.nev_current_target);
+			var _target = global.nev_current_target;
+			if (_target.is_inside) {
+				show_debug_message("obj_nev STEP: nev's target went inside. stopped following, finished surveying...");
+				following = false;
+				finished_surveying = true;
+			} else {
+				show_debug_message("obj_nev STEP: executing move_along_path_to_target() (nev is following) ...");
+				move_along_path_to_target(global.nev_current_target);
+			}
 		}
 	}
 //}
@@ -255,6 +262,7 @@ switch (current_state) {
 	                _target.locked = true;
 					_target.mouse_hover = false;
 					_target.image_index = 0;
+					_target.infamy = 0;
 					//_target = global.nev_current_target;
 					var _b = _target.current_building;
 					_b.haunted = false;
@@ -428,7 +436,7 @@ switch (current_state) {
 					path_add_point(my_path, target_x, target_y, 100);
 					path_start(my_path, move_speed, path_action_stop, true);
 					//off_path = false;
-					show_debug_message("obj_nev STEP: "+current_state+": no more tasks! returning to path");
+					show_debug_message("obj_nev STEP: "+current_state+": no more tasks! returning to PATH");
 					current_state = "RETURN_TO_PATH";
 				}
             }
@@ -459,7 +467,7 @@ switch (current_state) {
 			    if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 			        path_start(my_path, move_speed, path_action_stop, true);
 			    }
-				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to van!");
+				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to VAN");
 			}
 		}
 	} break;

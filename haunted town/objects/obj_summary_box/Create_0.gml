@@ -3,8 +3,8 @@
 var _gui_w = display_get_gui_width();
 var _gui_h = display_get_gui_height();
 
-var _w = _gui_w - 80;
-var _h = 400;
+var _w = _gui_w * 0.96;//_gui_w - 80;
+var _h = _gui_h * 0.37;//400;
 
 config = {
     width  : _w,
@@ -13,7 +13,7 @@ config = {
     ypos   : (_gui_h/2) - (_h/2),
 
     // appearance
-    bg_colour          : make_colour_rgb(18, 16, 24),
+    bg_colour          : #222222,//make_colour_rgb(18, 16, 24),
     bg_alpha           : 1.0,
     border_colour      : make_colour_rgb(90, 80, 110),
     border_width       : 4,

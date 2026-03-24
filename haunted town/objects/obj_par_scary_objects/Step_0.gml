@@ -144,6 +144,11 @@ if (deactivate_active) {
 		sprite_index = sprite_normal;
 		image_index = 0;
 		haunted = false;
+		infamy = 0;
+		with (current_building) {
+			haunted = false;
+			infamy = 0;
+		}
 		
 		// avoid memory leaks; forget all ids which entered/left while haunted
 		ds_list_destroy(current_list);

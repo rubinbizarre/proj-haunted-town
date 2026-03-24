@@ -159,7 +159,10 @@ if (instance_exists(obj_manager_time)) {
 // --- SCANNING LOGIC ---
 //// only scan if we are out of the van (existing) and don't have too many tasks already
 //if (instance_exists(self)) and (array_length(todo_queue) < 5) {
-	if (check_timer-- <= 0) { // periodic check for haunted-world-objects
+	//if (check_timer-- <= 0) { // periodic check for haunted-world-objects
+	if (check_timer > 0) { // periodic check for haunted-world-objects
+        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+    } else {
 		check_timer = check_interval;
 		#region check for haunted world objects only - working (commented)
 	    //var _temp_list = ds_list_create();

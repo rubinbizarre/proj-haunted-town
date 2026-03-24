@@ -2,33 +2,23 @@ if (depth != -(y + 25)) depth = -(y + 25); // set correct depth based on ypos an
 
 // periodic routine check but only in certain conditions
 if (current_state == "RETURN_HOME") {
-	if (check_timer-- <= 0) {
+	//if (check_timer-- <= 0) {
+	if (check_timer > 0) {
+        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+    } else {
 		check_timer = check_interval;
 		event_user(0); // trigger routine logic
 	}
 } else {
 	// periodic check for haunted POIs whilst nev is 'inside' the van
-	if (!instance_exists(obj_nev)) and (check_timer-- <= 0) {
-		check_timer = check_interval;
+	if (!instance_exists(obj_nev)) {
+		if (check_timer > 0) {
+	        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+	    } else {
+			check_timer = check_interval;
 		
-		#region check for haunted world objects (van) - working (commented)
-		//var _temp_list = ds_list_create();
-		//var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_world_objects, false, true, _temp_list, false);
-		//for (var i = 0; i < _num; i++) {
-		//    var _inst = _temp_list[| i];
-		//    // if it's haunted, not already queued, not our current focus, and not locked: push it
-		//    if (_inst.haunted) and (!array_contains(global.nev_todo_queue, _inst)) and (_inst != global.nev_current_target) and (!_inst.locked) {
-		//        array_push(global.nev_todo_queue, _inst);
-		//		show_debug_message("obj_nev_van STEP: "+current_state+": pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
-		//		redirect(_inst);
-		//		//show_debug_message("obj_nev_van STEP: "+current_state+": van detected POI. pushed inst to todo_queue ("+string(array_length(global.nev_todo_queue))+" total): "+string(_inst.id));
-		//		//show_debug_message("obj_nev_van STEP: "+current_state+": target_stop_node: "+string(target_stop_node.node_id)+" | node route: "+_debug_node_list);
-		//    }
-		//}
-		//ds_list_destroy(_temp_list);
-		#endregion
-		
-		check_for_paranormal_van();
+			check_for_paranormal_van();
+		}
 	}
 }
 

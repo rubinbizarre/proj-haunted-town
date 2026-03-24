@@ -23,8 +23,10 @@ target_y = 0;
 
 scale_init = image_xscale;
 
-check_timer = irandom(30);//(360);//(60); // stagger routine checks
-check_interval = 30;//360;//60; // check routine every 1 sec at 60 fps
+//check_timer = irandom(30);//(360);//(60); // stagger routine checks
+//check_interval = 30;//360;//60; // check routine every 1 sec at 60 fps
+check_interval = 0.5;
+check_timer = check_interval;
 
 current_node = instance_nearest(x, y, obj_node_road);
 

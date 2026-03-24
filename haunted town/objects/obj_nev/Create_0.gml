@@ -50,8 +50,10 @@ gear.depth = depth - 1;
 //current_target = noone;
 
 // for detecting currently haunted things at any point while nev is outside, within detect_radius
-check_timer = irandom(60);
-check_interval = 60;
+//check_timer = irandom(60);
+//check_interval = 60;
+check_interval = 0.5;
+check_timer = check_interval;
 
 following = false;
 

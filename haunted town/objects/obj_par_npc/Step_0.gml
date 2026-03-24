@@ -342,8 +342,11 @@ if (dying) {
 
 #region handle possession transition
 if (possess_transition) {
-		
-	possess_timer--;
+	
+	var _dt = (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+	
+	//possess_timer--;
+	possess_timer -= _dt;
 	
 	var _possess_progression = (possess_timer_init - possess_timer) / possess_timer_init;
 	
@@ -386,7 +389,9 @@ if (possess_transition) {
 #region handle while possessed check for other npcs 
 // periodic check for collisions whilst haunted
 if (possessed) {
-	if (check_timer-- <= 0) {
+	if (check_timer > 0) {
+	    check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+	} else {
 	    check_timer = check_interval;
 	    check_for_npcs();
 	}

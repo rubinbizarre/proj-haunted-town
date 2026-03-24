@@ -93,7 +93,8 @@ btn_kill = noone;
 
 possessed = false;
 possess_transition = false;
-possess_timer = 180;
+//possess_timer = 180;
+possess_timer = 3; // secs
 possess_timer_init = possess_timer;
 possess_shake_intensity = 1.5;
 possessed_radius = 40;

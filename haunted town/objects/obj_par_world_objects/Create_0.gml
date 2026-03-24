@@ -20,9 +20,13 @@ sprite_haunted = spr_wo_trashcan_haunted;
 // after untapping the object, how long to wait until
 //	- it turns off or resets
 //	- player can tap it again
-cooldown_timer = 360;
+//cooldown_timer = 360;
+//cooldown_timer_init = cooldown_timer;
+//deactivate_timer = cooldown_timer / 2;
+//deactivate_timer_init = deactivate_timer;
+cooldown_timer = 6;
 cooldown_timer_init = cooldown_timer;
-deactivate_timer = cooldown_timer / 2;
+deactivate_timer = 3;
 deactivate_timer_init = deactivate_timer;
 
 cost = 10; // price (in HP) to unlock the object after Nev has locked it
@@ -33,8 +37,10 @@ haunt_radius = 50;
 current_list = ds_list_create();
 last_list = ds_list_create();
 // stagger checks for collisions whilst haunted
-check_timer = irandom(60);
-check_interval = 60;
+//check_timer = irandom(60);
+//check_interval = 60;
+check_interval = 0.5;
+check_timer = check_interval;
 
 // pie wheel config
 pie_r1 = 4;
@@ -55,10 +61,10 @@ name_str = "unnamed-wo"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
-timer_deactivate_max = 3;
-timer_deactivate_cur = -1;
-timer_cooldown_max = 6;
-timer_cooldown_cur = -1;
+//timer_deactivate_max = 3;
+//timer_deactivate_cur = -1;
+//timer_cooldown_max = 6;
+//timer_cooldown_cur = -1;
 
 function gain_infamy() {
 	infamy += infamy_gain;

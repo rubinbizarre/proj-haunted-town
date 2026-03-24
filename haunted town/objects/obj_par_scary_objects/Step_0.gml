@@ -126,8 +126,10 @@ if (btn_confirmed) {
 
 #region handle decrementing the cooldown/deactivate timers when active
 // also resetting it when reaching zero
+var _dt = (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
 if (cooldown_active) {
-	cooldown_timer--;
+	cooldown_timer -= _dt;
 	if (cooldown_timer <= 0) {
 		// cooldown complete. 
 		cooldown_active = false;
@@ -135,7 +137,7 @@ if (cooldown_active) {
 	}
 }
 if (deactivate_active) {
-	deactivate_timer--;
+	deactivate_timer -= _dt;
 	if (deactivate_timer <= 0) {
 		// deactivate complete.
 		deactivate_active = false;
@@ -162,9 +164,15 @@ if (deactivate_active) {
 #region handle regular checking for NPCs entering and leaving haunt_radius
 if (haunted) {
 	// periodic check for collisions whilst haunted
-	if (check_timer-- <= 0) {
-	    check_timer = check_interval;
-	    check_for_npcs();
-	}
+	//if (check_timer-- <= 0) {
+	//    check_timer = check_interval;
+	//    check_for_npcs();
+	//}
+	if (check_timer > 0) {
+        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+    } else {
+        check_timer = check_interval;
+        check_for_npcs();
+    }
 }
 #endregion

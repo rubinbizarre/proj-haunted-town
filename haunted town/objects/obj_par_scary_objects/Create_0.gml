@@ -30,12 +30,18 @@ current_building = noone;
 
 current_list = ds_list_create();
 // for periodic check for collisions whilst haunted
-check_interval = 60;
+//check_interval = 60;
+//check_timer = check_interval;
+check_interval = 1;
 check_timer = check_interval;
 
-cooldown_timer = 360;
+//cooldown_timer = 360;
+//cooldown_timer_init = cooldown_timer;
+//deactivate_timer = cooldown_timer / 2;
+//deactivate_timer_init = deactivate_timer;
+cooldown_timer = 6;
 cooldown_timer_init = cooldown_timer;
-deactivate_timer = cooldown_timer / 2;
+deactivate_timer = 3;
 deactivate_timer_init = deactivate_timer;
 
 // pie wheel config

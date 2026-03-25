@@ -16,7 +16,6 @@ if (current_state == "RETURN_HOME") {
 	        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
 	    } else {
 			check_timer = check_interval;
-		
 			check_for_paranormal_van();
 		}
 	}

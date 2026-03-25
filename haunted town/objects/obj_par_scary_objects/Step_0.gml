@@ -93,6 +93,8 @@ if (btn_confirmed) {
 			// make unlocked and subtract cost from hp wallet
 			locked = false;
 			global.haunt_points -= cost;
+			ps_owned.start();
+			current_building.ps_owned.start();
 			// play sound (unlock/purchase/success)
 			//...
 			// visual feedback

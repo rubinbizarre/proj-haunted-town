@@ -54,6 +54,10 @@ name_str = "unnamed-so"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
+ps_owned = instance_create_layer(x, y, layer, obj_ps_owned_object);
+ps_owned.depth = depth-1;
+ps_owned.set_pos_depth(x, y, depth);
+
 function gain_infamy() {
 	infamy += infamy_gain;
 	infamy = clamp(infamy, 0, 1);

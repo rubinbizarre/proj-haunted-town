@@ -18,7 +18,7 @@ if (haunted) {
 	draw_set_alpha(1);
 	draw_set_color(c_white);
 	
-	scr_draw_infamy(infamy, 0);
+	scr_draw_infamy(infamy, 15);
 }
 
 if (cooldown_active) {

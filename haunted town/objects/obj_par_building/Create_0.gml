@@ -59,6 +59,10 @@ name_str = "unnamed-building";
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
+ps_owned = instance_create_layer(x, y, layer, obj_ps_owned_object);
+ps_owned.depth = depth-1;
+ps_owned.set_pos_depth(x, y, depth);
+
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
 	case spr_building_0_shack: {

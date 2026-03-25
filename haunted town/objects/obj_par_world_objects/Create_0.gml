@@ -61,10 +61,9 @@ name_str = "unnamed-wo"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";
 note_str_discredit = "note-discredit";
 
-//timer_deactivate_max = 3;
-//timer_deactivate_cur = -1;
-//timer_cooldown_max = 6;
-//timer_cooldown_cur = -1;
+ps_owned = instance_create_layer(x, y, layer, obj_ps_owned_object);
+ps_owned.depth = depth-1;
+ps_owned.set_pos_depth(x, y, depth);
 
 function gain_infamy() {
 	infamy += infamy_gain;
@@ -140,6 +139,7 @@ function activate() {
 	// make the clicked world object haunted
 	sprite_index = sprite_haunted;
 	haunted = true;
+	
 	// play sound (wo turned haunted/activated)
 	//...
 	// visual feedback

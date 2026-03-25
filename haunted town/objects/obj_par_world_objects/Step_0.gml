@@ -63,6 +63,7 @@ if (btn_confirmed) {
 			// make unlocked and subtract cost from hp wallet
 			locked = false;
 			global.haunt_points -= cost;
+			ps_owned.start();
 			// play sound (unlock/purchase/success)
 			//...
 			// visual feedback
@@ -76,7 +77,11 @@ if (btn_confirmed) {
 			// play sound (fail/blocked/error)
 			//...
 			// visual feedback
-			//...
+			// display notification to player indicating that they 'need more HP' / 'not enough HP'
+			with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
+				amount = "x";
+				depth = other.depth;
+			}
 		}
 		btn_confirmed = false;
 	} else { // if clicked and was not locked

@@ -63,7 +63,7 @@ if (btn_confirmed) {
 				//...
 				// display notification to player indicating that they 'need more HP' / 'not enough HP'
 				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
-					amount = "X";
+					amount = "x";
 					depth = other.depth;
 				}
 			}

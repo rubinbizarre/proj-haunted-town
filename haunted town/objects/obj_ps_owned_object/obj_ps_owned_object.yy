@@ -1,12 +1,11 @@
 {
   "$GMObject":"",
-  "%Name":"obj_ps_sub_feedback",
+  "%Name":"obj_ps_owned_object",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_ps_sub_feedback",
+  "name":"obj_ps_owned_object",
   "overriddenProperties":[],
   "parent":{
     "name":"Particles Objects",

@@ -379,6 +379,8 @@ if (possess_transition) {
 		// mark as possessed (enables remote-enticing and drawing the possessed_radius)
 		possessed = true;
 		
+		global.active_haunts++;
+		
 		// trigger do normal routine after short delay
 		//alarm[6] = game_get_speed(gamespeed_fps) * 1.5;
 		timer_do_routine_cur = timer_do_routine_max;

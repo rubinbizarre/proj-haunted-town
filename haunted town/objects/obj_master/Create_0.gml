@@ -32,6 +32,8 @@ global.total_paranormal_events = 0;
 global.total_possessions = 0;
 global.total_kills = 0;
 
+global.active_haunts = 0;
+
 //global.tb = noone;
 global.summary_box = noone; // see room start
 

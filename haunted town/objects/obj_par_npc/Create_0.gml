@@ -394,5 +394,7 @@ function remove_possession() {
 	// visual feedback
 	spooked = true; // will play sound, change to spooked face for short time
 	
+	global.active_haunts--;
+	
 	show_debug_message("obj_par_npc CREATE: remove_possession(): "+string(id));
 }

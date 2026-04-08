@@ -164,8 +164,9 @@ switch (room) {
 			draw_text_transformed(_gui_w - _x, _y, "mouse_x:"+string(mouse_x), 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_gui_w - _x, _y, "mouse_y:"+string(mouse_y), 2, 2, 0); _y += _ysep;
 			_y += _ysep;
-			draw_text_transformed(_gui_w - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
-			draw_text_transformed(_gui_w - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			//draw_text_transformed(_gui_w - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			//draw_text_transformed(_gui_w - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "active_haunts:"+string(global.active_haunts), 2, 2, 0); _y += _ysep;
 			draw_set_halign(fa_left);
 			draw_set_color(c_white);
 		}

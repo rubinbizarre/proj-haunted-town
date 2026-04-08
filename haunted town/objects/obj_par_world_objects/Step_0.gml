@@ -136,6 +136,8 @@ if (deactivate_active) {
 		}
 		// reset infamy upon deactivation
 		infamy = 0;
+		// decrement global.active_haunts
+		global.active_haunts--;
 		// now start cooldown.
 		cooldown_active = true;
 	}

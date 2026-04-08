@@ -139,7 +139,7 @@ function activate() {
 	// make the clicked world object haunted
 	sprite_index = sprite_haunted;
 	haunted = true;
-	
+	global.active_haunts++;
 	// play sound (wo turned haunted/activated)
 	//...
 	// visual feedback
@@ -149,8 +149,9 @@ function activate() {
 function deactivate() {
 	// reset to normal, or deactivate
 	sprite_index = sprite_normal;
+	image_index = 0;
 	haunted = false;
-
+	global.active_haunts--;
 	// avoid memory leaks; forget all ids which entered/left while haunted
 	ds_list_destroy(current_list);
 	ds_list_destroy(last_list);

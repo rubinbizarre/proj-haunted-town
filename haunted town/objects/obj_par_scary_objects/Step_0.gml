@@ -157,6 +157,9 @@ if (deactivate_active) {
 		// avoid memory leaks; forget all ids which entered/left while haunted
 		ds_list_destroy(current_list);
 		
+		// decrement global.active_haunts
+		global.active_haunts--;
+		
 		// now start cooldown.
 		cooldown_active = true;
 	}

@@ -125,6 +125,7 @@ function activate() {
 	sprite_index = sprite_haunted;
 	haunted = true;
 	with (current_building) haunted = true;
+	global.active_haunts++;
 	//show_debug_message("obj_par_scary_objects CREATE: activate(): so haunted: "+string(haunted)+" | building haunted: "+string(current_building.haunted));
 	
 	// play sound (so turned haunted/activated)
@@ -137,10 +138,13 @@ function activate() {
 }
 
 function deactivate() {
+	// used by obj_nev
 	// reset to normal, or deactivate
 	sprite_index = sprite_normal;
+	image_index = 0;
 	haunted = false;
 	with (current_building) haunted = false;
+	global.active_haunts--;
 	//show_debug_message("obj_par_scary_objects CREATE: activate(): so haunted: "+string(haunted)+" | building haunted: "+string(current_building.haunted));
 	
 	// avoid memory leaks; forget all ids which entered/left while haunted

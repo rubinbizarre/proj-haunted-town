@@ -27,10 +27,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_bg_new",
-    "path":"sprites/spr_bg_new/spr_bg_new.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

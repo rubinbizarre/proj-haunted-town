@@ -54,6 +54,7 @@ if (global.tracked_building != noone) {
 			// figure out viewport size for current zoom
 			var vw;
 			switch (zoom_level) {
+				case 0: vw = cam_w_3; break;
 				case 1: vw = cam_w_3; break;
 				case 2: vw = cam_w_2; break;
 				case 3: vw = cam_w_1; break;
@@ -86,7 +87,7 @@ if (global.tracked_building != noone) {
 				if (zoom_level < 3) zoom_level += 1;
 			}
 			if mouse_wheel_down() {
-				if (zoom_level > 1) zoom_level -= 1;
+				if (zoom_level > 0) zoom_level -= 1;
 			}
 		//}
 		#endregion
@@ -109,10 +110,10 @@ if (global.tracked_building != noone) {
 #region handle changing current camera zoom values
 // handle changing current camera zoom depending on zoom_level
 switch (zoom_level) {
-	//case 0: {
-	//	if (zoom_current_w != zoom_0_w) zoom_current_w = zoom_0_w;
-	//	if (zoom_current_h != zoom_0_h) zoom_current_h = zoom_0_h;
-	//} break;
+	case 0: {
+		if (zoom_current_w != cam_w_0) zoom_current_w = cam_w_0;
+		if (zoom_current_h != cam_h_0) zoom_current_h = cam_h_0;
+	} break;
 	case 1: {
 		if (zoom_current_w != cam_w_1) zoom_current_w = cam_w_1;
 		if (zoom_current_h != cam_h_1) zoom_current_h = cam_h_1;

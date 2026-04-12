@@ -1,6 +1,8 @@
 // Inherit the parent event
 event_inherited();
 
+haunt_radius = 60;
+
 sprite_normal = spr_wo_manhole;
 sprite_haunted = spr_wo_manhole_haunted;
 

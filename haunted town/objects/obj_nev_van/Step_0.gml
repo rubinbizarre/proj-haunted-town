@@ -28,34 +28,47 @@ if (path_index != -1) {
     //var _target_angle = direction;
     //image_angle = lerp(image_angle, _target_angle, 0.1);
 	
+	// progress through animcurve at ac_speed affected by move_speed
+	if (ac_time_moving < 1) {
+		ac_time_moving += (ac_speed_moving * move_speed);
+	} else {
+		ac_time_moving = 0;
+	}
+	var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
+	// apply animcurve value
+	image_yscale = _ac_value;
+	
 	// if moving/on a path, face the direction of movement
 	switch (direction) {
 		case 0: { // facing right
-			if (image_xscale != scale_init) image_xscale = scale_init;
+			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
 			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
 		} break;
 		case 180: { // facing left
-			if (image_xscale != -scale_init) image_xscale = -scale_init;
+			if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
 			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
 		} break;
 		case 270: { // facing down
-			if (image_xscale != scale_init) image_xscale = scale_init;
+			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
 			if (sprite_index != spr_nev_van_down) sprite_index = spr_nev_van_down;
 		} break;
 		case 90: { // facing up
-			if (image_xscale != scale_init) image_xscale = scale_init;
+			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
 			if (sprite_index != spr_nev_van_up) sprite_index = spr_nev_van_up;
 		} break;
 		default: { // if any other value, make a decision
 			if (direction > 90 and direction < 270) { // facing left
-				if (image_xscale != -scale_init) image_xscale = -scale_init;
+				if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
 				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
 			} else if (direction > 180 and direction < 360) { // facing right
-				if (image_xscale != scale_init) image_xscale = scale_init;
+				if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
 				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
 			}
 		} break;
 	}
+} else { // if not on a path, or not moving
+	// reset anim_curve to start pos
+	if (ac_time_moving != 0) ac_time_moving = 0;
 }
 #endregion
 	

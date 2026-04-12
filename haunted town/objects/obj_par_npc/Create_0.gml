@@ -255,15 +255,16 @@ function enter_building() {
 	
 	// temporarily place NPCs in random places inside obj_interior collision mask
 	var _margin = sprite_get_width(spr_npc_elderly)/2;
-	var _isprite_w = sprite_get_width(_b.interior_obj.sprite_index)/2;
-	var _isprite_h = sprite_get_height(_b.interior_obj.sprite_index)/2;
+	var _b_interior = _b.interior_obj;
+	var _isprite_w = sprite_get_width(_b_interior.sprite_index)/2;
+	var _isprite_h = sprite_get_height(_b_interior.sprite_index)/2;
 	var _x = irandom_range(
-		_b.interior_obj.x - (_isprite_w - _margin),
-		_b.interior_obj.x + (_isprite_w - _margin)
+		_b_interior.x - (_isprite_w - _margin),
+		_b_interior.x + (_isprite_w - _margin)
 	);
 	var _y = irandom_range(
-		_b.interior_obj.y,
-		_b.interior_obj.y + (_isprite_h - 5)
+		_b_interior.y,
+		_b_interior.y + (_isprite_h - 5)
 	);
 	/*
 		also valid option: (which replaces the above block with vars entirely)

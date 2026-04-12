@@ -163,13 +163,40 @@ determines how often nev visits that hbuilding
  -	Nat mentioned how his fear could increase if you are able to 'overwhelm' him with multiple haunted things at once
 	i.e. nev enters a building full of possessed NPCs -> spook effect, fear increased, but he still deactivates them
  -	maybe it could be once he has detected more than 5 hauntings in a day, each haunting after that slightly increases his fear
+ 
+			more conclusions have since been made clear on the google doc.
+
+ - active_haunts tracking has now been added, but there should also be something (like total_owned) that tracks the no. owned items ?
+ - should active_haunts and total_owned be displayed to the player ?
+ - idea/note: at the start of a game there is a sort of intro cinematic:
+	- the player's demon/spirit is first conjured up by satan. could show a mysterious effect emanating from the graveyard, or from around the church
+	- the view starts black and blurry, then as brightness increases, bluriness also decreases, and the view is mainly of the church
+	- the 'tutorial guide' which i've imagined as some kind of imp (really it's Satan in disguise) orders you to wreak havoc on the town
+	- the imp says to start in the underdeveloped, neglected corner of town, and to go from there (camera pans from church to the area in question)
+	- the imp guides the player through the various methods to gain haunt points
+		- haunting world objects and spooking NPCs to earn HP
+		- haunting/purchasing/unlocking/cursing buildings by spending HP
+		- enticing NPCs to go inside 'owned' buildings (need a better word for that - haunted buildings? cursed buildings?)
+		- haunting scary objects in 'owned' buildings to earn HP via 
+			- killing (earn HP directly)
+			- possessing (spend HP to hopefully earn more later)
+		- spending HP on upgrades
+			- scary object upgrades
+			- personal upgrades
+	- the imp explains the upgrade system 
+	- the imp's closing remarks mention to watch out for pesky Nev and his van, briefly explains his character, and explains how Nev affects you
+	- option to hear it explained again
+	- the imp says good luck and happy haunting, with a short maniacal laugh (think Kaitiac), before disappearing
+	- the first Nev's World Podcast is displayed/broadcast
+	- player now has full control, time starts
 
 			known issues:
- -	there's something wrong about npc CIRCUIT state, npcs get stuck on a path node with no assigned path - might be 
-	related to spooking via world objects
+ -	there's something wrong about npc CIRCUIT state, some npcs get stuck on a path node with no assigned path - might be 
+	related to spooking via world objects.
 		-	also related, NPCs in CIRCUIT state seem to exit a building and then appear instantly
 			at the node nearest to the house first, then go back to the house, then go back on to
 			the path and continue the path circuit as normal...
+		-	CIRCUIT as a whole should have a total redesign/rethink/refactor given that the town is bigger now
  -	when Nev goes to enter a house which was haunted and by the time he enters its not haunted,
 	his gear sprite will stay outside the building while he is inside. this is due to his animation logic
 	but i cba to fix this right now

@@ -1,0 +1,19 @@
+{
+  "$GMAnimCurve":"",
+  "%Name":"anim_van_moving",
+  "channels":[
+    {"$GMAnimCurveChannel":"","%Name":"curve1","colour":4290799884,"name":"curve1","points":[
+        {"th0":-0.1,"th1":6.91507E-10,"tv0":0.0,"tv1":0.0,"x":0.0,"y":1.0,},
+        {"th0":-0.165,"th1":0.22839698,"tv0":0.0,"tv1":0.0,"x":0.33,"y":1.05,},
+        {"th0":-0.37971407,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":1.0,"y":1.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":true,},
+  ],
+  "function":2,
+  "name":"anim_van_moving",
+  "parent":{
+    "name":"AnimCurves",
+    "path":"folders/AnimCurves.yy",
+  },
+  "resourceType":"GMAnimCurve",
+  "resourceVersion":"2.0",
+}

@@ -66,15 +66,15 @@ ps_owned.set_pos_depth(x, y, depth);
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
 	case spr_building_0_shack: {
-		stats.cost = 1;
+		stats.cost = 5;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_1_house: {
-		stats.cost = 5;
+		stats.cost = 10;
 		//sprite_interior = spr_inside_1_house;
 	} break;
 	case spr_building_2_manor: {
-		stats.cost = 10;
+		stats.cost = 20;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
 	case spr_building_church: {
@@ -85,6 +85,9 @@ switch (sprite_index) {
 		stats.cost = 30;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
+	default: { // every other building type
+		stats.cost = 30;
+	}
 }
 
 function spawn_scary_objects() {

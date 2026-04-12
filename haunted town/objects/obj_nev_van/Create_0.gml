@@ -32,6 +32,10 @@ current_node = instance_nearest(x, y, obj_node_road);
 
 target_stop_node = noone;
 
+ac_channel_moving = animcurve_get_channel(anim_van_moving, 0);
+ac_time_moving = 0;
+ac_speed_moving = 0.035;
+
 timer_deploy_nev_max = 1.25;
 timer_deploy_nev_cur = -1;
 timer_new_dest_max = 1;

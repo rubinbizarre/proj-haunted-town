@@ -12,21 +12,21 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"4176d1d9-974f-4b33-b1c2-fac07957f006","name":"4176d1d9-974f-4b33-b1c2-fac07957f006","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"aae9740d-d317-4f95-9075-d07b22d0e4e9","name":"aae9740d-d317-4f95-9075-d07b22d0e4e9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":80,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"917cb4aa-05df-4a69-b287-d0f7b6fe2026","blendMode":0,"displayName":"default","isLocked":false,"name":"917cb4aa-05df-4a69-b287-d0f7b6fe2026","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"00828908-8e61-45d4-9d95-97fc0dc3450a","blendMode":0,"displayName":"default","isLocked":false,"name":"00828908-8e61-45d4-9d95-97fc0dc3450a","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_nev_van_down",
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Nev",
-    "path":"folders/Sprites/Nev.yy",
+    "name":"Van",
+    "path":"folders/Sprites/Nev/Van.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4176d1d9-974f-4b33-b1c2-fac07957f006","path":"sprites/spr_nev_van_down/spr_nev_van_down.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b0096cb3-314d-4f47-bac2-126b0ab1bbcd","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"aae9740d-d317-4f95-9075-d07b22d0e4e9","path":"sprites/spr_nev_van_down/spr_nev_van_down.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"8dd5985d-f0f3-4bbd-a020-8021abe741f3","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

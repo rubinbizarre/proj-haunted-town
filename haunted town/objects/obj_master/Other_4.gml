@@ -45,6 +45,7 @@ switch (room) {
 			) {
 				depth = _inst.depth - 1;
 			}
+			//show_message("obj_master room_start: _inst.interior_obj:"+string(_inst.interior_obj));
 			
 			// choose interior sprite depending on building sprite
 			var _interior_obj = _inst.interior_obj;

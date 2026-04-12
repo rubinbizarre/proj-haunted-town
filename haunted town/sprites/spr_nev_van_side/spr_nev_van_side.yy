@@ -12,21 +12,21 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"384e62aa-6a7c-4dff-89e4-8a902eab7839","name":"384e62aa-6a7c-4dff-89e4-8a902eab7839","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"6ab9fe11-78e6-40dd-bf76-611c7ef03d5b","name":"6ab9fe11-78e6-40dd-bf76-611c7ef03d5b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":80,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"70b460a0-b93e-4775-8059-42d7ef742726","blendMode":0,"displayName":"default","isLocked":false,"name":"70b460a0-b93e-4775-8059-42d7ef742726","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"26ba9aa3-99b1-4208-bb41-47591c55c5ea","blendMode":0,"displayName":"default","isLocked":false,"name":"26ba9aa3-99b1-4208-bb41-47591c55c5ea","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_nev_van_side",
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Nev",
-    "path":"folders/Sprites/Nev.yy",
+    "name":"Van",
+    "path":"folders/Sprites/Nev/Van.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"384e62aa-6a7c-4dff-89e4-8a902eab7839","path":"sprites/spr_nev_van_side/spr_nev_van_side.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"18ccfe8a-f380-4f1a-9c34-ac49d46f254a","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6ab9fe11-78e6-40dd-bf76-611c7ef03d5b","path":"sprites/spr_nev_van_side/spr_nev_van_side.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"8127889e-15ba-414b-8cff-99ffad50ecaf","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

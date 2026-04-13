@@ -1,0 +1,22 @@
+{
+  "$GMAnimCurve":"",
+  "%Name":"anim_building_hover_v3",
+  "channels":[
+    {"$GMAnimCurveChannel":"","%Name":"curve1","colour":4290799884,"name":"curve1","points":[
+        {"th0":-0.25,"th1":0.0,"tv0":0.0,"tv1":-2.1862794E-08,"x":0.0,"y":0.99912775,},
+        {"th0":-0.080000035,"th1":0.07,"tv0":-0.00011447509,"tv1":4.4131273E-05,"x":0.173,"y":1.32,},
+        {"th0":-0.099999994,"th1":0.05,"tv0":0.0,"tv1":0.0,"x":0.37,"y":1.2789999,},
+        {"th0":-0.050000012,"th1":0.032202184,"tv0":0.0,"tv1":0.0,"x":0.55,"y":1.306,},
+        {"th0":-0.1,"th1":0.062763095,"tv0":0.0,"tv1":0.0,"x":0.749004,"y":1.2974111,},
+        {"th0":-0.10678697,"th1":0.25,"tv0":0.0,"tv1":0.0,"x":1.0,"y":1.3000529,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":true,},
+  ],
+  "function":2,
+  "name":"anim_building_hover_v3",
+  "parent":{
+    "name":"AnimCurves",
+    "path":"folders/AnimCurves.yy",
+  },
+  "resourceType":"GMAnimCurve",
+  "resourceVersion":"2.0",
+}

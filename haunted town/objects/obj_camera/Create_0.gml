@@ -34,6 +34,6 @@ cam_h_2 = 360;
 cam_w_3 = 320;//240;//
 cam_h_3 = 180;//135;//
 
-zoom_level = 2; // 1-3 currently
-zoom_current_w = cam_w_2;
-zoom_current_h = cam_h_2;
+zoom_level = 0; // 0-3 currently
+zoom_current_w = cam_w_0;
+zoom_current_h = cam_h_0;

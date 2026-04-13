@@ -205,5 +205,28 @@ switch (room) {
 			//show_message("obj_master toggle hud");
 		}
 		#endregion
+		
+		#region handle unlocking new areas (commented)
+		//switch (areas_unlocked) {
+		//	case 1: {
+		//		if (global.total_buildings_purchased >= 5) and (areas_unlocked != 2) {
+		//			areas_unlocked = 2;
+		//			global.total_buildings_available = 11;
+		//			if (instance_exists(obj_area_cloud_2)) {
+		//				obj_area_cloud_2.fade_active = true;
+		//			}
+		//		}
+		//	} break;
+		//	case 2: {
+		//		if (global.total_buildings_purchased >= 11) and (areas_unlocked != 3) {
+		//			areas_unlocked = 3;
+		//			global.total_buildings_available = 24;
+		//			if (instance_exists(obj_area_cloud_3)) {
+		//				obj_area_cloud_3.fade_active = true;
+		//			}
+		//		}
+		//	} break;
+		//}
+		#endregion
 	} break;
 }

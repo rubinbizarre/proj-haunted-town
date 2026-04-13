@@ -189,6 +189,20 @@ determines how often nev visits that hbuilding
 	- the imp says good luck and happy haunting, with a short maniacal laugh (think Kaitiac), before disappearing
 	- the first Nev's World Podcast is displayed/broadcast
 	- player now has full control, time starts
+	
+ - Bogfold's church/cathedral has an hourly (and half-hourly?) bell chime, similar to Bournville chime but in minor key
+ - there are three 'areas' that the player has to advance through (should be able to advance through fairly quickly)
+	- start in area 1 (right-most side of town) and 'unlock' all houses to unlock area 2 (middle of town)
+	- then 'unlock' all houses in area 2 to unlock area 3 (left-most side of town and church)
+	- this progression should be displayed to player. maybe the objective is 'haunt the buildings'?
+		- buildings-purchased / buildings-not-purchased
+		- buildings-purchased is a counter which increments everytime a building inst is purchased
+		- buildings-not-purchased is an integer displayed which represents the total number of buildings available to the player at that point
+			so in area 1 this may be 5. in area 2 it would be 5 + (no. area 2 houses, e.g. 5) = 10, and so on
+ - area locking is STUPID replace it with a tiered personal upgrade unlocking ??
+	- i.e. when 5 buildings owned, unlock a certain personal upgrade (e.g. more simultaneous active haunts)
+			then when 10 buildings owned, unlock another one
+			then when 20 buildings owned, unlock another... ?
 
 			known issues:
  -	there's something wrong about npc CIRCUIT state, some npcs get stuck on a path node with no assigned path - might be 

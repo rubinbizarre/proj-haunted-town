@@ -34,7 +34,7 @@ mouse_hover = false;
 
 // animcurve parameters for animated look/feel
 // the animcurve values go into scale modifications etc
-ac_channel_hover = animcurve_get_channel(anim_building_hover, 0);
+ac_channel_hover = animcurve_get_channel(anim_building_hover_v3, 0);
 ac_time_hover = 0;
 ac_speed_hover = 0.02;//0.01;
 

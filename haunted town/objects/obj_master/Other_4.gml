@@ -77,6 +77,5 @@ switch (room) {
 		//_btn_kill.sprite_index = spr_btn_npc_kill;
 		#endregion
 		
-		//show_message(string(depth));
 	} break;
 }

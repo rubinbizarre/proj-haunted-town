@@ -138,7 +138,12 @@ if (mouse_confirmed) {
 				amount = "-"+string(_cost);
 				//depth = other.depth - 1;
 			}
+			
+			// increment total_buildings_purchased
+			global.total_buildings_purchased += 1;
+			
 			exit;
+			
 		} else { // if player cannot afford to purchase this
 			// play sound (locked/fail)
 			//...

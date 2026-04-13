@@ -1,17 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_area_cloud",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_area_cloud_2",
+  "eventList":[],
   "managed":true,
-  "name":"obj_area_cloud",
+  "name":"obj_area_cloud_2",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_area_cloud",
+    "path":"objects/obj_par_area_cloud/obj_par_area_cloud.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -27,13 +28,14 @@
   "physicsStartAwake":true,
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"area","filters":[],"listItems":[],"multiselect":false,"name":"area","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"sprite_index","filters":[],"listItems":[],"multiselect":false,"name":"sprite_index","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"sprite_index","varType":4,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_area_1",
-    "path":"sprites/spr_area_1/spr_area_1.yy",
+    "name":"spr_area_2",
+    "path":"sprites/spr_area_2/spr_area_2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

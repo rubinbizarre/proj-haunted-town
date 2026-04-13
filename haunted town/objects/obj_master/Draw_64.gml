@@ -253,7 +253,7 @@ switch (room) {
 			draw_set_colour(c_white);
 			draw_text(_x, _y, _hp_text);
 			
-			// draw rounded rectangle label behind amount
+			#region draw rounded rectangle label behind HP amount
 			draw_set_font(font_main_header);
 			var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2) + 10;
 			var _y_label = (_y - 10) + (string_height(_hp_amount)/2);
@@ -270,7 +270,9 @@ switch (room) {
 				_r_label,
 				false
 			);
+			#endregion
 			
+			// draw actual HP amount
 			draw_set_colour(#333333);
 			draw_set_halign(fa_left);
 			draw_text(_x + _hp_text_len + 10, _y - 10, _hp_amount);
@@ -278,6 +280,7 @@ switch (room) {
 			// cleanup
 			draw_set_colour(c_white);
 			draw_set_font(global.font_default);
+			draw_set_halign(fa_left);
 			#endregion
 			
 			#region display current objective (upper middle)
@@ -291,6 +294,16 @@ switch (room) {
 			_y += 35;
 			draw_set_font(font_main_body);
 			draw_text(_x, _y, _obj_lower);
+			
+			//// draw buildings owned vs. buildings available
+			//_x = _gui_w/2;
+			//_y += 50;
+			//draw_set_colour(c_white);
+			//draw_set_halign(fa_center);
+			//var _buildings_owned = string(global.total_buildings_purchased);
+			//var _buildings_available = string(global.total_buildings_available);
+			//draw_text(_x, _y, _buildings_owned + "/" + _buildings_available);
+			
 			// cleanup
 			draw_set_halign(fa_left);
 			draw_set_font(global.font_default);

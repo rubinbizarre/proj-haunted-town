@@ -34,6 +34,9 @@ global.total_kills = 0;
 
 global.active_haunts = 0;
 
+global.total_buildings_purchased = 0;
+global.total_buildings_available = 5;
+
 //global.tb = noone;
 global.summary_box = noone; // see room start
 
@@ -57,6 +60,8 @@ hp_display = 0;
 hp_display_strength = 0.01;
 
 objective = "Haunt the Town";
+
+//areas_unlocked = 1;
 
 function abort_haunt_process() {
 	if (global.menu_haunt_active) {

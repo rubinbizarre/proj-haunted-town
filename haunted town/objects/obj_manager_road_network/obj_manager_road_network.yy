@@ -10,8 +10,8 @@
   "name":"obj_manager_road_network",
   "overriddenProperties":[],
   "parent":{
-    "name":"Master",
-    "path":"folders/Objects/Master.yy",
+    "name":"Managers",
+    "path":"folders/Objects/Master/Managers.yy",
   },
   "parentObjectId":null,
   "persistent":false,

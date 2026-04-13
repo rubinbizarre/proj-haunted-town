@@ -14,8 +14,8 @@
   "name":"obj_podcast_box",
   "overriddenProperties":[],
   "parent":{
-    "name":"Master",
-    "path":"folders/Objects/Master.yy",
+    "name":"UI Elements",
+    "path":"folders/Objects/Master/UI Elements.yy",
   },
   "parentObjectId":null,
   "persistent":false,

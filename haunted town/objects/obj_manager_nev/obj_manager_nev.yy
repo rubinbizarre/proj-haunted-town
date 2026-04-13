@@ -9,8 +9,8 @@
   "name":"obj_manager_nev",
   "overriddenProperties":[],
   "parent":{
-    "name":"Master",
-    "path":"folders/Objects/Master.yy",
+    "name":"Managers",
+    "path":"folders/Objects/Master/Managers.yy",
   },
   "parentObjectId":null,
   "persistent":false,

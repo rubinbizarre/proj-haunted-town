@@ -13,17 +13,66 @@ time_speed_normalised = time_speed_actual / time_speed_base; // used for all dec
 //	  global.week_counter++;
 //}
 
+if (light_change_sunrise) or (light_change_sunset) {
+	light_change_timer += (delta_time / 100000) * time_speed_actual;
+}
+if (light_change_sunrise) {
+	global.light_change_progress = 1 - (light_change_timer / 180); // 180 is 3 hours, 3 * 60 = 180
+}
+if (light_change_sunset) {
+	global.light_change_progress = light_change_timer / 180;
+}
+
 current_hour_ = floor(global.current_time_ / 60);
 if (current_hour_ > prev_hour_) {
-	// new hour just happened - broadcast to npcs to check their schedule
+	// new hour just happened
+	
+	// play sound (church bell chime)
+	//...
+	
+	// broadcast to npcs to check their schedule
 	with (obj_par_npc) {
 		if (current_state != "ENTICED") and (current_state != "SCARED_STIFF") {
 			event_user(0);
 		}
 	}
+	
+	#region watch for certain times to trigger light_change_timer, with sunset or sunrise
+	var _sunrise_start = 5;
+	var _sunrise_end = 8;
+	var _sunset_start = 20;
+	var _sunset_end = 23;
+	if (current_hour_ == _sunrise_start) and (!light_change_sunrise) {
+		light_change_sunrise = true;
+		light_change_timer = 0;
+	}
+	if (current_hour_ == _sunrise_end) and (light_change_sunrise) {
+		light_change_sunrise = false;
+		light_change_timer = 1;
+	}
+	if (current_hour_ == _sunset_start) and (!light_change_sunset) {
+		light_change_sunset = true;
+		light_change_timer = 0;
+	}
+	if (current_hour_ == _sunset_end) and (light_change_sunset) {
+		light_change_sunset = false;
+		light_change_timer = 1;
+	}
+	#endregion
+	
+	#region watch for certain times to trigger certain light sources
+	var _streetlamp_start = 21;
+	var _streetlamp_end = 7;
+	if (current_hour_ == _streetlamp_start) and (!global.light_streetlamp) {
+		global.light_streetlamp = true;
+	}
+	if (current_hour_ == _streetlamp_end) and (global.light_streetlamp) {
+		global.light_streetlamp = false;
+	}
+	#endregion
+	
 	prev_hour_ = current_hour_;
 }
-
 
 // loop the time back to zero after reaching a full day
 if (global.current_time_ >= global.total_cycle_minutes) {
@@ -33,6 +82,7 @@ if (global.current_time_ >= global.total_cycle_minutes) {
 	
 	//increment_day_counter(); // moved to trigger remotely via obj_master
 	
+	// increase nev's total subs with passive growth
 	global.subs += global.daily_passive_growth;
 	
 	// now trigger displaying podcast & daily events breakdown

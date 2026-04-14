@@ -167,6 +167,9 @@ switch (room) {
 			//draw_text_transformed(_gui_w - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			//draw_text_transformed(_gui_w - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_gui_w - _x, _y, "active_haunts:"+string(global.active_haunts), 2, 2, 0); _y += _ysep;
+			_y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "light_change_prog:"+string(global.light_change_progress), 2, 2, 0); _y += _ysep;
+			if (instance_exists(obj_manager_time)) draw_text_transformed(_gui_w - _x, _y, "light_change_timer:"+string(obj_manager_time.light_change_timer), 2, 2, 0); _y += _ysep;
 			draw_set_halign(fa_left);
 			draw_set_color(c_white);
 		}

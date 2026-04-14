@@ -1,15 +1,24 @@
 global.week_counter = 1;
 global.minutes_per_day = 1440;				// 1,440 mins = 24 hours = 1 day
 //global.total_cycle_minutes = 10080;			// 10,080 mins = 68 hours = 7 days = 1 week
-global.current_time_ = 470;//480;				// 480 mins / 60 mins = 8 hours = 8:00 AM
+global.current_time_ = 290;//480;				// 480 mins / 60 mins = 8 hours = 8:00 AM
+global.light_change_progress = 1; // has to match with set current_time_
 
 // for new time system:
 global.total_cycle_minutes = 1440;
 global.day_counter = 0; // ranges from 0 to 6
 global.podcast_episode_counter = 1;
 
+// boolean switches for light sources
+global.light_streetlamp = true;
+
 current_hour_ = 0;
 prev_hour_ = 0;
+
+light_change_sunrise = false;
+light_change_sunset = false;
+light_change_timer = 0;
+
 
 #region time_speed determines the speed at which time passes (commented)
 

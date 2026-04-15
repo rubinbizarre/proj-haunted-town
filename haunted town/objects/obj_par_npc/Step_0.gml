@@ -102,6 +102,20 @@ if (current_state == "WANDER_TOWN") or
 		//show_debug_message("obj_par_npc STEP: "+string(id)+": "+routine_type+": "+current_state+": now entering building");
 	}
 }
+if (current_state == "CIRCUIT") {
+	if (point_distance(x, y, target_x, target_y) < 2) {
+		// pick random node_circuit to navigate to
+		var _total_nodes = instance_number(obj_node_circuit);
+		var _rand = irandom_range(0, _total_nodes);
+		var _random_node = instance_find(obj_node_circuit, _rand);
+		target_x = _random_node.x;
+		target_y = _random_node.y;
+		target_obj = _random_node;
+		if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+			path_start(my_path, move_speed, path_action_stop, true);
+		}
+	}
+}
 #endregion
 
 #region handle being spooked and recovering

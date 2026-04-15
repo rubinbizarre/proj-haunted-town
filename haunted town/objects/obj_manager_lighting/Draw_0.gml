@@ -34,12 +34,28 @@ if (!surface_exists(surf_lighting)) {
 	// revision: they should be active btwn 2100 and 0700
 	//if ((global.current_time_ >= 0) and (global.current_time_ <= 480)) or
 	//	((global.current_time_ >= 1200) and (global.current_time_ <= 1440)) {
-	if (global.light_streetlamp) {
+	if (global.light_night) {
 		gpu_set_blendmode(bm_subtract);
 		with (obj_wo_streetlamp) {
 			var _sw = sprite_width/2;
 			var _sh = sprite_height/2;
 			draw_sprite_ext(spr_light_1, 0, x - _cx, y - _cy, 1, 1, 0, c_white, 1);
+		}
+		with (obj_nev_van) {
+			var _sprite;
+			switch (sprite_index) {
+				case spr_nev_van_side: {
+					_sprite = spr_nev_van_side_lights;
+				} break;
+				case spr_nev_van_up: {
+					_sprite = spr_nev_van_up_lights;
+				} break;
+				case spr_nev_van_down: {
+					_sprite = spr_nev_van_down_lights;
+				} break;
+			}
+			//var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
+			draw_sprite_ext(_sprite, 0, x - _cx, y - _cy, image_xscale, image_yscale, 0, c_white, 1);
 		}
 	}
 	

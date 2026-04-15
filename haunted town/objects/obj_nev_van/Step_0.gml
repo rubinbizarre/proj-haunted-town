@@ -28,6 +28,7 @@ if (path_index != -1) {
     //var _target_angle = direction;
     //image_angle = lerp(image_angle, _target_angle, 0.1);
 	
+	#region while on, wobble anim
 	// progress through animcurve at ac_speed affected by move_speed
 	if (ac_time_moving < 1) {
 		ac_time_moving += (ac_speed_moving * move_speed);
@@ -35,8 +36,10 @@ if (path_index != -1) {
 		ac_time_moving = 0;
 	}
 	var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
-	// apply animcurve value
+	// apply animcurve value to yscale and xscale
 	image_yscale = _ac_value;
+	// xscale is applied in next section...
+	#endregion
 	
 	// if moving/on a path, face the direction of movement
 	switch (direction) {

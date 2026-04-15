@@ -63,11 +63,11 @@ if (current_hour_ > prev_hour_) {
 	#region watch for certain times to trigger certain light sources
 	var _streetlamp_start = 21;
 	var _streetlamp_end = 7;
-	if (current_hour_ == _streetlamp_start) and (!global.light_streetlamp) {
-		global.light_streetlamp = true;
+	if (current_hour_ == _streetlamp_start) and (!global.light_night) {
+		global.light_night = true;
 	}
-	if (current_hour_ == _streetlamp_end) and (global.light_streetlamp) {
-		global.light_streetlamp = false;
+	if (current_hour_ == _streetlamp_end) and (global.light_night) {
+		global.light_night = false;
 	}
 	#endregion
 	

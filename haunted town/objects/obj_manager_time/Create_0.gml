@@ -10,7 +10,7 @@ global.day_counter = 0; // ranges from 0 to 6
 global.podcast_episode_counter = 1;
 
 // boolean switches for light sources
-global.light_streetlamp = true;
+global.light_night = true;
 
 current_hour_ = 0;
 prev_hour_ = 0;

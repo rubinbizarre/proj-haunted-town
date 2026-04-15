@@ -7,6 +7,7 @@ if (global.debug) {
 	draw_set_alpha(0.1);
 	// draw massive purple circle around npc
 	draw_ellipse(x - _mod, y - _mod, x + _mod, y + _mod, false);
+	draw_set_color(c_yellow);
 	if (path_exists(my_path)) {
 		draw_path(my_path, x, y, true);
 	}

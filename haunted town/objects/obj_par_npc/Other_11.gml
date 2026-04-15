@@ -152,44 +152,70 @@ if (is_inside) {
 
 switch (current_state) {
 	case "CIRCUIT": {
-		// store start coords to include in path
-		var _start_x = x;
-		var _start_y = y;
+		#region old circuit logic (commented)
+		//// store start coords to include in path
+		//var _start_x = x;
+		//var _start_y = y;
 		
-		// store nearest node coords
-		var _nearest_node = instance_nearest(x, y, obj_node_circuit);
-		target_x = _nearest_node.x;
-		target_y = _nearest_node.y;
-		target_obj = _nearest_node;
+		//// store nearest node coords
+		//var _nearest_node = instance_nearest(x, y, obj_node_circuit);
+		//target_x = _nearest_node.x;
+		//target_y = _nearest_node.y;
+		//target_obj = _nearest_node;
 		
-		// add these points to the path
-		path_add_point(my_path, _start_x, _start_y, 100);
-		path_add_point(my_path, target_x, target_y, 100);
+		//// add these points to the path
+		//path_add_point(my_path, _start_x, _start_y, 100);
+		//path_add_point(my_path, target_x, target_y, 100);
 			
-		var _start_val = _nearest_node.node_id;				// starting point value in array
-		var _total_elements = 41;							// total values (0 through 40) (41 nodes but excluding the nearest node)
-		var _id_arr_sort = array_create(_total_elements);	// create an array with 41 slots
-		// loop through the array of circuit nodes entirely
-		for (var i = 0; i < _total_elements; i++) {
-			// insert the values incrementally starting from start_val
-			_id_arr_sort[i] = (_start_val + i) % _total_elements;
-		}
-		// add all node points to path in the right order
-		for (var j = 0; j < array_length(_id_arr_sort); j++) {
-			for (var i = 0; i < instance_number(obj_node_circuit); i++) {
-				var _node_inst = instance_find(obj_node_circuit, i);
-				if (_node_inst.node_id == _id_arr_sort[j]) {
-					path_add_point(my_path, _node_inst.x, _node_inst.y, 100);
-					//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" added point to my_path ("+string(j)+") | node_id:"+string(_node_inst.node_id));
-				}
-			}
-		}
+		//var _start_val = _nearest_node.node_id;				// starting point value in array
+		//var _total_elements = 41;							// total values (0 through 40) (41 nodes but excluding the nearest node)
+		//var _id_arr_sort = array_create(_total_elements);	// create an array with 41 slots
+		//// loop through the array of circuit nodes entirely
+		//for (var i = 0; i < _total_elements; i++) {
+		//	// insert the values incrementally starting from start_val
+		//	_id_arr_sort[i] = (_start_val + i) % _total_elements;
+		//}
+		//// add all node points to path in the right order
+		//for (var j = 0; j < array_length(_id_arr_sort); j++) {
+		//	for (var i = 0; i < instance_number(obj_node_circuit); i++) {
+		//		var _node_inst = instance_find(obj_node_circuit, i);
+		//		if (_node_inst.node_id == _id_arr_sort[j]) {
+		//			path_add_point(my_path, _node_inst.x, _node_inst.y, 100);
+		//			//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" added point to my_path ("+string(j)+") | node_id:"+string(_node_inst.node_id));
+		//		}
+		//	}
+		//}
 			
-		// add the first node again (nearest node at start)
-		// so that when path movement is complete, npc returns to house cleanly
-		// (idk why it returns to the house i thought it would stop at the node)
-		// it returned to the house because it was a closed path; i've fixed this now by making my_path open
-		path_add_point(my_path, target_x, target_y, 100);
+		//// add the first node again (nearest node at start)
+		//// so that when path movement is complete, npc returns to house cleanly
+		//// (idk why it returns to the house i thought it would stop at the node)
+		//// it returned to the house because it was a closed path; i've fixed this now by making my_path open
+		//path_add_point(my_path, target_x, target_y, 100);
+		#endregion
+		
+		//// store start coords to include in path
+		//var _start_x = x;
+		//var _start_y = y;
+		
+		//// store nearest node coords
+		//var _nearest_node = instance_nearest(x, y, obj_node_circuit);
+		//target_x = _nearest_node.x;
+		//target_y = _nearest_node.y;
+		//target_obj = _nearest_node;
+		
+		//// add these points to the path
+		//path_add_point(my_path, _start_x, _start_y, 100);
+		//path_add_point(my_path, target_x, target_y, 100);
+		
+		// pick random node_circuit to navigate to
+		var _total_nodes = instance_number(obj_node_circuit);
+		var _rand = irandom_range(1, _total_nodes);
+		var _random_node = instance_find(obj_node_circuit, _rand);
+		target_x = _random_node.x;
+		target_y = _random_node.y;
+		target_obj = _random_node;
+		//path_add_point(my_path, target_x, target_y, 100);
+		
 	} break;
 	case "RETURN_HOME": {
 		target_obj = home_obj;
@@ -232,12 +258,12 @@ switch (current_state) {
 	} break;
 }
 
-if (current_state == "CIRCUIT") {
-	path_start(my_path, move_speed, path_action_stop, true);
-	//show_debug_message("obj_par_npc USER_EVENT[1]: "+string(id)+" type:"+string(routine_type)+" | circuit path started.");
-} else if (current_state != "") {
+//if (current_state == "CIRCUIT") {
+//	path_start(my_path, move_speed, path_action_stop, true);
+//	//show_debug_message("obj_par_npc USER_EVENT[1]: "+string(id)+" type:"+string(routine_type)+" | circuit path started.");
+//} else if (current_state != "") {
 	if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 		path_start(my_path, move_speed, path_action_stop, true);
 	}
-	//show_debug_message("obj_par_npc USER_EVENT[1]: "+string(id)+" type:"+string(routine_type)+" | path started.");
-}
+//	//show_debug_message("obj_par_npc USER_EVENT[1]: "+string(id)+" type:"+string(routine_type)+" | path started.");
+//}

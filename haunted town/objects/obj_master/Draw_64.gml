@@ -105,7 +105,6 @@ switch (room) {
 			if (surface_exists(paused_surface)) {
 				draw_clear_alpha(c_black, 0);
 				surface_set_target(paused_surface);
-				//draw_clear_alpha(c_black, 0);
 				
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_middle);

@@ -54,7 +54,6 @@ if (!surface_exists(surf_lighting)) {
 					_sprite = spr_nev_van_down_lights;
 				} break;
 			}
-			//var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
 			draw_sprite_ext(_sprite, 0, x - _cx, y - _cy, image_xscale, image_yscale, 0, c_white, 1);
 		}
 	}

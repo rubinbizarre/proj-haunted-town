@@ -208,7 +208,7 @@ switch (current_state) {
 		//path_add_point(my_path, target_x, target_y, 100);
 		
 		// pick random node_circuit to navigate to
-		var _total_nodes = instance_number(obj_node_circuit);
+		var _total_nodes = instance_number(obj_node_circuit) - 1;
 		var _rand = irandom_range(1, _total_nodes);
 		var _random_node = instance_find(obj_node_circuit, _rand);
 		target_x = _random_node.x;

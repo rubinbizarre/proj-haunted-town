@@ -3,7 +3,6 @@ if (!surface_exists(surf_lighting)) {
 	var _ch = camera_get_view_height(view_camera[0]);
 	surf_lighting = surface_create(_cw, _ch);
 	surface_set_target(surf_lighting);
-	draw_set_colour(c_black);
 	draw_clear_alpha(c_black, 0);
 	surface_reset_target();
 } else {
@@ -26,7 +25,7 @@ if (!surface_exists(surf_lighting)) {
 		// when increasing, _darkness_max * light_change_progress
 		// ideally this modification to light_change_progress will be handled elsewhere
 	#endregion
-		
+	
 	draw_clear_alpha(c_black, _darkness);
 	
 	// add conditional here which means that streetlamps are only active in a certain time threshold
@@ -37,10 +36,11 @@ if (!surface_exists(surf_lighting)) {
 	if (global.light_night) {
 		gpu_set_blendmode(bm_subtract);
 		with (obj_wo_streetlamp) {
-			var _sw = sprite_width/2;
-			var _sh = sprite_height/2;
+			//var _sw = sprite_width/2;
+			//var _sh = sprite_height/2;
 			draw_sprite_ext(spr_light_1, 0, x - _cx, y - _cy, 1, 1, 0, c_white, 1);
 		}
+		gpu_set_blendmode(bm_subtract);
 		with (obj_nev_van) {
 			var _sprite;
 			switch (sprite_index) {

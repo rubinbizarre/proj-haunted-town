@@ -24,6 +24,10 @@ room	w 1920  h 1080
 */
 
 
+// starting cam x,y pos at 0 zoom:
+// x = 90
+// y = 720
+
 
 cam_w_0 = 3840;
 cam_h_0 = 2160;

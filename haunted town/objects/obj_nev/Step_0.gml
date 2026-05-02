@@ -265,6 +265,8 @@ switch (current_state) {
 					_target.mouse_hover = false;
 					_target.image_index = 0;
 					_target.infamy = 0;
+					// decrement total-scary-objects-unlocked counter
+					global.total_so_unlocked--;
 					//_target = global.nev_current_target;
 					var _b = _target.current_building;
 					_b.haunted = false;
@@ -321,6 +323,8 @@ switch (current_state) {
 						_target.nev_taking_escrow = true;
 						_target.escrow = 0;
 						_target.image_index = 0;
+						// decrement total-world-objects-unlocked counter
+						global.total_wo_unlocked--;
 		                // play sound (nev caught obj while haunted)
 						//...
 						// visual feedback (some sort of bounce anim)

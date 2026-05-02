@@ -297,14 +297,14 @@ switch (room) {
 			draw_set_font(font_main_body);
 			draw_text(_x, _y, _obj_lower);
 			
-			//// draw buildings owned vs. buildings available
-			//_x = _gui_w/2;
-			//_y += 50;
-			//draw_set_colour(c_white);
-			//draw_set_halign(fa_center);
-			//var _buildings_owned = string(global.total_buildings_purchased);
-			//var _buildings_available = string(global.total_buildings_available);
-			//draw_text(_x, _y, _buildings_owned + "/" + _buildings_available);
+			// draw buildings owned vs. buildings available
+			_x = _gui_w/2;
+			_y += 50;
+			draw_set_colour(c_white);
+			draw_set_halign(fa_center);
+			var _buildings_owned = string(global.total_buildings_purchased);
+			var _buildings_available = string(global.total_buildings_available);
+			draw_text(_x, _y, _buildings_owned + "/" + _buildings_available);
 			
 			// cleanup
 			draw_set_halign(fa_left);

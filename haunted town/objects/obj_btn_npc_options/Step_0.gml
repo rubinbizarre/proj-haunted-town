@@ -123,6 +123,13 @@ if (implode) {
 	}
 }
 
+//if (!visible) and (point_in_rectangle(mouse_x, mouse_y, npc.bbox_left, npc.bbox_top, npc.bbox_right, npc.bbox_bottom)) {
+//	visible = true;
+//}
+//if (visible) and (!point_in_rectangle(mouse_x, mouse_y, npc.bbox_left + 50, npc.bbox_top + 50, npc.bbox_right + 50, npc.bbox_bottom + 50)) {
+//	visible = false;
+//}
+
 #region handle decrementing timer_enable_implode
 if (timer_enable_implode_cur > 0) {
 	timer_enable_implode_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;

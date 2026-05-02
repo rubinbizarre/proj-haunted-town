@@ -65,7 +65,7 @@ global.routines = {
 		//{ start: 0,		dest: 240,	state: "OUT" },
 		//{ start: 240,	dest: 480,	state: "RETURN_HOME" },
 		//{ start: 480,	dest: 1440,	state: "OUT" }
-		{ start: 0,		dest: 240,	state: "OUT" },
+		{ start: 0,		dest: 240,	state: "LEAVE_HOME" },
 		{ start: 240,	dest: 480,	state: "RETURN_HOME" },
 		{ start: 480,	dest: 1440,	state: "LEAVE_HOME" }
 	]

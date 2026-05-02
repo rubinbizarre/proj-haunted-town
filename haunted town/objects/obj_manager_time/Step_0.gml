@@ -89,6 +89,7 @@ if (global.current_time_ >= global.total_cycle_minutes) {
 	obj_master.toggle_display_end_of_day();
 }
 
+#region handle time manipulation while debugging
 if (global.debug) {
 	if (keyboard_check(vk_right)) {
 		time_speed_multiplier += (0.1 * time_speed_actual);
@@ -100,6 +101,7 @@ if (global.debug) {
 		time_speed_multiplier = time_speed_multiplier_init;
 	}
 }
+#endregion
 
 #region handle click input on 'x2' button - working sorta
 // known issue: clicking also affects objects underneath the GUI layer in the world, this needs addressing

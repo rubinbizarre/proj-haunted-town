@@ -86,7 +86,7 @@
 //	case 0: _str_next_gear = "VCR VIDEOCAM"; break;
 //	case 1: _str_next_gear = "PRO TV CAMERA"; break;
 //	case 2: _str_next_gear = "EMF MONITOR"; break;
-//	case 3: _str_next_gear = "POLTERGUST"; break;
+//	case 3: _str_next_gear = "ECTOEXTRACTOR"; break;
 //	case 4: _str_next_gear = "All Evil Spirits!"; _str_help_me_get = "Watch me destroy";
 //}
 //// draw first line "Help me get a new"
@@ -327,7 +327,7 @@ if (!global.paused) and (!global.display_end_of_day) {
 			case 0: _str_next_gear = "VCR VIDEOCAM"; break;
 			case 1: _str_next_gear = "PRO TV CAMERA"; break;
 			case 2: _str_next_gear = "EMF MONITOR"; break;
-			case 3: _str_next_gear = "POLTERGUST"; break;
+			case 3: _str_next_gear = "ECTOEXTRACTOR"; break;
 			case 4: _str_next_gear = "All Evil Spirits!"; _str_help_me_get = "Watch me destroy";
 		}
 		// draw first line "Help me get a new"

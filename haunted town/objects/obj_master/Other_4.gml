@@ -20,6 +20,8 @@ switch (room) {
 		}
 	} break;
 	case rm_main: {
+		global.total_buildings_available = instance_number(obj_par_building);
+		
 		// assign node_id var to each obj_node_circuit inst
 		for (var i = 0; i < instance_number(obj_node_circuit); i++) {
 			var _inst = instance_find(obj_node_circuit, i);

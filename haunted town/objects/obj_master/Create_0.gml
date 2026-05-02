@@ -35,7 +35,9 @@ global.total_kills = 0;
 global.active_haunts = 0;
 
 global.total_buildings_purchased = 0;
-global.total_buildings_available = 5;
+global.total_buildings_available = 24;
+global.total_wo_unlocked = 0;
+global.total_so_unlocked = 0;
 
 //global.tb = noone;
 global.summary_box = noone; // see room start

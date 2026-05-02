@@ -82,7 +82,7 @@ function wrap_text(_str, _max_chars) {
 
 /// returns a milestone label string, or "" if none reached
 function check_subscriber_milestone(_subs) {
-    //if (_subs >= 1000000) return "POLTERGUST UNLOCKED";
+    //if (_subs >= 1000000) return "ECTOEXTRACTOR UNLOCKED";
     //if (_subs >= 100000)  return "EMF MONITOR UNLOCKED";
     //if (_subs >= 50000)   return "PRO TV CAM UNLOCKED";
     //if (_subs >= 10000)   return "VCR VIDEOCAM UNLOCKED";
@@ -92,14 +92,14 @@ function check_subscriber_milestone(_subs) {
 	var _milestone_str = "";
 	
 	if (_subs >= 1000000) and (global.nev_gear_tier != 4) {
-		if (global.nev_gear_tier < 4) _milestone_str = "POLTERGUST UNLOCKED";
+		if (global.nev_gear_tier < 4) _milestone_str = "ECTOEXTRACTOR UNLOCKED";
 		global.nev_gear_tier = 4;
 		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 4");
 		return _milestone_str;
 	}
 	if (_subs >= 100000) and (global.nev_gear_tier != 3) {
 		if (global.nev_gear_tier < 3) _milestone_str = "EMF MONITOR UNLOCKED";
-		if (global.nev_gear_tier > 3) _milestone_str = "POLTERGUST SOLD. EMF MONITOR EQUIPPED";
+		if (global.nev_gear_tier > 3) _milestone_str = "ECTOEXTRACTOR SOLD. EMF MONITOR EQUIPPED";
 		global.nev_gear_tier = 3;
 		show_message("obj_summary_box check_subscriber_milestone():\nset gear_tier to 3");
 		return _milestone_str;

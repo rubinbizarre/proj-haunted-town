@@ -117,7 +117,7 @@ determines how often nev visits that hbuilding
 	- weighted probability might need tuning after playtesting
 	- if the player haunts/acts while Nev is nearby, he will stop in place for a brief moment and then immediately go from whatever he was doing towards the recent player action
 		- similarly, or in place of this, Nev will move towards nearby activated objects (in his detect radius) when he is done with the current POI
-	- idea: maybe during late game when Nev has poltergust he can lock buildings if he catches them in use?
+	- idea: maybe during late game when Nev has ectoextractor he can lock buildings if he catches them in use?
  - nev does not go to locked objects ?
 			corrections
  - at the start of the game/when nothing has infamy, Nev drives to random road_nodes throughout the day.
@@ -203,6 +203,11 @@ determines how often nev visits that hbuilding
 	- i.e. when 5 buildings owned, unlock a certain personal upgrade (e.g. more simultaneous active haunts)
 			then when 10 buildings owned, unlock another one
 			then when 20 buildings owned, unlock another... ?
+ - could be cool to allow the player to create 'ectobarriers' in the roads for hp, which either block the van temporarily or slow it down or make it spin out and stop for a moment
+	- nev could suck up the ectobarriers with the ectoextractor
+ - or alternatively the player can use hp to purchase one-time use van sabotage haunt which makes the van break down for a period of time
+ - maybe the player should be able to 'mortgage' or disown/de-haunt properties, similar to Monopoly, where they get half the HP cost back and the property is locked again for the default HP cost
+
 
 			known issues:
  -	there's something wrong about npc CIRCUIT state, some npcs get stuck on a path node with no assigned path - might be 

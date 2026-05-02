@@ -29,7 +29,7 @@ switch (global.nev_gear_tier) {
 	case 1: sub_gain_amount = 10000; break; // vcr videocam
 	case 2: sub_gain_amount = 50000; break; // pro tv cam
 	case 3: sub_gain_amount = 100000; break; // emf monitor
-	case 4: sub_gain_amount = 100000; break; // poltergust: needs playtesting
+	case 4: sub_gain_amount = 100000; break; // ectoextractor: needs playtesting
 	default: show_debug_message("obj_manager_nev CREATE: gear_tier value not recognised: "+string(global.nev_gear_tier));
 }
 */
@@ -41,7 +41,7 @@ switch (global.nev_gear_tier) {
 //		case 1: _gain_amount = 10000; break; // vcr videocam
 //		case 2: _gain_amount = 50000; break; // pro tv cam
 //		case 3: _gain_amount = 100000; break; // emf monitor
-//		case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
+//		case 4: _gain_amount = 100000; break; // ectoextractor: needs playtesting
 //		default: {
 //			show_debug_message("obj_manager_nev CREATE: gain_subs(): gear_tier value not recognised: "+string(global.nev_gear_tier));
 //		} break;
@@ -57,7 +57,7 @@ switch (global.nev_gear_tier) {
 //		case 1: _loss_amount = 5000; break; // vcr videocam
 //		case 2: _loss_amount = 25000; break; // pro tv cam
 //		case 3: _loss_amount = 50000; break; // emf monitor
-//		case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
+//		case 4: _loss_amount = 50000; break; // ectoextractor: needs playtesting
 //		default: {
 //			show_debug_message("obj_manager_nev CREATE: lose_subs(): gear_tier value not recognised: "+string(global.nev_gear_tier));
 //		} break;
@@ -74,7 +74,7 @@ function gain_subs(_object_name, _note) {
         case 1: _gain_amount = 10000;  break; // vcr videocam
         case 2: _gain_amount = 50000;  break; // pro tv cam
         case 3: _gain_amount = 100000; break; // emf monitor
-        case 4: _gain_amount = 100000; break; // poltergust: needs playtesting
+        case 4: _gain_amount = 100000; break; // ectoextractor: needs playtesting
         default: {
             show_debug_message("gain_subs(): gear_tier not recognised: " + string(global.nev_gear_tier));
         } break;
@@ -103,7 +103,7 @@ function lose_subs(_object_name, _note) {
         case 1: _loss_amount = 5000;  break; // vcr videocam
         case 2: _loss_amount = 25000; break; // pro tv cam
         case 3: _loss_amount = 50000; break; // emf monitor
-        case 4: _loss_amount = 50000; break; // poltergust: needs playtesting
+        case 4: _loss_amount = 50000; break; // ectoextractor: needs playtesting
         default: {
             show_debug_message("lose_subs(): gear_tier not recognised: " + string(global.nev_gear_tier));
         } break;

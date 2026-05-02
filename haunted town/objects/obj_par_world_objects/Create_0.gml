@@ -29,7 +29,7 @@ cooldown_timer_init = cooldown_timer;
 deactivate_timer = 3;
 deactivate_timer_init = deactivate_timer;
 
-cost = 10; // price (in HP) to unlock the object after Nev has locked it
+cost = 5;//10; // price (in HP) to unlock the object after Nev has locked it
 
 // radius in which npcs are spooked by the object while haunted
 haunt_radius = 50;
@@ -55,7 +55,7 @@ draw_haunt_outline = false;
 
 nev_taking_escrow = false; // flag to use so that escrow is still drawn whilst nev is 'surveying'
 
-disabled = false; // activated when nev has poltergust and interacts
+disabled = false; // activated when nev has ectoextractor and interacts
 
 name_str = "unnamed-wo"; // name of obj that appears in daily breakdown
 note_str_credit = "note-credit";

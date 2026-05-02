@@ -22,3 +22,24 @@ currently there are 17 buildings in total
 141 npcs are not needed since
 	- there are alternative methods to killing that will also grant HP and eventually completion
 	- tourists who come to the town are not part of the initial population
+	
+now, after implementing the Bogfold layout:
+currently there are 24 buildings in total
+	- 19 residential buildings
+		- 6 shacks (5 HP)	= 30 HP total
+		- 9 houses (10 HP)	= 90 HP total
+		- 4 manors (20 HP)	= 80 HP total
+							-----------------
+							= 200 HP net total
+	- 5 unique purpose buildings
+		- 1 hotel/inn	(30 HP)
+		- 1 cafe		(30 HP)
+		- 1 school		(30 HP)
+		- 1 butcher		(30 HP)
+		- 1 church		(50 HP)
+						-----------------
+						= 170 HP net total
+						-------------------------------------------------------
+						+ extra HP for unlocking WO, SO and possessing (~130 HP)
+						-------------------------------------------------------
+						= 370 + 130 = 500 HP total needed to 'win'

@@ -73,6 +73,8 @@ if (btn_confirmed) {
 				amount = "-"+string(other.cost);
 				//depth = other.depth - 1;
 			}
+			// increment total-unlocked-world-objects counter
+			global.total_wo_unlocked++;
 		} else { // if player cant afford to unlock this
 			// play sound (fail/blocked/error)
 			//...

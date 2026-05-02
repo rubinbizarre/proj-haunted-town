@@ -206,6 +206,37 @@ switch (room) {
 		}
 		#endregion
 		
+		#region handle WIN condition(s)
+		if (global.total_buildings_purchased == global.total_buildings_available) {
+			show_message("YOU WON! Nev's fate is sealed...");
+			game_restart();
+		}
+		#endregion
+		
+		#region handle LOSE condition(s)
+		// if the player has run out of HP and
+		// theres no more ways for the player to get HP
+		// or theres no way the player could possibly earn HP
+		/*
+		and if player does not own any world objects
+		(global.total_wo_unlocked <= 0)
+		and if player does not own any scary objects
+		(global.total_so_unlocked <= 0)
+		and if there are no possessed npcs
+		(global.active_haunts <= 0)
+		*/
+		//if (global.haunt_points <= 0) {
+		if (global.haunt_points <= 0) and
+		(global.active_haunts <= 0) and
+		(global.total_so_unlocked <= 0) and
+		(global.total_wo_unlocked <= 0) {
+			show_message("YOU LOSE! Nev has bested you. Try again.");
+			game_restart();
+			// could give player the option to continue regardless,
+			// kinda like choosing to go bankrupt or not in Monopoly
+		}
+		#endregion
+		
 		#region handle unlocking new areas (commented)
 		//switch (areas_unlocked) {
 		//	case 1: {

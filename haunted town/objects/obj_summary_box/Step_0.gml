@@ -1,3 +1,14 @@
+//var _gui_w = display_get_gui_width();
+//var _gui_h = display_get_gui_height();
+//var _w = _gui_w * 0.96;//_gui_w - 80;
+//var _h = _gui_h * 0.37;//400;
+//config.xpos = (_gui_w/2) - (_w/2);
+//config.ypos = (_gui_h/2) - (_h/2);
+//_inner_x = config.xpos + config.padding;
+//_inner_y = config.ypos + config.padding;
+//_inner_w = config.width - config.padding * 2 - config.scrollbar_width - 4;
+//_inner_h = config.height - config.padding * 2;
+
 // ── derived geometry ──────────────────────────────────────────────────
 var _sb_x = config.xpos + config.width - config.scrollbar_width - config.border_width;
 var _sb_y = config.ypos + config.border_width;
@@ -35,3 +46,4 @@ if (point_in_rectangle(_mx, _my, config.xpos, config.ypos, config.xpos + config.
     var _wheel = mouse_wheel_down() - mouse_wheel_up();
     scroll_offset = clamp(scroll_offset + _wheel * config.line_height, 0, _max_scroll);
 }
+

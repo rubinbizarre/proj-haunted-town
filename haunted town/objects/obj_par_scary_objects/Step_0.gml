@@ -104,6 +104,8 @@ if (btn_confirmed) {
 				amount = "-"+string(other.cost);
 				//depth = other.depth - 1;
 			}
+			// increment total-unlocked-scary-objects counter
+			global.total_so_unlocked++;
 		} else { // if player cant afford to unlock this
 			// play sound (fail/blocked/error)
 			//...

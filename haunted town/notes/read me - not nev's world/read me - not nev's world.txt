@@ -209,17 +209,9 @@ determines how often nev visits that hbuilding
  - maybe the player should be able to 'mortgage' or disown/de-haunt properties, similar to Monopoly, where they get half the HP cost back and the property is locked again for the default HP cost
 
 
-			known issues:
- -	there's something wrong about npc CIRCUIT state, some npcs get stuck on a path node with no assigned path - might be 
-	related to spooking via world objects.
-		-	also related, NPCs in CIRCUIT state seem to exit a building and then appear instantly
-			at the node nearest to the house first, then go back to the house, then go back on to
-			the path and continue the path circuit as normal...
-		-	CIRCUIT as a whole should have a total redesign/rethink/refactor given that the town is bigger now
- -	when Nev goes to enter a house which was haunted and by the time he enters its not haunted,
-	his gear sprite will stay outside the building while he is inside. this is due to his animation logic
-	but i cba to fix this right now
- -	clicking on the tab for the podcast-box will also affect whatever is underneath it at that time,
-	which may result in player actions which are not intended - frustrating (e.g. unlocking a building
-	but you didn't mean to). this was addressed and i believe fixed in Berry Cow Farm, but i will need
-	more time to implement this fix i think
+known issues:
+ - when Nev goes to enter a house whose scary-object was haunted and by the time he enters its not haunted, his gear sprite (e.g. camera) will stay outside the building while he is inside. this is due to his animation/state logic but cba to fix this right now
+ - when Nev pursues a possessed-npc and the possessed-npc enters a house, nev freezes in place. this is not intentional. eventually he does return to his van and the game can continue.
+ - clicking on the tab for the podcast-box or x2 button (GUI buttons) will also affect whatever world instance is underneath it at that time, which may result in player actions which are not intended - frustrating (e.g. unlocking a building but you didn't mean to). this was addressed and i believe fixed in Berry Cow Farm, but this will need a relatively complex and boring fix
+ - the game does not properly reset after using the pause menu to exit and then restart
+ - possessed-npcs do not seem to spook other npcs

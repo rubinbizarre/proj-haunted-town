@@ -13,14 +13,18 @@ global.res_index = 2;
 global.mode_index = 0;
 
 // in-game
-global.hour_progress_multiplier = 100 / 60; // used in script for finding date and time to convert hour_progression to actual_minutes
+//global.hour_progress_multiplier = 100 / 60; // used in script for finding date and time to convert hour_progression to actual_minutes
+global.tracked_building = noone; // not used?
+global.menu_haunt_active = false; // not used?
+global.tracked_npc = noone; // not used?
+global.menu_npc_active = false; // not used
+global.haunt_difficulty = 0; // not used? used by obj_skillcheck
+global.offered_haunt_points = 0; // not used? used by obj_skillcheck
+
 global.haunt_points = 30;
-global.tracked_building = noone;
-global.menu_haunt_active = false;
-global.tracked_npc = noone;
-global.menu_npc_active = false;
-global.haunt_difficulty = 0;
-global.offered_haunt_points = 0;
+global.lifetime_haunt_points = 0;
+global.super_haunt_ready = false;
+global.super_haunt_active = false;
 
 global.display_end_of_day = false;
 global.display_podcast = false;

@@ -1,39 +1,39 @@
 switch (room) {
 	case rm_main: {
-		#region handle input whilst haunting a house (whilst haunt menu is active)
-		if (global.menu_haunt_active) {
-			global.haunt_difficulty = global.offered_haunt_points / (global.offered_haunt_points + global.tracked_building.stats.cost);
+		#region handle input whilst haunting a house (whilst haunt menu is active) (commented)
+		//if (global.menu_haunt_active) {
+		//	global.haunt_difficulty = global.offered_haunt_points / (global.offered_haunt_points + global.tracked_building.stats.cost);
 	
-			// decrement offered HP. no less than zero
-			if (keyboard_check_pressed(vk_down)) {
-				if (global.offered_haunt_points > 0) {
-					global.offered_haunt_points -= 1;
-					//show_debug_message("obj_master STEP: decremented offered HP");
-				}
-			}
-			// increment offered HP. cap to amount of HP owned
-			if (keyboard_check_pressed(vk_up)) {
-				if (global.offered_haunt_points < global.haunt_points) {
-					global.offered_haunt_points += 1;
-					//show_debug_message("obj_master STEP: incremented offered HP");
-				}
-			}
+		//	// decrement offered HP. no less than zero
+		//	if (keyboard_check_pressed(vk_down)) {
+		//		if (global.offered_haunt_points > 0) {
+		//			global.offered_haunt_points -= 1;
+		//			//show_debug_message("obj_master STEP: decremented offered HP");
+		//		}
+		//	}
+		//	// increment offered HP. cap to amount of HP owned
+		//	if (keyboard_check_pressed(vk_up)) {
+		//		if (global.offered_haunt_points < global.haunt_points) {
+		//			global.offered_haunt_points += 1;
+		//			//show_debug_message("obj_master STEP: incremented offered HP");
+		//		}
+		//	}
 	
-			// confirm input
-			if (keyboard_check_pressed(vk_enter)) {
-				// validate input:
-				// proceed: player entered at least minimum amount HP required
-				if (global.offered_haunt_points >= global.tracked_building.stats.cost) {
-					// start haunt process
-					if (instance_exists(obj_skillcheck)) {
-						obj_skillcheck.trigger();
-					}
-				} else { // abort: player did not enter the minimum amount of HP required
-					show_message("HAUNT ABORTED\nYou need to spend at least "+string(global.tracked_building.stats.cost)+" Haunt Points to Haunt this building.");
-					abort_haunt_process();
-				}
-			}
-		}
+		//	// confirm input
+		//	if (keyboard_check_pressed(vk_enter)) {
+		//		// validate input:
+		//		// proceed: player entered at least minimum amount HP required
+		//		if (global.offered_haunt_points >= global.tracked_building.stats.cost) {
+		//			// start haunt process
+		//			if (instance_exists(obj_skillcheck)) {
+		//				obj_skillcheck.trigger();
+		//			}
+		//		} else { // abort: player did not enter the minimum amount of HP required
+		//			show_message("HAUNT ABORTED\nYou need to spend at least "+string(global.tracked_building.stats.cost)+" Haunt Points to Haunt this building.");
+		//			abort_haunt_process();
+		//		}
+		//	}
+		//}
 		#endregion
 	
 		#region handle pause activation/deactivation
@@ -197,14 +197,23 @@ switch (room) {
 				}
 			}
 			#endregion
+			
+			#region handle toggling HUD visibility
+			if keyboard_check_pressed(ord("H")) {
+				global.hud = !global.hud;
+				//show_message("obj_master toggle hud");
+			}
+			#endregion
+			
+			#region handle activating SUPER HAUNT
+			if (keyboard_check_pressed(vk_space)) and (global.super_haunt_ready) {
+				global.super_haunt_ready = false;
+				global.super_haunt_active = true;
+			}
+			#endregion
 		}
 		
-		#region handle toggling HUD visibility
-		if keyboard_check_pressed(ord("H")) {
-			global.hud = !global.hud;
-			//show_message("obj_master toggle hud");
-		}
-		#endregion
+		
 		
 		#region handle WIN condition(s)
 		if (global.total_buildings_purchased == global.total_buildings_available) {

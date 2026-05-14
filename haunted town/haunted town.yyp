@@ -160,6 +160,7 @@
     {"id":{"name":"scr_draw_infamy","path":"scripts/scr_draw_infamy/scr_draw_infamy.yy",},},
     {"id":{"name":"scr_draw_pie_slice","path":"scripts/scr_draw_pie_slice/scr_draw_pie_slice.yy",},},
     {"id":{"name":"scr_find_path_nodes","path":"scripts/scr_find_path_nodes/scr_find_path_nodes.yy",},},
+    {"id":{"name":"scr_haunt_points_operations","path":"scripts/scr_haunt_points_operations/scr_haunt_points_operations.yy",},},
     {"id":{"name":"scr_number_to_comma_string","path":"scripts/scr_number_to_comma_string/scr_number_to_comma_string.yy",},},
     {"id":{"name":"spr_area_1","path":"sprites/spr_area_1/spr_area_1.yy",},},
     {"id":{"name":"spr_area_2","path":"sprites/spr_area_2/spr_area_2.yy",},},

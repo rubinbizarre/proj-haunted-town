@@ -195,7 +195,9 @@ function kill() {
 	
 	// award haunt points (hp)
 	var _hp = 10;
-	global.haunt_points += _hp;
+	//global.haunt_points += _hp;
+	add_haunt_points(_hp);
+	
 	// display hp awarded notification
 	with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
 		amount = "+"+string(_hp);
@@ -352,7 +354,7 @@ function check_for_npcs() {
 				//// this world object gains infamy
 				//gain_infamy();
 				
-				global.haunt_points++;
+				add_haunt_points();
 				
 				// display HP notification
 				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {

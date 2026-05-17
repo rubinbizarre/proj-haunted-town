@@ -1,0 +1,1 @@
+timer += delta_time / 1000000; // converts microseconds → seconds

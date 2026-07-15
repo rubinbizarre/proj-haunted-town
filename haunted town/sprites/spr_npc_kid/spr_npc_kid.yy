@@ -30,7 +30,7 @@
   "origin":9,
   "parent":{
     "name":"NPCs",
-    "path":"folders/Sprites/NPCs.yy",
+    "path":"folders/Sprites/Scary Objects/NPCs.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

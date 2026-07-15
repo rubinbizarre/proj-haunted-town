@@ -250,8 +250,8 @@ switch (current_state) {
         //...
 	} break;
 	case "CHURCH": {
-		if (instance_exists(obj_building_church)) {
-			target_obj = obj_building_church;
+		if (instance_exists(obj_b_church)) {
+			target_obj = obj_b_church;
 			target_x = target_obj.x;
 			target_y = target_obj.y;
 		}

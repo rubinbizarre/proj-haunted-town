@@ -10,8 +10,8 @@ move_speed_init = move_speed; // saves us from re-entering value of move_speed i
 do {
 	home_obj = instance_find(obj_par_building, irandom(instance_number(obj_par_building)-1)); // store the id of this npc's home
 } until (
-	(home_obj.sprite_index != spr_building_church) or
-	(home_obj.sprite_index != spr_building_hotel)
+	(home_obj.sprite_index != spr_b_church) or
+	(home_obj.sprite_index != spr_b_hotel)
 );
 //variable_struct_get(home_obj.stats, owned) == false);
 //home_obj.stats.owned == false);
@@ -226,6 +226,12 @@ function possess() {
 	}
 }
 
+function remove_possession() {
+	possessed = false;
+	image_index = 0;
+	global.active_haunts--;
+}
+
 function enter_building() {
 	var _b = instance_nearest(x, y, obj_par_building);
 	
@@ -365,39 +371,4 @@ function check_for_npcs() {
 			}
 	    }
 	}
-	
-	// 3 // find 'exits' (in last_list ONLY, not in current_list)
-	for (var i = 0; i < ds_list_size(last_list); i++) {
-	    var _inst = last_list[| i];
-		
-	    // if they were here last frame but aren't now, they just LEFT
-	    if (ds_list_find_index(current_list, _inst) == -1) {
-	        if (instance_exists(_inst)) {
-	            //_inst.spooked = false; // reset the trigger
-	            //show_debug_message("Target " + string(_inst) + " Left!");
-	        }
-	    }
-	}
-	
-	// 4 // update the memory for the next frame
-	ds_list_copy(last_list, current_list);
-}
-
-function remove_possession() {
-	// reset to normal, or deactivate
-	image_index = 0;
-	possessed = false;
-
-	// avoid memory leaks; forget all ids which entered/left while possessed
-	ds_list_destroy(current_list);
-	ds_list_destroy(last_list);
-	
-	// play sound (npc deactivated / possession removed)
-	//...
-	// visual feedback
-	spooked = true; // will play sound, change to spooked face for short time
-	
-	global.active_haunts--;
-	
-	show_debug_message("obj_par_npc CREATE: remove_possession(): "+string(id));
 }

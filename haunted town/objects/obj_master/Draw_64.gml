@@ -278,15 +278,16 @@ switch (room) {
 			draw_text(_x + _hp_text_len + 10, _y - 10, _hp_amount);
 			#endregion
 			
-			// draw lifetime HP // super-haunt-meter
-			draw_set_font(font_main_body);
-			_x = 40;
-			_y = 200;
-			_ysep = 40;
-			draw_set_colour(c_white);
-			draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
-			draw_text(_x, _y, "SUPER HAUNT STATUS: "+string(global.super_haunt_ready)); _y += _ysep;
-			if (global.super_haunt_ready) draw_text(_x, _y, "press space to activate"); _y += _ysep;
+			//// DISABLED TEMPORARILY
+			//// draw lifetime HP // super-haunt-meter
+			//draw_set_font(font_main_body);
+			//_x = 40;
+			//_y = 200;
+			//_ysep = 40;
+			//draw_set_colour(c_white);
+			//draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
+			//draw_text(_x, _y, "SUPER HAUNT STATUS: "+string(global.super_haunt_ready)); _y += _ysep;
+			//if (global.super_haunt_ready) draw_text(_x, _y, "press space to activate"); _y += _ysep;
 			
 			// cleanup
 			draw_set_colour(c_white);

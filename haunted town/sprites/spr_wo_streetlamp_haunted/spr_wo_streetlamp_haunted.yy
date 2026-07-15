@@ -4,7 +4,7 @@
   "bboxMode":1,
   "bbox_bottom":74,
   "bbox_left":0,
-  "bbox_right":9,
+  "bbox_right":10,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,15 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"9b8e94b8-1820-4f1a-b6cf-9a9885064802","name":"9b8e94b8-1820-4f1a-b6cf-9a9885064802","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"7c4d8cf9-ec4a-4a6c-8a32-115852907064","name":"7c4d8cf9-ec4a-4a6c-8a32-115852907064","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"dcc755d9-9d41-45f4-b586-507968f20013","name":"dcc755d9-9d41-45f4-b586-507968f20013","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":75,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"e4a3a7a9-cf1f-4afe-9e18-262225a44077","blendMode":0,"displayName":"default","isLocked":false,"name":"e4a3a7a9-cf1f-4afe-9e18-262225a44077","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"88b5244e-2994-400d-b88f-4251d1ca0a3f","blendMode":0,"displayName":"default","isLocked":false,"name":"88b5244e-2994-400d-b88f-4251d1ca0a3f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_wo_streetlamp_haunted",
   "nineSlice":null,
@@ -50,7 +49,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":2.0,
+    "length":1.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -70,17 +69,14 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"9b8e94b8-1820-4f1a-b6cf-9a9885064802","path":"sprites/spr_wo_streetlamp_haunted/spr_wo_streetlamp_haunted.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3106e221-02ab-4185-a61d-7b90fbc72916","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7c4d8cf9-ec4a-4a6c-8a32-115852907064","path":"sprites/spr_wo_streetlamp_haunted/spr_wo_streetlamp_haunted.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"974d10f9-3af2-49fb-a8bd-dd8e3e5fb4e0","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"dcc755d9-9d41-45f4-b586-507968f20013","path":"sprites/spr_wo_streetlamp_haunted/spr_wo_streetlamp_haunted.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"e18d16db-03ff-46fd-9cb8-12359b5b0163","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":5,
-    "yorigin":73,
+    "xorigin":6,
+    "yorigin":74,
   },
   "swatchColours":null,
   "swfPrecision":0.5,
@@ -90,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":10,
+  "width":11,
 }

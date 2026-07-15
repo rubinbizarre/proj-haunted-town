@@ -25,7 +25,8 @@ if (global.debug) {
 
 if (stats.owned) {
 	// if owned, draw self differently
-	draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);
+	//draw_sprite_ext(sprite_index, 0, x, y, image_xscale, image_yscale, 0, c_fuchsia, 1);
+	draw_self();
 	
 	if (mouse_hover) {
 		draw_set_halign(fa_center);

@@ -52,11 +52,11 @@ switch (room) {
 			// choose interior sprite depending on building sprite
 			var _interior_obj = _inst.interior_obj;
 			switch (_inst.sprite_index) {
-				case spr_building_0_shack: _interior_obj.sprite_index = spr_interior_0_shack; break;
-				case spr_building_1_house: _interior_obj.sprite_index = spr_interior_1_house; break;
-				case spr_building_2_manor: _interior_obj.sprite_index = spr_interior_2_manor; break;
-				case spr_building_church: _interior_obj.sprite_index = spr_interior_church; break;
-				case spr_building_hotel: _interior_obj.sprite_index = spr_interior_hotel; break;
+				case spr_b_shack: _interior_obj.sprite_index = spr_interior_0_shack; break;
+				case spr_b_house: _interior_obj.sprite_index = spr_interior_1_house; break;
+				case spr_b_manor: _interior_obj.sprite_index = spr_interior_2_manor; break;
+				case spr_b_church: _interior_obj.sprite_index = spr_interior_church; break;
+				case spr_b_hotel: _interior_obj.sprite_index = spr_interior_hotel; break;
 				default: _interior_obj.sprite_index = spr_interior_0_shack; break;
 			}
 			

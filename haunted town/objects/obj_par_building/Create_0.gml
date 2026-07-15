@@ -63,25 +63,28 @@ ps_owned = instance_create_layer(x, y, layer, obj_ps_owned_object);
 ps_owned.depth = depth-1;
 ps_owned.set_pos_depth(x, y, depth);
 
+sprite_normal = noone;
+sprite_haunted = noone;
+
 // determine haunt difficulty rating based on which sprite
 switch (sprite_index) {
-	case spr_building_0_shack: {
+	case spr_b_shack: {
 		stats.cost = 5;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
-	case spr_building_1_house: {
+	case spr_b_house: {
 		stats.cost = 10;
 		//sprite_interior = spr_inside_1_house;
 	} break;
-	case spr_building_2_manor: {
+	case spr_b_manor: {
 		stats.cost = 20;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
-	case spr_building_church: {
+	case spr_b_church: {
 		stats.cost = 50;
 		//sprite_interior = spr_inside_0_shack;
 	} break;
-	case spr_building_hotel: {
+	case spr_b_hotel: {
 		stats.cost = 30;
 		//sprite_interior = spr_inside_0_shack;
 	} break;

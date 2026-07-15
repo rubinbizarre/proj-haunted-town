@@ -130,6 +130,7 @@ if (mouse_confirmed) {
 		if (global.haunt_points >= stats.cost) {
 			global.haunt_points -= stats.cost;
 			stats.owned = true;
+			sprite_index = sprite_haunted;
 			// play sound (unlocked/success)
 			//...
 			// display hp cost notification

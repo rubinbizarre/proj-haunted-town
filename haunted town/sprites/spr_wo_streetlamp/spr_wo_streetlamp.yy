@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"spr_wo_streetlamp",
   "bboxMode":1,
-  "bbox_bottom":76,
+  "bbox_bottom":74,
   "bbox_left":0,
-  "bbox_right":11,
+  "bbox_right":10,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,15 +12,15 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"ab378094-e997-4f53-9d78-092455cc88b3","name":"ab378094-e997-4f53-9d78-092455cc88b3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c6950b7e-3b2a-4d1d-8c5d-9ef157b26f51","name":"c6950b7e-3b2a-4d1d-8c5d-9ef157b26f51","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"30bd89cc-a668-4f1f-bee3-2fa2477a460a","name":"30bd89cc-a668-4f1f-bee3-2fa2477a460a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":77,
+  "height":75,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"4c9b1b0c-8bef-4cff-8320-f576550d8a9f","blendMode":0,"displayName":"default","isLocked":false,"name":"4c9b1b0c-8bef-4cff-8320-f576550d8a9f","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"ed069803-2f58-47da-bd8d-12f0c8b3fe79","blendMode":0,"displayName":"default","isLocked":false,"name":"ed069803-2f58-47da-bd8d-12f0c8b3fe79","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_wo_streetlamp",
   "nineSlice":null,
@@ -70,11 +70,11 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3bde2630-7263-4d3a-9428-e3c388d1aa8d","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b25ee83b-4f71-43d9-ab56-ad1885f381e2","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c6950b7e-3b2a-4d1d-8c5d-9ef157b26f51","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"d04d9df2-d41f-4554-971a-cebd2b43c656","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ab378094-e997-4f53-9d78-092455cc88b3","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"2eccf950-6e22-4d3e-89e0-443f424a13b2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"30bd89cc-a668-4f1f-bee3-2fa2477a460a","path":"sprites/spr_wo_streetlamp/spr_wo_streetlamp.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"509a58b9-861e-4321-86d6-4276de94569d","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -90,5 +90,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":12,
+  "width":11,
 }

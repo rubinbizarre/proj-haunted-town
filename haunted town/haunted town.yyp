@@ -44,6 +44,7 @@
     {"$GMFolder":"","%Name":"Candles","folderPath":"folders/Sprites/Candles.yy","name":"Candles","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Cursor","folderPath":"folders/Sprites/Cursor.yy","name":"Cursor","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Environment","folderPath":"folders/Sprites/Environment.yy","name":"Environment","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Foliage","folderPath":"folders/Sprites/Environment/Foliage.yy","name":"Foliage","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Playground","folderPath":"folders/Sprites/Environment/Playground.yy","name":"Playground","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Fence","folderPath":"folders/Sprites/Environment/Playground/Fence.yy","name":"Fence","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Interiors","folderPath":"folders/Sprites/Interiors.yy","name":"Interiors","resourceType":"GMFolder","resourceVersion":"2.0",},

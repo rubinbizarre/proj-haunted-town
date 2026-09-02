@@ -60,10 +60,10 @@ if (path_index != -1) {
 			if (sprite_index != spr_nev_van_up) sprite_index = spr_nev_van_up;
 		} break;
 		default: { // if any other value, make a decision
-			if (direction > 90 and direction < 270) { // facing left
+			if (direction >= 90 and direction <= 270) { // facing left
 				if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
 				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-			} else if (direction > 180 and direction < 360) { // facing right
+			} else if (direction >= 180 and direction <= 360) { // facing right
 				if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
 				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
 			}
@@ -72,6 +72,13 @@ if (path_index != -1) {
 } else { // if not on a path, or not moving
 	// reset anim_curve to start pos
 	if (ac_time_moving != 0) ac_time_moving = 0;
+	//// change back to static side sprite
+	//if (direction > 90 and direction < 270) { // facing left
+	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+	//} else if (direction > 180 and direction < 360) { // facing right
+	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+	//}
+	
 }
 #endregion
 	
@@ -115,6 +122,8 @@ switch (current_state) {
 				target_x = 0;
 				target_y = 0;
 				current_state = "IDLE";
+				
+				sprite_index = spr_nev_van_side;
 				
 				// cancel go_to_new_dest alarm
 				//alarm[1] = -1;

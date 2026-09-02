@@ -20,6 +20,7 @@ if (global.debug) {
 	draw_text_transformed(x, _y, "home:"+string(home_obj), 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "dest:"+string(target_obj), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "spd:"+string(move_speed), 0.5, 0.5, 0); _y += _ysep;
+	draw_text_transformed(x, _y, "dir:"+string(direction), 0.5, 0.5, 0); _y += _ysep;
 	_y += _ysep;
 	draw_text_transformed(x, _y, "x:"+string(round(x)), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "y:"+string(round(y)), 0.5, 0.5, 0); _y += _ysep;

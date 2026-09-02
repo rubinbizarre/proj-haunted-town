@@ -1,1 +1,0 @@
-fade_active = true;

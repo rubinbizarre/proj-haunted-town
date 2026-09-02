@@ -34,7 +34,7 @@ function map_road_network() {
             var _target = _candidates[i];
             if (_target != noone) {
                 // check if a blocking obj is blocking the road between these two nodes
-                if (!collision_line(_me.x, _me.y, _target.x, _target.y, obj_par_detectable, false, true)) {
+                if (!collision_line(_me.x, _me.y, _target.x, _target.y, obj_roadblock, false, true)) {
                     array_push(_me.connections, _target);
 					//show_debug_message("obj_manager_road_network ROOM_START: pushed a connection to node "+string(_me.node_id)+": "+string(_target.node_id));
                 }

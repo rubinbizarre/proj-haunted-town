@@ -47,6 +47,9 @@ if (!surface_exists(surf_lighting)) {
 				case spr_nev_van_side: {
 					_sprite = spr_nev_van_side_lights;
 				} break;
+				case spr_nev_van_side_moving: {
+					_sprite = spr_nev_van_side_lights;
+				} break;
 				case spr_nev_van_up: {
 					_sprite = spr_nev_van_up_lights;
 				} break;

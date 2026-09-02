@@ -3,8 +3,8 @@
   "%Name":"spr_bogfold_highway",
   "bboxMode":0,
   "bbox_bottom":1815,
-  "bbox_left":70,
-  "bbox_right":194,
+  "bbox_left":0,
+  "bbox_right":124,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,14 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"255f7165-7008-4d6b-b01f-d5e8c0eaeb0d","name":"255f7165-7008-4d6b-b01f-d5e8c0eaeb0d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"39f382c1-adfe-4838-a60a-750bb13259e4","name":"39f382c1-adfe-4838-a60a-750bb13259e4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":1816,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"c5027068-dd4c-4240-92c0-dcc78d3a0156","blendMode":0,"displayName":"default","isLocked":false,"name":"c5027068-dd4c-4240-92c0-dcc78d3a0156","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"c184b732-cb19-40d9-836d-ee509ce29209","blendMode":0,"displayName":"default","isLocked":false,"name":"c184b732-cb19-40d9-836d-ee509ce29209","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_bogfold_highway",
   "nineSlice":null,
@@ -69,13 +69,13 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"255f7165-7008-4d6b-b01f-d5e8c0eaeb0d","path":"sprites/spr_bogfold_highway/spr_bogfold_highway.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"a1d586cf-6e7b-4457-8927-bd2c8560db3e","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"39f382c1-adfe-4838-a60a-750bb13259e4","path":"sprites/spr_bogfold_highway/spr_bogfold_highway.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"e4d07c22-6198-4b89-b4e0-8bdb93bca25e","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
     "volume":1.0,
-    "xorigin":109,
+    "xorigin":62,
     "yorigin":908,
   },
   "swatchColours":null,
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":219,
+  "width":125,
 }

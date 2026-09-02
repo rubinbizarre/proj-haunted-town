@@ -195,14 +195,12 @@ function deploy_nev() {
 	// determine nev deploy pos and depth
 	switch (sprite_index) {
 		case spr_nev_van_side: {
-			if (direction >= 180 and direction <= 360) { // facing right
-			//if (image_xscale == 1) {
+			if (direction == 0) { // van facing right
 				// nev gets out in front of the van and 'below' it
 				_nev_depth = depth - 1;
 				_nev_x = x + 25;
 				_nev_y = y + 50;
-			} else if (direction >= 90 and direction <= 270) { // facing left
-			//} else if (image_xscale == -1) {
+			} else if (direction == 180) { // van facing left
 				// nev gets out behind the van and 'above' it
 				_nev_depth = depth + 1;
 				_nev_x = x - 28;

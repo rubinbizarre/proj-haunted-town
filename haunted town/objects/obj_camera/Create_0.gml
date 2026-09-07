@@ -11,6 +11,8 @@ pan_scale_factor = 0.1;
 // flag for whether to update camera pos every frame with mouse movement (pan)
 camera_panning = false;
 
+stick_pan_speed = 5;
+
 /*
 
 initial setup in room-editor
@@ -41,3 +43,10 @@ cam_h_3 = 180;//135;//
 zoom_level = 0; // 0-3 currently
 zoom_current_w = cam_w_0;
 zoom_current_h = cam_h_0;
+
+function increase_zoom_level() {
+	if (zoom_level < 3) zoom_level += 1;
+}
+function decrease_zoom_level() {
+	if (zoom_level > 0) zoom_level -= 1;
+}

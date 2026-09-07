@@ -55,12 +55,13 @@ if (global.tracked_building != noone) {
 			var vw;
 			switch (zoom_level) {
 				case 0: vw = cam_w_3; break;
-				case 1: vw = cam_w_3; break;
-				case 2: vw = cam_w_2; break;
-				case 3: vw = cam_w_1; break;
+				case 1: vw = cam_w_2; break;
+				case 2: vw = cam_w_1; break;
+				case 3: vw = cam_w_0; break;
 			}
 			// scale factor based on base zoom (level 0)
 			var speed_factor = cam_w_1 / vw;
+			var speed_factor = cam_w_0 / vw;
 		
 			dx *= speed_factor;
 			dy *= speed_factor;
@@ -83,11 +84,11 @@ if (global.tracked_building != noone) {
 	
 		#region switch zoom level with mouse wheel
 		//if (room != rm_inside) {
-			if mouse_wheel_up() {
-				if (zoom_level < 3) zoom_level += 1;
+			if mouse_wheel_up() or gamepad_button_check_pressed(0, gp_padu) {
+				increase_zoom_level();
 			}
-			if mouse_wheel_down() {
-				if (zoom_level > 0) zoom_level -= 1;
+			if mouse_wheel_down() or gamepad_button_check_pressed(0, gp_padd) {
+				decrease_zoom_level();
 			}
 		//}
 		#endregion
@@ -102,6 +103,42 @@ if (global.tracked_building != noone) {
 			camera_set_view_size(cam, zoom_current_w, zoom_current_h);
 			// position camera correctly, centred at same point as before
 			camera_set_view_pos(cam, _center_x - zoom_current_w/2, _center_y - zoom_current_h/2);
+		}
+		#endregion
+		
+		#region manual camera panning with left stick
+		if (gamepad_is_connected(0)) {
+		    var _lx = gamepad_axis_value(0, gp_axislh);
+		    var _ly = gamepad_axis_value(0, gp_axislv);
+
+		    var _dz = 0.15;
+		    if (abs(_lx) < _dz) _lx = 0;
+		    if (abs(_ly) < _dz) _ly = 0;
+
+		    if (_lx != 0 || _ly != 0) {
+		        // reuse the same zoom-scaling logic as mouse pan
+		        var vw;
+		        switch (zoom_level) {
+		            //case 0: vw = cam_w_3; break;
+		            //case 1: vw = cam_w_3; break;
+		            //case 2: vw = cam_w_2; break;
+		            //case 3: vw = cam_w_1; break;
+					case 0: vw = cam_w_3; break;
+					case 1: vw = cam_w_2; break;
+					case 2: vw = cam_w_1; break;
+					case 3: vw = cam_w_0; break;
+		        }
+		        //var speed_factor = cam_w_1 / vw;
+				var speed_factor = cam_w_0 / vw;
+
+		        var cam_x = camera_get_view_x(cam);
+		        var cam_y = camera_get_view_y(cam);
+
+		        camera_set_view_pos(cam,
+		            cam_x + _lx * stick_pan_speed * speed_factor,
+		            cam_y + _ly * stick_pan_speed * speed_factor
+		        );
+		    }
 		}
 		#endregion
 	}

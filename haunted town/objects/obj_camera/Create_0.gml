@@ -31,18 +31,22 @@ room	w 1920  h 1080
 // y = 720
 
 
-cam_w_0 = 3840;
-cam_h_0 = 2160;
-cam_w_1 = 1920;
-cam_h_1 = 1080;
-cam_w_2 = 640;
-cam_h_2 = 360;
+cam_w_0 = 3840; cam_h_0 = 2160;
+//cam_w_1 = 1920; cam_h_1 = 1080;
+cam_w_1 = 1280; cam_h_1 = 720;
+cam_w_2 = 640;  cam_h_2 = 360;
 cam_w_3 = 320;//240;//
 cam_h_3 = 180;//135;//
 
-zoom_level = 0; // 0-3 currently
-zoom_current_w = cam_w_0;
-zoom_current_h = cam_h_0;
+zoom_level = 0; // 0-3
+
+zoom_target_w = cam_w_0;
+zoom_target_h = cam_h_0;
+zoom_current_w = zoom_target_w;
+zoom_current_h = zoom_target_h;
+
+zoom_lerp_rate = 0.12; // fraction closed per step, tune to taste
+zoom_snap_eps  = 0.5;  // px distance below which to snap to exact target
 
 function increase_zoom_level() {
 	if (zoom_level < 3) zoom_level += 1;

@@ -97,16 +97,32 @@ if (global.tracked_building != noone) {
 		//}
 		#endregion
 	
+		#region handle changing current camera zoom target depending on zoom_level
+		switch (zoom_level) {
+			case 0: { zoom_target_w = cam_w_0; zoom_target_h = cam_h_0; } break;
+			case 1: { zoom_target_w = cam_w_1; zoom_target_h = cam_h_1; } break;
+			case 2: { zoom_target_w = cam_w_2; zoom_target_h = cam_h_2; } break;
+			case 3: { zoom_target_w = cam_w_3; zoom_target_h = cam_h_3; } break;
+		}
+		#endregion
+
+		#region ease zoom_current toward zoom_target
+		if (zoom_current_w != zoom_target_w || zoom_current_h != zoom_target_h) {
+		    zoom_current_w = lerp(zoom_current_w, zoom_target_w, zoom_lerp_rate);
+		    zoom_current_h = lerp(zoom_current_h, zoom_target_h, zoom_lerp_rate);
+			// snap zoom_current to zoom_target when close enough
+		    if (abs(zoom_current_w - zoom_target_w) < zoom_snap_eps) zoom_current_w = zoom_target_w;
+		    if (abs(zoom_current_h - zoom_target_h) < zoom_snap_eps) zoom_current_h = zoom_target_h;
+		}
+		#endregion
+
 		#region watch to update camera zoom with current zoom level while tracked_inst is unassigned
 		if (camera_get_view_width(cam) != zoom_current_w) {
-			// get centre of previous camera zoom
-			// camera needs to be centred on room position at centre
-			var _center_x = camera_get_view_x(cam) + camera_get_view_width(cam) / 2;
-			var _center_y = camera_get_view_y(cam) + camera_get_view_height(cam) / 2;
-			// set new camera zoom level
-			camera_set_view_size(cam, zoom_current_w, zoom_current_h);
-			// position camera correctly, centred at same point as before
-			camera_set_view_pos(cam, _center_x - zoom_current_w/2, _center_y - zoom_current_h/2);
+		    var _center_x = camera_get_view_x(cam) + camera_get_view_width(cam) / 2;
+		    var _center_y = camera_get_view_y(cam) + camera_get_view_height(cam) / 2;
+
+		    camera_set_view_size(cam, zoom_current_w, zoom_current_h);
+		    camera_set_view_pos(cam, _center_x - zoom_current_w/2, _center_y - zoom_current_h/2);
 		}
 		#endregion
 		
@@ -147,28 +163,6 @@ if (global.tracked_building != noone) {
 		#endregion
 	}
 }
-
-#region handle changing current camera zoom values
-// handle changing current camera zoom depending on zoom_level
-switch (zoom_level) {
-	case 0: {
-		if (zoom_current_w != cam_w_0) zoom_current_w = cam_w_0;
-		if (zoom_current_h != cam_h_0) zoom_current_h = cam_h_0;
-	} break;
-	case 1: {
-		if (zoom_current_w != cam_w_1) zoom_current_w = cam_w_1;
-		if (zoom_current_h != cam_h_1) zoom_current_h = cam_h_1;
-	} break;
-	case 2: {
-		if (zoom_current_w != cam_w_2) zoom_current_w = cam_w_2;
-		if (zoom_current_h != cam_h_2) zoom_current_h = cam_h_2;
-	} break;
-	case 3: {
-		if (zoom_current_w != cam_w_3) zoom_current_w = cam_w_3;
-		if (zoom_current_h != cam_h_3) zoom_current_h = cam_h_3;
-	} break;
-}
-#endregion
 
 #region handle camera shake (commented - needs reworking)
 //// initialize original camera position 

@@ -54,13 +54,17 @@ if (global.tracked_building != noone) {
 			// figure out viewport size for current zoom
 			var vw;
 			switch (zoom_level) {
+				//case 0: vw = cam_w_3; break;
+				//case 1: vw = cam_w_3; break;
+				//case 2: vw = cam_w_2; break;
+				//case 3: vw = cam_w_1; break;
 				case 0: vw = cam_w_3; break;
 				case 1: vw = cam_w_2; break;
 				case 2: vw = cam_w_1; break;
 				case 3: vw = cam_w_0; break;
 			}
 			// scale factor based on base zoom (level 0)
-			var speed_factor = cam_w_1 / vw;
+			//var speed_factor = cam_w_1 / vw;
 			var speed_factor = cam_w_0 / vw;
 		
 			dx *= speed_factor;

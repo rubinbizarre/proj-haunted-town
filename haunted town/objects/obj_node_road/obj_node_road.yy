@@ -31,7 +31,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_node_road",
+    "path":"sprites/spr_node_road/spr_node_road.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

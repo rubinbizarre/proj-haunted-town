@@ -1,3 +1,5 @@
+//draw_sprite(global.my_cursor_sprite, 0, cursor_x(), cursor_y());
+
 switch (room) {
 	case rm_main: {
 		if (global.debug) {

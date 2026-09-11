@@ -5,6 +5,9 @@ var _ysep = 0;
 var _gui_w = display_get_gui_width();
 var _gui_h = display_get_gui_height();
 
+draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
+	//, 0.5, 0.5, 0, c_white, 1);
+
 switch (room) {
 	case rm_title: {
 		_x = _gui_w/2;

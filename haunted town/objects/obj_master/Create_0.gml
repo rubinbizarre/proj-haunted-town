@@ -48,7 +48,17 @@ global.summary_box = noone; // see room start
 
 // initialise cursor
 window_set_cursor(cr_none);
-cursor_sprite = spr_cursor_default;
+//cursor_sprite = spr_cursor_default;
+global.my_cursor_sprite = spr_cursor_default;
+
+// for virtual cursor / controller
+global.vcursor_room_x = 0;
+global.vcursor_room_y = 0;
+global.vcursor_gui_x = display_get_gui_width() / 2;
+global.vcursor_gui_y = display_get_gui_height() / 2;
+global.using_gamepad_cursor = false; // tracks which input last moved the cursor
+global.last_mouse_x = mouse_x;
+global.last_mouse_y = mouse_y;
 
 depth = -10000;
 
@@ -132,7 +142,7 @@ function destroy_paused_surface() {
 function create_paused_surface() {
 	// stop panning
 	obj_camera.camera_panning = false;
-	cursor_sprite = spr_cursor_default;
+	global.my_cursor_sprite = spr_cursor_default;
 	// capture surface before deactivating all instances
 	if (!surface_exists(paused_surface)) {
 		paused_surface = surface_create(display_get_gui_width(), display_get_gui_height());

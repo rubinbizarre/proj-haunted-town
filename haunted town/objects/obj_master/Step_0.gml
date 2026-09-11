@@ -168,12 +168,15 @@ switch (room) {
 		if (!global.paused) and (!global.display_end_of_day) {
 			
 			#region create 'cursor click' inst effect
-			if (mouse_check_button_pressed(mb_left)) {
+			if (mouse_check_button_pressed(mb_left)) or (gamepad_button_check_pressed(0, gp_face1)) {
 				//var _x = device_mouse_x_to_gui(0);
 				//var _y = device_mouse_y_to_gui(0);
 				//instance_create_layer(_x, _y, "Master", obj_cursor_click_gui);
-				var _x = mouse_x;
-				var _y = mouse_y;
+				
+				//var _x = mouse_x;
+				//var _y = mouse_y;
+				var _x = cursor_x();
+				var _y = cursor_y();
 				instance_create_layer(_x, _y, "Master", obj_cursor_click);
 				//show_debug_message("obj_master STEP: created obj_cursor_click");
 			}

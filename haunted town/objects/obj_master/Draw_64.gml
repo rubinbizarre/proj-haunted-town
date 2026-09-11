@@ -113,6 +113,7 @@ switch (room) {
 				draw_set_valign(fa_middle);
 				draw_set_color(global.c_haunt);
 				draw_set_font(font_main_body);
+				
 				// draw 'PAUSED' title header
 				_x = _gui_w/2;
 				draw_text_transformed(_x, _gui_h/2, "[NOT] PAUSED", 2, 2, 0);
@@ -139,6 +140,9 @@ switch (room) {
 				
 				surface_reset_target();
 				draw_surface(paused_surface, 0, 0);
+				
+				// draw cursor
+				draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
 			} else {
 				if (global.debug) show_debug_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
 				paused_surface = surface_create(_gui_w, _gui_h);

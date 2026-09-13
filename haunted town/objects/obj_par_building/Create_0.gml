@@ -1,3 +1,6 @@
+//depth = y - layer_get_depth(layer);
+depth = -y;
+
 stats = {
     //fear: 0,
     //danger: 0,

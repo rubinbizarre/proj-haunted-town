@@ -1,3 +1,5 @@
+depth = -y;
+
 // identity and key vars for pathing movement
 routine_type = "adult"; // kid, adult, tourist, etc
 move_speed = 1*2; //during testing. 1 or 2 might be optimal. //1; //0.5;//0.25;

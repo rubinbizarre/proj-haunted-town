@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"Area Clouds",
+    "path":"folders/Sprites/Backgrounds/Archive/Area Clouds.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

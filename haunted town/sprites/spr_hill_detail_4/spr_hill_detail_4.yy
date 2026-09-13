@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Backgrounds",
-    "path":"folders/Sprites/Backgrounds.yy",
+    "name":"Hill Rocky Details",
+    "path":"folders/Sprites/Backgrounds/Hill Rocky Details.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

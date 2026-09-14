@@ -1,4 +1,4 @@
-if (depth != -(y + 25)) depth = -(y + 25); // set correct depth based on ypos and sprite origin offset. i think its closer to 22 but whatever
+depth = -(y + 22); // set correct depth based on ypos and sprite origin offset. i think its closer to 22 but whatever
 
 // periodic routine check but only in certain conditions
 if (current_state == "RETURN_HOME") {

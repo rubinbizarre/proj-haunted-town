@@ -1,4 +1,8 @@
-if (depth != -y) depth = -y;
+depth = -y;
+if (instance_exists(obj_ps_sub_feedback)) {
+	obj_ps_sub_feedback.depth = depth - 1;
+	show_debug_message("assigned depth to ps_sub_feedback");
+}
 
 #region animation & sprite flipping logic
 if (path_index != -1) and (current_state != "SURVEY_POI") {

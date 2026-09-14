@@ -15,11 +15,11 @@ pt_gain = info_gain.emitters[0].parttype.ind;      // this is @ref particle_type
 em_loss = info_loss.emitters[0].ind;               // this is @ref particle_emitter(0)
 pt_loss = info_loss.emitters[0].parttype.ind;
 
-// Set initial position
+// set initial position
 part_system_position(part_sys_gain, 0, 0);
 part_system_position(part_sys_loss, 0, 0);
 
-// Start disabled (0 particles per step)
+// start disabled (0 particles per step)
 part_emitter_stream(part_sys_gain, em_gain, pt_gain, 0);
 part_emitter_stream(part_sys_loss, em_loss, pt_loss, 0);
 

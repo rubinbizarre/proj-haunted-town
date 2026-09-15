@@ -62,7 +62,8 @@ if (btn_confirmed) {
 		if (global.haunt_points >= cost) { // if player has enough HP to unlock this
 			// make unlocked and subtract cost from hp wallet
 			locked = false;
-			global.haunt_points -= cost;
+			//global.haunt_points -= cost;
+			lose_haunt_points(cost);
 			ps_owned.start();
 			// play sound (unlock/purchase/success)
 			//...
@@ -129,7 +130,8 @@ if (deactivate_active) {
 		// escrow can now be transferred to player
 		// (should also be shown visually)
 		if (escrow > 0) {
-			global.haunt_points += escrow;
+			//global.haunt_points += escrow;
+			add_haunt_points(escrow);
 			// display HP notification
 			with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
 				amount = "+"+string(other.escrow);

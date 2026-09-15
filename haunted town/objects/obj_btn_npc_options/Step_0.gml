@@ -45,7 +45,8 @@ if (btn_confirmed) {
 				// play sound (possess success)
 				//...
 				// subtract haunt points (hp)
-				global.haunt_points -= _cost;
+				//global.haunt_points -= _cost;
+				lose_haunt_points(_cost);
 				// display cost notification
 				with instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_notif) {
 					amount = "-"+string(_cost);

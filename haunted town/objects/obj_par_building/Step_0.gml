@@ -128,7 +128,8 @@ if (mouse_confirmed) {
 	} else {
 		// if player can afford to purchase this
 		if (global.haunt_points >= stats.cost) {
-			global.haunt_points -= stats.cost;
+			//global.haunt_points -= stats.cost;
+			lose_haunt_points(stats.cost);
 			stats.owned = true;
 			sprite_index = sprite_haunted;
 			// play sound (unlocked/success)

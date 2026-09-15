@@ -1,6 +1,7 @@
 // largely copied from obj_par_world_objects
 
-//depth = y;
+// set to -5000 as an approximate guess in order to display above interior objects
+depth = -5000;
 
 // button vars
 mouse_hover = false;

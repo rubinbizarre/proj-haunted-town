@@ -92,7 +92,8 @@ if (btn_confirmed) {
 		if (global.haunt_points >= cost) { // if player has enough HP to unlock this
 			// make unlocked and subtract cost from hp wallet
 			locked = false;
-			global.haunt_points -= cost;
+			//global.haunt_points -= cost;
+			lose_haunt_points(cost);
 			ps_owned.start();
 			current_building.ps_owned.start();
 			// play sound (unlock/purchase/success)

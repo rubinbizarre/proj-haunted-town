@@ -25,6 +25,12 @@ global.haunt_points = 30;
 global.lifetime_haunt_points = 0;
 global.super_haunt_ready = false;
 global.super_haunt_active = false;
+global.super_haunt_threshold_index = 0;
+global.super_haunt_threshold = [
+	50,
+	60,
+	70
+];
 
 global.display_end_of_day = false;
 global.display_podcast = false;

@@ -212,11 +212,13 @@ switch (room) {
 			if (keyboard_check_pressed(vk_space)) and (global.super_haunt_ready) {
 				global.super_haunt_ready = false;
 				global.super_haunt_active = true;
+				// reset lifetime hp
+				global.lifetime_haunt_points = 0;
+				//// increment super haunt threshold
+				//global.super_haunt_threshold_index ++;
 			}
 			#endregion
 		}
-		
-		
 		
 		#region handle WIN condition(s)
 		if (global.total_buildings_purchased == global.total_buildings_available) {

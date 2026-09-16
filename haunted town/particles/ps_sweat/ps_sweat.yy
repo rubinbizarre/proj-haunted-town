@@ -2,7 +2,7 @@
   "$GMParticleSystem":"",
   "%Name":"ps_sweat",
   "backdropHeight":41,
-  "backdropImageOpacity":0.5,
+  "backdropImageOpacity":1.0,
   "backdropImagePath":"C:\\Users\\thesh\\GameMakerProjects\\_HAUNTED-TOWN\\sprites\\Nev\\nev scared 1.png",
   "backdropWidth":23,
   "backdropXOffset":0.0,

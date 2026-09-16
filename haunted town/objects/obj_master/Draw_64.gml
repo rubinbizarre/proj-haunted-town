@@ -297,8 +297,13 @@ switch (room) {
 			draw_set_colour(c_white);
 			draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
 			draw_text(_x, _y, "SUPER HAUNT STATUS: "+string(global.super_haunt_ready)); _y += _ysep;
-			if (global.super_haunt_ready) draw_text(_gui_w/2, _y, "press SPACE to activate SUPER HAUNT"); _y += _ysep;
 			draw_text(_x, _y, "super threshold: "+string(global.super_haunt_threshold[global.super_haunt_threshold_index])); _y += _ysep;
+			
+			if (global.super_haunt_ready) {
+				draw_set_halign(fa_center);
+				draw_text(_gui_w/2, _gui_h*0.8, "press SPACE to activate SUPER HAUNT");
+				draw_set_halign(fa_left);
+			}
 			
 			// cleanup
 			draw_set_colour(c_white);

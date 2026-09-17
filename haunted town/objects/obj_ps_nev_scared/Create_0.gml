@@ -18,7 +18,7 @@ em_spirals = info_loss.emitters[0].ind;               // this is @ref particle_e
 pt_spirals = info_loss.emitters[0].parttype.ind;
 
 // set initial position
-part_system_position(part_sys_gain, 0, 0);
+part_system_position(part_sys_sweat, 0, 0);
 part_system_position(part_sys_spirals, 0, 0);
 
 // start disabled (0 particles per step)

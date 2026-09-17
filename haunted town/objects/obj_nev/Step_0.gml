@@ -1,7 +1,7 @@
 depth = -y;
 if (instance_exists(obj_ps_sub_feedback)) {
 	obj_ps_sub_feedback.depth = depth - 1;
-	show_debug_message("assigned depth to ps_sub_feedback");
+	//show_debug_message("assigned depth to ps_sub_feedback");
 }
 
 #region animation & sprite flipping logic

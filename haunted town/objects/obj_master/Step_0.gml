@@ -178,6 +178,9 @@ switch (room) {
 				var _x = cursor_x();
 				var _y = cursor_y();
 				instance_create_layer(_x, _y, "Master", obj_cursor_click);
+				if (!instance_exists(obj_nev_scared)) {
+					instance_create_layer(_x, _y, "Master", obj_nev_scared);
+				}
 				//show_debug_message("obj_master STEP: created obj_cursor_click");
 			}
 			#endregion

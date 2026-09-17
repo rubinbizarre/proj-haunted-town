@@ -113,7 +113,7 @@ function sort_todo_queue_by_distance() {
 function check_for_paranormal_nev() {
 	#region check for all detectable objects
 	var _list = ds_list_create();
-	var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_detectable, false, true, _list, false);
+	var _num = collision_circle_list(x, y, global.nev_detect_radius, obj_par_detectable_by_nev, false, true, _list, false);
 		
 	for (var i = 0; i < _num; i++) {
 		var _inst = _list[| i];

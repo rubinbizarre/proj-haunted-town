@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_par_detectable",
+  "%Name":"obj_par_spookable",
   "eventList":[],
   "managed":true,
-  "name":"obj_par_detectable",
+  "name":"obj_par_spookable",
   "overriddenProperties":[],
   "parent":{
     "name":"Parents",

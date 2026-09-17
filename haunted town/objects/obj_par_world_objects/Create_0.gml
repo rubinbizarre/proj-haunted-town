@@ -89,7 +89,7 @@ function check_for_npcs() {
 	// 1 // clear the current list and find who is inside now
 	ds_list_clear(current_list);
 	
-	var _num = collision_circle_list(x, y, r, obj_par_npc, false, true, current_list, false);
+	var _num = collision_circle_list(x, y, r, obj_par_spookable, false, true, current_list, false);
 
 	// 2 // find 'new entries' (in current_list ONLY, not in last_list)
 	for (var i = 0; i < ds_list_size(current_list); i++) {

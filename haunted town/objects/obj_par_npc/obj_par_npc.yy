@@ -25,8 +25,8 @@
     "path":"folders/Objects/Parents.yy",
   },
   "parentObjectId":{
-    "name":"obj_par_detectable",
-    "path":"objects/obj_par_detectable/obj_par_detectable.yy",
+    "name":"obj_par_spookable",
+    "path":"objects/obj_par_spookable/obj_par_spookable.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

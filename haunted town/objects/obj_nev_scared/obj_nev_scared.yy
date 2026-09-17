@@ -14,7 +14,10 @@
     "name":"Nev",
     "path":"folders/Objects/Nev.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_spookable",
+    "path":"objects/obj_par_spookable/obj_par_spookable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -33,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_nev_scared",
-    "path":"sprites/spr_nev_scared/spr_nev_scared.yy",
+    "name":"spr_nev_scared_idle",
+    "path":"sprites/spr_nev_scared_idle/spr_nev_scared_idle.yy",
   },
   "spriteMaskId":null,
   "visible":true,

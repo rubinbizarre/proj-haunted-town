@@ -83,8 +83,14 @@ hp_display_strength = 0.01;
 
 objective = "Haunt the Town";
 
-timer_super_haunt_max = 0.5;//1;
+// --- SUPER HAUNT TIMER
+timer_super_haunt_max = 0.5;//1; // determines length of time between lifetime hp decrements
 timer_super_haunt_cur = -1;
+
+// --- SUPER HAUNT PULSATE EFFECT (see draw gui event)
+sh_alpha = 0;
+sh_rect_offset = 0;
+sh_rect_rate = 3;
 
 //areas_unlocked = 1;
 

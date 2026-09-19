@@ -220,6 +220,7 @@ switch (room) {
 				timer_super_haunt_cur = timer_super_haunt_max;
 				
 				// deactivate all currently haunted world- and scary-objects
+				// right now it just deactivates all of the instances even if they are not active?
 				for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 					var _inst = instance_find(obj_par_world_objects, _i);
 					_inst.deactivate();
@@ -253,7 +254,11 @@ switch (room) {
 					    timer_super_haunt_cur = -1;
 					    #region --- alarm code ---
 						if (global.lifetime_haunt_points > 0) {
+							// drain lifetime hp by one
 							global.lifetime_haunt_points -= 1;
+							// reset sh_rect_offset to zero
+							sh_rect_offset = 0;
+							// trigger timer to go again
 							timer_super_haunt_cur = timer_super_haunt_max;
 						} else {
 							// SUPER HAUNT has ran out of time and is finished
@@ -297,6 +302,12 @@ switch (room) {
 						#endregion
 					}
 				}
+					
+				// increment sh_rect_offset for pulsate effect
+				sh_rect_offset += sh_rect_rate;
+				
+				// link sh_alpha to timer progression
+				sh_alpha = timer_super_haunt_cur/timer_super_haunt_max;
 			}
 			#endregion
 		}

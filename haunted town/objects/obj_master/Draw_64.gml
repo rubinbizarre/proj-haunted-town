@@ -339,6 +339,94 @@ switch (room) {
 			#endregion
 		}
 		
+		#region pulsating superhaunt effect
+		if (global.super_haunt_active) {
+			var _weight = 9;
+			var _offset = 10;
+			
+			// display vars
+			var _vx = 0;
+			var _vy = 0;
+			var _vw = display_get_gui_width();
+			var _vh = display_get_gui_height();
+			
+			draw_set_alpha(sh_alpha);
+			draw_set_colour(#cb73ff);
+			
+			// --- EDGE RECTANGLES --- //
+			// top rect
+			draw_rectangle(
+				_vx + _offset + sh_rect_offset,
+				_vy + sh_rect_offset,
+				_vw - _offset - sh_rect_offset,
+				_vy + _weight + sh_rect_offset,
+				false
+			);
+			// bottom rect
+			draw_rectangle(
+				_vx + _offset + sh_rect_offset,
+				_vh - _weight - sh_rect_offset,
+				_vw - _offset - sh_rect_offset,
+				_vh - sh_rect_offset,
+				false
+			);
+			// left rect
+			draw_rectangle(
+				_vx + sh_rect_offset,
+				_vy + _offset + sh_rect_offset,
+				_vx + _weight + sh_rect_offset,
+				_vh - _offset - sh_rect_offset,
+				false
+			);
+			// right rect
+			draw_rectangle(
+				_vw - _weight - sh_rect_offset,
+				_vy + _offset + sh_rect_offset,
+				_vw - sh_rect_offset,
+				_vh - _offset - sh_rect_offset,
+				false
+			);
+			
+			// --- CORNER SQUARES --- //
+			// top left
+			draw_rectangle(
+				_vx + _offset + sh_rect_offset - _offset,
+				_vy + sh_rect_offset,
+				_vx + _weight + sh_rect_offset,
+				_vy + _weight + sh_rect_offset,
+				false
+			);
+			// bottom left
+			draw_rectangle(
+				_vx + _offset + sh_rect_offset - _offset,
+				_vh - _weight - sh_rect_offset,
+				_vx + _weight + sh_rect_offset,
+				_vh - sh_rect_offset,
+				false
+			);
+			// top right
+			draw_rectangle(
+				_vw - _weight - sh_rect_offset,
+				_vy + sh_rect_offset,
+				_vw - sh_rect_offset,
+				_vy + _weight + sh_rect_offset,
+				false
+			);
+			// bottom right
+			draw_rectangle(
+				_vw - _weight - sh_rect_offset,
+				_vh - _weight - sh_rect_offset,
+				_vw - sh_rect_offset,
+				_vh - sh_rect_offset,
+				false
+			);
+			#endregion
+		
+			draw_set_colour(c_white);
+			draw_set_alpha(1);
+		}
+		#endregion
+		
 		#region deprecated menu_haunt_active display for haunting buildings (commented)
 		//if (global.menu_haunt_active) {
 		//	draw_set_halign(fa_center);

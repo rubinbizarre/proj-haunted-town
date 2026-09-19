@@ -15,10 +15,10 @@ if (global.debug) {
 	//draw_text_transformed(x, _y, "state:"+current_state, 0.5, 0.5, 0); _y += _ysep;
 	//draw_text_transformed(x, _y, "gear_tier:"+string(global.nev_gear_tier), 0.5, 0.5, 0); _y += _ysep;
 	draw_text_transformed(x, _y, "path_index:"+string(path_index), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "r_path_x:"+string(return_path_x), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "r_path_y:"+string(return_path_y), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "r_van_x:"+string(return_van_x), 0.5, 0.5, 0); _y += _ysep;
-	draw_text_transformed(x, _y, "r_van_y:"+string(return_van_y), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "r_path_x:"+string(return_path_x), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "r_path_y:"+string(return_path_y), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "r_van_x:"+string(return_van_x), 0.5, 0.5, 0); _y += _ysep;
+	//draw_text_transformed(x, _y, "r_van_y:"+string(return_van_y), 0.5, 0.5, 0); _y += _ysep;
 	draw_set_halign(fa_left);
 }
 

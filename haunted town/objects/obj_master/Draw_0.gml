@@ -7,5 +7,8 @@ switch (room) {
 			mp_grid_draw(global.town_grid);
 			draw_set_alpha(1);
 		}
+		
+		
+		
 	} break;
 }

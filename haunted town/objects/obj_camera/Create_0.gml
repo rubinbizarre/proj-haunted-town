@@ -12,6 +12,7 @@ pan_scale_factor = 0.1;
 camera_panning = false;
 
 stick_pan_speed = 5;
+key_pan_speed = 2;
 
 /*
 

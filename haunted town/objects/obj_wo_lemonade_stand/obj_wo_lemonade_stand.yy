@@ -9,7 +9,10 @@
     "name":"World Objects",
     "path":"folders/Objects/World Objects.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_par_world_objects",
+    "path":"objects/obj_par_world_objects/obj_par_world_objects.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

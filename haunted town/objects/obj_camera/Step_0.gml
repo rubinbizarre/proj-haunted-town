@@ -161,6 +161,43 @@ if (global.tracked_building != noone) {
 		    }
 		}
 		#endregion
+		
+		#region manual camera panning with keyboard (WASD)
+		if (!global.building_view_inside) {
+			var _kx = 0;
+			var _ky = 0;
+
+			if (keyboard_check(ord("A"))) _kx -= 1;
+			if (keyboard_check(ord("D"))) _kx += 1;
+			if (keyboard_check(ord("W"))) _ky -= 1;
+			if (keyboard_check(ord("S"))) _ky += 1;
+
+			if (_kx != 0 || _ky != 0) {
+			    // normalize so diagonal isn't faster than cardinal
+			    var _len = point_distance(0, 0, _kx, _ky);
+			    _kx /= _len;
+			    _ky /= _len;
+
+			    // reuse the same zoom-scaling logic as mouse/stick pan
+			    var vw;
+			    switch (zoom_level) {
+			        case 0: vw = cam_w_3; break;
+			        case 1: vw = cam_w_2; break;
+			        case 2: vw = cam_w_1; break;
+			        case 3: vw = cam_w_0; break;
+			    }
+			    var speed_factor = cam_w_0 / vw;
+
+			    var cam_x = camera_get_view_x(cam);
+			    var cam_y = camera_get_view_y(cam);
+
+			    camera_set_view_pos(cam,
+			        cam_x + _kx * key_pan_speed * speed_factor,
+			        cam_y + _ky * key_pan_speed * speed_factor
+			    );
+			}
+		}
+		#endregion
 	}
 }
 

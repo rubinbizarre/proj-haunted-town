@@ -346,10 +346,10 @@ switch (room) {
 			if (global.nev_fear > 0.0) {
 				var _width = 200;
 				var _thickness = 16;
-				var _x1 = (_gui_w/2) - _width;
-				var _x2 = (_gui_w/2) + _width;
-				var _y1 = 120;
-				var _y2 = _y1 + _thickness;
+				_x1 = (_gui_w/2) - _width;
+				_x2 = (_gui_w/2) + _width;
+				_y1 = 120;
+				_y2 = _y1 + _thickness;
 				var _total_width = _x2 - _x1;
 				draw_set_color(c_dkgray);
 				draw_rectangle(_x1, _y1, _x2, _y2, false);

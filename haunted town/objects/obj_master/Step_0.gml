@@ -224,7 +224,7 @@ switch (room) {
 				// also make all world- and scary-objects unlocked but remember them so that they can be locked once superhaunt is finished
 				for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 					var _inst = instance_find(obj_par_world_objects, _i);
-					_inst.deactivate();
+					if (_inst.haunted) _inst.deactivate();
 					_inst.ps_owned.start();
 					if (_inst.locked) {
 						_inst.locked = false;
@@ -235,7 +235,7 @@ switch (room) {
 				}
 				for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
 					var _inst = instance_find(obj_par_scary_objects, _i);
-					_inst.deactivate();
+					if (_inst.haunted) _inst.deactivate();
 					_inst.ps_owned.start();
 					if (_inst.locked) {
 						_inst.locked = false;
@@ -266,7 +266,23 @@ switch (room) {
 							// reset sh_rect_offset to zero
 							sh_rect_offset = 0;
 							// trigger timer to go again
-							timer_super_haunt_cur = timer_super_haunt_max;
+							var _timer_amount = timer_super_haunt_max;
+							if (global.active_haunts > 1) {
+								// factor to decrease by should be at most 0.5
+								// increases with multiple haunted objects
+								// e.g. 2 haunted objects will affect timer_amount by factor 0.1
+								//		3 haunted objects will affect timer_amount by factor 0.2, etc...
+								//		6 or more haunted objects will affect timer_amount by factor 0.5
+								var _modifier = (global.active_haunts / 10) - 0.1;
+								if (_modifier > 0.5) _modifier = 0.5;
+								var _factor = 1 - _modifier;
+								// e.g. 2 haunted objects will result in (1 - 0.1) = 0.9
+								//		which in turn results in timer_super_haunt_max (currently 0.5) being
+								//		multiplied by 0.9. (0.5 * 0.9 = 0.45)
+								//		at max factor 0.5. (0.5 * 0.5 = 0.25)
+								_timer_amount *= _factor;
+							}
+							timer_super_haunt_cur = _timer_amount;
 						} else {
 							// SUPER HAUNT has ran out of time and is finished
 							global.super_haunt_active = false;
@@ -274,11 +290,11 @@ switch (room) {
 							// right now it just deactivates all of the instances even if they are not active?
 							for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 								var _inst = instance_find(obj_par_world_objects, _i);
-								_inst.deactivate();
+								if (_inst.haunted) _inst.deactivate();
 							}
 							for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
 								var _inst = instance_find(obj_par_scary_objects, _i);
-								_inst.deactivate();
+								if (_inst.haunted) _inst.deactivate();
 							}
 							// lock objects that were temporarily unlocked for the superhaunt
 							for (var _i = 0; _i < array_length(sh_lock_list); _i++) {

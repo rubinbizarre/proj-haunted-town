@@ -219,6 +219,16 @@ switch (room) {
 				// "The Super Haunt Meter stores all the spooks you've earned so far"
 				timer_super_haunt_cur = timer_super_haunt_max;
 				
+				// deactivate all currently haunted world- and scary-objects
+				for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
+					var _inst = instance_find(obj_par_world_objects, _i);
+					_inst.deactivate();
+				}
+				for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
+					var _inst = instance_find(obj_par_scary_objects, _i);
+					_inst.deactivate();
+				}
+				
 				//// reset lifetime hp
 				//// this could instead decrease slowly and-
 				//// be the indicator of how much time you have left
@@ -278,9 +288,10 @@ switch (room) {
 								return_path_x = _return_path_x;
 								return_path_y = _return_path_y;
 								// assign state
-								//current_state = "RETURN_TO_PATH";
 								current_state = "SURVEY_POI";
+								// ensure correct behaviour
 								finished_surveying = true;
+								timer_glance_cur = -1; // turn this timer off. by default it is activated in nev's create event, and causes the glance to occur which resets the return_path_x,y values
 							}
 						}
 						#endregion

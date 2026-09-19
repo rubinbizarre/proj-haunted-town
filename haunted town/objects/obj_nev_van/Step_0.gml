@@ -10,8 +10,8 @@ if (current_state == "RETURN_HOME") {
 		event_user(0); // trigger routine logic
 	}
 } else {
-	// periodic check for haunted POIs whilst nev is 'inside' the van
-	if (!instance_exists(obj_nev)) or (!instance_exists(obj_nev_scared)) {
+	// periodic check for haunted POIs whilst nev is 'inside' the van or anytime superhaunt is not active
+	if (!instance_exists(obj_nev)) or (!instance_exists(obj_nev_scared)) or (!global.super_haunt_active) {
 		if (check_timer > 0) {
 	        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
 	    } else {

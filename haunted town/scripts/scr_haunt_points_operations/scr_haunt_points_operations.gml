@@ -29,8 +29,9 @@ function add_haunt_points(hp = 1) {
 	}
 	
 	// check to see if eligible for SUPER HAUNT
-	// lifetime hp should not be more than threshold
-	if (global.lifetime_haunt_points >= _threshold) {
+	// if not already ready, and superhaunt not active, and lifetime hp is more or equal to threshold then ready it
+	// (lifetime hp should never be more than threshold but just in case)
+	if (!global.super_haunt_ready) and (!global.super_haunt_active) and (global.lifetime_haunt_points >= _threshold) {
 		global.super_haunt_ready = true;
 	}
 }

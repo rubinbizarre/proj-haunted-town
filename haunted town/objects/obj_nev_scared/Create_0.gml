@@ -1,14 +1,14 @@
 //move_speed = 1.6*2;
+//move_speed_rush = 1.6;
 // nev's usual speed is 3.2
 // when scared, he moves faster?
+move_speed = 4;
+move_speed_init = move_speed;
 
 sprite_idle = spr_nev_scared_idle;
 sprite_spooked = spr_nev_scared_spook;
 
-move_speed = 4;
-move_speed_init = move_speed;
 
-//move_speed_rush = 1.6;
 
 // to pass to nev inst when done
 return_van_x = 0;

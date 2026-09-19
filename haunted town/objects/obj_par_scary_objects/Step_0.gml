@@ -122,7 +122,7 @@ if (btn_confirmed) {
 			// trigger delayed deactivation
 			deactivate_active = true;
 		
-			show_debug_message("obj_par_world_objects STEP: "+string(id)+" started delayed reset / deactivate");
+			//show_debug_message("obj_par_world_objects STEP: "+string(id)+" started delayed reset / deactivate");
 		}
 		btn_confirmed = false;
 	}

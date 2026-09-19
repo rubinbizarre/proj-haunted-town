@@ -6,10 +6,10 @@ if (instance_exists(obj_ps_nev_scared)) {
 
 #region animation & sprite flipping logic
 if (path_index != -1) and (!spooked) {
-//if (current_state != "SURVEY_POI") and (current_state != "LEAVING_VAN") {
 	// if moving/on a path, face the direction of movement
 	image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
-	// progress through animcurve at ac_speed affected by move_speed
+	
+	// bob: progress through animcurve at ac_speed affected by move_speed
 	if (ac_time_bob < 1) {
 		ac_time_bob += (ac_speed_bob * move_speed);
 	} else {
@@ -17,23 +17,27 @@ if (path_index != -1) and (!spooked) {
 	}
 	// apply animcurve value to yscale
 	image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
+	
+	// shiver: progress through animcurve at ac_speed
+	if (ac_time_shiver < 1) {
+		ac_time_shiver += ac_speed_shiver;
+	} else {
+		ac_time_shiver = 0;
+	}
+	// apply animcurve value to yscale
+	image_xscale *= animcurve_channel_evaluate(ac_channel_shiver, ac_time_shiver) * 0.9;
+	
 } else {
 	// if not moving/not on a path, make yscale constant and reset animcurve to start pos
-	//if (image_yscale != 1) image_yscale = 1;
-	//if (ac_time_bob != 0) ac_time_bob = 0;
 	image_yscale = 1;
 	ac_time_bob = 0;
+	ac_time_shiver = 0;
 }
 
 #endregion
 	
 // make path_speed affected by current time_speed
 if (instance_exists(obj_manager_time)) {
-	//if (path_speed != move_speed_rush) {
-	//	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
-	//} else {
-	//	path_speed = move_speed_rush * obj_manager_time.time_speed_actual;
-	//}
 	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
 }
 

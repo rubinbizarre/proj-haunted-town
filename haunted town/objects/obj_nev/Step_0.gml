@@ -1,6 +1,6 @@
 depth = -y;
-if (instance_exists(obj_ps_sub_feedback)) {
-	obj_ps_sub_feedback.depth = depth - 100;
+if (instance_exists(ps_subs)) {
+	ps_subs.depth = depth - 100;
 	//show_debug_message("assigned depth to ps_sub_feedback");
 }
 

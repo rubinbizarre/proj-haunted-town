@@ -145,13 +145,18 @@ function goto_new_dest() {
 	//target_node = _target;
 	#endregion
 	
-	// get the node array which is the route to the destination from where we are (current_node)
+	// get the node array to determine the route to the destination from where we are (current_node)
 	var _node_list = scr_find_path_nodes(current_node, _target);
 	
 	var _debug_node_list = "";
 	
+	// insert to accommodate for when van is stopped in-between road nodes (super haunt)
+	path_clear_points(my_path);
+	path_add_point(my_path, x, y, 100);
+	path_add_point(my_path, current_node.x, current_node.y, 100);
+	
 	if (array_length(_node_list) > 0) {
-	    path_clear_points(my_path);
+	    //path_clear_points(my_path);
 		
 		// add each node in route to the target sequentially to the path
 		// and provide debug output list of nodes in string format

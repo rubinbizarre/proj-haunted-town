@@ -220,7 +220,6 @@ switch (room) {
 				timer_super_haunt_cur = timer_super_haunt_max;
 				
 				// deactivate all currently haunted world- and scary-objects
-				// right now it just deactivates all of the instances even if they are not active?
 				// also make all world- and scary-objects unlocked but remember them so that they can be locked once superhaunt is finished
 				for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 					var _inst = instance_find(obj_par_world_objects, _i);
@@ -248,6 +247,7 @@ switch (room) {
 				// deploy nev_scared
 				if (instance_exists(obj_nev_van)) {
 					obj_nev_van.deploy_nev_scared();
+					obj_nev_van.timer_deploy_nev_cur = -1;
 				}
 			}
 			#endregion

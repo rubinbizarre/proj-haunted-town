@@ -92,6 +92,8 @@ sh_alpha = 0;
 sh_rect_offset = 0;
 sh_rect_rate = 3;
 
+sh_lock_list = [];
+
 //areas_unlocked = 1;
 
 function abort_haunt_process() {

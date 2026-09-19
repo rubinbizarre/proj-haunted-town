@@ -221,22 +221,29 @@ switch (room) {
 				
 				// deactivate all currently haunted world- and scary-objects
 				// right now it just deactivates all of the instances even if they are not active?
+				// also make all world- and scary-objects unlocked but remember them so that they can be locked once superhaunt is finished
 				for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 					var _inst = instance_find(obj_par_world_objects, _i);
 					_inst.deactivate();
+					_inst.ps_owned.start();
+					if (_inst.locked) {
+						_inst.locked = false;
+						// add locked object to list so that it can be locked once superhaunt is finished
+						array_push(sh_lock_list, _inst);
+						//show_debug_message("obj_master STEP: unlocked "+string(id)+" and added to sh_lock_list[]");
+					}
 				}
 				for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
 					var _inst = instance_find(obj_par_scary_objects, _i);
 					_inst.deactivate();
+					_inst.ps_owned.start();
+					if (_inst.locked) {
+						_inst.locked = false;
+						// add locked object to list so that it can be locked once superhaunt is finished
+						array_push(sh_lock_list, _inst);
+						//show_debug_message("obj_master STEP: unlocked "+string(id)+" and added to sh_lock_list[]");
+					}
 				}
-				
-				//// reset lifetime hp
-				//// this could instead decrease slowly and-
-				//// be the indicator of how much time you have left
-				//global.lifetime_haunt_points = 0;
-				
-				//// increment super haunt threshold - only when getting nev's fear maxed out
-				//global.super_haunt_threshold_index ++;
 				
 				// deploy nev_scared
 				if (instance_exists(obj_nev_van)) {
@@ -263,6 +270,23 @@ switch (room) {
 						} else {
 							// SUPER HAUNT has ran out of time and is finished
 							global.super_haunt_active = false;
+							// deactivate all currently haunted world- and scary-objects
+							// right now it just deactivates all of the instances even if they are not active?
+							for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
+								var _inst = instance_find(obj_par_world_objects, _i);
+								_inst.deactivate();
+							}
+							for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
+								var _inst = instance_find(obj_par_scary_objects, _i);
+								_inst.deactivate();
+							}
+							// lock objects that were temporarily unlocked for the superhaunt
+							for (var _i = 0; _i < array_length(sh_lock_list); _i++) {
+								var _inst = array_get(sh_lock_list, _i);
+								_inst.locked = true;
+								_inst.ps_owned.stop();
+								//show_debug_message("obj_master STEP: locked "+string(id)+" from sh_lock_list[]");
+							}
 							// now make nev return to normal:
 							// copy key values to pass over
 							var _x, _y, _depth, _return_van_x, _return_van_y, _return_path_x, _return_path_y;

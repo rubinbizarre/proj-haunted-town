@@ -162,5 +162,5 @@ function deactivate() {
 	// visual feedback
 	//...
 	
-	show_debug_message("obj_par_world_objects CREATE: deactivate(): "+string(id));
+	//show_debug_message("obj_par_world_objects CREATE: deactivate(): "+string(id));
 }

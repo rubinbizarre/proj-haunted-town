@@ -173,6 +173,7 @@ switch (room) {
 			//draw_text_transformed(_gui_w - _x, _y, "s_gain_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			//draw_text_transformed(_gui_w - _x, _y, "s_loss_events:"+string(global.daily_sub_gain_event_counter), 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_gui_w - _x, _y, "active_haunts:"+string(global.active_haunts), 2, 2, 0); _y += _ysep;
+			draw_text_transformed(_gui_w - _x, _y, "sh_threshold_index:"+string(global.super_haunt_threshold_index), 2, 2, 0); _y += _ysep;
 			_y += _ysep;
 			draw_text_transformed(_gui_w - _x, _y, "light_change_prog:"+string(global.light_change_progress), 2, 2, 0); _y += _ysep;
 			if (instance_exists(obj_manager_time)) draw_text_transformed(_gui_w - _x, _y, "light_change_timer:"+string(obj_manager_time.light_change_timer), 2, 2, 0); _y += _ysep;
@@ -312,17 +313,25 @@ switch (room) {
 			draw_set_halign(fa_left);
 			#endregion
 			
-			#region display current objective (upper middle) (commented - not in use)
-			//var _obj_upper = "- CURRENT OBJECTIVE -";
-			//var _obj_lower = objective;
-			//_x = _gui_w/2;
-			//_y = 35;
-			//draw_set_halign(fa_center);
-			//draw_set_font(font_main_sub);
-			//draw_text_transformed(_x, _y, _obj_upper, 2, 2, 0);
-			//_y += 35;
-			//draw_set_font(font_main_body);
-			//draw_text(_x, _y, _obj_lower);
+			#region display current objective (upper middle)
+			var _obj_upper = "- CURRENT OBJECTIVE -";
+			var _phase = "";
+			switch (global.super_haunt_threshold_index) {
+				case 0: break;
+				case 1: _phase = " 1/3"; break;
+				case 2: _phase = " 2/3"; break;
+				case 3: _phase = " 3/3"; break;
+				default: break;
+			}
+			var _obj_lower = objective + _phase;
+			_x = _gui_w/2;
+			_y = 35;
+			draw_set_halign(fa_center);
+			draw_set_font(font_main_sub);
+			draw_text_transformed(_x, _y, _obj_upper, 2, 2, 0);
+			_y += 35;
+			draw_set_font(font_main_body);
+			draw_text(_x, _y, _obj_lower);
 			
 			//// draw buildings owned vs. buildings available
 			//_x = _gui_w/2;
@@ -333,9 +342,25 @@ switch (room) {
 			//var _buildings_available = string(global.total_buildings_available);
 			//draw_text(_x, _y, _buildings_owned + "/" + _buildings_available);
 			
-			//// cleanup
-			//draw_set_halign(fa_left);
-			//draw_set_font(global.font_default);
+			// draw nev's fear level
+			if (global.nev_fear > 0.0) {
+				var _width = 200;
+				var _thickness = 16;
+				var _x1 = (_gui_w/2) - _width;
+				var _x2 = (_gui_w/2) + _width;
+				var _y1 = 120;
+				var _y2 = _y1 + _thickness;
+				var _total_width = _x2 - _x1;
+				draw_set_color(c_dkgray);
+				draw_rectangle(_x1, _y1, _x2, _y2, false);
+				draw_set_color(c_ltgray);
+				draw_rectangle(_x1, _y1, _x1 + (_total_width * global.nev_fear), _y2, false);
+				draw_set_color(c_white);
+			}
+			
+			// cleanup
+			draw_set_halign(fa_left);
+			draw_set_font(global.font_default);
 			#endregion
 		}
 		

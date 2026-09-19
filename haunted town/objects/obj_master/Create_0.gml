@@ -28,8 +28,9 @@ global.super_haunt_active = false;
 global.super_haunt_threshold_index = 0;
 global.super_haunt_threshold = [
 	50,
-	60,
-	70
+	100,
+	200,
+	999
 ];
 
 global.display_end_of_day = false;
@@ -81,7 +82,7 @@ prev_cam_zoom = 0;
 hp_display = 0;
 hp_display_strength = 0.01;
 
-objective = "Haunt the Town";
+objective = "Spook Nev"; // "Earn a Super Haunt"; "Spook Nev"; "Haunt the Town";
 
 // --- SUPER HAUNT TIMER
 timer_super_haunt_max = 0.5;//1; // determines length of time between lifetime hp decrements
@@ -239,5 +240,61 @@ function toggle_view_inside(building = noone) {
 		prev_cam_x = 0;
 		prev_cam_y = 0;
 		prev_cam_zoom = 0;
+	}
+}
+	
+function disable_super_haunt() {
+	global.super_haunt_active = false;
+	// deactivate all currently haunted world- and scary-objects
+	// right now it just deactivates all of the instances even if they are not active?
+	for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
+		var _inst = instance_find(obj_par_world_objects, _i);
+		if (_inst.haunted) _inst.deactivate();
+	}
+	for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
+		var _inst = instance_find(obj_par_scary_objects, _i);
+		if (_inst.haunted) _inst.deactivate();
+	}
+	// lock objects that were temporarily unlocked for the superhaunt
+	for (var _i = 0; _i < array_length(sh_lock_list); _i++) {
+		var _inst = array_get(sh_lock_list, _i);
+		_inst.locked = true;
+		_inst.ps_owned.stop();
+		//show_debug_message("obj_master STEP: locked "+string(id)+" from sh_lock_list[]");
+	}
+	// now make nev return to normal:
+	// copy key values to pass over
+	var _x, _y, _depth, _return_van_x, _return_van_y, _return_path_x, _return_path_y;
+	if (instance_exists(obj_nev_scared)) {
+		_x = obj_nev_scared.x;
+		_y = obj_nev_scared.y;
+		_depth = obj_nev_scared.depth;
+		_return_van_x = obj_nev_scared.return_van_x;
+		_return_van_y = obj_nev_scared.return_van_y;
+		_return_path_x = obj_nev_scared.return_path_x;
+		_return_path_y = obj_nev_scared.return_path_y;
+		// destroying nev_scared also destroys ps_scared
+		instance_destroy(obj_nev_scared);
+	}
+	// clear todo queue
+	var _arr = global.nev_todo_queue;
+	var _n = array_length(_arr);
+	array_delete(_arr, 0, _n);
+	// create nev inst that is sure to return to van
+	with instance_create_depth(_x, _y, _depth, obj_nev) {
+		// target nearest path node to travel to first
+		var _target = instance_nearest(x, y, obj_node_circuit);
+		target_x = _target.x;
+		target_y = _target.y;
+		// assign variable values passed from nev_scared
+		return_van_x = _return_van_x;
+		return_van_y = _return_van_y;
+		return_path_x = _return_path_x;
+		return_path_y = _return_path_y;
+		// assign state
+		current_state = "SURVEY_POI";
+		// ensure correct behaviour
+		finished_surveying = true;
+		timer_glance_cur = -1; // turn this timer off. by default it is activated in nev's create event, and causes the glance to occur which resets the return_path_x,y values
 	}
 }

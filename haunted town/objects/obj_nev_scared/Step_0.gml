@@ -85,7 +85,7 @@ if (spooked) {
 		//...
 		
 		// increase fear stat
-		fear += fear_gain;
+		global.nev_fear += global.nev_fear_gain;
 		
 		// store path but stop moving right now
 		if (path_exists(my_path)) {
@@ -96,7 +96,7 @@ if (spooked) {
 		//// delayed recovery to previous behaviour
 		//timer_disable_spook_cur = timer_disable_spook_max;
 		
-		show_debug_message("obj_nev_scared STEP: nev was spooked! fear = "+string(fear));
+		show_debug_message("obj_nev_scared STEP: nev was spooked! fear = "+string(global.nev_fear));
 	}
 	
 	// play through spook animcurve once

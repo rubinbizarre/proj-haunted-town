@@ -248,6 +248,7 @@ switch (room) {
 				if (instance_exists(obj_nev_van)) and (!instance_exists(obj_nev)) {
 					obj_nev_van.deploy_nev_scared();
 					obj_nev_van.timer_deploy_nev_cur = -1;
+					obj_nev_van.timer_new_dest_cur = -1;
 				} else if (instance_exists(obj_nev)) {
 					// create nev_scared in nev's place:
 					
@@ -294,8 +295,9 @@ switch (room) {
 			}
 			#endregion
 			
-			#region handle SUPER HAUNT duration and end logic
+			#region handle SUPER HAUNT duration and end logic: time ran out & nev fear maxed
 			if (global.super_haunt_active) {
+				#region handle decrementing the timer, & logic when timer ends
 				if (timer_super_haunt_cur > 0) {
 					timer_super_haunt_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
 
@@ -307,8 +309,9 @@ switch (room) {
 							global.lifetime_haunt_points -= 1;
 							// reset sh_rect_offset to zero
 							sh_rect_offset = 0;
-							// trigger timer to go again
+							// trigger timer to go again:
 							var _timer_amount = timer_super_haunt_max;
+							// first determine if we need to modify the speed of the decrement based on # active haunts
 							if (global.active_haunts > 1) {
 								// factor to decrease by should be at most 0.5
 								// increases with multiple haunted objects
@@ -327,78 +330,53 @@ switch (room) {
 							timer_super_haunt_cur = _timer_amount;
 						} else {
 							// SUPER HAUNT has ran out of time and is finished
-							global.super_haunt_active = false;
-							// deactivate all currently haunted world- and scary-objects
-							// right now it just deactivates all of the instances even if they are not active?
-							for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
-								var _inst = instance_find(obj_par_world_objects, _i);
-								if (_inst.haunted) _inst.deactivate();
-							}
-							for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
-								var _inst = instance_find(obj_par_scary_objects, _i);
-								if (_inst.haunted) _inst.deactivate();
-							}
-							// lock objects that were temporarily unlocked for the superhaunt
-							for (var _i = 0; _i < array_length(sh_lock_list); _i++) {
-								var _inst = array_get(sh_lock_list, _i);
-								_inst.locked = true;
-								_inst.ps_owned.stop();
-								//show_debug_message("obj_master STEP: locked "+string(id)+" from sh_lock_list[]");
-							}
-							// now make nev return to normal:
-							// copy key values to pass over
-							var _x, _y, _depth, _return_van_x, _return_van_y, _return_path_x, _return_path_y;
-							if (instance_exists(obj_nev_scared)) {
-								_x = obj_nev_scared.x;
-								_y = obj_nev_scared.y;
-								_depth = obj_nev_scared.depth;
-								_return_van_x = obj_nev_scared.return_van_x;
-								_return_van_y = obj_nev_scared.return_van_y;
-								_return_path_x = obj_nev_scared.return_path_x;
-								_return_path_y = obj_nev_scared.return_path_y;
-								// destroying nev_scared also destroys ps_scared
-								instance_destroy(obj_nev_scared);
-							}
-							// clear todo queue
-							var _arr = global.nev_todo_queue;
-							var _n = array_length(_arr);
-							array_delete(_arr, 0, _n);
-							// create nev inst that is sure to return to van
-							with instance_create_depth(_x, _y, _depth, obj_nev) {
-								// target nearest path node to travel to first
-								var _target = instance_nearest(x, y, obj_node_circuit);
-								target_x = _target.x;
-								target_y = _target.y;
-								// assign variable values passed from nev_scared
-								return_van_x = _return_van_x;
-								return_van_y = _return_van_y;
-								return_path_x = _return_path_x;
-								return_path_y = _return_path_y;
-								// assign state
-								current_state = "SURVEY_POI";
-								// ensure correct behaviour
-								finished_surveying = true;
-								timer_glance_cur = -1; // turn this timer off. by default it is activated in nev's create event, and causes the glance to occur which resets the return_path_x,y values
-							}
+							disable_super_haunt();
 						}
 						#endregion
 					}
 				}
+				#endregion
 					
 				// increment sh_rect_offset for pulsate effect
 				sh_rect_offset += sh_rect_rate;
 				
 				// link sh_alpha to timer progression
 				sh_alpha = timer_super_haunt_cur/timer_super_haunt_max;
+				
+				if (global.nev_fear >= 1) {
+					// player was successful in scaring Nev to the max this threshold:
+					disable_super_haunt();
+					// increment threshold index for bigger challenge, don't exceed max
+					if (global.super_haunt_threshold_index < array_length(global.super_haunt_threshold)) {
+						global.super_haunt_threshold_index++;
+						global.nev_fear = 0;
+						switch (global.super_haunt_threshold_index) {
+							case 1: global.nev_fear_gain = 0.125; break;
+							case 2: global.nev_fear_gain = 0.1; break;
+							case 3: {
+								show_message("You WIN!\n\n"+
+									"Here is where a short sequence will play where Nev runs into the church"+
+									"and meets the Priest who reveals himself to be Satan. You will have to"+
+									"choose between ending Nev's life or Satan's.\n\n"+
+									"Following that, another short sequence will play that reveals the"+
+									"consequences of your final choice as well as how you played throughout.\n\n"+
+									"Thanks for playing."
+								);
+							} break;
+						}
+					//} else {
+					//	show_message("threshold cannot go higher");
+					}
+				}
 			}
 			#endregion
 		}
 		
 		#region handle WIN condition(s)
-		if (global.total_buildings_purchased == global.total_buildings_available) {
-			show_message("YOU WON! Nev's fate is sealed...");
-			game_restart();
-		}
+		//if (global.total_buildings_purchased == global.total_buildings_available) {
+		//	show_message("YOU WON! Nev's fate is sealed...");
+		//	game_restart();
+		//}
 		#endregion
 		
 		#region handle LOSE condition(s)
@@ -418,8 +396,8 @@ switch (room) {
 		(global.active_haunts <= 0) and
 		(global.total_so_unlocked <= 0) and
 		(global.total_wo_unlocked <= 0) {
-			show_message("YOU LOSE! Nev has bested you. Try again.");
-			game_restart();
+			show_message("YOU LOSE! Nev has bested you. Try again?");
+			//game_restart();
 			// could give player the option to continue regardless,
 			// kinda like choosing to go bankrupt or not in Monopoly
 		}

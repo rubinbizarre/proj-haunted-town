@@ -15,6 +15,9 @@ global.nev_gear_tier = 0;
 
 global.nev_home = noone; // see room_start
 
+global.nev_fear = 0.0;
+global.nev_fear_gain = 0.2;
+
 sub_gain_amount = 1000;
 sub_loss_amount = sub_gain_amount/2;
 

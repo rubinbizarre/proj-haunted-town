@@ -1,3 +1,5 @@
 if (ps_scared != noone) {
-	if (instance_exists(ps_scared)) instance_destroy(ps_scared);
+	ps_scared.stop_sweat();
+	ps_scared.stop_spirals();
+	instance_destroy(ps_scared);
 }

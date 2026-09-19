@@ -244,10 +244,52 @@ switch (room) {
 					}
 				}
 				
-				// deploy nev_scared
-				if (instance_exists(obj_nev_van)) {
+				// if nev is inside the van, deploy nev_scared from the van
+				if (instance_exists(obj_nev_van)) and (!instance_exists(obj_nev)) {
 					obj_nev_van.deploy_nev_scared();
 					obj_nev_van.timer_deploy_nev_cur = -1;
+				} else if (instance_exists(obj_nev)) {
+					// create nev_scared in nev's place:
+					
+					// pass over key values
+					var _x, _y, _depth, _return_van_x, _return_van_y, _return_path_x, _return_path_y;
+					
+					// if nev is inside make him leave straightaway
+					if (obj_nev.is_inside) {
+						obj_nev.leave_building();
+					}
+					
+					_x = obj_nev.x;
+					_y = obj_nev.y;
+					_depth = obj_nev.depth;
+					_return_van_x = obj_nev.return_van_x;
+					_return_van_y = obj_nev.return_van_y;
+					//_return_path_x = obj_nev.return_path_x;
+					//_return_path_y = obj_nev.return_path_y;
+					
+					var _path_node_van = instance_nearest(obj_nev_van.x, obj_nev_van.y, obj_node_circuit);
+					_return_path_x = _path_node_van.x;
+					_return_path_y = _path_node_van.y;
+					
+					// for when nev has only just got out of the van and the glance timers have not finished
+					if (obj_nev.timer_glance_cur != -1) or (obj_nev.timer_glance_end_cur != -1) {
+						var _node = instance_nearest(obj_nev.x, obj_nev.y, obj_node_circuit);
+						_return_path_x = _node.x;
+						_return_path_y = _node.y;
+						timer_glance_cur = -1;
+						timer_glance_end_cur = -1;
+						show_message("nev's glance was not finished but we got the path xy");
+					}
+					
+					// destroying nev also destroys ps_subs_feedback
+					instance_destroy(obj_nev);
+					// create nev_scared
+					with instance_create_depth(_x, _y, _depth, obj_nev_scared) {
+						return_van_x = _return_van_x;
+						return_van_y = _return_van_y;
+						return_path_x = _return_path_x;
+						return_path_y = _return_path_y;
+					}
 				}
 			}
 			#endregion

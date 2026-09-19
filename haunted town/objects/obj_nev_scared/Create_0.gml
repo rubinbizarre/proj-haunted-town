@@ -57,7 +57,7 @@ spooked = false;
 current_building = noone;
 
 // create our scared particle system inst
-ps_scared = instance_create_layer(x, y - (sprite_get_height(sprite_index)/2), layer, obj_ps_nev_scared);
+ps_scared = instance_create_layer(x, y - (sprite_get_height(sprite_index)/2), "Master", obj_ps_nev_scared);
 ps_scared.depth = depth - 10;
 ps_scared.start_sweat();
 

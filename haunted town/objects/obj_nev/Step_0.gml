@@ -1,6 +1,6 @@
 depth = -y;
 if (instance_exists(obj_ps_sub_feedback)) {
-	obj_ps_sub_feedback.depth = depth - 1;
+	obj_ps_sub_feedback.depth = depth - 100;
 	//show_debug_message("assigned depth to ps_sub_feedback");
 }
 
@@ -600,6 +600,7 @@ if (timer_glance_end_cur > 0) {
 		// modify path properties
 		path_set_closed(my_path, false);
 		path_set_kind(my_path, 0);
+		
 		// start moving along the path
 		path_start(my_path, move_speed, path_action_stop, true);
 		//show_debug_message("obj_nev ALARM[1]: started path to nearest circuit node. total points: "+string(path_get_number(my_path)));

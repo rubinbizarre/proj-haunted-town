@@ -1,6 +1,6 @@
 depth = -y;
 if (instance_exists(obj_ps_nev_scared)) {
-	obj_ps_nev_scared.depth = depth - 1;
+	obj_ps_nev_scared.depth = depth - 100;
 	//show_debug_message("assigned depth to ps_nev_scared");
 }
 

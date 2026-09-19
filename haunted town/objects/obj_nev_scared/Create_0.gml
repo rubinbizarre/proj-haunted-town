@@ -10,6 +10,12 @@ move_speed_init = move_speed;
 
 //move_speed_rush = 1.6;
 
+// to pass to nev inst when done
+return_van_x = 0;
+return_van_y = 0;
+return_path_x = 0;
+return_path_y = 0;
+
 fear = 0.0; // ranges from 0-1
 fear_gain = 0.1;
 
@@ -56,14 +62,18 @@ ps_scared.depth = depth - 10;
 ps_scared.start_sweat();
 
 // immediately:
-// path to nearest circuit node from van
-// --------------------------------------
+// path to nearest circuit node from van, without obeying mp_grid
+// --------------------------------------------------------------
 path_add_point(my_path, x, y, 100);
 // find nearest path circuit node to nev
 var _node = instance_nearest(x, y, obj_node_circuit);
 // add this nearest path circuit node pos to path
 target_x = _node.x;
 target_y = _node.y;
+// store this for later to pass on to normal nev
+return_path_x = _node.x;
+return_path_y = _node.y;
+
 path_add_point(my_path, target_x, target_y, 100);
 // modify path properties
 path_set_closed(my_path, false);

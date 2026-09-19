@@ -296,7 +296,8 @@ switch (room) {
 			_ysep = 40;
 			draw_set_colour(c_white);
 			draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
-			draw_text(_x, _y, "SUPER HAUNT STATUS: "+string(global.super_haunt_ready)); _y += _ysep;
+			draw_text(_x, _y, "super READY: "+string(global.super_haunt_ready)); _y += _ysep;
+			draw_text(_x, _y, "super ACTIVE: "+string(global.super_haunt_active)); _y += _ysep;
 			draw_text(_x, _y, "super threshold: "+string(global.super_haunt_threshold[global.super_haunt_threshold_index])); _y += _ysep;
 			
 			if (global.super_haunt_ready) {

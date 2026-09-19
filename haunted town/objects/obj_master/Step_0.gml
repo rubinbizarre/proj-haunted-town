@@ -178,9 +178,9 @@ switch (room) {
 				var _x = cursor_x();
 				var _y = cursor_y();
 				instance_create_layer(_x, _y, "Master", obj_cursor_click);
-				if (!instance_exists(obj_nev_scared)) {
-					instance_create_layer(_x, _y, "Master", obj_nev_scared);
-				}
+				//if (!instance_exists(obj_nev_scared)) {
+				//	instance_create_layer(_x, _y, "Master", obj_nev_scared);
+				//}
 				//show_debug_message("obj_master STEP: created obj_cursor_click");
 			}
 			#endregion
@@ -211,14 +211,81 @@ switch (room) {
 			}
 			#endregion
 			
-			#region handle activating SUPER HAUNT
+			#region handle SUPER HAUNT activation
 			if (keyboard_check_pressed(vk_space)) and (global.super_haunt_ready) {
 				global.super_haunt_ready = false;
 				global.super_haunt_active = true;
-				// reset lifetime hp
-				global.lifetime_haunt_points = 0;
-				//// increment super haunt threshold
+				// start timer to decrement lifetime hp (super haunt meter)
+				// "The Super Haunt Meter stores all the spooks you've earned so far"
+				timer_super_haunt_cur = timer_super_haunt_max;
+				
+				//// reset lifetime hp
+				//// this could instead decrease slowly and-
+				//// be the indicator of how much time you have left
+				//global.lifetime_haunt_points = 0;
+				
+				//// increment super haunt threshold - only when getting nev's fear maxed out
 				//global.super_haunt_threshold_index ++;
+				
+				// deploy nev_scared
+				if (instance_exists(obj_nev_van)) {
+					obj_nev_van.deploy_nev_scared();
+				}
+			}
+			#endregion
+			
+			#region handle SUPER HAUNT duration and end logic
+			if (global.super_haunt_active) {
+				if (timer_super_haunt_cur > 0) {
+					timer_super_haunt_cur -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+
+					if (timer_super_haunt_cur <= 0) {
+					    timer_super_haunt_cur = -1;
+					    #region --- alarm code ---
+						if (global.lifetime_haunt_points > 0) {
+							global.lifetime_haunt_points -= 1;
+							timer_super_haunt_cur = timer_super_haunt_max;
+						} else {
+							// SUPER HAUNT has ran out of time and is finished
+							global.super_haunt_active = false;
+							// now make nev return to normal:
+							// copy key values to pass over
+							var _x, _y, _depth, _return_van_x, _return_van_y, _return_path_x, _return_path_y;
+							if (instance_exists(obj_nev_scared)) {
+								_x = obj_nev_scared.x;
+								_y = obj_nev_scared.y;
+								_depth = obj_nev_scared.depth;
+								_return_van_x = obj_nev_scared.return_van_x;
+								_return_van_y = obj_nev_scared.return_van_y;
+								_return_path_x = obj_nev_scared.return_path_x;
+								_return_path_y = obj_nev_scared.return_path_y;
+								// destroying nev_scared also destroys ps_scared
+								instance_destroy(obj_nev_scared);
+							}
+							// clear todo queue
+							var _arr = global.nev_todo_queue;
+							var _n = array_length(_arr);
+							array_delete(_arr, 0, _n);
+							// create nev inst that is sure to return to van
+							with instance_create_depth(_x, _y, _depth, obj_nev) {
+								// target nearest path node to travel to first
+								var _target = instance_nearest(x, y, obj_node_circuit);
+								target_x = _target.x;
+								target_y = _target.y;
+								// assign variable values passed from nev_scared
+								return_van_x = _return_van_x;
+								return_van_y = _return_van_y;
+								return_path_x = _return_path_x;
+								return_path_y = _return_path_y;
+								// assign state
+								//current_state = "RETURN_TO_PATH";
+								current_state = "SURVEY_POI";
+								finished_surveying = true;
+							}
+						}
+						#endregion
+					}
+				}
 			}
 			#endregion
 		}

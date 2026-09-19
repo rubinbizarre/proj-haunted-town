@@ -83,6 +83,9 @@ hp_display_strength = 0.01;
 
 objective = "Haunt the Town";
 
+timer_super_haunt_max = 0.5;//1;
+timer_super_haunt_cur = -1;
+
 //areas_unlocked = 1;
 
 function abort_haunt_process() {

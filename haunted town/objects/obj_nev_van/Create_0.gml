@@ -242,6 +242,97 @@ function deploy_nev() {
 	show_debug_message("obj_nev_van CREATE: deploy_nev(): deployed nev.");
 }
 
+function deploy_nev_scared() {
+	/*
+	either nev is already out on foot, inside a building, or inside the van still
+	
+	when he's already out on foot:
+		- destroy nev inst
+		- create nev_scared inst in its place
+	
+	when he's inside a building:
+		- make nev leave the building instantly
+		- destroy nev inst
+		- create nev_scared inst in its place
+	
+	when he's inside the van:
+		- change van state to idle
+		- use same logic as deploy_nev to deploy nev_scared
+	
+	when SUPER HAUNT has reached its end:
+		- destroy nev_scared inst
+		- create nev inst in its place
+		- make nev clear his todo queue and return to his van
+	*/
+	
+	// stop deploy nev timer just incase its active
+	timer_deploy_nev_cur = -1;
+	
+	// stop moving and clear any existing paths
+	path_end();
+	current_state = "IDLE";
+	
+	// nev's deploy position depends on the van orientation, gets out driver side always
+	//	  - because we british innit the driver side will be the right-hand side of the van when-
+	//		looking at the back side of the van. ig this could change later if need be
+
+	var _nev_x = 0;
+	var _nev_y = 0;
+	var _nev_depth = depth;
+	var _offset_x = 56;//32*2;
+	var _offset_y = 24;//16*2;
+	
+	// determine nev_scared deploy pos and depth
+	switch (sprite_index) {
+		case spr_nev_van_side: {
+			if (direction == 0) { // van facing right
+				// nev gets out in front of the van and 'below' it
+				_nev_depth = depth - 1;
+				_nev_x = x + 25;
+				_nev_y = y + 50;
+			} else if (direction == 180) { // van facing left
+				// nev gets out behind the van and 'above' it
+				_nev_depth = depth + 1;
+				_nev_x = x - 28;
+				_nev_y = y - 12;
+			//} else if (direction > 90 and direction < 270) { // van facing left
+			//	// nev gets out behind the van and 'above' it
+			//	_nev_depth = depth + 1;
+			//	_nev_x = x - _offset_x;
+			//	_nev_y = y - _offset_y;
+			//} else if (direction > 180 and direction < 360) { // van facing right
+			//	// nev gets out in front of the van and 'below' it
+			//	_nev_depth = depth - 1;
+			//	_nev_x = x + _offset_x;
+			//	_nev_y = y + _offset_y;
+			} else {
+				show_message("obj_nev_van CREATE: deploy_nev_scared():\nvan is sideways. direction not found.");
+			}
+		} break;
+		case spr_nev_van_down: { // van facing down
+			_nev_depth = depth + 1;
+			_nev_x = bbox_left - sprite_get_width(spr_nev_scared_idle);//x - _offset_x;
+			_nev_y = y + 40;//32;
+		} break;
+		case spr_nev_van_up: { // van facing up
+			_nev_depth = depth - 1;
+			_nev_x = bbox_right + sprite_get_width(spr_nev_scared_idle);//x + _offset_x;
+			_nev_y = y;
+		} break;
+	}
+	
+	_nev_depth = depth - 1;
+	
+	// when nev gets out, he records his x,y pos to use later when pathing back to the van
+	with instance_create_layer(_nev_x, _nev_y, "Master", obj_nev_scared) {
+		depth = _nev_depth;
+		return_van_x = _nev_x;
+		return_van_y = _nev_y;
+	}
+	
+	show_debug_message("obj_nev_van CREATE: deploy_nev_scared(): deployed nev_scared.");
+}
+
 function redirect(_inst) {
 	#region start a new path which goes from (current pos) -> (pivot node) -> (stop node)
 	var _stop_node = instance_nearest(_inst.x, _inst.y, obj_node_road);

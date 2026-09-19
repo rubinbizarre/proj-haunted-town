@@ -160,7 +160,7 @@ if (instance_exists(obj_manager_time)) {
 //}
 #endregion
 
-// --- SCANNING LOGIC ---
+#region --- SCANNING LOGIC ---
 //// only scan if we are out of the van (existing) and don't have too many tasks already
 //if (instance_exists(self)) and (array_length(todo_queue) < 5) {
 	//if (check_timer-- <= 0) { // periodic check for haunted-world-objects
@@ -198,8 +198,9 @@ if (instance_exists(obj_manager_time)) {
 		}
 	}
 //}
+#endregion
 
-// --- STATE MACHINE ---
+#region --- STATE MACHINE ---
 switch (current_state) {
     case "LEAVING_VAN": {
 		// if nev has reached the nearest path circuit node
@@ -436,8 +437,12 @@ switch (current_state) {
 				}
             } else {
 				// no more tasks? finally return to the van
+				show_debug_message("obj_nev STEP: "+current_state+": no more tasks!");
                 
-				if (is_inside) leave_building();
+				if (is_inside) {
+					leave_building();
+					show_debug_message("obj_nev STEP: "+current_state+": now exiting current building...");
+				}
 				
 				if (current_state != "RETURN_TO_PATH") {
 					var _path_node = instance_nearest(x, y, obj_node_circuit);
@@ -478,8 +483,9 @@ switch (current_state) {
 				
 			    if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
 			        path_start(my_path, move_speed, path_action_stop, true);
+					show_debug_message("obj_nev STEP: "+current_state+": no more tasks. started path to return to VAN.");
 			    }
-				show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to VAN");
+				//show_debug_message("obj_nev STEP: "+current_state+": no more tasks. returning to VAN");
 			}
 		}
 	} break;
@@ -506,7 +512,7 @@ switch (current_state) {
         }
     } break;
 }
-
+#endregion
 /*
 if (record_event) {
 	// change sprite (use equipment to record anim)

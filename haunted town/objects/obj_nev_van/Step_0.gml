@@ -1,6 +1,6 @@
 depth = -(y + 22); // set correct depth based on ypos and sprite origin offset. i think its closer to 22 but whatever
 
-// periodic routine check but only in certain conditions
+#region periodic routine check but only in certain conditions
 if (current_state == "RETURN_HOME") {
 	//if (check_timer-- <= 0) {
 	if (check_timer > 0) {
@@ -11,7 +11,7 @@ if (current_state == "RETURN_HOME") {
 	}
 } else {
 	// periodic check for haunted POIs whilst nev is 'inside' the van
-	if (!instance_exists(obj_nev)) {
+	if (!instance_exists(obj_nev)) or (!instance_exists(obj_nev_scared)) {
 		if (check_timer > 0) {
 	        check_timer -= (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
 	    } else {
@@ -20,6 +20,7 @@ if (current_state == "RETURN_HOME") {
 		}
 	}
 }
+#endregion
 
 #region animation / sprite flipping logic
 if (path_index != -1) {
@@ -118,6 +119,7 @@ switch (current_state) {
 	case "DRIVE_AND_STOP": {
 		if (path_index == -1) and (current_state != "IDLE") {
 			if (array_length(global.nev_todo_queue) > 0) {
+				// nev has finished his redirect_and_stop path and
 				// nev has at least one POI to visit. stop and deploy him
 				target_x = 0;
 				target_y = 0;

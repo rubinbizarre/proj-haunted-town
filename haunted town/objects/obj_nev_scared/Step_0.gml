@@ -37,34 +37,29 @@ if (instance_exists(obj_manager_time)) {
 	path_speed = move_speed_init * obj_manager_time.time_speed_actual;
 }
 
-#region --- STATE MACHINE ---
-//switch (current_state) {
-//    case "MOVING": {
-		// if nev has reached the target circuit node, decide on a new destination and go
-	if (!spooked) {
-		if (point_distance(x, y, target_x, target_y) < 2) {
-            //path_clear_points(my_path);
-			path_add_point(my_path, x, y, 100);
-			// choose random circuit node to travel to
-			var _no_nodes = instance_number(obj_node_circuit) - 1;
-			var _n = irandom_range(0, _no_nodes);
-			var _node = instance_find(obj_node_circuit, _n);
-			// add this nearest path circuit node pos to path
-			target_x = _node.x;
-			target_y = _node.y;
-			path_add_point(my_path, target_x, target_y, 100);
-			// modify path properties
-			path_set_closed(my_path, false);
-			path_set_kind(my_path, 0);
-			// start moving along the path
-			if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
-				path_start(my_path, move_speed, path_action_stop, true);
-			}
-        }
-	}
-//    } break;
-//}
-#endregion
+// if nev has reached the target circuit node, decide on a new destination and go
+if (!spooked) {
+	if (point_distance(x, y, target_x, target_y) < 2) {
+        //path_clear_points(my_path);
+		path_add_point(my_path, x, y, 100);
+		// choose random circuit node to travel to
+		// ig ideally this would only pick a random node within a certain radius of him
+		var _no_nodes = instance_number(obj_node_circuit) - 1;
+		var _n = irandom_range(0, _no_nodes);
+		var _node = instance_find(obj_node_circuit, _n);
+		// add this nearest path circuit node pos to path
+		target_x = _node.x;
+		target_y = _node.y;
+		path_add_point(my_path, target_x, target_y, 100);
+		// modify path properties
+		path_set_closed(my_path, false);
+		path_set_kind(my_path, 0);
+		// start moving along the path
+		if (mp_grid_path(global.town_grid, my_path, x, y, target_x, target_y, true)) {
+			path_start(my_path, move_speed, path_action_stop, true);
+		}
+    }
+}
 
 #region make nev's particle system inst track with his pos
 if (ps_scared != noone) {

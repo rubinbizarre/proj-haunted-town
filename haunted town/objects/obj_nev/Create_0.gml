@@ -13,7 +13,7 @@ return_path_y = 0;
 target_x = 0;
 target_y = 0;
 
-current_state = "LEAVING_VAN"; // also "APPROACH_POI", "SURVEY_POI"
+current_state = "LEAVING_VAN"; // also "APPROACH_POI", "SURVEY_POI", ...
 
 dest_x = 0;
 dest_y = 0;
@@ -64,7 +64,7 @@ off_path = false;
 
 finished_surveying = false;
 
-ps_subs = instance_create_layer(x, y - sprite_get_height(sprite_index), layer, obj_ps_sub_feedback);
+ps_subs = instance_create_layer(x, y - sprite_get_height(sprite_index), "Master", obj_ps_sub_feedback);
 
 /*
 function determine_destination() {

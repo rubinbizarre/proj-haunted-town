@@ -445,7 +445,6 @@ switch (room) {
 				_vh - sh_rect_offset,
 				false
 			);
-			#endregion
 		
 			draw_set_colour(c_white);
 			draw_set_alpha(1);

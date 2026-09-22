@@ -159,7 +159,7 @@ function destroy_paused_surface() {
 }
 function create_paused_surface() {
 	// stop panning
-	obj_camera.camera_panning = false;
+	if (instance_exists(obj_camera)) obj_camera.camera_panning = false;
 	global.my_cursor_sprite = spr_cursor_default;
 	// capture surface before deactivating all instances
 	if (!surface_exists(paused_surface)) {
@@ -245,8 +245,10 @@ function toggle_view_inside(building = noone) {
 	
 function disable_super_haunt() {
 	global.super_haunt_active = false;
+	// play sound (super haunt deactivated)
+	//...
+	
 	// deactivate all currently haunted world- and scary-objects
-	// right now it just deactivates all of the instances even if they are not active?
 	for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 		var _inst = instance_find(obj_par_world_objects, _i);
 		if (_inst.haunted) _inst.deactivate();

@@ -328,6 +328,8 @@ switch (room) {
 								_timer_amount *= _factor;
 							}
 							timer_super_haunt_cur = _timer_amount;
+							// play sound (lifetime hp drain - heartbeat?)
+							//...
 						} else {
 							// SUPER HAUNT has ran out of time and is finished
 							disable_super_haunt();
@@ -355,10 +357,10 @@ switch (room) {
 							case 2: global.nev_fear_gain = 0.1; break;
 							case 3: {
 								show_message("You WIN!\n\n"+
-									"Here is where a short sequence will play where Nev runs into the church"+
-									"and meets the Priest who reveals himself to be Satan. You will have to"+
+									"Here is where a short sequence will play where Nev runs into the church "+
+									"and meets the Priest who reveals himself to be Satan. You will have to "+
 									"choose between ending Nev's life or Satan's.\n\n"+
-									"Following that, another short sequence will play that reveals the"+
+									"Following that, another short sequence will play that reveals the "+
 									"consequences of your final choice as well as how you played throughout.\n\n"+
 									"Thanks for playing."
 								);
@@ -396,7 +398,7 @@ switch (room) {
 		(global.active_haunts <= 0) and
 		(global.total_so_unlocked <= 0) and
 		(global.total_wo_unlocked <= 0) {
-			show_message("YOU LOSE! Nev has bested you. Try again?");
+			//show_message("YOU LOSE! Nev has bested you. Try again?");
 			//game_restart();
 			// could give player the option to continue regardless,
 			// kinda like choosing to go bankrupt or not in Monopoly

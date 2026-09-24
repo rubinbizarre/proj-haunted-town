@@ -253,57 +253,119 @@ switch (room) {
 			draw_set_font(global.font_default);
 			#endregion
 			
+			// SUPER-HAUNT-METER
+			// ------------------
+			// switch bar sprite depending on threshold_index
+			var _yoffset = global.lifetime_haunt_points
+			var _spr_shm_bar = spr_shm_bar_50;
+			var _subimage = 0;
+			// set factor to upscale by
+			var _scale = 3;
+			switch (global.super_haunt_threshold_index) {
+				case 0: _spr_shm_bar = spr_shm_bar_50; break;
+				case 1: _spr_shm_bar = spr_shm_bar_100; break;
+				case 2: _spr_shm_bar = spr_shm_bar_200; break;
+				default: _spr_shm_bar = spr_shm_bar_200; break;
+			}
+			var _w = sprite_get_width(_spr_shm_bar) * _scale;
+			var _h = sprite_get_height(_spr_shm_bar) * _scale;
+			_x = 5;
+			_y = 30;
+			// draw empty shm bar sprite
+			draw_sprite_ext(_spr_shm_bar, _subimage, _x + _w, _y, _scale, _scale, 0, c_white, 1);
+			
+			// draw text label sprite 'SUPER HAUNT METER' below bar
+			//draw_sprite_ext(spr_shm_label, 0, _x + _w, _y + _h + 40, _scale, _scale, 0, c_white, 1);
+			
+			// SHM lifetime HP tab and value
+			// -------------------------------
+			//draw_sprite_ext(spr_shm_tab, 0, _x + _w, _y + _h, _scale, _scale, 0, c_white, 1);
+			//draw_set_font(font_main_body);
+			//draw_set_halign(fa_center);
+			//draw_set_valign(fa_middle);
+			//// draw shadow for lifetime HP value
+			//draw_set_colour(#222222);
+			//draw_text(_x + _w + 3, _y + _h + 3, string(global.lifetime_haunt_points));
+			//// draw actual lifetime HP value
+			//draw_set_colour(#ecc7ff);
+			//draw_text(_x + _w, _y + _h, string(global.lifetime_haunt_points));
+			//draw_set_valign(fa_top);
+			//draw_set_halign(fa_left);
+			
+			// draw SHM 'fluid'
+			var _spr_fluid = spr_shm_fluid_50;
+			var _yscale = _scale * shm_fluid_modifier;
+			_y = (_y + _h) - (3 * _scale); // fluid begins 3px from the base of the empty bar
+			draw_sprite_ext(_spr_fluid, 0, _x + _w, _y, _scale, _yscale, 0, c_white, 1);
+			
+			// HP wallet display
+			// ------------------
+			_x = (_w * 2);
+			_y = 30;
+			var _panel_w = 245;
+			var _panel_h = 85;
+			var _panel_r = 25;
+			var _panel_c = #ca00ff;
+			draw_roundrect_colour_ext(_x, _y, _x + _panel_w, _y + _panel_h, _panel_r, _panel_r, _panel_c, _panel_c, false);
+			draw_set_font(font_main_title);
+			draw_set_colour(#222222);
+			_x += round(_panel_r/1.5);
+			//_y += _panel_h/2;
+			draw_text(_x, _y, "HP");
+			var _hp_w = string_width("HP");
+			var _space = string_width(" ")/2;
+			// draw HP value shadow
+			draw_text(_x + _hp_w + _space, _y, string(global.haunt_points));
+			// draw HP value 
+			draw_set_colour(#ecc7ff);
+			draw_text(_x + _hp_w + _space, _y - 6, string(global.haunt_points));
+
 			#region new HAUNT POINTS display (upper left)
-			draw_set_font(font_main_body);
-			//draw_set_font(font_bogfold_body);
-			_x = 40;
-			_y = 35;
+			//draw_set_font(font_main_body);
+			//_x = 40;
+			//_y = 35;
+			//var _hp_text = "HAUNT POINTS: ";
+			//var _hp_text_len = string_width(_hp_text);
+			//var _hp_amount = string(hp_display);
+			//draw_set_colour(c_white);
+			//draw_text(_x, _y, _hp_text);
 			
-			var _hp_text = "HAUNT POINTS: ";
-			var _hp_text_len = string_width(_hp_text);
-			var _hp_amount = string(hp_display);
+			//// draw rounded rectangle label behind HP amount
+			//draw_set_font(font_main_header);
+			//var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2) + 10;
+			//var _y_label = (_y - 10) + (string_height(_hp_amount)/2);
+			//var _r_label = 12;
+			//var _w_label = string_width(_hp_amount)/1.33;
+			//var _h_label = 28;
+			//draw_set_color(global.c_haunt);
+			//draw_roundrect_ext(
+			//	_x_label - _w_label,
+			//	_y_label - _h_label,
+			//	_x_label + _w_label,
+			//	_y_label + _h_label,
+			//	_r_label,
+			//	_r_label,
+			//	false
+			//);
+			//// draw actual HP amount
+			//draw_set_colour(#333333);
+			//draw_set_halign(fa_left);
+			//draw_text(_x + _hp_text_len + 10, _y - 10, _hp_amount);
 			
-			draw_set_colour(c_white);
-			draw_text(_x, _y, _hp_text);
-			
-			#region draw rounded rectangle label behind HP amount
-			draw_set_font(font_main_header);
-			var _x_label = _x + _hp_text_len + (string_width(_hp_amount)/2) + 10;
-			var _y_label = (_y - 10) + (string_height(_hp_amount)/2);
-			var _r_label = 12;
-			var _w_label = string_width(_hp_amount)/1.33;
-			var _h_label = 28;
-			draw_set_color(global.c_haunt);
-			draw_roundrect_ext(
-				_x_label - _w_label,
-				_y_label - _h_label,
-				_x_label + _w_label,
-				_y_label + _h_label,
-				_r_label,
-				_r_label,
-				false
-			);
-			// draw actual HP amount
-			draw_set_colour(#333333);
-			draw_set_halign(fa_left);
-			draw_text(_x + _hp_text_len + 10, _y - 10, _hp_amount);
-			#endregion
-			
-			// DISABLED TEMPORARILY
-			// draw lifetime HP // super-haunt-meter related things
-			draw_set_font(font_main_body);
-			_x = 40;
-			_y = 200;
-			_ysep = 40;
-			draw_set_colour(c_white);
-			draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
-			draw_text(_x, _y, "super READY: "+string(global.super_haunt_ready)); _y += _ysep;
-			draw_text(_x, _y, "super ACTIVE: "+string(global.super_haunt_active)); _y += _ysep;
-			draw_text(_x, _y, "super threshold: "+string(global.super_haunt_threshold[global.super_haunt_threshold_index])); _y += _ysep;
+			//// draw lifetime HP // super-haunt-meter related things
+			//draw_set_font(font_main_body);
+			//_x = 40;
+			//_y = 200;
+			//_ysep = 40;
+			//draw_set_colour(c_white);
+			//draw_text(_x, _y, "LIFETIME HP: "+string(global.lifetime_haunt_points)); _y += _ysep;
+			//draw_text(_x, _y, "super READY: "+string(global.super_haunt_ready)); _y += _ysep;
+			//draw_text(_x, _y, "super ACTIVE: "+string(global.super_haunt_active)); _y += _ysep;
+			//draw_text(_x, _y, "super threshold: "+string(global.super_haunt_threshold[global.super_haunt_threshold_index])); _y += _ysep;
 			
 			if (global.super_haunt_ready) {
 				draw_set_halign(fa_center);
-				draw_text(_gui_w/2, _gui_h*0.8, "press SPACE to activate SUPER HAUNT");
+				draw_text(_gui_w/2, _gui_h*0.8, "press [SPACE] to activate SUPER HAUNT");
 				draw_set_halign(fa_left);
 			}
 			

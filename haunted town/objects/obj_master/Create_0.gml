@@ -95,6 +95,8 @@ sh_rect_rate = 3;
 
 sh_lock_list = [];
 
+shm_fluid_modifier = 0;
+
 //areas_unlocked = 1;
 
 function abort_haunt_process() {

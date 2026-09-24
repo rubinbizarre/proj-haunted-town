@@ -372,6 +372,9 @@ switch (room) {
 				}
 			}
 			#endregion
+			
+			// for SHM 'fluid' yscale to represent progress towards SH - see draw gui
+			shm_fluid_modifier = global.lifetime_haunt_points / global.super_haunt_threshold[global.super_haunt_threshold_index];
 		}
 		
 		#region handle WIN condition(s)

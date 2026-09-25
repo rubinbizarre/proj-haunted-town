@@ -93,7 +93,7 @@ soul_flame = noone;
 btn_possess = noone;
 btn_kill = noone;
 
-possessed = true;
+possessed = false;
 possess_transition = false;
 //possess_timer = 180;
 possess_timer = 3; // secs

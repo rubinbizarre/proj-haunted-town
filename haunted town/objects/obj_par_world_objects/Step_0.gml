@@ -199,6 +199,7 @@ if (haunted) {
     } else {
         check_timer = check_interval;
         check_for_npcs();
+		//show_debug_message("Checking for npcs...");
     }
 }
 #endregion

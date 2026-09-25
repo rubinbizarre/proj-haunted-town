@@ -77,6 +77,8 @@ function check_for_npcs() {
 	//			moving it here so that the collision checks are staggered and npcs don't
 	//			always get spooked at the edge of the haunt_radius. seems to work for now
 	
+	//show_debug_message("starting check_for_npcs() ...");
+	
 	var r = haunt_radius;
 	
 	if (!ds_exists(current_list, ds_type_list)) {
@@ -97,10 +99,13 @@ function check_for_npcs() {
     
 	    // if they weren't here last frame, they just ENTERED
 	    if (ds_list_find_index(last_list, _inst) == -1) {
+			
+			//show_debug_message("something just entered haunt_radius");
 			// spook the npc if they are visible, i.e. not inside a building
 			// and not possessed
 			// and not in the process of becoming possessed
 			if (object_is_ancestor(_inst.object_index, obj_par_npc)) {
+				//show_debug_message("Target NPC entered !!");
 				if (_inst.visible) and (!_inst.possessed) and (!_inst.possess_transition) {
 			        _inst.spooked = true;
 					// store npc current xscale

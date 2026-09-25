@@ -1,8 +1,8 @@
 depth = -y;
-if (instance_exists(ps_subs)) {
-	ps_subs.depth = depth - 100;
-	//show_debug_message("assigned depth to ps_sub_feedback");
-}
+//if (instance_exists(ps_subs)) {
+//	ps_subs.depth = depth - 100;
+//	//show_debug_message("assigned depth to ps_sub_feedback");
+//}
 
 #region animation & sprite flipping logic
 if (path_index != -1) and (current_state != "SURVEY_POI") {

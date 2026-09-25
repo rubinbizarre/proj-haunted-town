@@ -23,7 +23,7 @@
   ],
   "name":"spr_front_garden_shack",
   "nineSlice":null,
-  "origin":7,
+  "origin":9,
   "parent":{
     "name":"Front Gardens",
     "path":"folders/Sprites/Buildings/Front Gardens.yy",
@@ -76,7 +76,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":47,
-    "yorigin":44,
+    "yorigin":43,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

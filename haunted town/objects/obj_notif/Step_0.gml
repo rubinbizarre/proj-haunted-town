@@ -31,3 +31,9 @@ if (timer_start_fading_cur > 0) {
 	}
 }
 #endregion
+
+if (tracking != noone) {
+	tracking_ascent += ascent_speed;
+	x = tracking.x;
+	y = tracking.y - tracking.possessed_radius - tracking_ascent;
+}

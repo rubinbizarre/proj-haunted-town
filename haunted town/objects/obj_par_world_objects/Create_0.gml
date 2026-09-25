@@ -98,11 +98,31 @@ function check_for_npcs() {
 	    // if they weren't here last frame, they just ENTERED
 	    if (ds_list_find_index(last_list, _inst) == -1) {
 			// spook the npc if they are visible, i.e. not inside a building
-			if (_inst.visible) {
-		        _inst.spooked = true;
-				// store npc current xscale
+			// and not possessed
+			// and not in the process of becoming possessed
+			if (object_is_ancestor(_inst.object_index, obj_par_npc)) {
+				if (_inst.visible) and (!_inst.possessed) and (!_inst.possess_transition) {
+			        _inst.spooked = true;
+					// store npc current xscale
+					_inst.prev_xscale = image_xscale;
+					// make npc face the object
+					if (_inst.x > x) {
+						_inst.image_xscale = -1;
+					} else {
+						_inst.image_xscale = 1;
+					}
+				
+					// increment our world object's escrow (+1 HP)
+					escrow++;
+					// this world object gains infamy
+					gain_infamy();
+				
+					//show_debug_message("Target " + string(_inst) + " Entered!");
+				}
+			} else {
+				_inst.spooked = true;
 				_inst.prev_xscale = image_xscale;
-				// make npc face the object
+				
 				if (_inst.x > x) {
 					_inst.image_xscale = -1;
 				} else {
@@ -114,7 +134,7 @@ function check_for_npcs() {
 				// this world object gains infamy
 				gain_infamy();
 				
-				//show_debug_message("Target " + string(_inst) + " Entered!");
+				//show_debug_message("Target " + string(_inst) + " not npc");
 			}
 	    }
 	}

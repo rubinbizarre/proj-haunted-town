@@ -410,7 +410,9 @@ if (possessed) {
 	} else {
 	    check_timer = check_interval;
 	    check_for_npcs();
+		//show_debug_message("Called check_for_npcs()");
 	}
+	image_index = 3;
 }
 #endregion
 

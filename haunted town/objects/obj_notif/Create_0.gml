@@ -1,4 +1,6 @@
 amount = ""; // e.g. -20, +100, etc.
+tracking = noone;
+tracking_ascent = 0;
 fading = false;
 alpha = 1;
 scale = 1;

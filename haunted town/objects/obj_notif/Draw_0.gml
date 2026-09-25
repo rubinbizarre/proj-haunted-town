@@ -3,8 +3,13 @@ draw_set_font(font_main_sub);
 draw_set_halign(fa_center);
 draw_set_valign(fa_bottom);
 
-draw_set_color(c);
 draw_set_alpha(alpha);
+// draw shadow
+draw_set_colour(#222222);
+draw_text(x + 0.8, y + 0.8, amount);
+// draw real
+draw_set_colour(c);
+draw_text(x, y, amount);
 
 //var _sign;
 //if (amount >= 0) {
@@ -14,7 +19,7 @@ draw_set_alpha(alpha);
 //}
 
 //draw_text_transformed(x, y, amount, scale, scale, 0);
-draw_text(x, y, amount);
+
 
 // cleanup
 draw_set_alpha(1);

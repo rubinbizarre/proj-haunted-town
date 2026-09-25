@@ -27,7 +27,7 @@
   ],
   "name":"spr_npc_adult",
   "nineSlice":null,
-  "origin":7,
+  "origin":9,
   "parent":{
     "name":"NPCs",
     "path":"folders/Sprites/NPCs.yy",
@@ -92,7 +92,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":6,
-    "yorigin":32,
+    "yorigin":31,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

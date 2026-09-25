@@ -95,6 +95,10 @@ sh_rect_rate = 3;
 
 sh_lock_list = [];
 
+sh_ready_alpha = 0;
+sh_ready_alpha_speed = 0.025;
+sh_ready_alpha_switch = false;
+
 shm_fluid_modifier = 0;
 
 //areas_unlocked = 1;

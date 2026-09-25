@@ -5,7 +5,7 @@ var _ysep = 0;
 var _gui_w = display_get_gui_width();
 var _gui_h = display_get_gui_height();
 
-draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
+//draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
 	//, 0.5, 0.5, 0, c_white, 1);
 
 switch (room) {
@@ -26,6 +26,9 @@ switch (room) {
 		draw_set_valign(fa_top);
 		draw_set_halign(fa_left);
 		draw_set_font(global.font_default);
+		
+		// draw the cursor above everything
+		draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
 	} break;
 	case rm_main: {
 		_x = 0;
@@ -253,7 +256,7 @@ switch (room) {
 			draw_set_font(global.font_default);
 			#endregion
 			
-			// SUPER-HAUNT-METER
+			#region SUPER-HAUNT-METER and HP DISPLAY
 			// ------------------
 			// switch bar sprite depending on threshold_index
 			var _yoffset = global.lifetime_haunt_points
@@ -277,26 +280,37 @@ switch (room) {
 			// draw text label sprite 'SUPER HAUNT METER' below bar
 			//draw_sprite_ext(spr_shm_label, 0, _x + _w, _y + _h + 40, _scale, _scale, 0, c_white, 1);
 			
-			// SHM lifetime HP tab and value
-			// -------------------------------
-			//draw_sprite_ext(spr_shm_tab, 0, _x + _w, _y + _h, _scale, _scale, 0, c_white, 1);
-			//draw_set_font(font_main_body);
-			//draw_set_halign(fa_center);
-			//draw_set_valign(fa_middle);
-			//// draw shadow for lifetime HP value
-			//draw_set_colour(#222222);
-			//draw_text(_x + _w + 3, _y + _h + 3, string(global.lifetime_haunt_points));
-			//// draw actual lifetime HP value
-			//draw_set_colour(#ecc7ff);
-			//draw_text(_x + _w, _y + _h, string(global.lifetime_haunt_points));
-			//draw_set_valign(fa_top);
-			//draw_set_halign(fa_left);
-			
 			// draw SHM 'fluid'
 			var _spr_fluid = spr_shm_fluid_50;
+			switch (global.super_haunt_threshold_index) {
+				case 0: _spr_fluid = spr_shm_fluid_50; break;
+				case 1: _spr_fluid = spr_shm_fluid_100; break;
+				case 2: _spr_fluid = spr_shm_fluid_200; break;
+				default: _spr_fluid = spr_shm_fluid_200; break;
+			}
 			var _yscale = _scale * shm_fluid_modifier;
 			_y = (_y + _h) - (3 * _scale); // fluid begins 3px from the base of the empty bar
 			draw_sprite_ext(_spr_fluid, 0, _x + _w, _y, _scale, _yscale, 0, c_white, 1);
+			
+			// SHM lifetime HP tab and value
+			// -------------------------------
+			_y = 30;
+			var _ytop = _y + (8 * _scale); // top position is 8px from the top of the empty bar
+			var _ybtm = (_y + _h) - (3 * _scale); // btm position is 3 px from the base of empty bar
+			var _dist = _ybtm - _ytop;
+			var _ytab = _ybtm - (_dist * shm_fluid_modifier);
+			draw_sprite_ext(spr_shm_tab, 0, _x + _w, _ytab, _scale, _scale, 0, c_white, 1);
+			draw_set_font(font_main_body);
+			draw_set_halign(fa_center);
+			draw_set_valign(fa_middle);
+			// draw shadow for lifetime HP value
+			draw_set_colour(#222222);
+			draw_text(_x + _w + 3, _ytab + 3, string(global.lifetime_haunt_points));
+			// draw actual lifetime HP value
+			draw_set_colour(#ecc7ff);
+			draw_text(_x + _w, _ytab, string(global.lifetime_haunt_points));
+			draw_set_valign(fa_top);
+			draw_set_halign(fa_left);
 			
 			// HP wallet display
 			// ------------------
@@ -320,7 +334,7 @@ switch (room) {
 			draw_set_colour(#ecc7ff);
 			draw_text(_x + _hp_w + _space, _y - 6, string(global.haunt_points));
 
-			#region new HAUNT POINTS display (upper left)
+			#region new HAUNT POINTS display (upper left) (commented)
 			//draw_set_font(font_main_body);
 			//_x = 40;
 			//_y = 35;
@@ -363,11 +377,25 @@ switch (room) {
 			//draw_text(_x, _y, "super ACTIVE: "+string(global.super_haunt_active)); _y += _ysep;
 			//draw_text(_x, _y, "super threshold: "+string(global.super_haunt_threshold[global.super_haunt_threshold_index])); _y += _ysep;
 			
+			
+			#endregion
+			
+			#region draw 'activate SH' notification when SHM is full / SH is ready
 			if (global.super_haunt_ready) {
+				draw_set_font(font_main_body);
 				draw_set_halign(fa_center);
-				draw_text(_gui_w/2, _gui_h*0.8, "press [SPACE] to activate SUPER HAUNT");
+				draw_set_alpha(sh_ready_alpha);
+				draw_set_colour(#222222);
+				_x = _gui_w / 2;
+				_y = _gui_h * 0.86;
+				var _shadow_offset = 3;
+				draw_text(_x + _shadow_offset, _y + _shadow_offset, "press [SPACE] to activate SUPER HAUNT");
+				draw_set_colour(#ecc7ff);
+				draw_text(_x, _y, "press [SPACE] to activate SUPER HAUNT");
 				draw_set_halign(fa_left);
+				draw_set_alpha(1);
 			}
+			#endregion
 			
 			// cleanup
 			draw_set_colour(c_white);
@@ -541,7 +569,10 @@ switch (room) {
 		//	draw_set_halign(fa_left);
 		//}
 		#endregion
-
+		
 		#endregion
+		
+		// draw the cursor above everything
+		draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
 	} break;
 }

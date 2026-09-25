@@ -295,6 +295,22 @@ switch (room) {
 			}
 			#endregion
 			
+			#region control alpha for Super Haunt Ready notification
+			if (global.super_haunt_ready) {
+				if (sh_ready_alpha >= 1.5) {
+					sh_ready_alpha_switch = true;
+				}
+				if (sh_ready_alpha <= 0) {
+					sh_ready_alpha_switch = false;
+				}
+				if (!sh_ready_alpha_switch) {
+					sh_ready_alpha += sh_ready_alpha_speed;
+				} else {
+					sh_ready_alpha -= sh_ready_alpha_speed;
+				}
+			}
+			#endregion
+			
 			#region handle SUPER HAUNT duration and end logic: time ran out & nev fear maxed
 			if (global.super_haunt_active) {
 				#region handle decrementing the timer, & logic when timer ends
@@ -375,6 +391,7 @@ switch (room) {
 			
 			// for SHM 'fluid' yscale to represent progress towards SH - see draw gui
 			shm_fluid_modifier = global.lifetime_haunt_points / global.super_haunt_threshold[global.super_haunt_threshold_index];
+			//shm_fluid_modifier = 0.5; // for testing
 		}
 		
 		#region handle WIN condition(s)

@@ -40,8 +40,8 @@ if (mouse_hover) and (stats.owned) {
 // if building is NOT owned, slightly zoom
 if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
 	// make scale slightly larger instantly
-	image_xscale = 1.1;
-	image_yscale = 1.1;
+	image_xscale = 1.05;
+	image_yscale = 1.05;
 } else if (!mouse_hover) and (!stats.owned) {
 	// when not hovering over,
 	// shrink down to regular size at constant rate

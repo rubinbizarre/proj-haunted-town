@@ -257,11 +257,19 @@ function disable_super_haunt() {
 	// deactivate all currently haunted world- and scary-objects
 	for (var _i = 0; _i < instance_number(obj_par_world_objects); _i++) {
 		var _inst = instance_find(obj_par_world_objects, _i);
-		if (_inst.haunted) _inst.deactivate();
+		if (_inst.haunted) {
+			_inst.deactivate();
+			_inst.deactivate_active = false;
+			_inst.deactivate_timer = _inst.deactivate_timer_init;
+		}
 	}
 	for (var _i = 0; _i < instance_number(obj_par_scary_objects); _i++) {
 		var _inst = instance_find(obj_par_scary_objects, _i);
-		if (_inst.haunted) _inst.deactivate();
+		if (_inst.haunted) {
+			_inst.deactivate();
+			_inst.deactivate_active = false;
+			_inst.deactivate_timer = _inst.deactivate_timer_init;
+		}
 	}
 	// lock objects that were temporarily unlocked for the superhaunt
 	for (var _i = 0; _i < array_length(sh_lock_list); _i++) {

@@ -13,8 +13,10 @@ if (global.debug) {
 	draw_text_transformed(_x, _y, "cam_y:"+string(camera_get_view_y(cam)), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "cam_w:"+string(camera_get_view_width(cam)), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "cam_h:"+string(camera_get_view_height(cam)), 2, 2, 0); _y += _ysep;
-	draw_text_transformed(_x, _y, "vp_w:"+string(view_get_wport(cam)), 2, 2, 0); _y += _ysep;
-	draw_text_transformed(_x, _y, "vp_h:"+string(view_get_hport(cam)), 2, 2, 0); _y += _ysep;
+	draw_text_transformed(_x, _y, "vp_w:"+string(view_get_wport(0)), 2, 2, 0); _y += _ysep;
+	draw_text_transformed(_x, _y, "vp_h:"+string(view_get_hport(0)), 2, 2, 0); _y += _ysep;
+	//draw_text_transformed(_x, _y, "display_w:"+string(display_get_gui_width()), 2, 2, 0); _y += _ysep;
+	//draw_text_transformed(_x, _y, "display_h:"+string(display_get_gui_height()), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "room_w:"+string(_gui_w), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "room_h:"+string(_gui_h), 2, 2, 0); _y += _ysep;
 	draw_text_transformed(_x, _y, "zoom_lvl:"+string(zoom_level), 2, 2, 0); _y += _ysep;

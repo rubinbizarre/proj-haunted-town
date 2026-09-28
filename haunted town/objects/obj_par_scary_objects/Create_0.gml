@@ -11,7 +11,8 @@ btn_confirmed = false;
 // specific vars related to scary objects
 cooldown_active = false;
 deactivate_active = false;
-locked = true;
+//locked = true;
+locked = false;
 haunted = false;
 infamy = 0.0;
 infamy_gain = 0.1;

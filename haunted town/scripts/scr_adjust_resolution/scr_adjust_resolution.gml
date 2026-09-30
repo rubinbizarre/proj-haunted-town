@@ -65,7 +65,8 @@ function scr_adjust_resolution(_w, _h, _mode) {
     surface_resize(application_surface, _view_w, _view_h);
     
 	// update the GUI layer so menus don't break
-    display_set_gui_size(_w, _h);
+    //display_set_gui_size(_w, _h);
+	display_set_gui_size(1920, 1080);
 	
     // center window via alarm
     obj_master.alarm[0] = 2;

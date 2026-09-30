@@ -103,6 +103,9 @@ shm_fluid_modifier = 0;
 
 //areas_unlocked = 1;
 
+// call adjust_resolution() at game start for good measure
+scr_adjust_resolution(1920, 1080, 0); // or from saved user settings via .ini etc
+
 function abort_haunt_process() {
 	if (global.menu_haunt_active) {
 		global.menu_haunt_active = false;

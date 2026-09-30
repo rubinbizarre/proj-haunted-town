@@ -210,3 +210,26 @@ if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
 	ds_list_destroy(_temp_list);
 }
 #endregion
+
+#region handle controlling the visual entice rings
+// detect entries
+var _list = ds_list_create();
+var _n = collision_circle_list(x, y, entice_radius, obj_par_npc, false, true, _list, false);
+var _now = [];
+for (var i = 0; i < _n; i++) {
+    var _v = _list[| i];
+    array_push(_now, _v);
+    if (!array_contains(inside, _v)) {
+        array_push(pulses, { t: 0 });   // villager just entered: spawn pulse
+    }
+}
+ds_list_destroy(_list);
+inside = _now;
+
+// advance pulses (respects delta_time and game time speed)
+var _dt = (delta_time / 1000000) * obj_manager_time.time_speed_normalised;
+for (var i = array_length(pulses) - 1; i >= 0; i--) {
+    pulses[i].t += _dt / pulse_duration;
+    if (pulses[i].t >= 1) array_delete(pulses, i, 1);
+}
+#endregion

@@ -26,6 +26,12 @@ infamy_gain = 0.1;
 // define clickable area around house
 // entice_radius can be used in point_in_circle() function
 entice_radius = sprite_width * 0.75;
+// for displaying the entice rings
+pulses = [];
+inside = [];              // villager ids currently in range
+pulse_duration = 1.5;     // seconds
+ring_thickness = 5;
+ring_color = #cb73ff;
 
 //// flag to track whether building was clicked on last
 //// when true, displays the building's resource levels

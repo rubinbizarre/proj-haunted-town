@@ -1,5 +1,5 @@
 if (global.debug) {
-	draw_set_color(c_red);
+	draw_set_color(c_aqua);
 	// draw the entice_radius around each house (click radius for enticing/spooking people)
 	draw_ellipse(x - entice_radius, y - entice_radius, x + entice_radius, y + entice_radius, true);
 	draw_set_color(c_green);
@@ -38,6 +38,30 @@ if (stats.owned) {
 	//if (haunted) {
 	//	scr_draw_infamy(infamy, sprite_height/1.8);
 	//}
+	
+	#region display entice rings (whenever villager enters entice_radius - see step event)
+	//// display expanding entice rings 
+	//for (var i = 0; i < array_length(pulses); i++) {
+	//    var _t = pulses[i].t;
+	//	  var _e = 1 - power(1 - _t, 3); // expand outwards		// ease-out cubic: fast start, settles at the edge
+	//    var _r = entice_radius * _e;
+	//    var _a = clamp(min(_t / 0.15, (1 - _t) / 0.5), 0, 1);   // fade in over first 15%, out over last 50%
+	//    var _th = ring_thickness * (1 - _t * 0.5);              // optional: thins as it expands
+
+	//    draw_ring(x, y, _r, _th, ring_color, _a * 0.8);
+	//}
+	// display shrinking entice rings
+	for (var i = 0; i < array_length(pulses); i++) {
+	    var _t = pulses[i].t;
+	    //var _e = 1 - power(1 - _t, 3);                          // ease-out cubic: fast start, settles at the centre
+		var _e = _t * _t; // ease-in
+	    var _r = entice_radius * (1 - _e);                      // shrinks from the full radius inwards
+	    var _a = clamp(min(_t / 0.15, (1 - _t) / 0.5), 0, 1);   // fade in over first 15%, out over last 50%
+	    var _th = ring_thickness * lerp(1, 0.2, _e);            // thins as it shrinks, keeps 20% at the end
+
+	    draw_ring(x, y, _r, _th, ring_color, _a * 0.8);
+	}
+	#endregion
 	
 } else {
 	// otherwise, draw self normally

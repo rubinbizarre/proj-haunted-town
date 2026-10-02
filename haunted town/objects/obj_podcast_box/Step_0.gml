@@ -1,5 +1,4 @@
 #region handle click input on tab button - working sorta
-// known issue: clicking also affects objects underneath the GUI layer in the world, this needs addressing
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
 var _surf_w = surface_get_width(podcast_surface);
@@ -10,23 +9,37 @@ var _tab_x2 = (_surf_w * 0.72) ;
 var _tab_x1 = (_tab_x2 - _tab_w);
 var _tab_y1 = 32;
 var _tab_y2 = _tab_y1 + _tab_h;
-tab_hover = point_in_rectangle(_mx, _my,
-	_tab_x1 + (shift),
-	_tab_y1,
-	_tab_x2 + (shift),
-	_tab_y2
-);
-if (mouse_check_button_pressed(mb_left) and tab_hover) {
+//tab_hover = point_in_rectangle(_mx, _my,
+//	_tab_x1 + (shift),
+//	_tab_y1,
+//	_tab_x2 + (shift),
+//	_tab_y2
+//);
+//if (mouse_check_button_pressed(mb_left) and tab_hover) {
+//    tab_press = true;
+//}
+//if (tab_press and !tab_hover) {
+//	tab_press = false;
+//}
+//if (mouse_check_button_released(mb_left) and tab_press and tab_hover) {
+//	// confirm input
+//	tab_press = false;
+//	tab_hover = false;
+//	toggle_display();
+//}
+
+tab_hover = ui_is_hot("podcast_tab");
+if (ui_click_pressed() and tab_hover) {
     tab_press = true;
 }
 if (tab_press and !tab_hover) {
-	tab_press = false;
+    tab_press = false;
 }
-if (mouse_check_button_released(mb_left) and tab_press and tab_hover) {
-	// confirm input
-	tab_press = false;
-	tab_hover = false;
-	toggle_display();
+if (ui_click_released() and tab_press and tab_hover) {
+    // confirm input
+    tab_press = false;
+    tab_hover = false;
+    toggle_display();
 }
 #endregion
 
@@ -70,9 +83,9 @@ if (subs_display != _subs) {
 
 #region handle affecting rings notification behaviour/values
 if (ring_active) {
-	ring_radius += 1;
+	ring_radius += 1 * obj_manager_time.time_speed_normalised;
 	if (ring_radius > 100) {
-		ring_alpha -= ring_speed;
+		ring_alpha -= ring_speed * obj_manager_time.time_speed_normalised;
 	}
 	if (ring_alpha <= 0) {
 		ring_active = false;
@@ -81,9 +94,9 @@ if (ring_active) {
 	}
 }
 if (ring_active_2) {
-	ring_radius_2 += 1;
+	ring_radius_2 += 1 * obj_manager_time.time_speed_normalised;
 	if (ring_radius_2 > 100) {
-		ring_alpha_2 -= ring_speed;
+		ring_alpha_2 -= ring_speed * obj_manager_time.time_speed_normalised;
 	}
 	if (ring_alpha_2 <= 0) {
 		ring_active_2 = false;

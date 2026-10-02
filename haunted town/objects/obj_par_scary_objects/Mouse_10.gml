@@ -1,3 +1,1 @@
-//if (!cooldown_active) {
-	mouse_hover = true;
-//}
+if !ui_over_any() mouse_hover = true;

@@ -1,10 +1,12 @@
 tab_border = 6;
+
 shift_max = (display_get_gui_width() * 0.3) + tab_border;
 shift = 0;
 shift_speed = 10;
 shift_active = false;
-display_active = true;
 shift_lerp_strength = 0.02;//0.1;
+
+display_active = true;
 podcast_surface = -1;
 
 // for lerp 'tick up/down' effect

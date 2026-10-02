@@ -60,14 +60,14 @@ if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
 }
 #endregion
 
-if (mouse_hover) and (device_mouse_check_button_pressed(0, mb_left)) {
+if (mouse_hover) and ui_click_pressed() and !ui_over_any() {
 	// play sound (building pressed/clicked)
 	//...
 	mouse_clicked = true;
 	//show_debug_message("obj_par_building STEP: "+string(id)+" mouse_clicked whilst hovering");
 }
 
-if (mouse_hover) and (mouse_clicked) and (device_mouse_check_button_released(0, mb_left)) {
+if (mouse_hover) and (mouse_clicked) and ui_click_released() {
 	mouse_clicked = false;
 	mouse_hover = false;
 	// play sound (building released/confirmed)
@@ -154,7 +154,7 @@ if (mouse_confirmed) {
 }
 
 #region handle enticing NPCs
-if (stats.owned) and (mouse_check_button_pressed(mb_left)) and
+if (stats.owned) and ui_click_pressed() and !ui_over_any() and 
 	(point_in_circle(mouse_x, mouse_y, x, y, entice_radius))
 {
 	//show_debug_message("obj_par_building STEP: "+string(id)+": click detected");

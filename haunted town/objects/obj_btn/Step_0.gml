@@ -8,7 +8,7 @@ if (mouse_hover) {
 	if (clicked) clicked = false;
 }
 
-if (mouse_hover) and (device_mouse_check_button_pressed(0, mb_left)) {
+if (mouse_hover) and ui_click_pressed() and !ui_over_any() {
 	clicked = true;
 	// play sound (mouse click button)
 	//...
@@ -16,7 +16,7 @@ if (mouse_hover) and (device_mouse_check_button_pressed(0, mb_left)) {
 	image_yscale = 0.95;
 }
 
-if (mouse_hover) and (clicked) and (device_mouse_check_button_released(0, mb_left)) {
+if (mouse_hover) and (clicked) and ui_click_released() {
 	clicked = false;
 	mouse_hover = false;
 	// play sound (button released/confirmed)

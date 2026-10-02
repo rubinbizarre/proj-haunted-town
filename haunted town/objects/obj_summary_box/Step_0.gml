@@ -25,13 +25,13 @@ var _my = device_mouse_y_to_gui(0);
 scroll_hover = point_in_rectangle(_mx, _my, _sb_x, _thumb_y, _sb_x + config.scrollbar_width, _thumb_y + _thumb_h);
 
 // ── drag ──────────────────────────────────────────────────────────────
-if (mouse_check_button_pressed(mb_left) && scroll_hover) {
+if (ui_click_pressed() and scroll_hover) {
     scroll_dragging          = true;
     scroll_drag_start_y      = _my;
     scroll_drag_start_offset = scroll_offset;
 }
 if (scroll_dragging) {
-    if (mouse_check_button(mb_left)) {
+    if ui_click_held() {
         var _drag_delta  = _my - scroll_drag_start_y;
         var _scroll_range = _sb_h - _thumb_h;
         if (_scroll_range > 0)

@@ -17,188 +17,193 @@ if (global.tracked_building != noone) {
 } else if (global.tracked_npc != noone) {
 	//...
 } else {
-	if (!global.building_view_inside) { // can be temporarily disabled for debugging (works)
-		#region manual camera panning with mouse
-		// if middle mouse is pressed while panning is false
-		// make panning true and store mouse gui pos to start panning
-		if (mouse_check_button_pressed(mb_middle)) and (!camera_panning) {
-			camera_panning = true;
-			mouse_prev_x = device_mouse_x_to_gui(0);
-			mouse_prev_y = device_mouse_y_to_gui(0);
-			global.my_cursor_sprite = spr_cursor_pan;
-		}
+	if (!global.paused) {
+		if (!global.building_view_inside) { // can be temporarily disabled for debugging (works)
+			#region manual camera panning with mouse
+			// if middle mouse is pressed while panning is false
+			// make panning true and store mouse gui pos to start panning
+			if (mouse_check_button_pressed(mb_middle)) and (!camera_panning) {
+				camera_panning = true;
+				mouse_prev_x = device_mouse_x_to_gui(0);
+				mouse_prev_y = device_mouse_y_to_gui(0);
+				global.my_cursor_sprite = spr_cursor_pan;
+			}
 	
-		// if middle mouse is released and panning is true
-		// make panning false to stop panning
-		if (mouse_check_button_released(mb_middle)) and (camera_panning) {
-			camera_panning = false;
-			global.my_cursor_sprite = spr_cursor_default;
-		}
+			// if middle mouse is released and panning is true
+			// make panning false to stop panning
+			if (mouse_check_button_released(mb_middle)) and (camera_panning) {
+				camera_panning = false;
+				global.my_cursor_sprite = spr_cursor_default;
+			}
 
-		// while panning is true, update camera pos every frame
-		if (camera_panning) {
-			// store current mouse gui pos
-			var mx = device_mouse_x_to_gui(0);
-			var my = device_mouse_y_to_gui(0);
+			// while panning is true, update camera pos every frame
+			if (camera_panning) {
+				// store current mouse gui pos
+				var mx = device_mouse_x_to_gui(0);
+				var my = device_mouse_y_to_gui(0);
 	
-			// calculate the difference between mouse gui pos one frame previous to current frame
-			var dx = mx - mouse_prev_x;
-			var dy = my - mouse_prev_y;
+				// calculate the difference between mouse gui pos one frame previous to current frame
+				var dx = mx - mouse_prev_x;
+				var dy = my - mouse_prev_y;
 		
-			//// determine current camera width
-			//var vw = camera_get_view_width(cam);
-			//// scale factor based on base zoom (level 0)
-			////var speed_factor = zoom_0_w / vw; // useful when different camera sizes are used
-			//var speed_factor = 1; // we only have one camera size currently
+				//// determine current camera width
+				//var vw = camera_get_view_width(cam);
+				//// scale factor based on base zoom (level 0)
+				////var speed_factor = zoom_0_w / vw; // useful when different camera sizes are used
+				//var speed_factor = 1; // we only have one camera size currently
 			
-			// figure out viewport size for current zoom
-			var vw;
-			switch (zoom_level) {
-				//case 0: vw = cam_w_3; break;
-				//case 1: vw = cam_w_3; break;
-				//case 2: vw = cam_w_2; break;
-				//case 3: vw = cam_w_1; break;
-				case 0: vw = cam_w_3; break;
-				case 1: vw = cam_w_2; break;
-				case 2: vw = cam_w_1; break;
-				case 3: vw = cam_w_0; break;
-			}
-			// scale factor based on base zoom (level 0)
-			//var speed_factor = cam_w_1 / vw;
-			var speed_factor = cam_w_0 / vw;
-		
-			dx *= speed_factor;
-			dy *= speed_factor;
-		
-			dx *= pan_scale_factor;
-			dy *= pan_scale_factor;
-
-			// get current camera position
-			var cam_x = camera_get_view_x(cam);
-			var cam_y = camera_get_view_y(cam);
-
-			// apply scaled camera movement in the opposite direction of drag
-			camera_set_view_pos(cam, cam_x - dx, cam_y - dy);
-
-			// update previous mouse pos
-			mouse_prev_x = mx;
-			mouse_prev_y = my;
-		}
-		#endregion	
-	
-		#region switch zoom level with mouse wheel
-		//if (room != rm_inside) {
-			if mouse_wheel_up() or gamepad_button_check_pressed(0, gp_padu) {
-				increase_zoom_level();
-			}
-			if mouse_wheel_down() or gamepad_button_check_pressed(0, gp_padd) {
-				decrease_zoom_level();
-			}
-		//}
-		#endregion
-	
-		#region handle changing current camera zoom target depending on zoom_level
-		switch (zoom_level) {
-			case 0: { zoom_target_w = cam_w_0; zoom_target_h = cam_h_0; } break;
-			case 1: { zoom_target_w = cam_w_1; zoom_target_h = cam_h_1; } break;
-			case 2: { zoom_target_w = cam_w_2; zoom_target_h = cam_h_2; } break;
-			case 3: { zoom_target_w = cam_w_3; zoom_target_h = cam_h_3; } break;
-		}
-		#endregion
-
-		#region ease zoom_current toward zoom_target
-		if (zoom_current_w != zoom_target_w || zoom_current_h != zoom_target_h) {
-		    zoom_current_w = lerp(zoom_current_w, zoom_target_w, zoom_lerp_rate);
-		    zoom_current_h = lerp(zoom_current_h, zoom_target_h, zoom_lerp_rate);
-			// snap zoom_current to zoom_target when close enough
-		    if (abs(zoom_current_w - zoom_target_w) < zoom_snap_eps) zoom_current_w = zoom_target_w;
-		    if (abs(zoom_current_h - zoom_target_h) < zoom_snap_eps) zoom_current_h = zoom_target_h;
-		}
-		#endregion
-
-		#region watch to update camera zoom with current zoom level while tracked_inst is unassigned
-		if (camera_get_view_width(cam) != zoom_current_w) {
-		    var _center_x = camera_get_view_x(cam) + camera_get_view_width(cam) / 2;
-		    var _center_y = camera_get_view_y(cam) + camera_get_view_height(cam) / 2;
-
-		    camera_set_view_size(cam, zoom_current_w, zoom_current_h);
-		    camera_set_view_pos(cam, _center_x - zoom_current_w/2, _center_y - zoom_current_h/2);
-		}
-		#endregion
-		
-		#region manual camera panning with left stick
-		if (gamepad_is_connected(0)) {
-		    var _lx = gamepad_axis_value(0, gp_axislh);
-		    var _ly = gamepad_axis_value(0, gp_axislv);
-
-		    var _dz = 0.15;
-		    if (abs(_lx) < _dz) _lx = 0;
-		    if (abs(_ly) < _dz) _ly = 0;
-
-		    if (_lx != 0 || _ly != 0) {
-		        // reuse the same zoom-scaling logic as mouse pan
-		        var vw;
-		        switch (zoom_level) {
-		            //case 0: vw = cam_w_3; break;
-		            //case 1: vw = cam_w_3; break;
-		            //case 2: vw = cam_w_2; break;
-		            //case 3: vw = cam_w_1; break;
+				// figure out viewport size for current zoom
+				var vw;
+				switch (zoom_level) {
+					//case 0: vw = cam_w_3; break;
+					//case 1: vw = cam_w_3; break;
+					//case 2: vw = cam_w_2; break;
+					//case 3: vw = cam_w_1; break;
 					case 0: vw = cam_w_3; break;
 					case 1: vw = cam_w_2; break;
 					case 2: vw = cam_w_1; break;
 					case 3: vw = cam_w_0; break;
-		        }
-		        //var speed_factor = cam_w_1 / vw;
+				}
+				// scale factor based on base zoom (level 0)
+				//var speed_factor = cam_w_1 / vw;
 				var speed_factor = cam_w_0 / vw;
-
-		        var cam_x = camera_get_view_x(cam);
-		        var cam_y = camera_get_view_y(cam);
-
-		        camera_set_view_pos(cam,
-		            cam_x + _lx * stick_pan_speed * speed_factor,
-		            cam_y + _ly * stick_pan_speed * speed_factor
-		        );
-		    }
-		}
-		#endregion
 		
-		#region manual camera panning with keyboard (WASD)
-		if (!global.building_view_inside) {
-			var _kx = 0;
-			var _ky = 0;
+				dx *= speed_factor;
+				dy *= speed_factor;
+		
+				dx *= pan_scale_factor;
+				dy *= pan_scale_factor;
 
-			if (keyboard_check(ord("A"))) _kx -= 1;
-			if (keyboard_check(ord("D"))) _kx += 1;
-			if (keyboard_check(ord("W"))) _ky -= 1;
-			if (keyboard_check(ord("S"))) _ky += 1;
+				// get current camera position
+				var cam_x = camera_get_view_x(cam);
+				var cam_y = camera_get_view_y(cam);
 
-			if (_kx != 0 || _ky != 0) {
-			    // normalize so diagonal isn't faster than cardinal
-			    var _len = point_distance(0, 0, _kx, _ky);
-			    _kx /= _len;
-			    _ky /= _len;
+				// apply scaled camera movement in the opposite direction of drag
+				camera_set_view_pos(cam, cam_x - dx, cam_y - dy);
 
-			    // reuse the same zoom-scaling logic as mouse/stick pan
-			    var vw;
-			    switch (zoom_level) {
-			        case 0: vw = cam_w_3; break;
-			        case 1: vw = cam_w_2; break;
-			        case 2: vw = cam_w_1; break;
-			        case 3: vw = cam_w_0; break;
-			    }
-			    var speed_factor = cam_w_0 / vw;
-
-			    var cam_x = camera_get_view_x(cam);
-			    var cam_y = camera_get_view_y(cam);
-
-			    camera_set_view_pos(cam,
-			        cam_x + _kx * key_pan_speed * speed_factor,
-			        cam_y + _ky * key_pan_speed * speed_factor
-			    );
+				// update previous mouse pos
+				mouse_prev_x = mx;
+				mouse_prev_y = my;
 			}
+			#endregion	
+	
+			#region switch zoom level with mouse wheel
+			//if (room != rm_inside) {
+				if mouse_wheel_up() or gamepad_button_check_pressed(0, gp_padu) {
+					increase_zoom_level();
+				}
+				if mouse_wheel_down() or gamepad_button_check_pressed(0, gp_padd) {
+					decrease_zoom_level();
+				}
+			//}
+			#endregion
+	
+			#region handle changing current camera zoom target depending on zoom_level
+			switch (zoom_level) {
+				case 0: { zoom_target_w = cam_w_0; zoom_target_h = cam_h_0; } break;
+				case 1: { zoom_target_w = cam_w_1; zoom_target_h = cam_h_1; } break;
+				case 2: { zoom_target_w = cam_w_2; zoom_target_h = cam_h_2; } break;
+				case 3: { zoom_target_w = cam_w_3; zoom_target_h = cam_h_3; } break;
+			}
+			#endregion
+
+			#region ease zoom_current toward zoom_target
+			if (zoom_current_w != zoom_target_w || zoom_current_h != zoom_target_h) {
+			    zoom_current_w = lerp(zoom_current_w, zoom_target_w, zoom_lerp_rate);
+			    zoom_current_h = lerp(zoom_current_h, zoom_target_h, zoom_lerp_rate);
+				// snap zoom_current to zoom_target when close enough
+			    if (abs(zoom_current_w - zoom_target_w) < zoom_snap_eps) zoom_current_w = zoom_target_w;
+			    if (abs(zoom_current_h - zoom_target_h) < zoom_snap_eps) zoom_current_h = zoom_target_h;
+			}
+			#endregion
+
+			#region watch to update camera zoom with current zoom level while tracked_inst is unassigned
+			if (camera_get_view_width(cam) != zoom_current_w) {
+			    var _center_x = camera_get_view_x(cam) + camera_get_view_width(cam) / 2;
+			    var _center_y = camera_get_view_y(cam) + camera_get_view_height(cam) / 2;
+
+			    camera_set_view_size(cam, zoom_current_w, zoom_current_h);
+			    camera_set_view_pos(cam, _center_x - zoom_current_w/2, _center_y - zoom_current_h/2);
+			}
+			#endregion
+		
+			#region manual camera panning with left stick
+			if (gamepad_is_connected(0)) {
+			    var _lx = gamepad_axis_value(0, gp_axislh);
+			    var _ly = gamepad_axis_value(0, gp_axislv);
+
+			    var _dz = 0.15;
+			    if (abs(_lx) < _dz) _lx = 0;
+			    if (abs(_ly) < _dz) _ly = 0;
+
+			    if (_lx != 0 || _ly != 0) {
+			        // reuse the same zoom-scaling logic as mouse pan
+			        var vw;
+			        switch (zoom_level) {
+			            //case 0: vw = cam_w_3; break;
+			            //case 1: vw = cam_w_3; break;
+			            //case 2: vw = cam_w_2; break;
+			            //case 3: vw = cam_w_1; break;
+						case 0: vw = cam_w_3; break;
+						case 1: vw = cam_w_2; break;
+						case 2: vw = cam_w_1; break;
+						case 3: vw = cam_w_0; break;
+			        }
+			        //var speed_factor = cam_w_1 / vw;
+					var speed_factor = cam_w_0 / vw;
+
+			        var cam_x = camera_get_view_x(cam);
+			        var cam_y = camera_get_view_y(cam);
+
+			        camera_set_view_pos(cam,
+			            cam_x + _lx * stick_pan_speed * speed_factor,
+			            cam_y + _ly * stick_pan_speed * speed_factor
+			        );
+			    }
+			}
+			#endregion
+		
+			#region manual camera panning with keyboard (WASD)
+			if (!global.building_view_inside) {
+				var _kx = 0;
+				var _ky = 0;
+
+				if (keyboard_check(ord("A"))) _kx -= 1;
+				if (keyboard_check(ord("D"))) _kx += 1;
+				if (keyboard_check(ord("W"))) _ky -= 1;
+				if (keyboard_check(ord("S"))) _ky += 1;
+
+				if (_kx != 0 || _ky != 0) {
+				    // normalize so diagonal isn't faster than cardinal
+				    var _len = point_distance(0, 0, _kx, _ky);
+				    _kx /= _len;
+				    _ky /= _len;
+
+				    // reuse the same zoom-scaling logic as mouse/stick pan
+				    var vw;
+				    switch (zoom_level) {
+				        case 0: vw = cam_w_3; break;
+				        case 1: vw = cam_w_2; break;
+				        case 2: vw = cam_w_1; break;
+				        case 3: vw = cam_w_0; break;
+				    }
+				    var speed_factor = cam_w_0 / vw;
+
+				    var cam_x = camera_get_view_x(cam);
+				    var cam_y = camera_get_view_y(cam);
+
+				    camera_set_view_pos(cam,
+				        cam_x + _kx * key_pan_speed * speed_factor,
+				        cam_y + _ky * key_pan_speed * speed_factor
+				    );
+				}
+			}
+			#endregion
 		}
-		#endregion
-	}
+	} else { // if paused
+		camera_panning = false;
+		global.my_cursor_sprite = spr_cursor_default;
+	}	
 }
 
 #region handle camera shake (commented - needs reworking)

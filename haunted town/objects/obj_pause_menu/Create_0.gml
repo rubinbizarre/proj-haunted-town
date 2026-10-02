@@ -1,7 +1,7 @@
 depth = obj_master.depth - 1000;		// Draw GUI order matters, keep this above everything
 application_surface_draw_enable(false);
 
-paused = false;
+//global.paused = false;
 blend = 0;                            // eased 0..1, real time
 sel = 0;
 sel_y = 0;
@@ -13,12 +13,12 @@ fx_texel  = shader_get_uniform(sh_pause_fx, "u_texel");
 menu_push = function(_items) { array_push(stack, { items: _items, sel: 0 }); sel = 0; }
 menu_pop  = function() {
     array_pop(stack);
-    if (array_length(stack) == 0) paused = false;
+    if (array_length(stack) == 0) global.paused = false;
     else sel = stack[array_length(stack)-1].sel;
 }
 
 menu_main = [
-    menu_button("Resume",   function() { paused = false; }),
+    menu_button("Resume",   function() { global.paused = false; }),
     menu_button("Settings", function() { menu_push(menu_settings); }),
     menu_button("Quit",     function() { game_end(); })
 ];

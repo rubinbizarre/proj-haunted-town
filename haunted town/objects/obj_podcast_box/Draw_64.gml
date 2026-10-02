@@ -207,20 +207,6 @@ if (!global.paused) and (!global.display_end_of_day) {
 		draw_set_colour(#dbdbdb);
 		draw_text(_tab_char_x, _tab_char_y + 36, "[tab]");
 		
-		//// draw rings notification
-		//var _rings_x = _tab_char_x;
-		//var _rings_y = (_tab_y1 +_tab_y2) / 2;
-		//if (ring_active) {
-		//	draw_set_alpha(ring_alpha);
-		//	draw_circle(_rings_x, _rings_y, ring_radius, true);
-		//	draw_set_alpha(1);
-		//}
-		//if (ring_active_2) {
-		//	draw_set_alpha(ring_alpha_2);
-		//	draw_circle(_rings_x, _rings_y, ring_radius_2, true);
-		//	draw_set_alpha(1);
-		//}
-		
 		// draw bg label for this podcast-box
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_top);

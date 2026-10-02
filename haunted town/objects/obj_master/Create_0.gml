@@ -124,8 +124,9 @@ shm_fluid_modifier = 0;
 //scr_adjust_resolution(1920, 1080, 0); // or from saved user settings via .ini etc
 
 settings_load();
-audio_init();
 settings_apply();
+ui_init();
+audio_init();
 music_play(snd_music);
 
 function abort_haunt_process() {
@@ -137,13 +138,13 @@ function abort_haunt_process() {
 	}
 }
 
-function toggle_pause() {
-	if (!global.paused) {
-		global.paused = true;
-	} else {
-		global.paused = false;
-	}
-}
+//function toggle_pause() {
+//	if (!global.paused) {
+//		global.paused = true;
+//	} else {
+//		global.paused = false;
+//	}
+//}
 
 function toggle_display_end_of_day() {
 	if (!global.display_end_of_day) {

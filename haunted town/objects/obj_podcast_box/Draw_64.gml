@@ -169,7 +169,7 @@
 //draw_set_font(global.font_default);
 #endregion
 
-if (!global.paused) and (!global.display_end_of_day) {
+if (!global.display_end_of_day) {
 	if (surface_exists(podcast_surface)) {
 		//draw_clear_alpha(c_black, 0);
 		surface_set_target(podcast_surface);

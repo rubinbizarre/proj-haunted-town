@@ -1,4 +1,4 @@
-depth = obj_master.depth - 1000;		// Draw GUI order matters, keep this above everything
+depth = obj_master.depth - 5000;		// Draw GUI order matters, keep this above everything
 application_surface_draw_enable(false);
 
 //global.paused = false;
@@ -41,3 +41,19 @@ menu_settings = [
 	    function(v) { global.opt_sfx = v; audio_emitter_gain(global.em_sfx, sqr(v)); }),
     menu_button("Back", function() { menu_pop(); })
 ];
+
+// ---- Menu layout: shared by Begin Step, Step and Draw GUI ----
+list_top_y         = 300;    // y of the first item
+item_spacing       = 72;     // vertical distance between items
+item_height        = 64;     // height of each item's hit box and highlight
+list_left_x        = 60;     // left edge of the hit box/highlight
+text_rest_x        = 80;     // where labels sit once slid in
+text_offscreen_x   = -100;   // where labels start before sliding in
+control_offset_x   = 360;    // <-- your new value
+slider_track_width = 200;    // length of the slider bar
+
+// derived: slider/cycle position at rest, and a row wide enough to cover it
+control_rest_x = text_rest_x + 100;
+list_right_x   = control_rest_x + slider_track_width + 40;   // 40px margin
+
+sel_y = list_top_y;          // start the highlight bar on the first item, not at y=0

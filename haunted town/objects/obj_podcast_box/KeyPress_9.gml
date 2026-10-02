@@ -1,1 +1,1 @@
-toggle_display();
+if (!global.paused) toggle_display();

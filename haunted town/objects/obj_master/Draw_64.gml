@@ -210,7 +210,9 @@ switch (room) {
 			#endregion
 			
 			#region SUPER-HAUNT-METER and HP DISPLAY
-			// ------------------
+			var _blend = obj_pause_menu.blend;
+			var _a = 1 - clamp(_blend * 2, 0, 1);
+			draw_set_alpha(_a);
 			// switch bar sprite depending on threshold_index
 			var _yoffset = global.lifetime_haunt_points
 			var _spr_shm_bar = spr_shm_bar_50;
@@ -228,7 +230,7 @@ switch (room) {
 			_x = 5;
 			_y = 30;
 			// draw empty shm bar sprite
-			draw_sprite_ext(_spr_shm_bar, _subimage, _x + _w, _y, _scale, _scale, 0, c_white, 1);
+			draw_sprite_ext(_spr_shm_bar, _subimage, _x + _w, _y, _scale, _scale, 0, c_white, _a);
 			
 			// draw text label sprite 'SUPER HAUNT METER' below bar
 			//draw_sprite_ext(spr_shm_label, 0, _x + _w, _y + _h + 40, _scale, _scale, 0, c_white, 1);
@@ -243,7 +245,7 @@ switch (room) {
 			}
 			var _yscale = _scale * shm_fluid_modifier;
 			_y = (_y + _h) - (3 * _scale); // fluid begins 3px from the base of the empty bar
-			draw_sprite_ext(_spr_fluid, 0, _x + _w, _y, _scale, _yscale, 0, c_white, 1);
+			draw_sprite_ext(_spr_fluid, 0, _x + _w, _y, _scale, _yscale, 0, c_white, _a);
 			
 			// SHM lifetime HP tab and value
 			// -------------------------------
@@ -252,7 +254,7 @@ switch (room) {
 			var _ybtm = (_y + _h) - (3 * _scale); // btm position is 3 px from the base of empty bar
 			var _dist = _ybtm - _ytop;
 			var _ytab = _ybtm - (_dist * shm_fluid_modifier);
-			draw_sprite_ext(spr_shm_tab, 0, _x + _w, _ytab, _scale, _scale, 0, c_white, 1);
+			draw_sprite_ext(spr_shm_tab, 0, _x + _w, _ytab, _scale, _scale, 0, c_white, _a);
 			draw_set_font(font_main_body);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_middle);
@@ -354,6 +356,7 @@ switch (room) {
 			draw_set_colour(c_white);
 			draw_set_font(global.font_default);
 			draw_set_halign(fa_left);
+			draw_set_alpha(1);
 			#endregion
 			
 			#region display current objective (upper middle)

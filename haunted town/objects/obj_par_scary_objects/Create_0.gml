@@ -1,3 +1,5 @@
+event_inherited();
+
 // largely copied from obj_par_world_objects
 
 // set to -5000 as an approximate guess in order to display above interior objects

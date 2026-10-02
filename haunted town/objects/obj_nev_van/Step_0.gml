@@ -31,11 +31,12 @@ if (path_index != -1) {
 	
 	#region while on, wobble anim
 	// progress through animcurve at ac_speed affected by move_speed
-	if (ac_time_moving < 1) {
-		ac_time_moving += (ac_speed_moving * move_speed);
-	} else {
-		ac_time_moving = 0;
-	}
+	//if (ac_time_moving < 1) {
+	//	ac_time_moving += (ac_speed_moving * move_speed);
+	//} else {
+	//	ac_time_moving = 0;
+	//}
+	ac_time_moving = (ac_time_moving + ac_speed_moving * path_speed) mod 1;
 	var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
 	// apply animcurve value to yscale and xscale
 	image_yscale = _ac_value;

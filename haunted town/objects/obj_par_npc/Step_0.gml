@@ -15,21 +15,29 @@ if (!spooked) or (!hit_by_van) {
 	#endregion
 	
 	#region animation & sprite flipping logic
+	//if (path_index != -1) and (!spooked) {
+	//    // if moving/on a path, face the direction of movement
+	//    image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
+	//	// progress through animcurve at ac_speed affected by move_speed
+	//	if (ac_time_bob < 1) {
+	//		ac_time_bob += (ac_speed_bob * move_speed);
+	//	} else {
+	//		ac_time_bob = 0;
+	//	}
+	//	// apply animcurve value to yscale
+	//	image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
+	//} else {
+	//	// if not moving/not on a path, make yscale constant and reset animcurve to start pos
+	//	if (image_yscale != 1) image_yscale = 1;
+	//	if (ac_time_bob != 0) ac_time_bob = 0;
+	//}
 	if (path_index != -1) and (!spooked) {
-	    // if moving/on a path, face the direction of movement
 	    image_xscale = (direction > 90 and direction < 270) ? -scale_init : scale_init;
-		// progress through animcurve at ac_speed affected by move_speed
-		if (ac_time_bob < 1) {
-			ac_time_bob += (ac_speed_bob * move_speed);
-		} else {
-			ac_time_bob = 0;
-		}
-		// apply animcurve value to yscale
-		image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
+	    ac_time_bob = (ac_time_bob + ac_speed_bob * path_speed) mod 1;
+	    image_yscale = animcurve_channel_evaluate(ac_channel_bob, ac_time_bob);
 	} else {
-		// if not moving/not on a path, make yscale constant and reset animcurve to start pos
-		if (image_yscale != 1) image_yscale = 1;
-		if (ac_time_bob != 0) ac_time_bob = 0;
+	    if (image_yscale != 1) image_yscale = 1;
+	    if (ac_time_bob != 0) ac_time_bob = 0;
 	}
 	#endregion
 	

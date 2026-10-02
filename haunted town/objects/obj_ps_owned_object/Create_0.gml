@@ -1,4 +1,6 @@
 part_sys = part_system_create(ps_owned_object);
+part_system_automatic_update(part_sys, false);
+array_push(global.ps_list, part_sys);
 
 // Get system info (only once)
 var info_gain = part_system_get_info(part_sys);

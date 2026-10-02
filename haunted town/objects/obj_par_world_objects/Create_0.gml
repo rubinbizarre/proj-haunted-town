@@ -1,3 +1,5 @@
+event_inherited();
+
 //depth = y - layer_get_depth(layer);
 depth = -y;
 

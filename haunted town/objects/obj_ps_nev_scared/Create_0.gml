@@ -1,5 +1,10 @@
 part_sys_sweat = part_system_create(ps_sweat);
+part_system_automatic_update(part_sys_sweat, false);
+array_push(global.ps_list, part_sys_sweat);
+
 part_sys_spirals = part_system_create(ps_spirals);
+part_system_automatic_update(part_sys_spirals, false);
+array_push(global.ps_list, part_sys_spirals);
 
 // Get system info (only once)
 var info_gain = part_system_get_info(part_sys_sweat);

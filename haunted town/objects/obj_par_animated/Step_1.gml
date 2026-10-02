@@ -1,0 +1,1 @@
+image_speed = anim_speed_base * obj_manager_time.time_speed_normalised;

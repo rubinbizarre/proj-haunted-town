@@ -1,3 +1,5 @@
+event_inherited();
+
 move_speed = 3;//2*2;
 move_speed_init = move_speed;
 
@@ -34,7 +36,7 @@ target_stop_node = noone;
 
 ac_channel_moving = animcurve_get_channel(anim_van_moving, 0);
 ac_time_moving = 0;
-ac_speed_moving = 0.035;
+ac_speed_moving = 0.07;//0.035;
 
 timer_deploy_nev_max = 1.25;
 timer_deploy_nev_cur = -1;

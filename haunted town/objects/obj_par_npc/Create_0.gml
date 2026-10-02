@@ -1,3 +1,5 @@
+event_inherited();
+
 depth = -y;
 
 // identity and key vars for pathing movement
@@ -44,7 +46,7 @@ check_interval = 0.5;//1;
 // animcurve for bobbing whilst moving
 ac_channel_bob = animcurve_get_channel(anim_npc_bob, 0);
 ac_time_bob = 0;
-ac_speed_bob = 0.08/2;//0.1;
+ac_speed_bob = 0.08;//0.08/2;//0.1;
 
 // animcurve for being spooked
 ac_channel_spook = animcurve_get_channel(anim_npc_spook, 0);

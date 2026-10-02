@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_pause_fx",
+  "name":"sh_pause_fx",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

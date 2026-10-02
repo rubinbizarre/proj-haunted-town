@@ -71,3 +71,16 @@ function scr_adjust_resolution(_w, _h, _mode) {
     // center window via alarm
     obj_master.alarm[0] = 2;
 }
+
+//global.res_list = [[1280, 720], [1600, 900], [1920, 1080]];   // same order as the cycle labels
+
+function apply_resolution() {
+    var r = global.res_list[global.opt_res];
+    surface_resize(application_surface, r[0], r[1]);
+    //display_set_gui_size(r[0], r[1]);
+	display_set_gui_size(1920, 1080);
+    if (!window_get_fullscreen()) {
+        window_set_size(r[0], r[1]);
+        window_center();
+    }
+}

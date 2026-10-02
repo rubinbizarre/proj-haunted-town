@@ -16,8 +16,8 @@
     "path":"folders/Objects/Parents.yy",
   },
   "parentObjectId":{
-    "name":"obj_par_detectable_by_nev",
-    "path":"objects/obj_par_detectable_by_nev/obj_par_detectable_by_nev.yy",
+    "name":"obj_par_animated",
+    "path":"objects/obj_par_animated/obj_par_animated.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

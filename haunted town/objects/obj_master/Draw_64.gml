@@ -106,54 +106,6 @@ switch (room) {
 		}
 		#endregion
 		
-		#region PAUSED
-		if (global.paused) {
-			if (surface_exists(paused_surface)) {
-				draw_clear_alpha(c_black, 0);
-				surface_set_target(paused_surface);
-				
-				draw_set_halign(fa_center);
-				draw_set_valign(fa_middle);
-				draw_set_color(global.c_haunt);
-				draw_set_font(font_main_body);
-				
-				// draw 'PAUSED' title header
-				_x = _gui_w/2;
-				draw_text_transformed(_x, _gui_h/2, "[NOT] PAUSED", 2, 2, 0);
-				// draw pause menu text options: resume, settings, quit
-				_ysep = 100;
-				_y = (_gui_h/2)+160;
-				var _c1 = global.c_haunt;
-				var _c2 = global.c_haunt;
-				var _c3 = global.c_haunt;
-				// switch colour if pause_menu_select is matching
-				switch (pause_menu_select) {
-					case 0: _c1 = c_white; break;
-					case 1: _c2 = c_white; break;
-					case 2: _c3 = c_white; break;
-				}
-				draw_text_transformed_colour(_x, _y, "resume", 1, 1, 0, _c1, _c1, _c1, _c1, 1); _y += _ysep;
-				draw_text_transformed_colour(_x, _y, "settings", 1, 1, 0, _c2, _c2, _c2, _c2, 1); _y += _ysep;
-				draw_text_transformed_colour(_x, _y, "quit", 1, 1, 0, _c3, _c3, _c3, _c3, 1); _y += _ysep;
-				// cleanup
-				draw_set_halign(fa_left);
-				draw_set_valign(fa_top);
-				draw_set_color(c_white);
-				draw_set_font(global.font_default);
-				
-				surface_reset_target();
-				draw_surface(paused_surface, 0, 0);
-				
-				// draw cursor
-				draw_sprite(global.my_cursor_sprite, 0, cursor_gui_x(), cursor_gui_y());
-			} else {
-				if (global.debug) show_debug_message("obj_master DRAW_GUI: paused_surface does not exist, creating it now...");
-				paused_surface = surface_create(_gui_w, _gui_h);
-				surface_copy(paused_surface, 0, 0, application_surface);
-			}
-		}
-		#endregion
-
 		#region DEBUG
 		if (global.debug) {
 			draw_set_color(c_lime);
@@ -165,6 +117,7 @@ switch (room) {
 			draw_text_transformed(_x, _y, "gear_tier: "+string(global.nev_gear_tier), 2, 2, 0); _y += _ysep;
 			draw_text_transformed(_x, _y, "gear_at_day_start: "+string(global.nev_gear_at_day_start), 2, 2, 0); _y += _ysep;
 			if (instance_exists(obj_manager_time)) draw_text_transformed(_x, _y, "time_speed: "+string(obj_manager_time.time_speed_actual), 2, 2, 0); _y += _ysep;
+			if (instance_exists(obj_manager_time)) draw_text_transformed(_x, _y, "time_speed_normal: "+string(obj_manager_time.time_speed_normalised), 2, 2, 0); _y += _ysep;
 			// display controls for time speed manipulation
 			draw_set_halign(fa_center); draw_text_transformed(display_get_gui_width()/2, (display_get_gui_height()-40), "left = decrease time spd | down = reset time spd | right = increase time spd", 2, 2, 0); _y += _ysep; draw_set_halign(fa_left);
 			draw_set_halign(fa_right);

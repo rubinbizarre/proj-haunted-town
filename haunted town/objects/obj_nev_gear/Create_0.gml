@@ -1,1 +1,3 @@
+event_inherited();
+
 image_index = global.nev_gear_at_day_start;

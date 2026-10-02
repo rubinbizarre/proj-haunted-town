@@ -1,11 +1,13 @@
 // increment current time by time_speed * (~0.15-0.20)
 //global.current_time_ += (delta_time / 1000000) * time_speed; // using delta_time means that time appears to jumps forward after dragging the window round. it's the difference in time between the previous frame and the current frame
 // increment current time by time_speed * 0.17
-time_speed_actual = time_speed_base * time_speed_multiplier;
+//time_speed_actual = time_speed_base * time_speed_multiplier;
+//time_speed_normalised = (time_speed_actual / time_speed_base) * global.pause_scale; // used for all decrementing alarms. when time_speed_base = 0.5, time_speed_normalised = 1. when time_speed_base = 1, time_speed_normalised = 2.
+time_speed_actual     = time_speed_base * time_speed_multiplier * global.pause_scale;
+time_speed_normalised = time_speed_actual / time_speed_base;
+
 //global.current_time_ += (game_get_speed(gamespeed_microseconds) / 100000) * time_speed_actual; // seems to be more appropriate than using delta_time. game_get_speed(gamespeed_microseconds) = 0.17
 global.current_time_ += (delta_time / 100000) * time_speed_actual;
-
-time_speed_normalised = time_speed_actual / time_speed_base; // used for all decrementing alarms. when time_speed_base = 0.5, time_speed_normalised = 1. when time_speed_base = 1, time_speed_normalised = 2.
 
 //// loop the time back to zero after reaching a full week
 //if (global.current_time_ >= global.total_cycle_minutes) {
@@ -129,5 +131,19 @@ if (global.hud) {
 		x2_hover = false;
 		toggle_x2();
 	}
+}
+#endregion
+
+#region handle controlling particle systems update rate according to time speed
+ps_accum += time_speed_normalised;
+var _steps = min(floor(ps_accum), 4);    // cap so a fast-forward spike can't stall a frame
+ps_accum -= floor(ps_accum);
+
+repeat (_steps) {
+    for (var i = array_length(global.ps_list) - 1; i >= 0; i--) {
+        var _ps = global.ps_list[i];
+        if (part_system_exists(_ps)) part_system_update(_ps);
+        else array_delete(global.ps_list, i, 1);
+    }
 }
 #endregion

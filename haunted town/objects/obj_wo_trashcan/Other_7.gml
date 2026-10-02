@@ -1,0 +1,1 @@
+if (haunted) image_index = 3;

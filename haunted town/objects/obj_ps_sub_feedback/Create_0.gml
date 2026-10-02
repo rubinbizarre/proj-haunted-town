@@ -1,5 +1,10 @@
 part_sys_gain = part_system_create(ps_subs_gain);
+part_system_automatic_update(part_sys_gain, false);
+array_push(global.ps_list, part_sys_gain);
+
 part_sys_loss = part_system_create(ps_subs_loss);
+part_system_automatic_update(part_sys_loss, false);
+array_push(global.ps_list, part_sys_loss);
 
 // Get system info (only once)
 var info_gain = part_system_get_info(part_sys_gain);

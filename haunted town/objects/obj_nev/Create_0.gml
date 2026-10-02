@@ -1,3 +1,5 @@
+event_inherited();
+
 move_speed = 1.6*2;//0.85;
 move_speed_init = move_speed;
 

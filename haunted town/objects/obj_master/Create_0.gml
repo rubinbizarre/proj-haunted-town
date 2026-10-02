@@ -67,9 +67,26 @@ global.using_gamepad_cursor = false; // tracks which input last moved the cursor
 global.last_mouse_x = mouse_x;
 global.last_mouse_y = mouse_y;
 
+// for new pause menu. they're initialised from .ini file in scr_settings: settings_load()
+global.opt_fullscreen = 0;
+global.opt_res = 0;
+global.opt_vsync = 0;
+global.opt_music = 0;
+global.opt_sfx = 0;
+
 depth = -10000;
 
 global.font_default = draw_get_font();
+
+global.pause_scale = 1; // for new pause menu - multiply against time_speed_normalised
+
+global.ps_list = []; // for controlling particle systems while paused
+
+global.res_list = [[1280, 720], [1600, 900], [1920, 1080], [2560, 1440], [3840, 2160]];
+global.res_labels = array_map(global.res_list, function(r) {
+    return string(r[0]) + "x" + string(r[1]);
+});
+
 paused_surface = -1;
 pause_menu_select = 0;
 
@@ -104,7 +121,12 @@ shm_fluid_modifier = 0;
 //areas_unlocked = 1;
 
 // call adjust_resolution() at game start for good measure
-scr_adjust_resolution(1920, 1080, 0); // or from saved user settings via .ini etc
+//scr_adjust_resolution(1920, 1080, 0); // or from saved user settings via .ini etc
+
+settings_load();
+audio_init();
+settings_apply();
+music_play(snd_music);
 
 function abort_haunt_process() {
 	if (global.menu_haunt_active) {
@@ -118,62 +140,8 @@ function abort_haunt_process() {
 function toggle_pause() {
 	if (!global.paused) {
 		global.paused = true;
-		
-		pause_menu_select = 0;
-		
-		create_paused_surface();
-		
-		// modify certain values of objects to prevent any pause cheesing
-		// e.g. reset charge value to zero when paused
-		//if (instance_exists(obj_player)) {
-			// ...
-		//}
-		
-		// create resume button
-		//var _cam = obj_camera.cam;
-		//var _vx = camera_get_view_x(_cam);
-		//var _vy = camera_get_view_y(_cam);
-		//var _vw = camera_get_view_width(_cam);
-		//var _vh = camera_get_view_height(_cam);
-		//var _x = _vx + (_vw/2);
-		//var _y = _vy + (_vy/2);
-		//with instance_create_layer(_x, _y, "Instances", obj_btn) {
-		//	//depth = obj_master.depth - 1000;
-		//	sprite_index = spr_btn_resume;
-		//}
-		//show_debug_message("obj_master CREATE: toggle_pause(): created obj_btn instance at x:"+string(_x)+" y:"+string(_y));
-		
-		// deactivate all instances except this one
-		instance_deactivate_all(true);
-		
-		//// reactivate button object
-		//instance_activate_object(obj_btn);
-		
 	} else {
 		global.paused = false;
-		instance_activate_all();
-		destroy_paused_surface();
-		//// destroy any buttons if they exist
-		//if (instance_exists(obj_btn)) {
-		//	instance_destroy(obj_btn);
-		//}
-	}
-}
-function destroy_paused_surface() {
-	// free paused surface from memory
-	if (surface_exists(paused_surface)) {
-		surface_free(paused_surface);
-		paused_surface = -1;
-	}
-}
-function create_paused_surface() {
-	// stop panning
-	if (instance_exists(obj_camera)) obj_camera.camera_panning = false;
-	global.my_cursor_sprite = spr_cursor_default;
-	// capture surface before deactivating all instances
-	if (!surface_exists(paused_surface)) {
-		paused_surface = surface_create(display_get_gui_width(), display_get_gui_height());
-		surface_copy(paused_surface, 0, 0, application_surface);
 	}
 }
 

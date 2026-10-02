@@ -1,3 +1,5 @@
+event_inherited();
+
 //move_speed = 1.6*2;
 //move_speed_rush = 1.6;
 // nev's usual speed is 3.2

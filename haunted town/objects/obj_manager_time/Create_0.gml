@@ -59,6 +59,8 @@ x2_hover = false;
 x2_press = false;
 x2_active = false;
 
+ps_accum = 0; // for controlling particle systems during pause or modified time speed
+
 function increment_day_counter() {
 	// increment day counter. if starting a new week, increment week counter.
 	if (global.day_counter == 6) {

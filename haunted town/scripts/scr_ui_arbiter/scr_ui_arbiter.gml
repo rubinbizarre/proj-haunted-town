@@ -36,7 +36,9 @@ function ui_is_hot(_key) {
     return !is_undefined(h) && h == _key;
 }
 
-function ui_over_any() { return !is_undefined(ui_hot_id()); }
+function ui_over_any() {
+	return !is_undefined(ui_hot_id());
+}
 
 function ui_click_pressed() {
     // swap gp_face1 for whatever your gamepad cursor uses to click

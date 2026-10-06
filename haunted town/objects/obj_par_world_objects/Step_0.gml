@@ -1,48 +1,74 @@
-#region mouse hover and click/release functionality
-// while locked
-if (locked) {
-	if (mouse_hover) {
-		// make scale slightly larger instantly
-		image_xscale = 1.1;
-		image_yscale = 1.1;
-	} else {
-		// when not hovering over,
-		// shrink down to regular size at constant rate
-		if (image_xscale > 1) {
-			image_xscale -= 0.05;
-		} else {
-			if (image_xscale != 1) image_xscale = 1;
-		}
-		if (image_yscale > 1) {
-			image_yscale -= 0.05;
-		} else {
-			if (image_yscale != 1) image_yscale = 1;
-		}
-		// disable clicked if it was active
-		if (clicked) clicked = false;
-	}
-} else { // while not locked
-	// while not haunted
-	if (!haunted) {
-		if (mouse_hover) {
-			// when hovering over, set image index to 1
-			if (image_index != 1) image_index = 1;
-		} else {
-			// when not hovering over
-			if (image_index != 0) image_index = 0;
-			// disable clicked if it was active
-			if (clicked) clicked = false;
-		}
-	} else { // while haunted
-		if (mouse_hover) {
-			//nothing
-		} else {
-			// disable clicked if it was active
-			if (clicked) clicked = false;
-		}
-	}
-}
+#region mouse hover functionality (commented)
+//// while locked
+//if (locked) {
+//	if (mouse_hover) {
+//		// make scale slightly larger instantly
+//		image_xscale = 1.1;
+//		image_yscale = 1.1;
+//	} else {
+//		// when not hovering over,
+//		// shrink down to regular size at constant rate
+//		if (image_xscale > 1) {
+//			image_xscale -= 0.05;
+//		} else {
+//			if (image_xscale != 1) image_xscale = 1;
+//		}
+//		if (image_yscale > 1) {
+//			image_yscale -= 0.05;
+//		} else {
+//			if (image_yscale != 1) image_yscale = 1;
+//		}
+//		// disable clicked if it was active
+//		if (clicked) clicked = false;
+//	}
+//} else { // while not locked
+//	// while not haunted
+//	if (!haunted) {
+//		if (mouse_hover) {
+//			// when hovering over, set image index to 1
+//			if (image_index != 1) image_index = 1;
+//		} else {
+//			// when not hovering over
+//			if (image_index != 0) image_index = 0;
+//			// disable clicked if it was active
+//			if (clicked) clicked = false;
+//		}
+//	} else { // while haunted
+//		if (mouse_hover) {
+//			//nothing
+//		} else {
+//			// disable clicked if it was active
+//			if (clicked) clicked = false;
+//		}
+//	}
+//}
+#endregion
 
+#region refactor: mouse hover functionality
+// hover effects are frozen while the game is paused
+if (!global.paused) {
+	// disable clicked if it was active whenever not hovering over
+	if (!mouse_hover) clicked = false;
+
+	if (locked) {
+		if (mouse_hover) {
+			// make scale slightly larger instantly
+			image_xscale = 1.1;
+			image_yscale = 1.1;
+		} else {
+			// when not hovering over, shrink down to regular size at constant rate
+			image_xscale = max(1, image_xscale - 0.05);
+			image_yscale = max(1, image_yscale - 0.05);
+		}
+	} else if (!haunted) { // while not locked and not haunted
+		// when hovering over, set image index to 1, otherwise 0
+		image_index = mouse_hover ? 1 : 0;
+	}
+	// while haunted (and not locked): nothing to do, image_index is left alone
+}
+#endregion
+
+#region mouse click/release functionality
 if (mouse_hover) and ui_click_pressed() and !ui_over_any() {
 	clicked = true;
 	// play sound (mouse click button)

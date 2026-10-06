@@ -3,7 +3,8 @@ event_inherited();
 // largely copied from obj_par_world_objects
 
 // set to -5000 as an approximate guess in order to display above interior objects
-depth = -5000;
+// needs to be -y because villagers have depth set to -y
+depth = -y;//5000;
 
 // button vars
 mouse_hover = false;

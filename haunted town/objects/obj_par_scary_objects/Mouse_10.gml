@@ -1,1 +1,3 @@
-if !ui_over_any() mouse_hover = true;
+if !ui_over_any() or !global.paused {
+	mouse_hover = true;
+}

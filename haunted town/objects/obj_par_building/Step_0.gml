@@ -1,62 +1,95 @@
-// check if mouse is hovering over building
-mouse_hover = point_in_rectangle(
-	mouse_x, mouse_y, 
-    bbox_left, bbox_top, bbox_right, bbox_bottom
-);
+//// check if mouse is hovering over building
+//mouse_hover = point_in_rectangle(
+//	mouse_x, mouse_y, 
+//    bbox_left, bbox_top, bbox_right, bbox_bottom
+//);
 
 //if (ac_time_hover < 1) {
 //	ac_time_hover += ac_speed_hover;
 //}
 
-#region handle mouse hover effect and enabling interaction for A) haunted buildings and B) normal buildings
-// if building is haunted have unique hover effect
-if (mouse_hover) and (stats.owned) {
-//if (mouse_hover) {
-	if (ac_time_hover < 1) {
+#region (commented but working) handle mouse hover effect and enabling interaction for A) haunted buildings and B) normal buildings
+//// if building is haunted have unique hover effect
+//if (mouse_hover) and (stats.owned) {
+////if (mouse_hover) {
+//	if (ac_time_hover < 1) {
+//		ac_time_hover += ac_speed_hover;
+//	}
+//	// apply animcurve values to scale
+//	image_xscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
+//	image_yscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
+//} else if (!mouse_hover) and (stats.owned) {
+//	// when not hovering over,
+//	// shrink down to regular size at constant rate
+//	if (image_xscale > 1) {
+//		image_xscale -= shrink_speed;
+//	} else {
+//		if (image_xscale != 1) image_xscale = 1;
+//	}
+//	if (image_yscale > 1) {
+//		image_yscale -= shrink_speed;
+//	} else {
+//		if (image_yscale != 1) image_yscale = 1;
+//	}
+//	// reset animcurve time
+//	ac_time_hover = 0;
+//	// disable clicked if it was active
+//	if (mouse_clicked) mouse_clicked = false;
+//}
+
+//// if building is NOT owned, slightly zoom
+//if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
+//	// make scale slightly larger instantly
+//	image_xscale = 1.05;
+//	image_yscale = 1.05;
+//} else if (!mouse_hover) and (!stats.owned) {
+//	// when not hovering over,
+//	// shrink down to regular size at constant rate
+//	if (image_xscale > 1) {
+//		image_xscale -= shrink_speed;
+//	} else {
+//		if (image_xscale != 1) image_xscale = 1;
+//	}
+//	if (image_yscale > 1) {
+//		image_yscale -= shrink_speed;
+//	} else {
+//		if (image_yscale != 1) image_yscale = 1;
+//	}
+//	// disable clicked if it was active
+//	if (mouse_clicked) mouse_clicked = false;
+//}
+#endregion
+
+#region (refactor): handle mouse hover effect and enabling interaction for A) owned buildings and B) unowned buildings
+// hover effects are frozen while the game is paused
+if (!global.paused) {
+	// when not hovering over, disable clicked if it was active and reset animcurve time
+	if (!mouse_hover) {
+		mouse_clicked = false;
+		ac_time_hover = 0;
+	} else if (stats.owned and (ac_time_hover < 1)) {
 		ac_time_hover += ac_speed_hover;
 	}
-	// apply animcurve values to scale
-	image_xscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
-	image_yscale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
-} else if (!mouse_hover) and (stats.owned) {
-	// when not hovering over,
-	// shrink down to regular size at constant rate
-	if (image_xscale > 1) {
-		image_xscale -= shrink_speed;
-	} else {
-		if (image_xscale != 1) image_xscale = 1;
-	}
-	if (image_yscale > 1) {
-		image_yscale -= shrink_speed;
-	} else {
-		if (image_yscale != 1) image_yscale = 1;
-	}
-	// reset animcurve time
-	ac_time_hover = 0;
-	// disable clicked if it was active
-	if (mouse_clicked) mouse_clicked = false;
-}
 
-// if building is NOT owned, slightly zoom
-if ((mouse_hover) and (!stats.owned)) or (global.tracked_building == id) {
-	// make scale slightly larger instantly
-	image_xscale = 1.05;
-	image_yscale = 1.05;
-} else if (!mouse_hover) and (!stats.owned) {
-	// when not hovering over,
-	// shrink down to regular size at constant rate
-	if (image_xscale > 1) {
-		image_xscale -= shrink_speed;
+	// unowned buildings (or the tracked building) slightly zoom
+	var _zoomed = (mouse_hover and !stats.owned) or (global.tracked_building == id);
+
+	if (_zoomed) {
+		// make scale slightly larger instantly
+		image_xscale = 1.05;
+		image_yscale = 1.05;
+	} else if (stats.owned and mouse_hover) {
+		// owned buildings have a unique hover effect:
+		// apply animcurve values to scale
+		var _scale = animcurve_channel_evaluate(ac_channel_hover, ac_time_hover);
+		image_xscale = _scale;
+		image_yscale = _scale;
 	} else {
-		if (image_xscale != 1) image_xscale = 1;
+		// when not hovering over,
+		// shrink down to regular size at constant rate
+		image_xscale = max(1, image_xscale - shrink_speed);
+		image_yscale = max(1, image_yscale - shrink_speed);
 	}
-	if (image_yscale > 1) {
-		image_yscale -= shrink_speed;
-	} else {
-		if (image_yscale != 1) image_yscale = 1;
-	}
-	// disable clicked if it was active
-	if (mouse_clicked) mouse_clicked = false;
 }
 #endregion
 
@@ -69,7 +102,7 @@ if (mouse_hover) and ui_click_pressed() and !ui_over_any() {
 
 if (mouse_hover) and (mouse_clicked) and ui_click_released() {
 	mouse_clicked = false;
-	mouse_hover = false;
+	//mouse_hover = false;
 	// play sound (building released/confirmed)
 	//...
 	mouse_confirmed = true;

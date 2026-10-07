@@ -22,7 +22,69 @@ if (current_state == "RETURN_HOME") {
 }
 #endregion
 
-#region animation / sprite flipping logic
+#region animation / sprite flipping logic (working) (commented)
+//if (path_index != -1) {
+//	//// smoothly rotate the sprite to face the direction of the path
+//	//// works, nice effect, but not for the current sprite switching configuration?
+//    //var _target_angle = direction;
+//    //image_angle = lerp(image_angle, _target_angle, 0.1);
+	
+//	#region while on, wobble anim
+//	// progress through animcurve at ac_speed affected by move_speed
+//	//if (ac_time_moving < 1) {
+//	//	ac_time_moving += (ac_speed_moving * move_speed);
+//	//} else {
+//	//	ac_time_moving = 0;
+//	//}
+//	ac_time_moving = (ac_time_moving + ac_speed_moving * path_speed) mod 1;
+//	var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
+//	// apply animcurve value to yscale and xscale
+//	image_yscale = _ac_value;
+//	// xscale is applied in next section...
+//	#endregion
+	
+//	// if moving/on a path, face the direction of movement
+//	switch (direction) {
+//		case 0: { // facing right
+//			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
+//			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//		} break;
+//		case 180: { // facing left
+//			if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
+//			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//		} break;
+//		case 270: { // facing down
+//			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
+//			if (sprite_index != spr_nev_van_down) sprite_index = spr_nev_van_down;
+//		} break;
+//		case 90: { // facing up
+//			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
+//			if (sprite_index != spr_nev_van_up) sprite_index = spr_nev_van_up;
+//		} break;
+//		default: { // if any other value, make a decision
+//			if (direction > 90 and direction < 270) { // facing left
+//				if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
+//				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//			} else if (direction > 180 and direction < 360) { // facing right
+//				if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
+//				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//			}
+//		} break;
+//	}
+//} else { // if not on a path, or not moving
+//	// reset anim_curve to start pos
+//	if (ac_time_moving != 0) ac_time_moving = 0;
+//	//// change back to static side sprite
+//	//if (direction > 90 and direction < 270) { // facing left
+//	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//	//} else if (direction > 180 and direction < 360) { // facing right
+//	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
+//	//}
+	
+//}
+#endregion
+
+#region refactor: animation / sprite-flipping logic
 if (path_index != -1) {
 	//// smoothly rotate the sprite to face the direction of the path
 	//// works, nice effect, but not for the current sprite switching configuration?
@@ -30,13 +92,11 @@ if (path_index != -1) {
     //image_angle = lerp(image_angle, _target_angle, 0.1);
 	
 	#region while on, wobble anim
-	// progress through animcurve at ac_speed affected by move_speed
-	//if (ac_time_moving < 1) {
-	//	ac_time_moving += (ac_speed_moving * move_speed);
-	//} else {
-	//	ac_time_moving = 0;
-	//}
-	ac_time_moving = (ac_time_moving + ac_speed_moving * path_speed) mod 1;
+	// progress through animcurve at ac_speed affected by path_speed
+	// (frozen while the game is paused)
+	if (!global.paused) {
+		ac_time_moving = (ac_time_moving + ac_speed_moving * path_speed) mod 1;
+	}
 	var _ac_value = animcurve_channel_evaluate(ac_channel_moving, ac_time_moving);
 	// apply animcurve value to yscale and xscale
 	image_yscale = _ac_value;
@@ -44,46 +104,41 @@ if (path_index != -1) {
 	#endregion
 	
 	// if moving/on a path, face the direction of movement
-	switch (direction) {
-		case 0: { // facing right
-			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
-			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-		} break;
-		case 180: { // facing left
-			if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
-			if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-		} break;
-		case 270: { // facing down
-			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
-			if (sprite_index != spr_nev_van_down) sprite_index = spr_nev_van_down;
-		} break;
-		case 90: { // facing up
-			if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
-			if (sprite_index != spr_nev_van_up) sprite_index = spr_nev_van_up;
-		} break;
-		default: { // if any other value, make a decision
-			if (direction > 90 and direction < 270) { // facing left
-				if (image_xscale != (-scale_init * _ac_value)) image_xscale = -scale_init * _ac_value;
-				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-			} else if (direction > 180 and direction < 360) { // facing right
-				if (image_xscale != (scale_init * _ac_value)) image_xscale = scale_init * _ac_value;
-				if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-			}
-		} break;
+	var _moving = (path_speed != 0);
+	var _x_dir = 1; // 1 = facing right, -1 = facing left
+	var _sprite = spr_nev_van_side;
+	
+	if (direction == 90) { // facing up
+		_sprite = spr_nev_van_up;
+	} else if (direction == 270) { // facing down
+		_sprite = spr_nev_van_down;
+	} else { // facing sideways (0 / 180, or any other value: make a decision)
+		if (direction > 90 and direction < 270) _x_dir = -1; // facing left
+		// use the tire-animating sprite while actively moving sideways
+		if (_moving) _sprite = spr_nev_van_side_moving;
+	}
+	
+	sprite_index = _sprite;
+	image_xscale = _x_dir * scale_init * _ac_value;
+	
+	// tire animation speed follows game time, and freezes while paused
+	// (only the moving sprite animates; the static sprites stay on frame 0)
+	if (_sprite == spr_nev_van_side_moving and !global.paused) {
+		if (instance_exists(obj_manager_time)) {
+			image_speed = obj_manager_time.time_speed_normalised;
+		}
+	} else {
+		image_speed = 0;
 	}
 } else { // if not on a path, or not moving
 	// reset anim_curve to start pos
-	if (ac_time_moving != 0) ac_time_moving = 0;
-	//// change back to static side sprite
-	//if (direction > 90 and direction < 270) { // facing left
-	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-	//} else if (direction > 180 and direction < 360) { // facing right
-	//	if (sprite_index != spr_nev_van_side) sprite_index = spr_nev_van_side;
-	//}
-	
+	ac_time_moving = 0;
+	// stop the tire animation and change back to static side sprite
+	image_speed = 0;
+	if (sprite_index == spr_nev_van_side_moving) sprite_index = spr_nev_van_side;
 }
 #endregion
-	
+
 // make path_speed affected by current time_speed
 if (instance_exists(obj_manager_time)) {
 	path_speed = move_speed_init * obj_manager_time.time_speed_actual;

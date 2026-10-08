@@ -102,7 +102,8 @@ switch (sprite_index) {
 	}
 }
 
-function spawn_scary_objects() {
+function spawn_interior_objects() {
+	// create all scary objects for this building
 	for (var i = 0; i < array_length(scary_objects); i++) {
 	    var _so = scary_objects[i];
 		var _x = interior_obj.x + _so.xpos;
@@ -111,5 +112,9 @@ function spawn_scary_objects() {
 		with instance_create_layer(_x, _y, "Scary_Objects", _obj) {
 			current_building = other.id;
 		}
+	}
+	// create welcome mat object
+	with instance_create_layer(interior_obj.x, interior_obj.y + (sprite_get_height(interior_obj.sprite_index)/2), "Scary_Objects", obj_mat) {
+		depth = -y;
 	}
 }

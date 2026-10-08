@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"Interiors",
-    "path":"folders/Sprites/Interiors.yy",
+    "path":"folders/Sprites/Buildings/Interiors.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

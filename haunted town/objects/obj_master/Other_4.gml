@@ -59,8 +59,9 @@ switch (room) {
 				case spr_b_hotel: _interior_obj.sprite_index = spr_interior_hotel; break;
 				default: _interior_obj.sprite_index = spr_interior_0_shack; break;
 			}
+			// spawn this interior's scary objects and other interior objects
+			_inst.spawn_interior_objects();
 			
-			_inst.spawn_scary_objects();
 			//show_debug_message("obj_master ROOM_START: assigned building "+string(_inst.id)+" with building_index "+string(i)+". its interior_x: "+string(_inst.interior_x));
 		}
 		

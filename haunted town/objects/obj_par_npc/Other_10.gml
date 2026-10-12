@@ -22,7 +22,7 @@ for (var i = 0; i < array_length(_schedule); i++) {						// loop through states 
 
 // if our state has changed, do x once (e.g. find a new destination, set a path)
 if (_new_state != current_state) {//and (path_index == -1) {
-	// wait between 0 and 3 seconds (assuming 60fps)
+	// wait between 0 and 3 seconds before actually committing to new routine behaviour (assuming 60fps)
     routine_timer = irandom_range(0, 180);
 	
 	//show_debug_message("obj_par_npc USER_EVENT[0]: "+string(id)+" type:"+string(routine_type)+" | new state, routine_timer set...");

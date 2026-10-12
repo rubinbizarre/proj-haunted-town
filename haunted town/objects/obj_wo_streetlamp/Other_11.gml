@@ -1,0 +1,1 @@
+local_light_night = global.light_night;

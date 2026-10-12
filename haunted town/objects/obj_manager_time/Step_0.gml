@@ -67,9 +67,11 @@ if (current_hour_ > prev_hour_) {
 	var _night_light_end = 7;
 	if (current_hour_ == _night_light_start) and (!global.light_night) {
 		global.light_night = true;
+		with (obj_wo_streetlamp) event_user(0);
 	}
 	if (current_hour_ == _night_light_end) and (global.light_night) {
 		global.light_night = false;
+		with (obj_wo_streetlamp) event_user(0);
 	}
 	#endregion
 	
@@ -105,33 +107,7 @@ if (global.debug) {
 }
 #endregion
 
-#region handle click input on 'x2' button - working sorta
-// known issue: clicking also affects objects underneath the GUI layer in the world, this needs addressing
-//if (global.hud) {
-//	var _mx = device_mouse_x_to_gui(0);
-//	var _my = device_mouse_y_to_gui(0);
-//	var _gui_w = display_get_gui_width();
-//	var _gui_h = display_get_gui_height();
-//	var _w = 64;
-//	var _h = 64;
-//	var _x1 = _gui_w * 0.16;
-//	var _x2 = _x1 + _w;
-//	var _y1 = _gui_h * 0.79;
-//	var _y2 = _y1 + _h;
-//	x2_hover = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
-//	if (mouse_check_button_pressed(mb_left) and x2_hover) {
-//	    x2_press = true;
-//	}
-//	if (x2_press and !x2_hover) {
-//		x2_press = false;
-//	}
-//	if (mouse_check_button_released(mb_left) and x2_press and x2_hover) {
-//		// confirm input
-//		x2_press = false;
-//		x2_hover = false;
-//		toggle_x2();
-//	}
-//}
+#region handle click input on 'x2' button
 if (global.hud) {
     x2_hover = ui_is_hot("x2_button");
     if (ui_click_pressed() and x2_hover) {
@@ -152,9 +128,9 @@ if (global.hud) {
 }
 #endregion
 
-#region handle controlling particle systems update rate according to time speed
+#region handle controlling particle systems' update rate according to time speed
 ps_accum += time_speed_normalised;
-var _steps = min(floor(ps_accum), 4);    // cap so a fast-forward spike can't stall a frame
+var _steps = min(floor(ps_accum), 4); // cap so a fast-forward spike can't stall a frame
 ps_accum -= floor(ps_accum);
 
 repeat (_steps) {

@@ -95,11 +95,40 @@ var _darkness = _darkness_max * global.light_change_progress;
 
 draw_clear_alpha(c_black, _darkness);
 
+for (var _i = 0; _i < instance_number(obj_wo_streetlamp); _i++) {
+	var _streetlamp = instance_find(obj_wo_streetlamp, _i);
+	if (_streetlamp.local_light_night) {
+		var _x = _streetlamp.x;
+		var _y = _streetlamp.y;
+		var _height = _streetlamp.sprite_height;
+		gpu_set_blendmode(bm_subtract);
+		draw_sprite_ext(spr_light_1, 0, _x - _cx, _y - _cy - (_height - 20), 1, 1, 0, c_white, 0.5);
+		//gpu_set_blendmode(bm_normal);
+		//draw_sprite_ext(spr_light_1, 0, _x - _cx, _y - _cy - (_height - 20), 1, 1, 0, c_white, 0.5);
+	}
+}
+for (var _i = 0; _i < instance_number(obj_wo_streetlamp); _i++) {
+	var _streetlamp = instance_find(obj_wo_streetlamp, _i);
+	if (_streetlamp.local_light_night) {
+		var _x = _streetlamp.x;
+		var _y = _streetlamp.y;
+		var _height = _streetlamp.sprite_height;
+		gpu_set_blendmode(bm_add);
+		draw_sprite_ext(spr_light_1, 0, _x - _cx, _y - _cy - (_height - 20), 1, 1, 0, c_white, 0.5);
+	}
+}
+    
+	//gpu_set_blendmode(bm_subtract);
+    //with (obj_wo_streetlamp) {
+	//	draw_sprite_ext(spr_light_1, 0, x - _cx, y - _cy - (sprite_height - 20), 1, 1, 0, c_white, 0.5);
+    //}
+	//gpu_set_blendmode(bm_add);
+	//with (obj_wo_streetlamp) {
+	//	draw_sprite_ext(spr_light_1, 0, x - _cx, y - _cy - (sprite_height - 20), 1, 1, 0, c_white, 0.5);
+    //}
+	
 if (global.light_night) {
-    gpu_set_blendmode(bm_subtract);
-    with (obj_wo_streetlamp) {
-        draw_sprite_ext(spr_light_1, 0, x - _cx, y - _cy, 1, 1, 0, c_white, 0.5);
-    }
+	gpu_set_blendmode(bm_subtract);
     with (obj_nev_van) {
         var _sprite;
         switch (sprite_index) {
@@ -110,6 +139,8 @@ if (global.light_night) {
         }
         draw_sprite_ext(_sprite, 0, x - _cx, y - _cy, image_xscale, image_yscale, 0, c_white, 1);
     }
+	
+	
 }
 
 gpu_set_blendmode(bm_normal);

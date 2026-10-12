@@ -11,3 +11,6 @@ haunt_radius = 80;
 name_str = "Flickering Streetlamp";
 note_str_credit = "Herr-herr! I knew that streetlamp was being controlled by some entity!";
 note_str_discredit = "My fans are telling me it was clearly an electrical fault... maybe they're right, nerr...";
+
+local_light_night = global.light_night;
+light_change_timer = -1;

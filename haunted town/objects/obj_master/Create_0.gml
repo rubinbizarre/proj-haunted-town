@@ -1,7 +1,7 @@
 //randomise();
 
 // master
-global.debug = true;
+global.debug = false;
 global.hud = true;
 global.paused = false;
 global.c_haunt = #cb73ff;
